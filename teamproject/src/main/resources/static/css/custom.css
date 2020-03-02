@@ -1,0 +1,7 @@
+@charset "UTF-8";
+.nav-pills .nav-link.active{
+	background-color: #808080;
+}
+.main-sidebar .sidebar{
+    background-color: hsla(100, 100%, 100%, 1)
+}
