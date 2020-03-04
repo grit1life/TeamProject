@@ -10,7 +10,11 @@
 		<div th:replace="fragments/leftmenu :: leftmenuFragment"></div>	
 		
 		<div id="rightcolumn">
-			<th:block layout:fragment="customContents"></th:block>
+			<div class="wrapper">
+				<div class="content-wrapper">
+					<th:block layout:fragment="customContents"></th:block>
+				</div>
+			</div>
 		</div>
 		
 		<div th:replace="fragments/footer :: footerFragment"></div>
