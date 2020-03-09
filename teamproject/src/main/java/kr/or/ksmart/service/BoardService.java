@@ -16,13 +16,16 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
-	public List<Board> getBoardList(){
-		List<Board> list = boardMapper.getBoardList();
+	public List<Board> getBoardList(int currentPage){
+		int cnt = boardMapper.getBoardCnt();
+		int lastPage = cnt/10 + 1;
+		//List<Board> list = boardMapper.getBoardList(cnt-(currentPage-1)*10, cnt-(currentPage-1)*10-10);
+		List<Board> list = boardMapper.getBoardList(0, 10);
 		return list;
 	}
 	
-	public Board getBoardList(String no) {
-		Board board = boardMapper.getBoardList(no);
+	public Board getBoard(String no) {
+		Board board = boardMapper.getBoard(no);
 		return board;
 	}
 	

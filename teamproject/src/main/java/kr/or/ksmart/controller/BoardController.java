@@ -17,15 +17,19 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping("/boardList")
-	public String boardList(Model model) {
-		List<Board> bList = boardService.getBoardList();
+	public String boardList(Model model, @RequestParam(value="page", required = false) String page) {
+		if(page==null) {
+			page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		List<Board> bList = boardService.getBoardList(pageNum);
 		model.addAttribute("bList", bList);
 		return "board/boardList";
 	}
 	
 	@GetMapping("/board")
 	public String board(Model model, @RequestParam(value = "no") String no) {
-		Board board = boardService.getBoardList(no);
+		Board board = boardService.getBoard(no);
 		model.addAttribute("b", board);
 		return "board/board";
 	}

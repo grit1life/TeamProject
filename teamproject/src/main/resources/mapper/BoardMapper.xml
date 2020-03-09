@@ -3,7 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.mapper.BoardMapper">
-	<select id="getBoardList" resultType="kr.or.ksmart.domain.Board" parameterType="String">
+	
+	<select id="getBoardCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			board
+	</select>
+	<select id="getBoardList" resultType="kr.or.ksmart.domain.Board" parameterType="int">
 		SELECT 
 			board_no AS boardNo
 			,board_title AS boardTitle
@@ -13,8 +20,19 @@
 			,board_modi_date AS boardModiDate
 		FROM
 			board
-		<if test="no neq null and no neq ''.toString() ">
+		ORDER BY board_no DESC
+		LIMIT ${startClmn}, ${endClmn}
+	</select>
+	<select id="getBoard" resultType="kr.or.ksmart.domain.Board" parameterType="String">
+		SELECT 
+			board_no AS boardNo
+			,board_title AS boardTitle
+			,board_content AS boardContent
+			,staff_code AS staffCode
+			,board_wrt_date AS boardWrtDate
+			,board_modi_date AS boardModiDate
+		FROM
+			board
 		WHERE board_no = #{no}
-		</if>
 	</select>
 </mapper>
