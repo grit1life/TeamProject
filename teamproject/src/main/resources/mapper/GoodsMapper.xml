@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.or.ksmart.mapper.GoodsMapper">
+
+	<resultMap type="Goods" id="goodsResultMap">
+		<result property="goodsCode" column="goods_code"/>
+		<result property="goodsCategoryCode" column="goods_category_code"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="goodsInputStaffCode" column="goods_input_staff_code"/>
+		<result property="goodsInputDate" column="goods_input_date"/>
+	</resultMap>
+	
+	<select id="getGoodsList" resultMap="goodsResultMap">
+		SELECT
+				goods_code
+			, goods_category_code
+			, goods_name
+			, goods_input_staff_code
+			, goods_input_date
+		FROM
+				goods;
+	</select>
+</mapper>
