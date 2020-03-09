@@ -5,9 +5,25 @@ public class Board {
 	private String title;
 	private String content;
 	private String writer;
+	private String writeDate;
+	private String modifyingDate;
+	
 	@Override
 	public String toString() {
-		return "Board [no=" + no + ", title=" + title + ", content=" + content + ", writer=" + writer + "]";
+		return "Board [no=" + no + ", title=" + title + ", content=" + content + ", writer=" + writer + ", writeDate="
+				+ writeDate + ", modifyingDate=" + modifyingDate + "]";
+	}
+	public String getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	public String getModifyingDate() {
+		return modifyingDate;
+	}
+	public void setModifyingDate(String modifyingDate) {
+		this.modifyingDate = modifyingDate;
 	}
 	public String getNo() {
 		return no;

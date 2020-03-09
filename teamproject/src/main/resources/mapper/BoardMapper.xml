@@ -9,6 +9,8 @@
 			,title
 			,content
 			,writer
+			,write_date AS writeDate
+			,modifying_date AS modifyingDate
 		FROM
 			tb_board	
 	</select>
