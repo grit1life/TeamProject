@@ -1,52 +1,54 @@
 package kr.or.ksmart.domain;
 
 public class Board {
-	private String no;
-	private String title;
-	private String content;
-	private String writer;
-	private String writeDate;
-	private String modifyingDate;
-	
+	private String boardNo;
+	private String boardTitle;
+	private String boardContent;
+	private String staffCode;
+	private String boardWrtDate;
+	private String boardModiDate;
 	@Override
 	public String toString() {
-		return "Board [no=" + no + ", title=" + title + ", content=" + content + ", writer=" + writer + ", writeDate="
-				+ writeDate + ", modifyingDate=" + modifyingDate + "]";
+		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+				+ ", staffCode=" + staffCode + ", boardWrtDate=" + boardWrtDate + ", boardModiDate=" + boardModiDate
+				+ "]";
 	}
-	public String getWriteDate() {
-		return writeDate;
+	public String getBoardNo() {
+		return boardNo;
 	}
-	public void setWriteDate(String writeDate) {
-		this.writeDate = writeDate;
+	public void setBoardNo(String boardNo) {
+		this.boardNo = boardNo;
 	}
-	public String getModifyingDate() {
-		return modifyingDate;
+	public String getBoardTitle() {
+		return boardTitle;
 	}
-	public void setModifyingDate(String modifyingDate) {
-		this.modifyingDate = modifyingDate;
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
-	public String getNo() {
-		return no;
+	public String getBoardContent() {
+		return boardContent;
 	}
-	public void setNo(String no) {
-		this.no = no;
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
 	}
-	public String getTitle() {
-		return title;
+	public String getStaffCode() {
+		return staffCode;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setStaffCode(String staffCode) {
+		this.staffCode = staffCode;
 	}
-	public String getContent() {
-		return content;
+	public String getBoardWrtDate() {
+		return boardWrtDate;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setBoardWrtDate(String boardWrtDate) {
+		this.boardWrtDate = boardWrtDate;
 	}
-	public String getWriter() {
-		return writer;
+	public String getBoardModiDate() {
+		return boardModiDate;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setBoardModiDate(String boardModiDate) {
+		this.boardModiDate = boardModiDate;
 	}
+	
+	
 }

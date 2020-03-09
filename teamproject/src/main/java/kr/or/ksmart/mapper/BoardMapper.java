@@ -10,4 +10,7 @@ import kr.or.ksmart.domain.Board;
 public interface BoardMapper {
 	
 	public List<Board> getBoardList();
+
+	public Board getBoardList(String no);
+	
 }

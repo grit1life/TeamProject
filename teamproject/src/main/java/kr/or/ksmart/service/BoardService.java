@@ -19,6 +19,11 @@ public class BoardService {
 	public List<Board> getBoardList(){
 		List<Board> list = boardMapper.getBoardList();
 		return list;
-	};
+	}
+	
+	public Board getBoardList(String no) {
+		Board board = boardMapper.getBoardList(no);
+		return board;
+	}
 	
 }

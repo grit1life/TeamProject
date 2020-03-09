@@ -41,17 +41,17 @@
             <!-- Default box -->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title" th:text="${b.boardTitle}"></h3>
+                <h3 class="card-title" th:text="${board.boardTitle}"></h3>
 
 
               </div>
-              <div class="card-body" th:text="${b.boardContent}">
+              <div class="card-body" th:text="${board.boardContent}">
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <div th:text="${b.staffCode}"></div>
-              	<div th:text="${b.boardWrtDate}"></div>
-              	<div th:text="${b.boardModiDate}"></div>
+                <div th:text="${board.staffCode}"></div>
+              	<div th:text="${board.boardWrtDate}"></div>
+              	<div th:text="${board.boardModiDate}"></div>
               </div>
               
               <!-- /.card-footer-->
@@ -63,11 +63,6 @@
     </section>
 
 </th:block>
-<script type="text/javascript">
-	$(document).ready( function () {
-	    $('#boardTable').DataTable();
-	} );
-</script>
 </body>
 </html>
 
