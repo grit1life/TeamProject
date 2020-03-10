@@ -4,14 +4,20 @@ public class Board {
 	private String boardNo;
 	private String boardTitle;
 	private String boardContent;
-	private String staffCode;
+	private String staffName;
 	private String boardWrtDate;
 	private String boardModiDate;
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", staffCode=" + staffCode + ", boardWrtDate=" + boardWrtDate + ", boardModiDate=" + boardModiDate
+				+ ", staffName=" + staffName + ", boardWrtDate=" + boardWrtDate + ", boardModiDate=" + boardModiDate
 				+ "]";
+	}
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
 	}
 	public String getBoardNo() {
 		return boardNo;
@@ -30,12 +36,6 @@ public class Board {
 	}
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
-	}
-	public String getStaffCode() {
-		return staffCode;
-	}
-	public void setStaffCode(String staffCode) {
-		this.staffCode = staffCode;
 	}
 	public String getBoardWrtDate() {
 		return boardWrtDate;
