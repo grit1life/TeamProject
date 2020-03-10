@@ -2,6 +2,7 @@ package kr.or.ksmart.domain;
 
 public class Goods {
 	
+	// 상품 카테고리의 테이블의 내용도 추가
 	private String goodsCode;
 	private String goodsCategoryCode;
 	private String goodsName;

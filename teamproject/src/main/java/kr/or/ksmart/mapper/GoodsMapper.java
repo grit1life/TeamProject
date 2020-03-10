@@ -10,5 +10,7 @@ import kr.or.ksmart.domain.Goods;
 public interface GoodsMapper {
 	
 	public List<Goods> getGoodsList();
+	
+	public Goods getGoods();
 
 }
