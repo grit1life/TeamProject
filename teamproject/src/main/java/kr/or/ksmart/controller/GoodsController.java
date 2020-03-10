@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class GoodsController {
 	
-	@GetMapping("goodsList")
+	@GetMapping("/goodsManage")
 	public String goodsList () {
-		return "goods/goodsList";
+		return "goods/goodsManage";
 	}
 
 }
