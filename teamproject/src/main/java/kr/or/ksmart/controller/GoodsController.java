@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class GoodsController {
-	
-	@GetMapping("/goodsManage")
-	public String goodsList () {
-		return "goods/goodsManage";
-	}
+
+  @GetMapping("/goodsList")
+  public String goodsList() {
+    return "goods/goodsList";
+  }
 
 }
