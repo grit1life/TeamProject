@@ -23,7 +23,7 @@
 		INNER JOIN
 			staff
 		ON 
-			board.staff_code = staff.staff_code
+			board.staff_id = staff.staff_id
 		ORDER BY board_no DESC
 		LIMIT ${startClmn}, ${endClmn}
 	</select>
@@ -32,11 +32,15 @@
 			board_no AS boardNo
 			,board_title AS boardTitle
 			,board_content AS boardContent
-			,staff_code AS staffCode
+			,staff_name AS staffName
 			,board_wrt_date AS boardWrtDate
 			,board_modi_date AS boardModiDate
 		FROM
 			board
+		INNER JOIN
+			staff
+		ON 
+			board.staff_id = staff.staff_id
 		WHERE board_no = #{no}
 	</select>
 </mapper>
