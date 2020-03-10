@@ -1,6 +1,7 @@
 package kr.or.ksmart.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,13 @@ public class BoardController {
 			page = "1";
 		}
 		int pageNum = Integer.parseInt(page);
-		List<Board> bList = boardService.getBoardList(pageNum);
-		model.addAttribute("bList", bList);
+		Map<String, Object> map = boardService.getBoardList(pageNum);
+		model.addAttribute("bList", map.get("bList"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		
 		return "board/boardList";
 	}
 	

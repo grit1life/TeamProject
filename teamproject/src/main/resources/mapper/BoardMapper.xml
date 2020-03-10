@@ -10,20 +10,24 @@
 		FROM
 			board
 	</select>
-	<select id="getBoardList" resultType="kr.or.ksmart.domain.Board" parameterType="int">
+	<select id="getBoardList" resultType="Board" parameterType="int">
 		SELECT 
 			board_no AS boardNo
 			,board_title AS boardTitle
 			,board_content AS boardContent
-			,staff_code AS staffCode
+			,staff_name AS staffName
 			,board_wrt_date AS boardWrtDate
 			,board_modi_date AS boardModiDate
 		FROM
 			board
+		INNER JOIN
+			staff
+		ON 
+			board.staff_code = staff.staff_code
 		ORDER BY board_no DESC
 		LIMIT ${startClmn}, ${endClmn}
 	</select>
-	<select id="getBoard" resultType="kr.or.ksmart.domain.Board" parameterType="String">
+	<select id="getBoard" resultType="Board" parameterType="String">
 		SELECT 
 			board_no AS boardNo
 			,board_title AS boardTitle
