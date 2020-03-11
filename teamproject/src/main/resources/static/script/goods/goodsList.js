@@ -1,3 +1,4 @@
+// 가짜 데이터
 const goodsList = [
   {
     제품코드: "1",
@@ -19,10 +20,20 @@ const goodsList = [
   }
 ];
 
+// 파일 업로드 플러그인
+$(document).ready(function() {
+  bsCustomFileInput.init();
+});
+
 // 검색용 필터
 const filter = {
-  filterText: ""
+  searchText: ""
 };
+
+// 검색창 입력값 바인딩
+// document.querySelector("input#search-text").addEventListener("input", e => {
+//   filter.searchText = e.target.value;
+// });
 
 // 리스트 렌더링
 const renderList = goodsList => {
