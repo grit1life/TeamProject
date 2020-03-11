@@ -8,7 +8,7 @@ public class StockController {
 	
 	@GetMapping("/changeList")
 	public String stockEdit () {
-		return "stock/changeList";
+		return "stockChange/changeList";
 	}
 	
 	@GetMapping("/stockList")
