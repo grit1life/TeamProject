@@ -19,12 +19,13 @@ const goodsList = [
   }
 ];
 
+// 검색용 필터
 const filter = {
   filterText: ""
 };
 
-// 상품 리스트 렌더링
-const renderGoodsList = goodsList => {
+// 리스트 렌더링
+const renderList = goodsList => {
   goodsList.forEach(list => {
     const listEl = document.createElement("tr");
     listEl.innerHTML =
@@ -36,5 +37,5 @@ const renderGoodsList = goodsList => {
   });
 };
 
-// 최초 상품 리스트 렌더링
-renderGoodsList(goodsList);
+// 최초 리스트 렌더링
+renderList(goodsList);
