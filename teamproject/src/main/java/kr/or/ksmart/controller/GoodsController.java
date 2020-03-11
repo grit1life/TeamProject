@@ -15,21 +15,24 @@ public class GoodsController {
 	@GetMapping("/goodsList")
 	public String goodsList(Model model) {
 		model.addAttribute("goodsList", goodsService.getGoodsList());
-		return "goods/list";
+		return "goods/goodsList";
 	}
-	@GetMapping("/goodsPurchase")
+	
+	@GetMapping("/purchaseList")
 	public String purchaseList(Model model) {
 		model.addAttribute("goodsList", goodsService.getGoodsList());
-		return "goods/purchaseList";
+		return "goodsPurchase/purchaseList";
 	}
-	@GetMapping("/goodsSell")
+	
+	@GetMapping("/sellList")
 	public String sellList(Model model) {
 		model.addAttribute("goodsList", goodsService.getGoodsList());
-		return "goods/sellList";
+		return "goodsSell/sellList";
 	}
-	@GetMapping("/goodsDiscard")
+	
+	@GetMapping("/discardList")
 	public String discardList(Model model) {
 		model.addAttribute("goodsList", goodsService.getGoodsList());
-		return "goods/discardList";
+		return "goodsDiscard/discardList";
 	}
 }

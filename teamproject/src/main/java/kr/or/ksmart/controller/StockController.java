@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class StockController {
 	
-	@GetMapping("/stock/edit")
+	@GetMapping("/changeList")
 	public String stockEdit () {
-		return "stock/edit";
+		return "stock/changeList";
 	}
 	
-	@GetMapping("/stock/list")
+	@GetMapping("/stockList")
 	public String stockList () {
-		return "stock/list";
+		return "stock/stockList";
 	}
 
 }
