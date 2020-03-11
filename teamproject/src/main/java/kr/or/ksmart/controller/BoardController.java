@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ksmart.domain.Board;
@@ -40,8 +41,15 @@ public class BoardController {
 		return "board/board";
 	}
 	@GetMapping("/writeBoard")
-	public String board() {
+	public String boardWrite() {
 		return "board/writeBoard";
 	}
+	@PostMapping("/writeBoard")
+	public String boardWrite(@RequestParam(value = "bTitle") String bTitle
+							,@RequestParam(value = "bContent") String bContent) {
+		System.out.println(bTitle+ bContent);
+		return "board/writeBoard";
+	}
+	
 	
 }
