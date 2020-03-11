@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.mapper.CommuteMapper">
+	<resultMap type="Commute" id="commuteResultMap">
+		<result property="staffName" column="staff_name"/>
+		<result property="commuteDate" column="commute_date"/>
+		<result property="commuteArrive" column="commute_arrive"/>
+		<result property="commuteLeave" column="commute_leave"/>
+		<result property="commuteLateness" column="commute_lateness"/>
+		<result property="commuteEarlyleave" column="commute_earlyleave"/>
+		<result property="commuteHoliday" column="commute_holiday"/>
+	</resultMap>
+	
+	<select id="commuteList" parameterType="String" resultMap="commuteResultMap">
+		SELECT
+			  staff_name
+			, commute_date
+			, commute_arrive
+			, commute_leave
+			, commute_lateness
+			, commute_earlyleave
+			, commute_holiday
+		FROM
+			commute
+		INNER JOIN
+			staff
+		ON 
+			commute.staff_id = staff.staff_id
+			AND 
+			commute.staff_id = #{staffId}
+	</select>	
+</mapper>
