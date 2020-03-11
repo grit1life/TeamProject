@@ -1,6 +1,8 @@
 package kr.or.ksmart.controller;
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,5 +31,12 @@ public class CustomerController {
 		model.addAttribute("CustomerList", customerService.getCustomerList());
 			
 		return "/customer/clist";
+	}
+	
+	//고객,거래처 상세보기
+	@GetMapping("/cupdate")
+	public String CustomerView() {
+		
+		return "/customer/cupdate";
 	}
 }

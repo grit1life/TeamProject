@@ -199,9 +199,8 @@
                       <th>고객명</th>
                       <th>고객권한</th>
                       <th>고객등급</th>
-                      <th>입력날짜</th>
+                      <th>최초입력일</th>
                       <th>상세보기</th>
-                      <th>수정</th>
                       <th>삭제</th>
                     </tr>
                   </thead>
@@ -213,19 +212,13 @@
 						<td th:text="${l.customerLevel}"></td>
 						<td th:text="${l.inputDate}"></td>		
 						<td>
-							<a class="btn btn-primary btn-sm" href="#">
+						   
+							<a class="btn btn-primary btn-sm" th:href="@{/cupdate(customerId=${l.customerId})}">
 	                              <i class="fas fa-folder">
 	                              </i>
 	                              View
 	                        </a>    		
-						</td>
-						<td>
-							<a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>	
-						</td>
+						</td>				
 						<td>
 							<a class="btn btn-danger btn-sm" href="#">
                               <i class="fas fa-trash">
