@@ -1,6 +1,8 @@
 package kr.or.ksmart.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,29 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
-	public List<Board> getBoardList(int currentPage){
+	public Map<String, Object> getBoardList(int currentPage){
 		int cnt = boardMapper.getBoardCnt();
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		List<Board> bList = boardMapper.getBoardList(firstClmn, lastClmn);
+		
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
 		int lastPage = cnt/10 + 1;
-		//List<Board> list = boardMapper.getBoardList(cnt-(currentPage-1)*10, cnt-(currentPage-1)*10-10);
-		List<Board> list = boardMapper.getBoardList(0, 10);
-		return list;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bList", bList);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
 	}
 	
 	public Board getBoard(String no) {
