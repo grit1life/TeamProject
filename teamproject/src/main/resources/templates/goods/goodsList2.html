@@ -28,18 +28,28 @@
                   <div class="card-header">
                     <h3 class="card-title">상품목록</h3>
                   </div>
-                  <div class="container">
-                    <table class="table" id="goodsList">
-                      <thead>
+                  <table class="table" id="goodsList">
+                    <thead>
+                      <tr>
                         <th>제품코드</th>
                         <th>제품명</th>
                         <th>입력자</th>
                         <th>입력일시</th>
                         <th>수정</th>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  </div>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <th:block th:each="l:${goodsList}">
+                        <tr>
+                          <td th:text="${l.goodsCode}"></td>
+                          <td th:text="${l.goodsName}"></td>
+                          <td th:text="${l.goodsInputStaffCode}"></td>
+                          <td th:text="${l.goodsInputDate}"></td>
+                          <td><button class="btn btn-warning">수정</button></td>
+                        </tr>
+                      </th:block>
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <div class="col-md-6">
@@ -66,6 +76,7 @@
             </div>
           </div>
         </section>
+        <button id="test-btn">테스트버튼</button>
       </div>
       <!-- jQuery -->
       <script src="../../plugins/jquery/jquery.min.js"></script>
