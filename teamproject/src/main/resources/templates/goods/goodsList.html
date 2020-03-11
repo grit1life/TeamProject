@@ -38,7 +38,7 @@
                         <th>수정</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="goodsList">
                       <th:block th:each="l:${goodsList}">
                         <tr>
                           <td th:text="${l.goodsCode}"></td>
@@ -76,10 +76,9 @@
             </div>
           </div>
         </section>
+        <button id="test-btn">테스트버튼</button>
       </div>
-      <button id="test"></button>
-
-      <script src="./list.js"></script>
     </th:block>
+    <script src="./script/goods/goodsList.js"></script>
   </body>
 </html>
