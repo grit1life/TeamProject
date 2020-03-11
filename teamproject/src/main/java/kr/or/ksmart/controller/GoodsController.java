@@ -17,4 +17,22 @@ public class GoodsController {
 		model.addAttribute("goodsList", goodsService.getGoodsList());
 		return "goods/goodsList";
 	}
+	
+	@GetMapping("/purchaseList")
+	public String purchaseList(Model model) {
+		model.addAttribute("goodsList", goodsService.getGoodsList());
+		return "goodsPurchase/purchaseList";
+	}
+	
+	@GetMapping("/sellList")
+	public String sellList(Model model) {
+		model.addAttribute("goodsList", goodsService.getGoodsList());
+		return "goodsSell/sellList";
+	}
+	
+	@GetMapping("/discardList")
+	public String discardList(Model model) {
+		model.addAttribute("goodsList", goodsService.getGoodsList());
+		return "goodsDiscard/discardList";
+	}
 }
