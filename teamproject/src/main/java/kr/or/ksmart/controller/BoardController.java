@@ -1,6 +1,5 @@
 package kr.or.ksmart.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +44,8 @@ public class BoardController {
 		return "board/writeBoard";
 	}
 	@PostMapping("/writeBoard")
-	public String boardWrite(@RequestParam(value = "bTitle") String bTitle
-							,@RequestParam(value = "bContent") String bContent) {
-		System.out.println(bTitle+ bContent);
+	public String boardWrite(Board board) {
+		boardService.insertBoard(board);
 		return "board/writeBoard";
 	}
 	

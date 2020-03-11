@@ -18,6 +18,10 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
+	public int insertBoard(Board board) {
+		return boardMapper.insertBoard(board);
+	}
+	
 	public Map<String, Object> getBoardList(int currentPage){
 		int cnt = boardMapper.getBoardCnt();
 		int firstClmn = (currentPage-1)*10;

@@ -15,4 +15,5 @@ public interface BoardMapper {
 
 	public Board getBoard(String no);
 	
+	public int insertBoard(Board board);
 }
