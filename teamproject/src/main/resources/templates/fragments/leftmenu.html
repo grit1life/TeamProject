@@ -249,11 +249,104 @@
 	              </li>
 	            </ul>
 	          </li>
+
+	        </ul>
+	      </nav>
+	      
+	           <!--고객/거래처 관리  -->
+	      <nav class="mt-2">
+	        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 	          
-	          
-	          
-	          
-	          
+	          <li class="nav-item has-treeview">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-copy"></i>
+	              <p>
+	              	#.고객/거래처 관리.국
+	                <i class="fas fa-angle-left right"></i>
+	              </p>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item">
+	                <a th:href="@{/goodsManage}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.고객/거래처등록.국</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.고객/거래처조회.국</p>
+	                </a>
+	              </li>	              	             
+	              
+              </ul>
+            </li>
+	              
+	          <li class="nav-item has-treeview">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-chart-pie"></i>
+	              <p>
+	              	#.본사/지점 관리.국
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item">
+	                <a th:href="@{/branch_registration}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.지점등록.국</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a href="pages/charts/inline.html" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.지점조회.국</p>
+	                </a>
+	              </li>
+	            </ul>
+	          </li>
+	        </ul>
+	      </nav>
+	      
+	      <!--A/S 접수 및 현황  -->
+	      <nav class="mt-2">
+	        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+	     
+	          <li class="nav-item has-treeview">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-chart-pie"></i>
+	              <p>
+	              	#.A/S 관리.국
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item">
+	                <a href="pages/charts/chartjs.html" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.A/S접수현황.국</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a href="pages/charts/inline.html" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.A/S교환현황.국</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a href="pages/charts/inline.html" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.A/S수리현황.국</p>
+	                </a>
+	              </li>	           
+	              <li class="nav-item">
+	                <a href="pages/charts/inline.html" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.정기점검현황.국</p>
+	                </a>
+	              </li>
+	            </ul>
+	          </li>
 	        </ul>
 	      </nav>
 	      <!-- /.sidebar-menu -->
