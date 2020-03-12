@@ -23,7 +23,7 @@ const renderList = goodsList => {
 // 데이터 가져오기
 const getList = () => {
   $.ajax({
-    type: "POST",
+    type: "GET",
     url: "/goodsList",
     success: data => {
       renderList(data);
