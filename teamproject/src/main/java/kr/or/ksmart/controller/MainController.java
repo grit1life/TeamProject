@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 	
-	@GetMapping("goods")
+	@GetMapping("/page/goods")
 	public String index() {
 		return "goods/goods";
 	}
