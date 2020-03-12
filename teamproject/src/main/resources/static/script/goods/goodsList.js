@@ -24,7 +24,7 @@ const renderList = goodsList => {
 const getList = () => {
   $.ajax({
     type: "GET",
-    url: "/goodsList",
+    url: "/goods",
     success: data => {
       renderList(data);
     }
