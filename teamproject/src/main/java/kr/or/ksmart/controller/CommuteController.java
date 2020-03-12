@@ -24,4 +24,6 @@ public class CommuteController {
 		model.addAttribute("staffName", cList.get(0).getStaffName());
 		return "commute/commuteList";
 	}
+	
+	
 }
