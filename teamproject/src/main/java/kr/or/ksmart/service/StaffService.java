@@ -18,4 +18,8 @@ public class StaffService {
 		List<Staff> staffList = staffMapper.staffList();
 		return staffList;
 	}
+	
+	public String staffLogin(String staffId) {
+		return "pw";
+	}
 }
