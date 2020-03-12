@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>goodsList</title>
+  </th:block>
+
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <th:block layout:fragment="customContents">
+      <div class="content-wrapper">
+        <section class="content-header">
+          <div class="container-flud">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h3>상품목록</h3>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="content">
+          <div class="contaniter-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title">상품목록</h3>
+                  </div>
+                  <div class="container">
+                    <table class="table">
+                      <thead>
+                        <th>제품코드</th>
+                        <th>제품명</th>
+                        <th>입력자</th>
+                        <th>입력일시</th>
+                        <th>수정</th>
+                      </thead>
+                      <tbody id="goods-list"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!-- 상품정보입력 -->
+              <div class="col-md-6">
+                <form role="form" id="input-form">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        상품정보입력
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="container"></div>
+                      <div class="form-group">
+                        <label>상품분류선택</label>
+                        <select class="custom-select" name="goodsCateCode">
+                          <option>option 1</option>
+                          <option>option 2</option>
+                          <option>option 3</option>
+                          <option>option 4</option>
+                          <option>option 5</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>상품명</label>
+                        <div class="row">
+                          <input
+                            type="text"
+                            class="form-control col-md-10"
+                            placeholder="상품명"
+                            name="goodsName"
+                          />
+                          <button class="btn btn-primary col-md-2">
+                            중복확인
+                          </button>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>등록자</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="id001"
+                          disabled
+                          name="goodsInputStaffCode"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>바코드</label>
+                        <div class="row"></div>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="바코드"
+                          name="goodsBarcode"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>첨부파일</label>
+                        <div class="custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            id="customFile"
+                            name="attachedFile"
+                          />
+                          <label class="custom-file-label" for="customFile">
+                            첨부파일 선택
+                          </label>
+                        </div>
+                      </div>
+                      <div
+                        class="card-footer-custom"
+                        style="padding-top: 15px;"
+                      >
+                        <button
+                          type="submit"
+                          class="btn btn-info"
+                          id="input-btn"
+                        >
+                          등록
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn btn-default float-right"
+                        >
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- 상품정보입력 -->
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- bs-custom-file-input -->
+      <script
+        src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"
+      ></script>
+      <!-- goodsList.js -->
+      <script src="../../script/goods/goodsList.js"></script>
+    </th:block>
+  </body>
+</html>

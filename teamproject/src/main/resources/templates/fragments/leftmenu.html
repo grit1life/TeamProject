@@ -4,7 +4,7 @@
 			<aside class="main-sidebar sidebar-white-primary elevation-4">
 	    <!-- Brand Logo -->
 	    <a href="index3.html" class="brand-link" style="background-color:hsla(100,100%,100%,1)">
-	      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+	      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 	           style="opacity: .8">
 	      <span class="brand-text font-weight-light">AdminLTE 3</span>
 	    </a>
@@ -179,9 +179,7 @@
 
 	      
 	           <!--고객/거래처 관리  -->
-	      <nav class="mt-2">
-	        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-	          
+          
 	          <li class="nav-item has-treeview">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-copy"></i>
@@ -230,12 +228,8 @@
 	              </li>
 	            </ul>
 	          </li>
-	        </ul>
-	      </nav>
 	      
 	      <!--A/S 접수 및 현황  -->
-	      <nav class="mt-2">
-	        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 	     
 	          <li class="nav-item has-treeview">
 	            <a href="#" class="nav-link">
@@ -272,8 +266,110 @@
 	              </li>
 	            </ul>
 	          </li>
-	        </ul>
-	      </nav>
+	          
+
+			<!-- 청구서 관리  -->
+          	<li class="nav-item has-treeview">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-chart-pie"></i>
+	              <p>
+	              	청구 관리.손
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item">
+	                <a th:href="@{/changeList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.입금 조회.손</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/stockList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.청구서 조회.손</p>
+	                </a>
+	              </li>
+	            </ul>
+	          </li>
+	          
+	          <!-- 상품 출하 -->
+	          <li class="nav-item has-treeview">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-chart-pie"></i>
+	              <p>
+	              	출하관리.손
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item">
+	                <a th:href="@{/changeList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.렌탈 출하 조회.손</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/stockList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.수리 출하 조회.손</p>
+	                </a>
+	              </li>
+	            </ul>
+	          </li>
+	           <!-- 통계 -->
+	          <li class="nav-item has-treeview">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-chart-pie"></i>
+	              <p>
+	              	통계.손
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item">
+	                <a th:href="@{/changeList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.실적 조회.손</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/stockList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.고객 조회.손</p>
+	                  <!-- 재계약율, 고장폐기율, 렌탈반납지연율, 고객등급 -->
+	                </a>
+	              </li>
+	            </ul>
+	          </li>
+	          <!--  -->
+	          <li class="nav-item has-treeview">
+	            <a href="#" class="nav-link">
+	              <i class="nav-icon fas fa-chart-pie"></i>
+	              <p>
+	              	통계.손
+	                <i class="right fas fa-angle-left"></i>
+	              </p>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item">
+	                <a th:href="@{/changeList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.실적 조회.손</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/stockList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.고객 조회.손</p>
+	                  <!-- 재계약율, 고장폐기율, 렌탈반납지연율, 고객등급 -->
+	                </a>
+	              </li>
+	            </ul>
+	          </li>
+	          <!--  -->
+	      </ul>
+	   </nav>
 	      <!-- /.sidebar-menu -->
 	    </div>
 	    <!-- /.sidebar -->

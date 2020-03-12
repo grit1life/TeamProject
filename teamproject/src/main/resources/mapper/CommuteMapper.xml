@@ -30,5 +30,6 @@
 			commute.staff_id = staff.staff_id
 			AND 
 			commute.staff_id = #{staffId}
+		ORDER BY commute_date DESC
 	</select>	
 </mapper>

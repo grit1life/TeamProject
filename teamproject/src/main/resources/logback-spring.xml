@@ -15,7 +15,7 @@
 		</encoder>
 	</appender>
 	
-	<logger name="kr.or.ksmart.springboot34_mybatis" level="info" additivity="false">
+	<logger name="kr.or.ksmart" level="info" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	
