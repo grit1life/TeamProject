@@ -7,47 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.service.GoodsService;
 
-@Controller
+@RestController
 public class GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	
-	@GetMapping("/goodsList")
-	public String goodsList(Model model) {
-		return "goods/goodsList";
-	}
-  
-	@PostMapping("/goodsList")
-	public @ResponseBody List<Goods> goodsList() {
+	@GetMapping(value = "/goodsList", produces = "application/json")
+	public List<Goods> getGoodsList() {
+		System.out.println("reached it");
 		return goodsService.getGoodsList();
-	}
-	
-	@PostMapping("/goodInsert")
-	public String goodsInsert(Goods goods) {
-		
-		return "goods/goodsList";
-	}
-	
-	@GetMapping("/purchaseList")
-	public String purchaseList(Model model) {
-		model.addAttribute("goodsList", goodsService.getGoodsList());
-		return "goodsPurchase/purchaseList";
-	}
-	
-	@GetMapping("/sellList")
-	public String sellList(Model model) {
-		model.addAttribute("goodsList", goodsService.getGoodsList());
-		return "goodsSell/sellList";
-	}
-	
-	@GetMapping("/discardList")
-	public String discardList(Model model) {
-		model.addAttribute("goodsList", goodsService.getGoodsList());
-		return "goodsDiscard/discardList";
 	}
 }
