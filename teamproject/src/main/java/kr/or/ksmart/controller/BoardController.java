@@ -17,7 +17,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@GetMapping("/boardList")
+	@GetMapping("/staff/boardList")
 	public String boardList(Model model, @RequestParam(value="page", required = false) String page) {
 		if(page==null) {
 			page = "1";
@@ -33,17 +33,17 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
-	@GetMapping("/board")
+	@GetMapping("/staff/board")
 	public String board(Model model, @RequestParam(value = "no") String no) {
 		Board board = boardService.getBoard(no);
 		model.addAttribute("b", board);
 		return "board/board";
 	}
-	@GetMapping("/writeBoard")
+	@GetMapping("/staff/writeBoard")
 	public String boardWrite() {
 		return "board/writeBoard";
 	}
-	@PostMapping("/writeBoard")
+	@PostMapping("/staff/writeBoard")
 	public String boardWrite(Board board) {
 		boardService.insertBoard(board);
 		return "board/writeBoard";

@@ -174,6 +174,12 @@
 	                  <p>#.직원 정보 조회(수정,삭제).아</p>
 	                </a>
 	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/staff/commuteList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!.직원근태관리.손</p>
+	                </a>
+	              </li>
 	            </ul>
 	          </li>
 
@@ -328,13 +334,13 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/changeList}" class="nav-link">
+	                <a th:href="@{/staff/rStatis}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.실적 조회.손</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/stockList}" class="nav-link">
+	                <a th:href="@{/staff/cStatis}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.고객 조회.손</p>
 	                  <!-- 재계약율, 고장폐기율, 렌탈반납지연율, 고객등급 -->
@@ -344,28 +350,12 @@
 	          </li>
 	          <!--  -->
 	          <li class="nav-item has-treeview">
-	            <a href="#" class="nav-link">
+	            <a th:href="@{/staff/boardList}" class="nav-link">
 	              <i class="nav-icon fas fa-chart-pie"></i>
 	              <p>
-	              	통계.손
-	                <i class="right fas fa-angle-left"></i>
+	              	!.공지사항.손
 	              </p>
 	            </a>
-	            <ul class="nav nav-treeview">
-	              <li class="nav-item">
-	                <a th:href="@{/changeList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.실적 조회.손</p>
-	                </a>
-	              </li>
-	              <li class="nav-item">
-	                <a th:href="@{/stockList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.고객 조회.손</p>
-	                  <!-- 재계약율, 고장폐기율, 렌탈반납지연율, 고객등급 -->
-	                </a>
-	              </li>
-	            </ul>
 	          </li>
 	          <!--  -->
 	      </ul>
