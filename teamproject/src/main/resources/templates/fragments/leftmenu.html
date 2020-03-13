@@ -3,7 +3,7 @@
 	<div id="leftcolumn" th:fragment="leftmenuFragment">
 			<aside class="main-sidebar sidebar-white-primary elevation-4">
 	    <!-- Brand Logo -->
-	    <a href="index3.html" class="brand-link" style="background-color:hsla(100,100%,100%,1)">
+	    <a th:href="@{/}" class="brand-link" style="background-color:hsla(100,100%,100%,1)">
 	      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 	           style="opacity: .8">
 	      <span class="brand-text font-weight-light">AdminLTE 3</span>
@@ -13,7 +13,7 @@
 	    <div class="sidebar" style="background-color:hsla(100,100%,100%,1)">
 	
 	      <!-- 사이드바 메뉴 -->
-	      <nav class="mt-2">
+	      <nav b class="mt-2">
 	        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 	          
           	<!-- 상품관리 --> 
@@ -174,6 +174,12 @@
 	                  <p>#.직원 정보 조회(수정,삭제).아</p>
 	                </a>
 	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/staff/commuteList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!.직원근태관리.손</p>
+	                </a>
+	              </li>
 	            </ul>
 	          </li>
 
@@ -184,7 +190,7 @@
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-copy"></i>
 	              <p>
-	              	#.고객/거래처 관리.국
+	              	 고객/거래처 관리.국
 	                <i class="fas fa-angle-left right"></i>
 	              </p>
 	            </a>
@@ -192,13 +198,13 @@
 	              <li class="nav-item">
 	                <a th:href="@{/cinsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.고객/거래처등록.국</p>
+	                  <p>#고객/거래처등록.국</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
 	                <a th:href="@{/clist}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.고객/거래처조회.국</p>
+	                  <p>!고객/거래처조회.국</p>
 	                </a>
 	              </li>	              	             
 	              
@@ -215,13 +221,13 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/branch_registration}" class="nav-link">
+	                <a th:href="@{/binsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.지점등록.국</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a href="pages/charts/inline.html" class="nav-link">
+	                <a th:href="@{/blist}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.지점조회.국</p>
 	                </a>
@@ -279,15 +285,15 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/changeList}" class="nav-link">
+	                <a th:href="@{/staff/billList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.입금 조회.손</p>
+	                  <p>#.청구서 조회.손</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/stockList}" class="nav-link">
+	                <a th:href="@{/staff/depositList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.청구서 조회.손</p>
+	                  <p>#.입금 조회.손</p>
 	                </a>
 	              </li>
 	            </ul>
@@ -304,13 +310,13 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/changeList}" class="nav-link">
+	                <a th:href="@{/staff/rentalShipList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.렌탈 출하 조회.손</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/stockList}" class="nav-link">
+	                <a th:href="@{/staff/repairShipList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.수리 출하 조회.손</p>
 	                </a>
@@ -328,13 +334,13 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/changeList}" class="nav-link">
+	                <a th:href="@{/staff/rStatis}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.실적 조회.손</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/stockList}" class="nav-link">
+	                <a th:href="@{/staff/cStatis}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.고객 조회.손</p>
 	                  <!-- 재계약율, 고장폐기율, 렌탈반납지연율, 고객등급 -->
@@ -344,28 +350,12 @@
 	          </li>
 	          <!--  -->
 	          <li class="nav-item has-treeview">
-	            <a href="#" class="nav-link">
+	            <a th:href="@{/staff/boardList}" class="nav-link">
 	              <i class="nav-icon fas fa-chart-pie"></i>
 	              <p>
-	              	통계.손
-	                <i class="right fas fa-angle-left"></i>
+	              	!.공지사항.손
 	              </p>
 	            </a>
-	            <ul class="nav nav-treeview">
-	              <li class="nav-item">
-	                <a th:href="@{/changeList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.실적 조회.손</p>
-	                </a>
-	              </li>
-	              <li class="nav-item">
-	                <a th:href="@{/stockList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.고객 조회.손</p>
-	                  <!-- 재계약율, 고장폐기율, 렌탈반납지연율, 고객등급 -->
-	                </a>
-	              </li>
-	            </ul>
 	          </li>
 	          <!--  -->
 	      </ul>
