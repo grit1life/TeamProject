@@ -42,12 +42,25 @@
 	</select>
 	
 	
-	<select id="staffLogin" resultType="String" parameterType="String">
+	<select id="staffLogin" resultMap="StaffMap" parameterType="String">
 		SELECT 
-			staff_pw AS staffPw
+			staff_pw,
+			B.branch_name,
+			S.staff_name,
+			S.staff_level
 		FROM 
 			staff AS S
+		LEFT JOIN 
+			staff_change AS SC
+		ON 
+			SC.staff_id=S.staff_id
+		AND
+			S.staff_id=#{staff_id}
+		LEFT JOIN
+			branch AS B
+		ON 
+			SC.branch_code=B.branch_code
 		WHERE 
-			S.staff_id=staffId;
+			SC.staff_to_period='9999-01-01';
 	</select>
 </mapper>
