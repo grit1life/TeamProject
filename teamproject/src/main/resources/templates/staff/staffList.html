@@ -12,15 +12,159 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
  <div class="content-wrapper">
-  <div class="card-header">
-	  <h3 class="card-title">직원 리스트</h3>
-  </div>
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Advanced Form</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Advanced Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
   
-  <div class="row">
-   <div class="col-12">
-	<div class="card">
-
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card card-default">
+	 <div class="card-header">
+	   <h3 class="card-title">Select2 (Bootstrap4 Theme)</h3>
+	
+	   <div class="card-tools">
+	     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+	     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+	   </div>
+	 </div>
+	 
 	 <div class="card-body">
+	     <div class="row">
+	       
+	       <!-- left-->      
+	       <div class="col-md-6" style="max-width:33%;">  
+	         <!-- /.form-group 1-->
+	         <div class="form-group">
+	           <div style="display: inline-block; max-width:30%;">
+	           	<label>지점</label>
+	           </div>
+	           <div style="display: inline-block; max-width:70%;">
+		           <select class="form-control select2bs4" style="width: 100%;">
+		             <option selected="selected">본사</option>
+		             <option selected="selected">전주시점</option>
+		           </select>
+	           </div>
+	         </div>
+	         
+	         <!-- /.form-group 2-->
+	         <div class="form-group">
+	           <label>직책</label>
+	           <select class="form-control select2bs4" style="width: 60%;">
+	             <option selected="selected"></option>
+	             <option>부장</option>
+	             <option>과장</option>
+	             <option>일방</option>
+	           </select>
+	         </div>
+	         
+	         <!-- /.form-group 3-->
+	         <div class="form-group">
+	           <label>직원 이름</label>
+	           <input type="text" class="form-control select2bs4">
+	         </div>
+	         
+	         <!-- /.form-group 4-->
+	         <div class="form-group">
+	           <label>권한</label>
+	           <select class="form-control select2bs4" disabled="disabled" style="width: 100%;">
+	             <option selected="selected"></option>
+	             <option>관리자</option>
+	             <option>직원</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	       </div>
+	       
+	       	       <!-- left-->
+	       <div class="col-md-6" style="max-width:33%;">  
+	         <!-- /.form-group 1-->
+	         <div class="form-group">
+	           <label>지점</label>
+	           <select class="form-control select2bs4" style="width: 100%;">
+	             <option selected="selected">본사</option>
+	             <option selected="selected">전주시점</option>
+	           </select>
+	         </div>
+	         
+	         <!-- /.form-group 2-->
+	         <div class="form-group">
+	           <label>직책</label>
+	           <select class="form-control select2bs4" style="width: 100%;">
+	             <option selected="selected"></option>
+	             <option>부장</option>
+	             <option>과장</option>
+	             <option>일방</option>
+	           </select>
+	         </div>
+	         
+	         <!-- /.form-group 3-->
+	         <div class="form-group">
+	           <label>직원 이름</label>
+	           <input type="text" class="form-control select2bs4">
+	         </div>
+	         
+	         <!-- /.form-group 4-->
+	         <div class="form-group">
+	           <label>권한</label>
+	           <select class="form-control select2bs4" disabled="disabled" style="width: 100%;">
+	             <option selected="selected"></option>
+	             <option>관리자</option>
+	             <option>직원</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	       </div>
+	       
+	       <!-- right -->
+	       <div class="col-md-6" style="max-width:33%;">
+	         <div class="form-group">
+	           <label>Multiple</label>
+	           <select class="select2bs4" multiple="multiple" data-placeholder="Select a State"
+	                   style="width: 100%;">
+	             <option>Alabama</option>
+	             <option>Alaska</option>
+	             <option>California</option>
+	             <option>Delaware</option>
+	             <option>Tennessee</option>
+	             <option>Texas</option>
+	             <option>Washington</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	         <div class="form-group">
+	           <label>Disabled Result</label>
+	           <select class="form-control select2bs4" style="width: 100%;">
+	             <option selected="selected">Alabama</option>
+	             <option>Alaska</option>
+	             <option disabled="disabled">California (disabled)</option>
+	             <option>Delaware</option>
+	             <option>Tennessee</option>
+	             <option>Texas</option>
+	             <option>Washington</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	       </div>
+	       <!-- /.col -->
+	     </div>
+	     <!-- /.row -->
+	    </div>
+	  </div>
+	
+	<div class="card">
+	 <div class="card-body" style="margin-top:20px">
 	  	<table id="example2" class="table table-bordered table-hover">
 	    	<thead>
                 <tr>
@@ -47,8 +191,10 @@
 		</table>
 	  </div>
 	 </div>
-	</div>
-   </div>
+      	
+    </div>
+    
+  </section>
   </div>
  </th:block>
 </body>
