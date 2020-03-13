@@ -7,32 +7,32 @@
  	<!--개인 고객 등록  -->
  	<insert id="cInsert" parameterType="kr.or.ksmart.domain.Customer">
 	INSERT INTO customer  (   customer_id
-							 ,customer_pw	
+							 ,customer_pw
+							 ,customer_level 
+						     ,customer_class 	
 							 ,customer_name
 							 ,customer_call
 							 ,customer_email
 							 ,zip_code
 							 ,customer_address
 							 ,customer_address2
-							 ,customer_class
-							 ,customer_level
 							 ,input_staff_code
 							 ,input_staff_name
 							 ,input_date
 							 ) VALUES(
 							   #{customerId}
 							 , #{customerPw}
+							 , #{customerLevel}
+							 , #{customerClass}
 							 , #{customerName}
 							 , #{customerCall}
 							 , #{customerEmail}
 							 , #{zipCode}
 							 , #{customerAddress}
 							 , #{customerAddress2}
-							 , #{customerClass}
-							 , #{customerLevel}
 							 , #{inputStaffCode} 
 							 , #{inputStaffName}
-							 , #{inputDate}  
+							 , now()  
 							 );
 	
 	

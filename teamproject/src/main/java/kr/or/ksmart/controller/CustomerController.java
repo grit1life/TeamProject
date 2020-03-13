@@ -33,7 +33,8 @@ public class CustomerController {
     @PostMapping("/cInsert")
 	public String cInsert(@RequestParam(value="customerId", required = false) String customerId, Customer customer){
 			 
-			 
+    		  System.out.println("binding test = " + customerId);
+    		  System.out.println(customer.toString());
 			  int result =customerService.cInsert(customer); 
 			  if(result>0) {
 				  return "redirect:/cList";
