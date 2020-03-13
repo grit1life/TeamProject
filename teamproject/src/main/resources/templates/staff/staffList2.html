@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>staffList.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+  <div class="card-header">
+	  <h3 class="card-title">직원 리스트</h3>
+  </div>
+  
+  
+  
+  <div class="row">
+   <div class="col-12">
+	<div class="card">
+	 <div class="card card-default">
+	 <div class="card-header">
+	   <h3 class="card-title">Select2 (Bootstrap4 Theme)</h3>
+	
+	   <div class="card-tools">
+	     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+	     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+	   </div>
+	 </div>
+	 
+	 <div class="card-body">
+	     <div class="row">
+	       <div class="col-md-6">
+	         <div class="form-group">
+	           <label>Minimal</label>
+	           <select class="form-control select2bs4" style="width: 100%;">
+	             <option selected="selected">Alabama</option>
+	             <option>Alaska</option>
+	             <option>California</option>
+	             <option>Delaware</option>
+	             <option>Tennessee</option>
+	             <option>Texas</option>
+	             <option>Washington</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	         <div class="form-group">
+	           <label>Disabled</label>
+	           <select class="form-control select2bs4" disabled="disabled" style="width: 100%;">
+	             <option selected="selected">Alabama</option>
+	             <option>Alaska</option>
+	             <option>California</option>
+	             <option>Delaware</option>
+	             <option>Tennessee</option>
+	             <option>Texas</option>
+	             <option>Washington</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	       </div>
+	       <!-- /.col -->
+	       <div class="col-md-6">
+	         <div class="form-group">
+	           <label>Multiple</label>
+	           <select class="select2bs4" multiple="multiple" data-placeholder="Select a State"
+	                   style="width: 100%;">
+	             <option>Alabama</option>
+	             <option>Alaska</option>
+	             <option>California</option>
+	             <option>Delaware</option>
+	             <option>Tennessee</option>
+	             <option>Texas</option>
+	             <option>Washington</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	         <div class="form-group">
+	           <label>Disabled Result</label>
+	           <select class="form-control select2bs4" style="width: 100%;">
+	             <option selected="selected">Alabama</option>
+	             <option>Alaska</option>
+	             <option disabled="disabled">California (disabled)</option>
+	             <option>Delaware</option>
+	             <option>Tennessee</option>
+	             <option>Texas</option>
+	             <option>Washington</option>
+	           </select>
+	         </div>
+	         <!-- /.form-group -->
+	       </div>
+	       <!-- /.col -->
+	     </div>
+	     <!-- /.row -->
+	   </div>
+	   </div>
+
+	 <div class="card-body" style="margin-top:20px">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>지점</th>
+                  <th>직책</th>
+                  <th>직원 명</th>
+                  <th>생년월일</th>
+                  <th>전화번호</th>
+                  <th>이메일</th>
+                  <th>권한</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr th:each="L:${staffList}">
+                <td th:text="${L.branchName}"></td>
+                <td th:text="${L.staffPosition}"></td>
+                <td th:text="${L.staffName}"></td>
+                <td th:text="${L.staffBirth}"></td>
+                <td th:text="${L.staffTell}"></td>
+                <td th:text="${L.staffEmail}"></td>
+                <td th:text="${L.staffLevel}"></td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	 </div>
+	</div>
+   </div>
+  </div>
+ </th:block>
+</body>
+</html>
