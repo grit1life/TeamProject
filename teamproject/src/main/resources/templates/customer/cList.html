@@ -16,13 +16,6 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	
-
-
-
-
-
-
-
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -161,7 +154,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>개인사업자/ 거래처 고객 리스트</h1>
+            <h1>개인 고객 리스트</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -205,23 +198,23 @@
                     <tr>
                       <th>ID</th>
                       <th>고객명</th>
-                      <th>고객권한</th>
-                      <th>고객등급</th>
+                      <th>권한</th>
+                      <th>등급</th>
                       <th>최초입력일</th>
                       <th>상세보기</th>
                       <th>삭제</th>
                     </tr>
                   </thead>
                   <tbody>
-                  	<tr th:each="l : ${CustomerCompanyList}">
+                  	<tr th:each="l : ${CustomerList}">
 						<td th:text="${l.customerId}"></td>
 						<td th:text="${l.customerName}"></td>
-						<td th:text="${l.customerClass}"></td>
 						<td th:text="${l.customerLevel}"></td>
+						<td th:text="${l.customerClass}"></td>
 						<td th:text="${l.inputDate}"></td>		
 						<td>
 						   
-							<a class="btn btn-primary btn-sm" th:href="@{/cupdate(customerId=${l.customerId})}">
+							<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
 	                              <i class="fas fa-folder">
 	                              </i>
 	                              View

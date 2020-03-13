@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>신규 개인고객 등록</title>
+  <title>고객/거래처 상세보기</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,12 +17,11 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   <style type="text/css">
- 
-	#row{
+  #row{
  		float: right;
   
  
-  	}	
+  }
   
   
   </style>	
@@ -167,7 +166,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>개인 고객 등록</h1>
+            <h1></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -184,7 +183,7 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">신규 고객 등록</h3>
+              <h3 class="card-title">고객 정보 </h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -206,14 +205,8 @@
               </div>
                 <div class="form-group">
                 <label for="inputStatus">고객등급</label>
-                <select class="form-control custom-select">
-                  <option selected disabled>선택해주세요.</option>
-                  <option>브론즈</option>
-                  <option>실버</option>
-                  <option>골드</option>
-                  <option>플래티넘</option>        
-                </select>
-              </div>
+                <input type="text" id="inputName" class="form-control" readonly="readonly">
+              </div>             
               <div class="form-group">
                 <label for="inputName">고객명</label>
                 <input type="text" id="inputName" class="form-control">
@@ -226,8 +219,6 @@
                 <label for="inputName">고객 이메일</label>
                 <input type="text" id="inputName" class="form-control">
               </div>
-              
-              
               <label>우편번호</label>	
               <div class="input-group mb-3">
                   <input type="text" id="sample3_postcode" class="form-control rounded-0">
@@ -326,18 +317,65 @@
 				        element_wrap.style.display = 'block';
 				    }
 				</script>
-
+              
+             
+             
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
         <div class="col-md-6"> 
-          
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">거래처 정보</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputName">회사명</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputName">거래처 대표자명</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputName">회사 전화번호</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputName">우편번호</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputName">기본주소</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputName">상세주소</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+               <div class="form-group">
+                <label for="inputName">메일계정</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+               <div class="form-group">
+                <label for="inputName">홈페이지</label>
+                <input type="text" id="inputEstimatedBudget" class="form-control">
+              </div>
+            </div>  
+             
+            <!-- /.card-body -->
+          </div>
           
           <div class="card card-secondary">
             <div class="card-header">
-              <h3 class="card-title">입력 확인</h3>
+              <h3 class="card-title">입력 정보</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -361,14 +399,42 @@
                     </div>
                     <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                   </div>  
-            </div>   
-            <div class="row" id="row"> 	
-				<input type="submit" value="등록" class="btn btn-success float-right">
-	         	 <a href="#" class="btn btn-secondary">취소</a>
-      		</div>
+            </div> 
       	    </div>
             <!-- /.card-body -->
           </div>
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">수정 정보</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputEstimatedBudget">수정자 직원코드</label>
+                <input type="number" id="inputEstimatedBudget" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputEstimatedBudget">수정자명</label>
+                <input type="number" id="inputEstimatedBudget" class="form-control">
+              </div>
+              <div class="form-group">
+                  <label>수정날짜</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                  </div>                  
+            </div>   
+            <div class="row" id="row"> 	
+				<input type="submit" value="수정" class="btn btn-success float-right">
+	         	 <a href="#" class="btn btn-secondary">취소</a>
+      		</div>
+            
           <!-- /.card -->
         </div>
           <!-- /.card -->
