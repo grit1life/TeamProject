@@ -14,7 +14,7 @@ public class GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	
-	@GetMapping(value = "/goodsList", produces = "application/json")
+	@GetMapping(value = "/goods", produces = "application/json")
 	public List<Goods> getGoodsList() {
 		return goodsService.getGoodsList();
 	}

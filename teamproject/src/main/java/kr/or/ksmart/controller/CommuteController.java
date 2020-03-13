@@ -16,7 +16,7 @@ public class CommuteController {
 	@Autowired
 	private CommuteService commuteService;
 	
-	@GetMapping("/commuteList")
+	@GetMapping("/staff/commuteList")
 	public String commuteList(Model model) {
 		String staffId = "201804_0001";  //임시값 로그인시 세션의 값을 담아주어야 한다
 		List<Commute> cList = commuteService.CommuteList(staffId);
