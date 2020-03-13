@@ -15,7 +15,8 @@ const renderList = goodsList => {
       `<td>${list.goodsName}</td>` +
       `<td>${list.goodsInputStaffCode}</td>` +
       `<td>${list.goodsInputDate}</td>` +
-      `<td><input type="button" class="btn btn-warning" value="편집" goodsCode="${list.goodsCode}" onclick="editFun()"/></td>`;
+      `<td><div class="container"><a class="btn btn-info btn-sm" href="#"><i class="fas fa-eye"></i></a></div></td>`;
+    // `<td><input type="button" class="btn btn-warning" value="편집" goodsCode="${list.goodsCode}" onclick="editFun()"/></td>`;
     document.querySelector("tbody#goods-list").appendChild(listEl);
   });
 };
@@ -33,6 +34,12 @@ const getList = () => {
 
 // 최초 리스트 렌더링
 getList();
+
+// 입력 컴포넌트 버튼 이벤트
+document.querySelector("input#input-form-btn").addEventListener("click", () => {
+  document.querySelector("div#init-div").style.display = "none";
+  document.querySelector("div#input-form-div").style.display = "block";
+});
 
 // 입력 버튼 이벤트
 document.querySelector("button#input-btn").addEventListener("click", e => {
@@ -54,6 +61,12 @@ const input = () => {
 };
 
 // 입력 취소 버튼 이벤트
+document
+  .querySelector("button#input-cancle-btn")
+  .addEventListener("click", () => {
+    document.querySelector("div#input-form-div").style.display = "none";
+    document.querySelector("div#init-div").style.display = "block";
+  });
 
 // 조회 버튼 함수
 const editFun = () => {
