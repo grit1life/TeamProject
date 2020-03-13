@@ -18,6 +18,11 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
+	public int deleteBoard(String no) {
+		return boardMapper.deleteBoard(no);
+	}
+	
+	
 	public int insertBoard(Board board) {
 		return boardMapper.insertBoard(board);
 	}
@@ -49,7 +54,12 @@ public class BoardService {
 	
 	public Board getBoard(String no) {
 		Board board = boardMapper.getBoard(no);
+		boardMapper.viewBoard(no);
 		return board;
+	}
+	
+	public int modifyBoard(Board board) {
+		return boardMapper.modifyBoard(board);
 	}
 	
 }

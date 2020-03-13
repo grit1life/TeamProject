@@ -24,6 +24,7 @@
                       <th>작성글</th>
                       <th>작성자</th>
                       <th>작성일</th>
+                      <th>조회수</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,7 @@
                       <td><a th:href="@{/staff/board(no=${l.boardNo})}" th:text="${l.boardTitle}"></a></td>
                       <td th:text="${l.staffName}"></td>
                       <td th:text="${l.boardWrtDate}"></td>
+                      <td th:text="${l.boardViewCnt}"></td>
                     </tr>
                     </tbody>
                   </table>
