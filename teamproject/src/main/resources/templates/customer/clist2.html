@@ -16,6 +16,13 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	
+
+
+
+
+
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -154,7 +161,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>개인 고객 리스트</h1>
+            <h1>개인사업자/ 거래처 고객 리스트</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -206,7 +213,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  	<tr th:each="l : ${CustomerList}">
+                  	<tr th:each="l : ${CustomerCompanyList}">
 						<td th:text="${l.customerId}"></td>
 						<td th:text="${l.customerName}"></td>
 						<td th:text="${l.customerClass}"></td>
