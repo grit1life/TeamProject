@@ -9,7 +9,7 @@ import kr.or.ksmart.domain.Staff;
 @Mapper
 public interface StaffMapper {
 	
-	public String staffLogin(String staffId);
+	public Staff staffLogin(String staffId);
 	
 	public List<Staff> staffList();
 }
