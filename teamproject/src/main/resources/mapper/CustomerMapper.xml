@@ -4,6 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="kr.or.ksmart.mapper.CustomerMapper">
+ 
+ 	<resultMap type="kr.or.ksmart.domain.Customer" id="customerResultMap">
+		<result property="customerId" column="customer_id"/>
+		<result property="customerPw" column="customer_pw"/>
+		<result property="customerLevel" column="customer_level"/>
+		<result property="customerClass" column="customer_class"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerCall" column="customer_call"/>
+		<result property="customerEmail" column="customer_email"/>
+		<result property="zipCode" column="zip_code"/>
+		<result property="customerAddress" column="customer_address"/>
+		<result property="customerAddress2" column="customer_address2"/>
+		<result property="inputStaffCode" column="customer_address2"/>
+		<result property="inputStaffName" column="input_staff_name"/>
+		<result property="now()" column="input_date"/>
+	</resultMap>
+	
+	
  	<!--개인 고객 등록  -->
  	<insert id="cInsert" parameterType="kr.or.ksmart.domain.Customer">
 	INSERT INTO customer  (   customer_id
@@ -54,8 +72,29 @@
 				customer
 		</select>
 		
+	  <!--개인 고객 상세보기  -->
+	  <select id="SelectForUpdate" parameterType="String" resultMap="goodsResultMap">
+		SELECT
+			                  customer_id
+							 ,customer_pw
+							 ,customer_level 
+						     ,customer_class 	
+							 ,customer_name
+							 ,customer_call
+							 ,customer_email
+							 ,zip_code
+							 ,customer_address
+							 ,customer_address2
+							 ,input_staff_code
+							 ,input_staff_name
+							 ,input_date
+		FROM   customer
+		WHERE
+		customer_id = #{customerId};
+	</select>
 		
-	 <!--개인사업/ 거래처 고객 리스트  -->
+		
+	 <!--개인사업/ 법인 고객 리스트  -->
 	 <select id="getCustomerCompanyList" parameterType="String" resultType="kr.or.ksmart.domain.CustomerCompany">
 		SELECT
 				 customer_id    AS customerId
