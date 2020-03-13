@@ -46,7 +46,7 @@ public class BoardController {
 	@PostMapping("/staff/writeBoard")
 	public String boardWrite(Board board) {
 		boardService.insertBoard(board);
-		return "board/writeBoard";
+		return "board/boardList";
 	}
 	
 	

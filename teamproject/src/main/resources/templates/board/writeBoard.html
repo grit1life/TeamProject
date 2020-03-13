@@ -4,9 +4,8 @@
 	  layout:decorate="~{layout/default}">
 <th:block layout:fragment="customTitle">
 	<title>index</title>
-<link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.css">
+ 
 </th:block>
-
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
@@ -30,7 +29,7 @@
 		    </section>
 		    
 	  	<!-- form 시작 -->      
-	  	<form th:action="@{writeBoard}" th:method="post">
+	  	<form id="bForm" th:method="post" th:action="@{writeBoard}">
 		    <!-- Main content -->
 		    <section class="content">
 		      <div class="row">
@@ -49,7 +48,7 @@
 		                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 		              </div>
 		              <p>작성자</p>
-		              <button type="submit" class="btn btn-block btn-success">글쓰기</button>
+		              <button type="button" onclick="getAction()" class="btn btn-block btn-success">글쓰기</button>
 		            </div>
 		          </div>
 		        </div>
@@ -60,18 +59,55 @@
 		    <!-- /.content -->
 	   </form>
 	   <!-- form 끝 -->
+       <button type="button" class="btn btn-danger swalDefaultError">
+         Launch Error Toast
+       </button>
  
   </div>
 <!-- Summernote -->
 <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<!-- Toastr -->
+<!-- <script src="../../plugins/toastr/toastr.min.js"></script> -->
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
 <script>
   $(function () {
     // Summernote
     $('#bTitle').focus();
-    $('.textarea').summernote({
-    	height: 500
-    })
+    var windowHeight = $( window ).height();
+    if(windowHeight<870){	
+    	//스마트폰
+    	$('.textarea').summernote({
+          	height: 200
+    	})
+    }else{
+    	$('.textarea').summernote({
+       		height: 450
+    	})
+    }
+    
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+     });
+    $('.swalDefaultError').click(function() {
+        Toast.fire({
+          type: 'error',
+          title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+      });
   })
+  //폼 제출
+  function getAction(){
+	if($('#bTitle').val()==""){
+		alert("제목을 입력해주세요");
+	}else{
+		$('#bForm').submit();
+	}
+	
+  }
 </script>
 </th:block>
 </body>
