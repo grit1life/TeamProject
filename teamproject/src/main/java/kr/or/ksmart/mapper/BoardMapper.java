@@ -15,5 +15,11 @@ public interface BoardMapper {
 
 	public Board getBoard(String no);
 	
+	public int viewBoard(String no);
+	
+	public int modifyBoard(Board board);
+	
 	public int insertBoard(Board board);
+	
+	public int deleteBoard(String no);
 }

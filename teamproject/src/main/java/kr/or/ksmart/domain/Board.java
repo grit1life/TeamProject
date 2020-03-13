@@ -7,11 +7,18 @@ public class Board {
 	private String staffName;
 	private String boardWrtDate;
 	private String boardModiDate;
+	private int boardViewCnt;
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", staffName=" + staffName + ", boardWrtDate=" + boardWrtDate + ", boardModiDate=" + boardModiDate
-				+ "]";
+				+ ", boardViewCnt=" + boardViewCnt + "]";
+	}
+	public int getBoardViewCnt() {
+		return boardViewCnt;
+	}
+	public void setBoardViewCnt(int boardViewCnt) {
+		this.boardViewCnt = boardViewCnt;
 	}
 	public String getStaffName() {
 		return staffName;

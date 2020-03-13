@@ -48,6 +48,21 @@ public class BoardController {
 		boardService.insertBoard(board);
 		return "board/boardList";
 	}
-	
-	
+	@GetMapping("/staff/deleteBoard")
+	public String deleteBoard(@RequestParam(value = "boardNo") String boardNo) {
+		boardService.deleteBoard(boardNo);
+		return "redirect:/staff/boardList";
+	}
+	@GetMapping("/staff/modifyBoard")
+	public String modifyBoard(Model model, @RequestParam(value = "boardNo") String boardNo) {
+		Board board = boardService.getBoard(boardNo);
+		model.addAttribute("b", board);
+		System.out.println(board.getBoardNo()+"+++++++++++++++");
+		return "board/modifyBoard";
+	}
+	@PostMapping("/staff/modifyBoard")
+	public String modifyBoard(Board board) {
+		boardService.modifyBoard(board);
+		return "redirect:/staff/boardList";
+	}
 }

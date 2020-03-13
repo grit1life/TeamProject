@@ -34,6 +34,7 @@
 			,staff_name AS staffName
 			,board_wrt_date AS boardWrtDate
 			,board_modi_date AS boardModiDate
+			,board_view_cnt AS boardViewCnt
 		FROM
 			board
 		INNER JOIN
@@ -51,12 +52,34 @@
 			,staff_name AS staffName
 			,board_wrt_date AS boardWrtDate
 			,board_modi_date AS boardModiDate
+			,board_view_cnt AS boardViewCnt
 		FROM
 			board
 		INNER JOIN
 			staff
 		ON 
 			board.staff_id = staff.staff_id
-		WHERE board_no = #{no}
+		WHERE 
+			board_no = #{no}
 	</select>
+	<update id="viewBoard" parameterType="String">
+		UPDATE board SET
+			board_view_cnt = board_view_cnt+1
+		WHERE 
+			board_no = #{no}
+	</update>
+	<update id="modifyBoard" parameterType="Board">
+		UPDATE board SET
+			  board_title = #{boardTitle}
+			, board_content = #{boardContent}
+			, board_modi_date = NOW()
+		WHERE 
+			board_no = #{boardNo}
+	</update>
+	<delete id="deleteBoard" parameterType="String">
+		DELETE FROM
+			board
+		WHERE
+			board_no = #{no}
+	</delete>
 </mapper>
