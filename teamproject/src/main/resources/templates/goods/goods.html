@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>goodsList</title>
+  </th:block>
+
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <th:block layout:fragment="customContents">
+      <div class="content-wrapper">
+        <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              id="custom-content-above-home-tab"
+              data-toggle="pill"
+              href="#custom-content-above-home"
+              role="tab"
+              aria-controls="custom-content-above-home"
+              aria-selected="true"
+              >관리</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="custom-content-above-profile-tab"
+              data-toggle="pill"
+              href="#custom-content-above-profile"
+              role="tab"
+              aria-controls="custom-content-above-profile"
+              aria-selected="false"
+              >조회</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="custom-content-above-messages-tab"
+              data-toggle="pill"
+              href="#custom-content-above-messages"
+              role="tab"
+              aria-controls="custom-content-above-messages"
+              aria-selected="false"
+              >통계</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="custom-content-above-settings-tab"
+              data-toggle="pill"
+              href="#custom-content-above-settings"
+              role="tab"
+              aria-controls="custom-content-above-settings"
+              aria-selected="false"
+              >설정</a
+            >
+          </li>
+        </ul>
+        <section class="content-header">
+          <div class="container-flud">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5>상품관리</h5>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="content">
+          <div class="contaniter-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title">상품목록</h3>
+                  </div>
+                  <div class="container">
+                    <table class="table" style="text-align: center;">
+                      <thead>
+                        <th>제품코드</th>
+                        <th>제품명</th>
+                        <th>입력자</th>
+                        <th>입력일시</th>
+                        <th>상세</th>
+                      </thead>
+                      <tbody id="goods-list"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!-- 상품입력페이지버튼 -->
+              <div class="col-md-6" id="init-div" style="display: block;">
+                <div class="card-body">
+                  <div class="contianer">
+                    <input
+                      type="button"
+                      class="form-control btn btn-primary"
+                      value="상품정보 등록"
+                      id="input-form-btn"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- 상품정보입력 -->
+              <div class="col-md-6" style="display: none;" id="input-form-div">
+                <form role="form" id="input-form">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        상품정보입력
+                      </h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="form-group">
+                          <label>상품분류선택</label>
+                          <input
+                            type="button"
+                            class="form-control btn btn-primary"
+                            value="상품분류선택"
+                          />
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div class="form-group">
+                          <label>상품명</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="상품명"
+                            name="goodsName"
+                          />
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div class="form-group">
+                          <label>등록자</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="id001"
+                            disabled
+                            name="goodsInputStaffCode"
+                          />
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div class="form-group">
+                          <label>바코드</label>
+                          <div class="row"></div>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="바코드"
+                            name="goodsBarcode"
+                          />
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div class="form-group">
+                          <label>대표이미지</label>
+                          <div class="custom-file">
+                            <input
+                              type="file"
+                              class="custom-file-input"
+                              id="customFile"
+                              name="attachedFile"
+                            />
+                            <label class="custom-file-label" for="customFile">
+                              첨부파일 선택
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div
+                          class="card-footer-custom"
+                          style="padding-top: 15px;"
+                        >
+                          <button
+                            type="button"
+                            class="btn btn-info"
+                            id="input-btn"
+                          >
+                            등록
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-default float-right"
+                            id="input-cancle-btn"
+                          >
+                            취소
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- 상품정보입력 -->
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- bs-custom-file-input -->
+      <script
+        src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"
+      ></script>
+      <!-- goodsList.js -->
+      <script src="../../script/goods/goodsList.js"></script>
+    </th:block>
+  </body>
+</html>

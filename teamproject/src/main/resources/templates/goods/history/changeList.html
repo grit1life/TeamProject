@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>goodsList</title>
+  </th:block>
+
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <th:block layout:fragment="customContents">
+      <div class="content-wrapper">
+        <section class="content-header">
+          <div class="container-flud">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h3>상품목록</h3>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="content">
+          <div class="contaniter-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title">상품목록</h3>
+                  </div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>제품코드</th>
+                        <th>제품명</th>
+                        <th>입력자</th>
+                        <th>입력일시</th>
+                        <th>수정</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <th:block th:each="l:${goodsList}">
+                        <tr>
+                          <td th:text="${l.goodsCode}"></td>
+                          <td th:text="${l.goodsName}"></td>
+                          <td th:text="${l.goodsInputStaffCode}"></td>
+                          <td th:text="${l.goodsInputDate}"></td>
+                          <td><button class="btn btn-warning">수정</button></td>
+                        </tr>
+                      </th:block>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h3 class="card-title">상품정보수정</h3>
+                  </div>
+                  <form>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>정보수정</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>내용</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <button id="test"></button>
+
+      <script src="./list.js"></script>
+    </th:block>
+  </body>
+</html>

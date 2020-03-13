@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>staffList.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+  <div class="card-header">
+	  <h3 class="card-title">직원 리스트</h3>
+  </div>
+  
+  <div class="row">
+   <div class="col-12">
+	<div class="card">
+
+	 <div class="card-body">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>지점</th>
+                  <th>직책</th>
+                  <th>직원 명</th>
+                  <th>생년월일</th>
+                  <th>전화번호</th>
+                  <th>이메일</th>
+                  <th>권한</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr th:each="L:${staffList}">
+                <td th:text="${L.branchName}"></td>
+                <td th:text="${L.staffPosition}"></td>
+                <td th:text="${L.staffName}"></td>
+                <td th:text="${L.staffBirth}"></td>
+                <td th:text="${L.staffTell}"></td>
+                <td th:text="${L.staffEmail}"></td>
+                <td th:text="${L.staffLevel}"></td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	 </div>
+	</div>
+   </div>
+  </div>
+ </th:block>
+</body>
+</html>
