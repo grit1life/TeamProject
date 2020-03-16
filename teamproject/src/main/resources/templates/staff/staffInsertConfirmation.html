@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>staffUpdateConfirmation.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>직원 등록 (확인)</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Advanced Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card card-default">
+
+	 
+	 <div class="card-body" style="margin-top:20px">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th style="width:150px;"></th>
+                  <th>입력정보</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr>
+                <td>직원 아이디</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>직원비번</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>직원이름</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>생년월일</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>전화번호</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>이메일</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>권한</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>입사일</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>지점</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>직책</td>
+                <td></td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+      <div class="card-footer">
+           <button id="conBtn" type="submit" class="btn btn-info">확정</button>
+           <button onClick="history.go(-1);" type="submit" class="btn btn-default float-right">수정</button>
+      </div>
+	 </div>
+    </div>
+  </section>
+  </div>
+ </th:block>
+</body>
+</html>

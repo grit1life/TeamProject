@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>index</title>
+  </th:block>
+
+  <body class="hold-transition sidebar-mini layout-fixed">
+  	<th:block layout:fragment="customContents">
+    	<div class="content-wrapper">
+    <div>
+      <button id="insert-form-btn">상품등록</button>
+    </div>
+
+    <table class="table">
+      <thead>
+        <th>상품코드</th>
+        <th>상품카테고리</th>
+        <th>상품명</th>
+        <th>상세보기</th>
+      </thead>
+      <tbody id="list-tbody"></tbody>
+    </table>
+
+    <div id="form-div"></div>
+    
+    <!-- axios cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- qs cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.1/qs.min.js"></script>
+    <script>
+      axios
+        .get("/goods")
+        .then(res => {
+          renderList(res.data);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+
+      const renderList = items => {
+        items.forEach(item => {
+          const listEl = document.createElement("tr");
+          listEl.innerHTML =
+            `<td>${item.goodsCode}</td>` +
+            `<td>${item.goodsCategoryCode}</td>` +
+            `<td>${item.goodsName}</td>` +
+            `<td><button type="button" name=${item.goodsCode} class="view-btn" />상세보기</td>`;
+          document.querySelector("tbody#list-tbody").appendChild(listEl);
+        });
+      };
+
+      const renderForm = (formType, data) => {
+        console.log(data.goodsCode);
+        $("div#form-div").html("");
+        const formEl = document.createElement("div");
+        if (formType == "insert") {
+          formEl.innerHTML = `<form id="insert-form">
+          <input name="goodsCategoryCode" />
+          <input name="goodsName" />
+          <input name="goodsBarcode" />
+          <input name="goodsInputStaffCode" />
+          <input name="goodsInputDate" />
+          <input name="goodsUpdateStaffCode" />
+          <input name="goodsUpdateDate" />
+          <input name="goodsDesc" />
+          <input name="goodsImg" />
+          <button type="button" id="insert-btn">등록</button>
+          <button type="button" id="cancle-btn">취소</button>
+          </form>`;
+        } else if (formType == "view") {
+          formEl.innerHTML = `<form id="view-form">
+          <input name="goodsCode" value="${data.goodsCode}" readonly />
+          <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" readonly />
+          <input name="goodsName" value="${data.goodsName}" readonly />
+          <input name="goodsBarcode" value="${data.goodsBarcode}" readonly />
+          <input name="goodsInputStaffCode" value="${data.goodsInputStaffCode}" readonly />
+          <input name="goodsInputDate" value="${data.goodsInputDate}" readonly/>
+          <input name="goodsUpdateStaffCode" value="${data.goodsUpdateStaffCode}" readonly />
+          <input name="goodsUpdateDate" value="${data.goodsUpdateDate}" readonly />
+          <input name="goodsDesc" value="${data.goodsDesc}" readonly />
+          <input name="goodsImg" value="${data.goodsImg}" readonly />
+          <button type="button" name=${data.goodsCode} id="update-form-btn">수정</button>
+          <button type="button" id="delete-btn">삭제</button>
+          <button type="button" id="cancle-btn">취소</button>
+          </form>`;
+        } else if (formType == "update") {
+          formEl.innerHTML = `<form id="update-form">
+          <input name="goodsCode" value="${data.goodsCode}" readonly />
+          <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" />
+          <input name="goodsName" value="${data.goodsName}" />
+          <input name="goodsBarcode" value="${data.goodsBarcode}" />
+          <input name="goodsInputStaffCode" value="${data.goodsInputStaffCode}" readonly/>
+          <input name="goodsInputDate" value="${data.goodsInputDate}" readonly/>
+          <input name="goodsDesc" value="${data.goodsDesc}" />
+          <input name="goodsImg" value="${data.goodsImg}" />
+          <button type="button" id="update-btn">수정</button>
+          <button type="button" id="cancle-btn">취소</button>
+          </form>`;
+        }
+        $("div#form-div").append(formEl);
+      };
+
+      $(document).on("click", ".view-btn", e => {
+        const goodsCode = e.target.name;
+        axios
+          .get(`/goods/${goodsCode}`)
+          .then(res => {
+            renderForm("view", res.data);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      });
+
+      $(document).on("click", "button#insert-form-btn", e => {
+        const data = {};
+        renderForm("insert", data);
+      });
+
+      $(document).on("click", "button#insert-btn", e => {
+        $.ajax({
+          type: "post",
+          url: "/goods",
+          data: $("form#insert-form").serialize(),
+          contentType: "application/x-www-form-urlencoded; charset=euc-kr",
+          success: msg => {
+            console.log(msg);
+          }
+        });
+      });
+
+      $(document).on("click", "button#update-form-btn", e => {
+        const goodsCode = e.target.name;
+        axios
+          .get(`/goods/${goodsCode}`)
+          .then(res => {
+            renderForm("update", res.data);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      });
+    </script>
+    </div>
+    </th:block>
+  </body>
+</html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title>login_form</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+<div class="content-wrapper" style="padding:70px">
+	<div class="card card-primary" id="loginBox" style="width:400px; margin:auto;">
+    <div class="card-header">
+      <h3 class="card-title">직원 로그인</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form role="form">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="exampleInputEmail1">ID</label>
+        <input type="text" class="form-control" id="staffId" placeholder="ID">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="staffPw" placeholder="Password">
+      </div>
+
+    </div>
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button id="loginBtn" type="button" class="btn btn-primary" style="width: 100%;">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('#loginBtn').click(function(){
+			console.log("loginBtn");
+			var staffId = $('#staffId').val();
+			var staffPw = $('#staffPw').val();
+			console.log(staffId);
+			var request = $.ajax({
+				url : "/staffLogin",
+				method : "post",
+				dataType : "json",
+				data : {staffId:staffId,staffPw:staffPw}
+			})
+			request.done(function(loginMap){
+				alert(loginMap.result);
+				
+			})
+			request.fail(function( jqXHR, textStatus ) {
+				  alert("입력한 ID가 존재하지 안습니다");
+			});
+		})
+	})
+</script>	
+
+</th:block>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="kr.or.ksmart.mapper.CustomerMapper">
+ 
+ 	<resultMap type="kr.or.ksmart.domain.Customer" id="customerResultMap">
+		<result property="customerId" column="customer_id"/>
+		<result property="customerPw" column="customer_pw"/>
+		<result property="customerLevel" column="customer_level"/>
+		<result property="customerClass" column="customer_class"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerCall" column="customer_call"/>
+		<result property="customerEmail" column="customer_email"/>
+		<result property="zipCode" column="zip_code"/>
+		<result property="customerAddress" column="customer_address"/>
+		<result property="customerAddress2" column="customer_address2"/>		
+		<result property="customerComanyName" column="customer_comany_name"/>
+		<result property="customerComanyPresident" column="customer_company_president"/>
+		<result property="customerCompanyCall" column="customer_company_call"/>
+		<result property="customerCompanyZipCode" column="customer_company_zip_code"/>
+		<result property="customerCompanyAddress1" column="customer_company_address1"/>
+		<result property="customerCompanyAddress2" column="customer_company_address2"/>
+		<result property="customerCompanyEmail" column="customer_company_email"/>
+		<result property="customerCompanyHomepage" column="customer_company_homepage"/>
+		<result property="inputStaffCode" column="input_staff_code"/>
+		<result property="inputStaffName" column="input_staff_name"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="updateStaffCode" column="update_staff_code"/>
+		<result property="updateStaffName" column="update_staff_name"/>
+		<result property="updateDate" column="update_date"/>
+	</resultMap>
+	
+	
+ 	<!--개인 고객 등록  -->
+ 	<insert id="cInsert" parameterType="kr.or.ksmart.domain.Customer">
+	INSERT INTO customer  (   customer_id
+							 ,customer_pw
+							 ,customer_level 
+						     ,customer_class 	
+							 ,customer_name
+							 ,customer_call
+							 ,customer_email
+							 ,zip_code
+							 ,customer_address
+							 ,customer_address2
+							 ,input_staff_code
+							 ,input_staff_name
+							 ,input_date
+							 ) VALUES(
+							   #{customerId}
+							 , #{customerPw}
+							 , #{customerLevel}
+							 , #{customerClass}
+							 , #{customerName}
+							 , #{customerCall}
+							 , #{customerEmail}
+							 , #{zipCode}
+							 , #{customerAddress}
+							 , #{customerAddress2}
+							 , #{inputStaffCode} 
+							 , #{inputStaffName}
+							 , now()  
+							 );
+	
+	
+	
+	</insert>
+ 
+ 
+ 
+	 <!--개인 고객 리스트  -->
+	 <select id="getCustomerList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
+		SELECT
+				 customer_id    AS customerId
+				,customer_name 	AS customerName
+				,customer_class	AS customerClass
+				,customer_level	AS customerLevel
+				,input_date	    AS inputDate
+
+			FROM
+				customer
+		</select>
+		
+	  <!--개인 고객 상세보기  -->
+	  <select id="SelectForUpdate" parameterType="String" resultMap="customerResultMap">
+		SELECT
+			                  customer_id
+							 ,customer_pw
+							 ,customer_level 
+						     ,customer_class 	
+							 ,customer_name
+							 ,customer_call
+							 ,customer_email
+							 ,zip_code
+							 ,customer_address
+							 ,customer_address2
+							 ,input_staff_code
+							 ,input_staff_name
+							 ,input_date
+							 ,update_staff_code 
+							 ,update_staff_name
+							 ,update_date
+		FROM   customer
+		WHERE
+		customer_id = #{customerId};
+	</select>
+	
+	<!--개인 고객 업데이트  -->
+	<update id="cUpdate" parameterType="kr.or.ksmart.domain.Customer">
+		UPDATE customer
+		SET
+			customer_id=#{customerId},
+			customer_pw=#{customerPw},
+			customer_name=#{customerName},
+			customer_class=#{customerClass},
+			customer_call=#{customerCall},
+			customer_email=#{customerEmail},
+			zip_code=#{zipCode},
+			customer_address=#{customerAddress},
+			customer_address2=#{customerAddress2},
+			update_staff_code =#{updateStaffCode},
+			update_staff_name=#{updateStaffName},
+			update_date=#{updateDate}
+		WHERE 
+			customer_id=#{customerId}
+	
+	</update>
+	
+	<!--개인 고객 삭제  -->
+	<delete id="cDelete" parameterType="String">
+		DELETE FROM customer WHERE customer_id=#{customerId} and customer_name=#{customerName};
+	</delete>
+	
+	
+	<!--개인사업/법인 고객 등록  -->
+ 	<insert id="cInsert2" parameterType="kr.or.ksmart.domain.Customer">
+	INSERT INTO customer_company  (   
+							  customer_id
+							 ,customer_pw
+							 ,customer_level 
+						     ,customer_class 	
+							 ,customer_name
+							 ,customer_call
+							 ,customer_email
+							 ,zip_code
+							 ,customer_address
+							 ,customer_address2
+							 ,customer_comany_name
+							 ,customer_company_president
+							 ,customer_company_call
+							 ,customer_company_zip_code
+							 ,customer_company_address1
+							 ,customer_company_address2
+							 ,customer_company_email
+							 ,customer_company_homepage
+							 ,input_staff_code
+							 ,input_staff_name
+							 ,input_date
+							 
+							 ) VALUES(
+							   #{customerId}
+							 , #{customerPw}
+							 , #{customerLevel}
+							 , #{customerClass}
+							 , #{customerName}
+							 , #{customerCall}
+							 , #{customerEmail}
+							 , #{zipCode}
+							 , #{customerAddress}
+							 , #{customerAddress2}
+							 , #{customerComanyName}
+							 , #{customerComanyPresident}
+							 , #{customerCompanyCall}
+							 , #{customerCompanyZipCode}
+							 , #{customerCompanyAddress1}
+							 , #{customerCompanyAddress2}
+							 , #{customerCompanyEmail}
+							 , #{customerCompanyHomepage}
+							 , #{inputStaffCode} 
+							 , #{inputStaffName}
+							 , now()  
+							 );
+	
+	
+	
+	</insert>
+ 
+		
+		
+	 <!--개인사업/법인 고객 리스트  -->
+	 <select id="getCustomerCompanyList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
+		SELECT
+				 customer_id    AS customerId
+				,customer_name 	AS customerName
+				,customer_class	AS customerClass
+				,customer_level	AS customerLevel
+				,input_date	    AS inputDate
+
+			FROM
+				customer_company
+		</select>
+		
+		
+	<!--개인사업/법인 고객 업데이트(값 불러오기) -->
+	  <select id="SelectForUpdate2" parameterType="String" resultMap="customerResultMap">
+		SELECT
+			                  customer_id
+							 ,customer_pw
+							 ,customer_level 
+						     ,customer_class 	
+							 ,customer_name
+							 ,customer_call
+							 ,customer_email
+							 ,zip_code
+							 ,customer_address
+							 ,customer_address2
+							 ,customer_comany_name
+							 ,customer_company_president
+							 ,customer_company_call
+							 ,customer_company_zip_code
+							 ,customer_company_address1
+							 ,customer_company_address2
+							 ,customer_company_email
+							 ,customer_company_homepage
+							 ,input_staff_code
+							 ,input_staff_name
+							 ,input_date
+							 ,update_staff_code 
+							 ,update_staff_name
+							 ,update_date
+							 
+		FROM   customer_company
+		WHERE
+		customer_id = #{customerId};
+	</select>	
+
+	<!--개인사업/법인 업데이트  -->
+	<update id="cUpdate2" parameterType="kr.or.ksmart.domain.Customer">
+		UPDATE  customer_company
+		SET
+			customer_id=#{customerId},
+			customer_pw=#{customerPw},
+			customer_name=#{customerName},
+			customer_class=#{customerClass},
+			customer_call=#{customerCall},
+			customer_email=#{customerEmail},
+			zip_code=#{zipCode},
+			customer_address=#{customerAddress},
+			customer_address2=#{customerAddress2},						
+			customer_comany_name=#{customerComanyName},
+			customer_company_president=#{customerComanyPresident},
+			customer_company_call=#{customerCompanyCall},
+			customer_company_zip_code=#{customerCompanyZipCode},
+			customer_company_address1=#{customerCompanyAddress1},
+			customer_company_address2=#{customerCompanyAddress2},
+			customer_company_email=#{customerCompanyEmail},
+			customer_company_homepage=#{customerCompanyHomepage},								
+			update_staff_code =#{updateStaffCode},
+			update_staff_name=#{updateStaffName},
+			update_date=#{updateDate}
+		WHERE 
+			customer_id=#{customerId}
+	
+	</update>
+ 
+ </mapper>
