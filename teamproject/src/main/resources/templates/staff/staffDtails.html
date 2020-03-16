@@ -5,7 +5,7 @@
   layout:decorate="~{layout/default}"
 >
 <th:block layout:fragment="customTitle">
-	<title>staffList.html</title>
+	<title>adminStaffList.html</title>
 </th:block>
 
 
@@ -140,6 +140,8 @@
                   <th>전화번호</th>
                   <th>이메일</th>
                   <th>권한</th>
+                  <th>상세보기</th>
+                  <th>수정</th>
                 </tr>
 	         </thead>
              <tbody>
@@ -151,6 +153,8 @@
                 <td th:text="${L.staffTell}"></td>
                 <td th:text="${L.staffEmail}"></td>
                 <td th:text="${L.staffLevel}"></td>
+                <td ></td>
+                <td ></td>
               </tr>
              </tbody>
 		</table>

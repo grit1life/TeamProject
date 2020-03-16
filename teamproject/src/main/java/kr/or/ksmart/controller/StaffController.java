@@ -42,12 +42,33 @@ public class StaffController {
 	public String staffInsert() {
 		return "staff/staffInsert";
 	}
+	
 	@GetMapping("/staffList")
 	public String staffList(Model model) {
 		List<Staff> staffList = staffService.staffList();
 		System.out.println(staffList.toString());
 		model.addAttribute("staffList", staffList);
 		return "staff/staffList";
+	}
+	
+	@GetMapping("/admin/staffList")
+	public String adminStaffList(Model model) {
+		return "staff/adminStaffList";
+	}
+	
+	@GetMapping("/admin/staffDtails")
+	public String adminStaffDtails(Model model) {
+		return "staff/adminStaffDtails";
+	}
+	
+	@GetMapping("/admin/staffUpdate")
+	public String adminStaffUpdate(Model model) {
+		return "staff/staffUpdate";
+	}
+	
+	@PostMapping("/admin/staffUpdateConfirmation")
+	public String staffUpdateConfirmation(Model model) {
+		return "staff/staffUpdateConfirmation";
 	}
 	
 }
