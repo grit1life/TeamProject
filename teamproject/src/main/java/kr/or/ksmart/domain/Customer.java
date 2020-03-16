@@ -2,16 +2,28 @@ package kr.or.ksmart.domain;
 
 public class Customer {
 
-	private String customerId;//개인 고객 혹은 거래처 아이디(코드)
-	private String customerPw;//개인 고객 혹은 거래처 비밀번호
-	private String customerName;//개인 고객 혹은 거래처 담당자이름
-	private String customerCall;//개인 고객 혹은 거래처 연락처
-	private String customerEmail;//개인 고객 혹은 거래처 이메일
+	/********** 개인 고객  ***********/
+	private String customerId;//개인 고객  아이디(코드)
+	private String customerPw;//개인 고객  비밀번호
+	private String customerName;//개인 고객  이름
+	private String customerCall;//개인 고객  연락처
+	private String customerEmail;//개인 고객 이메일
 	private String zipCode; // 우편번호
-	private String customerAddress;//개인 고객 혹은 거래처 기본주소
-	private String customerAddress2;//개인 고객 혹은 거래처 상세주소
-	private String customerClass;//개인 고객 혹은 거래처 등급(브론즈,실버,골드,플래티넘)
-	private String customerLevel;//개인 고객 혹은 거래처 권한 (개인, 법인, 개인사업자)
+	private String customerAddress;//개인 고객  기본주소
+	private String customerAddress2;//개인 고객  상세주소
+	private String customerClass;//개인 고객 등급(브론즈,실버,골드,플래티넘)
+	private String customerLevel;//개인 고객 권한 (개인, 법인, 개인사업자)
+	
+	/********** 개인사업/법인 고객 ***********/
+	private String customerComanyName;
+	private String customerComanyPresident;
+	private String customerCompanyCall;
+	private String customerCompanyZipCode;
+	private String customerCompanyAddress1;
+	private String customerCompanyAddress2;
+	private String customerCompanyEmail;
+	private String customerCompanyHomepage;
+	
 	private String inputStaffCode;//입력인 직원 사번(코드)
 	private String inputStaffName;//입력인 직원 이름
 	private String inputDate; //입력날짜
@@ -79,6 +91,54 @@ public class Customer {
 	public void setCustomerLevel(String customerLevel) {
 		this.customerLevel = customerLevel;
 	}
+	public String getCustomerComanyName() {
+		return customerComanyName;
+	}
+	public void setCustomerComanyName(String customerComanyName) {
+		this.customerComanyName = customerComanyName;
+	}
+	public String getCustomerComanyPresident() {
+		return customerComanyPresident;
+	}
+	public void setCustomerComanyPresident(String customerComanyPresident) {
+		this.customerComanyPresident = customerComanyPresident;
+	}
+	public String getCustomerCompanyCall() {
+		return customerCompanyCall;
+	}
+	public void setCustomerCompanyCall(String customerCompanyCall) {
+		this.customerCompanyCall = customerCompanyCall;
+	}
+	public String getCustomerCompanyZipCode() {
+		return customerCompanyZipCode;
+	}
+	public void setCustomerCompanyZipCode(String customerCompanyZipCode) {
+		this.customerCompanyZipCode = customerCompanyZipCode;
+	}
+	public String getCustomerCompanyAddress1() {
+		return customerCompanyAddress1;
+	}
+	public void setCustomerCompanyAddress1(String customerCompanyAddress1) {
+		this.customerCompanyAddress1 = customerCompanyAddress1;
+	}
+	public String getCustomerCompanyAddress2() {
+		return customerCompanyAddress2;
+	}
+	public void setCustomerCompanyAddress2(String customerCompanyAddress2) {
+		this.customerCompanyAddress2 = customerCompanyAddress2;
+	}
+	public String getCustomerCompanyEmail() {
+		return customerCompanyEmail;
+	}
+	public void setCustomerCompanyEmail(String customerCompanyEmail) {
+		this.customerCompanyEmail = customerCompanyEmail;
+	}
+	public String getCustomerCompanyHomepage() {
+		return customerCompanyHomepage;
+	}
+	public void setCustomerCompanyHomepage(String customerCompanyHomepage) {
+		this.customerCompanyHomepage = customerCompanyHomepage;
+	}
 	public String getInputStaffCode() {
 		return inputStaffCode;
 	}
@@ -97,8 +157,6 @@ public class Customer {
 	public void setInputDate(String inputDate) {
 		this.inputDate = inputDate;
 	}
-	
-	
 	public String getUpdateStaffCode() {
 		return updateStaffCode;
 	}
@@ -122,7 +180,12 @@ public class Customer {
 		return "Customer [customerId=" + customerId + ", customerPw=" + customerPw + ", customerName=" + customerName
 				+ ", customerCall=" + customerCall + ", customerEmail=" + customerEmail + ", zipCode=" + zipCode
 				+ ", customerAddress=" + customerAddress + ", customerAddress2=" + customerAddress2 + ", customerClass="
-				+ customerClass + ", customerLevel=" + customerLevel + ", inputStaffCode=" + inputStaffCode
+				+ customerClass + ", customerLevel=" + customerLevel + ", customerComanyName=" + customerComanyName
+				+ ", customerComanyPresident=" + customerComanyPresident + ", customerCompanyCall="
+				+ customerCompanyCall + ", customerCompanyZipCode=" + customerCompanyZipCode
+				+ ", customerCompanyAddress1=" + customerCompanyAddress1 + ", customerCompanyAddress2="
+				+ customerCompanyAddress2 + ", customerCompanyEmail=" + customerCompanyEmail
+				+ ", customerCompanyHomepage=" + customerCompanyHomepage + ", inputStaffCode=" + inputStaffCode
 				+ ", inputStaffName=" + inputStaffName + ", inputDate=" + inputDate + ", updateStaffCode="
 				+ updateStaffCode + ", updateStaffName=" + updateStaffName + ", updateDate=" + updateDate
 				+ ", getCustomerId()=" + getCustomerId() + ", getCustomerPw()=" + getCustomerPw()
@@ -130,11 +193,16 @@ public class Customer {
 				+ ", getCustomerEmail()=" + getCustomerEmail() + ", getZipCode()=" + getZipCode()
 				+ ", getCustomerAddress()=" + getCustomerAddress() + ", getCustomerAddress2()=" + getCustomerAddress2()
 				+ ", getCustomerClass()=" + getCustomerClass() + ", getCustomerLevel()=" + getCustomerLevel()
-				+ ", getInputStaffCode()=" + getInputStaffCode() + ", getInputStaffName()=" + getInputStaffName()
-				+ ", getInputDate()=" + getInputDate() + ", getUpdateStaffCode()=" + getUpdateStaffCode()
-				+ ", getUpdateStaffName()=" + getUpdateStaffName() + ", getUpdateDate()=" + getUpdateDate()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+				+ ", getCustomerComanyName()=" + getCustomerComanyName() + ", getCustomerComanyPresident()="
+				+ getCustomerComanyPresident() + ", getCustomerCompanyCall()=" + getCustomerCompanyCall()
+				+ ", getCustomerCompanyZipCode()=" + getCustomerCompanyZipCode() + ", getCustomerCompanyAddress1()="
+				+ getCustomerCompanyAddress1() + ", getCustomerCompanyAddress2()=" + getCustomerCompanyAddress2()
+				+ ", getCustomerCompanyEmail()=" + getCustomerCompanyEmail() + ", getCustomerCompanyHomepage()="
+				+ getCustomerCompanyHomepage() + ", getInputStaffCode()=" + getInputStaffCode()
+				+ ", getInputStaffName()=" + getInputStaffName() + ", getInputDate()=" + getInputDate()
+				+ ", getUpdateStaffCode()=" + getUpdateStaffCode() + ", getUpdateStaffName()=" + getUpdateStaffName()
+				+ ", getUpdateDate()=" + getUpdateDate() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
 	
 	
