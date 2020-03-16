@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ksmart.domain.Customer;
 import kr.or.ksmart.service.CustomerService;
+
 
 
 
@@ -23,6 +25,20 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	
+	//TEST
+	@GetMapping("/advanced")
+	public String advanced() {
+		
+		
+		return "/customer/advanced";
+	}
+	@GetMapping("/general")
+	public String general() {
+		
+		
+		return "/customer/general";
+	}
+	
 	//개인 고객 등록
 	@GetMapping("/cInsert")
 	public String cInsert() {
@@ -30,7 +46,7 @@ public class CustomerController {
 		
 		return "/customer/cInsert";
 	}
-	//개인 고객 등록 프로세스
+	
     @PostMapping("/cInsert")
 	public String cInsert(@RequestParam(value="customerId", required = false) String customerId, Customer customer){
 			 
@@ -66,30 +82,61 @@ public class CustomerController {
 		
 		//개인고객 업데이트(값 수정)
 		@PostMapping("/cUpdate")
-		public String gUpdate(Customer customer) {
+		public String cUpdate(Customer customer) {
 			int result = customerService.cUpdate(customer);
 			
 				return "redirect:/cList";
 		}
 				
 		//개인고객 삭제
-		
+		@GetMapping("/cDelete")
+		public String cDelete(@RequestParam(value="customerId", required = false) String customerId							 
+				             ,@RequestParam(value="customerName", required = false) String customerName	
+				             , Model model) {
+			model.addAttribute("customerId", customerId);
+			model.addAttribute("customerName", customerService.SelectForUpdate(customerId).getCustomerName());
+			return "customer/cDelete";
+		}
 		
 		@PostMapping("/cDelete")
-		public String cDelete(@RequestParam(value="customerId", required = false) String customerId	
-				 , Model model) {
-			model.addAttribute("customerId",customerId);
-			return "/customer/cDelete";
+		public String cDelete(@RequestParam(value="customerId") String customerId	
+							 ,@RequestParam(value="customerName", required = false) String customerName		
+				             ,RedirectAttributes redirectA) {
+			Customer customer = customerService.SelectForUpdate(customerId);
+			if(customerId != null && !"".equals(customerId)
+					&& customerId.equals(customer.getCustomerId())) {
+				customerService.cDelte(customerId, customerName);
+				return "redirect:/cList";
+				
+			}else {
+				redirectA.addAttribute("customerName", customerName);
+				return "/customer/cDelete";
+				
+			}
+			
 		}
 				
 				
-		//개인사업, 거래처 고객 등록
-		@GetMapping("/cInsert2")
-		public String addCustomer2() {
+	//개인사업, 거래처 고객 등록
+	@GetMapping("/cInsert2")
+	public String addCustomer2() {
 			
 			return "/customer/cInsert2";
 				
-		}			
+		}
+	@PostMapping("/cInsert2")
+		public String cInsert2(@RequestParam(value="customerId", required = false) String customerId, Customer customer){
+				 
+	    		  System.out.println("binding test = " + customerId);
+	    		  System.out.println(customer.toString());
+				  int result =customerService.cInsert2(customer); 
+				  if(result>0) {
+					  return "redirect:/cList2";
+				  }
+			 
+			  
+			  return "redirect:/cList2";
+			  }	
 		
 	
 	//개인 사업, 법인 고객 리스트
@@ -100,11 +147,22 @@ public class CustomerController {
 			return "/customer/cList2";
 		}
 
-	//개인사업, 법인  고객 상세보기
+	//개인사업, 법인  고객 업데이트(값 불러오기)
 		@GetMapping("/cUpdate2")
-		public String CustomerCompanyView() {
+		public String CustomerView2(@RequestParam(value="customerId", required = false) String customerId
+				, Model model) {
+			
+			model.addAttribute("Customer", customerService.SelectForUpdate2(customerId));
 			
 			return "/customer/cUpdate2";
 		}
+		
+	//개인고객 업데이트(값 수정)
+		@PostMapping("/cUpdate2")
+		public String cUpdate2(Customer customer) {
+					int result = customerService.cUpdate2(customer);
+					
+						return "redirect:/cList2";
+				}		
 	
 }

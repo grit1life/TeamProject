@@ -17,17 +17,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script>
-	//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
-	$(function(){
-		$('#btn-remove').click(function(){
-			if(confirm("한 번 삭제된 고객 데이터는 다시 복구할 수 없습니다. 부디 유념해주시길 바랍니다.")){
-				self.location.href = "/customer/remove?customerId=${Customer.customerId}";
-			}
-		});
-	});
-  </script>
+ 
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

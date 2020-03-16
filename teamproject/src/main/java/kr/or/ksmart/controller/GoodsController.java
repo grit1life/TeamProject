@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.service.GoodsService;
+import kr.or.ksmart.domain.Goods;
 
 @RestController
 public class GoodsController {
@@ -19,7 +19,7 @@ public class GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	
-	@PostMapping(value = "/goods", produces = "application/json")
+	@PostMapping(value = "/goods")
 	public String insertGoods (Goods goods) {
 		return goodsService.insertGoods(goods);
 	}
@@ -43,5 +43,5 @@ public class GoodsController {
 	public String deleteGoods (@PathVariable(value = "goodsCode") final String goodsCode) {
 		return "";
 	}
-}
 	
+}

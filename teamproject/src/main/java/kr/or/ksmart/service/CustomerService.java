@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.Customer;
-import kr.or.ksmart.domain.CustomerCompany;
 import kr.or.ksmart.mapper.CustomerMapper;
 
 
@@ -54,15 +53,39 @@ public class CustomerService {
 	
 	//개인 고객 삭제
 	
-	public int cDelte(String customerId) {
-		return customerMapper.cDelete(customerId);
+	public int cDelte(String customerId, String customerName) {
+		return customerMapper.cDelete(customerId, customerName);
 	}
-	//개인 사업& 법인 거래처 고객 고객 리스트
-		public List<CustomerCompany> getCustomerCompanyList() {
+	
+	
+	//개인 사업& 법인 고객 등록 
+	
+		public int cInsert2(Customer customer){
+			
+			return customerMapper.cInsert2(customer);
+			
+		}
+	
+	
+	
+	//개인 사업& 법인 고객 리스트
+		public List<Customer> getCustomerCompanyList() {
 			return customerMapper.getCustomerCompanyList();
 
 		
 		}
+		
+   //개인 사업& 법인 고객 업데이트(값가져오기)
+		public Customer SelectForUpdate2(String customerId) {
+			
+			return customerMapper.SelectForUpdate2(customerId);
+		} 
+		
+	//개인 사업& 법인 고객 업데이트(값 수정)
+		public int cUpdate2(Customer customer) {
+			return customerMapper.cUpdate2(customer);
+			
+		}		
 	
 	
 	
