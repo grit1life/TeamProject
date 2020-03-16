@@ -12,6 +12,8 @@ import kr.or.ksmart.mapper.CustomerMapper;
 
 
 
+
+
 @Service
 @Transactional
 public class CustomerService {
@@ -36,6 +38,25 @@ public class CustomerService {
 	
 	}
 	
+	
+	//개인 고객 업데이트(값가져오기)
+		
+	public Customer SelectForUpdate(String customerId) {
+		
+		return customerMapper.SelectForUpdate(customerId);
+	}
+	
+	//개인 고객 업데이트(값 수정)
+	public int cUpdate(Customer customer) {
+		return customerMapper.cUpdate(customer);
+		
+	}
+	
+	//개인 고객 삭제
+	
+	public int cDelte(String customerId) {
+		return customerMapper.cDelete(customerId);
+	}
 	//개인 사업& 법인 거래처 고객 고객 리스트
 		public List<CustomerCompany> getCustomerCompanyList() {
 			return customerMapper.getCustomerCompanyList();

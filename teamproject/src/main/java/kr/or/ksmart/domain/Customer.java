@@ -15,6 +15,10 @@ public class Customer {
 	private String inputStaffCode;//입력인 직원 사번(코드)
 	private String inputStaffName;//입력인 직원 이름
 	private String inputDate; //입력날짜
+	private String updateStaffCode;//수정인 직원 사번(코드)
+	private String updateStaffName;//수정인 직원 이름
+	private String updateDate; //수정날짜
+	
 	public String getCustomerId() {
 		return customerId;
 	}
@@ -93,19 +97,42 @@ public class Customer {
 	public void setInputDate(String inputDate) {
 		this.inputDate = inputDate;
 	}
+	
+	
+	public String getUpdateStaffCode() {
+		return updateStaffCode;
+	}
+	public void setUpdateStaffCode(String updateStaffCode) {
+		this.updateStaffCode = updateStaffCode;
+	}
+	public String getUpdateStaffName() {
+		return updateStaffName;
+	}
+	public void setUpdateStaffName(String updateStaffName) {
+		this.updateStaffName = updateStaffName;
+	}
+	public String getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerPw=" + customerPw + ", customerName=" + customerName
 				+ ", customerCall=" + customerCall + ", customerEmail=" + customerEmail + ", zipCode=" + zipCode
 				+ ", customerAddress=" + customerAddress + ", customerAddress2=" + customerAddress2 + ", customerClass="
 				+ customerClass + ", customerLevel=" + customerLevel + ", inputStaffCode=" + inputStaffCode
-				+ ", inputStaffName=" + inputStaffName + ", inputDate=" + inputDate + ", getCustomerId()="
-				+ getCustomerId() + ", getCustomerPw()=" + getCustomerPw() + ", getCustomerName()=" + getCustomerName()
-				+ ", getCustomerCall()=" + getCustomerCall() + ", getCustomerEmail()=" + getCustomerEmail()
-				+ ", getZipCode()=" + getZipCode() + ", getCustomerAddress()=" + getCustomerAddress()
-				+ ", getCustomerAddress2()=" + getCustomerAddress2() + ", getCustomerClass()=" + getCustomerClass()
-				+ ", getCustomerLevel()=" + getCustomerLevel() + ", getInputStaffCode()=" + getInputStaffCode()
-				+ ", getInputStaffName()=" + getInputStaffName() + ", getInputDate()=" + getInputDate()
+				+ ", inputStaffName=" + inputStaffName + ", inputDate=" + inputDate + ", updateStaffCode="
+				+ updateStaffCode + ", updateStaffName=" + updateStaffName + ", updateDate=" + updateDate
+				+ ", getCustomerId()=" + getCustomerId() + ", getCustomerPw()=" + getCustomerPw()
+				+ ", getCustomerName()=" + getCustomerName() + ", getCustomerCall()=" + getCustomerCall()
+				+ ", getCustomerEmail()=" + getCustomerEmail() + ", getZipCode()=" + getZipCode()
+				+ ", getCustomerAddress()=" + getCustomerAddress() + ", getCustomerAddress2()=" + getCustomerAddress2()
+				+ ", getCustomerClass()=" + getCustomerClass() + ", getCustomerLevel()=" + getCustomerLevel()
+				+ ", getInputStaffCode()=" + getInputStaffCode() + ", getInputStaffName()=" + getInputStaffName()
+				+ ", getInputDate()=" + getInputDate() + ", getUpdateStaffCode()=" + getUpdateStaffCode()
+				+ ", getUpdateStaffName()=" + getUpdateStaffName() + ", getUpdateDate()=" + getUpdateDate()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
