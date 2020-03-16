@@ -15,6 +15,7 @@ import kr.or.ksmart.service.CustomerService;
 
 
 
+
 @Controller
 public class CustomerController {
 	
@@ -41,17 +42,11 @@ public class CustomerController {
 			  }
 		 
 		  
-		  return "redirect:/cList"; }
+		  return "redirect:/cList";
+		  }	
 	
-	//개인사업, 거래처 고객 등록
-	@GetMapping("/cInsert2")
-	public String addCustomer2() {
-			
-			
-		return "/customer/cInsert2";
-	}
 	
-	//개인고객 리스트
+	//개인 고객 리스트
 	@GetMapping("/cList")
 	public String CustomerList(Model model) {
 		model.addAttribute("CustomerList", customerService.getCustomerList());
@@ -59,6 +54,41 @@ public class CustomerController {
 		return "/customer/cList";
 	}
 	
+	//개인 고객 업데이트(값 불러오기)
+		@GetMapping("/cUpdate")
+		public String CustomerView(@RequestParam(value="customerId", required = false) String customerId
+				, Model model) {
+			
+			model.addAttribute("Customer", customerService.SelectForUpdate(customerId));
+			
+			return "/customer/cUpdate";
+		}
+		
+		//개인고객 업데이트(값 수정)
+		@PostMapping("/cUpdate")
+		public String gUpdate(Customer customer) {
+			int result = customerService.cUpdate(customer);
+			
+				return "redirect:/cList";
+		}
+				
+		//개인고객 삭제
+		@PostMapping("/cDelete")
+		public String cDelete(@RequestParam(value="customerId", required = false) String customerId	
+				 , Model model) {
+			model.addAttribute("customerId",customerId);
+			return "/customer/cDelete";
+		}
+				
+				
+		//개인사업, 거래처 고객 등록
+		@GetMapping("/cInsert2")
+		public String addCustomer2() {
+			
+			return "/customer/cInsert2";
+				
+		}			
+		
 	
 	//개인 사업, 법인 고객 리스트
 	@GetMapping("/cList2")
@@ -67,15 +97,7 @@ public class CustomerController {
 				
 			return "/customer/cList2";
 		}
-	
-	//개인 고객 상세보기
-	@GetMapping("/cUpdate")
-	public String CustomerView() {
-		
-		return "/customer/cUpdate";
-	}
-	
-	
+
 	//개인사업, 법인  고객 상세보기
 		@GetMapping("/cUpdate2")
 		public String CustomerCompanyView() {

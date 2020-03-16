@@ -16,6 +16,18 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+	//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
+	$(function(){
+		$('#btn-remove').click(function(){
+			if(confirm("해당 고객 데이터를 완전히 삭제하시겠습니까?")){
+				self.location.href = "/customer/remove?customerId=${Customer.customerId}";
+			}
+		});
+	});
+  </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -192,6 +204,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
+              <form th:action="@{/cDelete}" method="post">
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <thead>
@@ -212,20 +225,19 @@
 						<td th:text="${l.customerLevel}"></td>
 						<td th:text="${l.customerClass}"></td>
 						<td th:text="${l.inputDate}"></td>		
-						<td>
-						   
+						<td> 
 							<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
 	                              <i class="fas fa-folder">
 	                              </i>
 	                              View
 	                        </a>    		
 						</td>				
-						<td>
-							<a class="btn btn-danger btn-sm" href="#">
+						<td>							
+							<button type="submit" class="btn btn-danger btn-sm" id="btn-remove">
                               <i class="fas fa-trash">
                               </i>
                               Delete
-                          </a>		
+                          </button>		
 						</td>
 				
 					</tr>
@@ -233,6 +245,7 @@
                   </tbody>
                 </table>
               </div>
+           </form>   
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -246,7 +259,7 @@
         </div>
                        
         </div>
-     
+   
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
