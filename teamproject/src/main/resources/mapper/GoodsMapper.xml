@@ -23,28 +23,42 @@
 	</resultMap>
 	
 	<insert id="insertGoods" parameterType="Goods">
-	INSERT INTO goods
-		( goods_code
-		, goods_category_code
-		, goods_name
-		, goods_barcode
-		, goods_input_staff_code
-		, goods_input_date
-		, goods_update_staff_code
-		, goods_update_date
-		, goods_desc
-		, goods_img	)
-	VALUES 
-		( #{goodsCode}
-		, #{goodsCategoryCode}
-		, #{goodsName}
-		, #{goodsBarcode}
-		, #{goodsInputStaffCode}
-		, NOW()
-		, #{goodsUpdateStaffCode}
-		, NOW()
-		, #{goodsDesc}
-		, #{goodsImg}	)
+		<selectKey resultType="String" keyProperty="goodsCode" order="BEFORE">
+			SELECT
+				CASE
+					WHEN MAX(goods_code) LIKE 'goo_%'
+					THEN
+						CONCAT
+							( 'goo_'
+							, LPAD(MAX(CAST(SUBSTRING(goods_code, 5) AS DECIMAL))+1,'4','0') )
+				ELSE
+					ifnull(goods_code, 'goo_0001')
+				END AS goodsCode
+			FROM
+				goods
+		</selectKey>
+		INSERT INTO goods
+			(	goods_code
+			, goods_category_code
+			, goods_name
+			, goods_barcode
+			, goods_input_staff_code
+			, goods_input_date
+			, goods_update_staff_code
+			, goods_update_date
+			, goods_desc
+			, goods_img)
+		VALUES 
+			( #{goodsCode}
+			, #{goodsCategoryCode}
+			, #{goodsName}
+			, #{goodsBarcode}
+			, #{goodsInputStaffCode}
+			, NOW()
+			, #{goodsUpdateStaffCode}
+			, NOW()
+			, #{goodsDesc}
+			, #{goodsImg}	);
 	</insert>
 		
 	<select id="getGoodsList" resultMap="goodsResultMap">
@@ -104,7 +118,7 @@
 		DELETE FROM
 				goods
 		WHERE
-			goods_code= #{goodsCode};
+				goods_code= #{goodsCode};
 	</delete>
 	
 </mapper>

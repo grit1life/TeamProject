@@ -26,6 +26,7 @@ public class GoodsService {
 		} else {
 			resultMsg = "insert failed";
 		}
+		System.out.println(resultMsg);
 		
 		return resultMsg;
 	}

@@ -14,6 +14,10 @@ public class Goods {
 	private String goodsDesc;
 	private String goodsImg;
 	
+	private String goodsCategoryName;
+	private String goodsCategoryInputStaffCode;
+	private String goodsCategoryInputDate;
+	
 	public String getGoodsCode() {
 		return goodsCode;
 	}
@@ -74,4 +78,23 @@ public class Goods {
 	public void setGoodsImg(String goodsImg) {
 		this.goodsImg = goodsImg;
 	}
+	public String getGoodsCategoryName() {
+		return goodsCategoryName;
+	}
+	public void setGoodsCategoryName(String goodsCategoryName) {
+		this.goodsCategoryName = goodsCategoryName;
+	}
+	public String getGoodsCategoryInputStaffCode() {
+		return goodsCategoryInputStaffCode;
+	}
+	public void setGoodsCategoryInputStaffCode(String goodsCategoryInputStaffCode) {
+		this.goodsCategoryInputStaffCode = goodsCategoryInputStaffCode;
+	}
+	public String getGoodsCategoryInputDate() {
+		return goodsCategoryInputDate;
+	}
+	public void setGoodsCategoryInputDate(String goodsCategoryInputDate) {
+		this.goodsCategoryInputDate = goodsCategoryInputDate;
+	}
+	
 }
