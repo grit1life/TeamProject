@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>adminStaffList.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>지권 상세 정보</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Advanced Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card card-default">
+
+	 
+	 <div class="card-body" style="margin-top:20px">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>아이디</th>
+                  <th>비밀번호</th>
+                  <th>직원 명</th>
+                  <th>생년월일</th>
+                  <th>전화번호</th>
+                  <th>이메일</th>
+                  <th>현제 권한</th>
+                  <th>입력 날짜</th>
+                  <th>입력자</th>
+                  <th>수정</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr th:each="L:${staffList}">
+                <td th:text="${L.branchName}">1</td>
+                <td th:text="${L.staffPosition}"></td>
+                <td th:text="${L.staffName}"></td>
+                <td th:text="${L.staffBirth}"></td>
+                <td th:text="${L.staffTell}"></td>
+                <td th:text="${L.staffEmail}"></td>
+                <td th:text="${L.staffLevel}"></td>
+                <td th:text="${L.staffEmail}"></td>
+                <td th:text="${L.staffLevel}"></td>
+                <td><a th:href="@{/admin/staffUpdate}" class="nav-link"></a></td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	 </div>
+      	
+    </div>
+	
+	<div class="container-fluid">
+	<div class="card card-default">
+	 <div class="card-body" style="margin-top:20px">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>지점</th>
+                  <th>직책</th>
+                  <th>권한</th>
+                  <th>이동일</th>
+                  <th>끝난날</th>
+                  <th>입력 날짜</th>
+                  <th>입력자</th>
+                  <th>수정</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr th:each="L:${staffList}">
+                <td th:text="${L.branchName}"></td>
+                <td th:text="${L.staffPosition}"></td>
+                <td th:text="${L.staffName}"></td>
+                <td th:text="${L.staffBirth}"></td>
+                <td th:text="${L.staffTell}"></td>
+                <td th:text="${L.staffEmail}"></td>
+                <td th:text="${L.staffLevel}"></td>
+                <td><a th:href="@{/admin/staffUpdate}" class="nav-link"></a></td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	 </div>
+	 </div>
+  </section>
+  </div>
+ </th:block>
+</body>
+</html>
