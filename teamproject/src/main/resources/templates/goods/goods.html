@@ -1,36 +1,65 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layout/default}"
->
-  <th:block layout:fragment="customTitle">
-    <title>index</title>
-  </th:block>
-
-  <body class="hold-transition sidebar-mini layout-fixed">
-  	<th:block layout:fragment="customContents">
-    	<div class="content-wrapper">
-    <div>
-      <button id="insert-form-btn">상품등록</button>
-    </div>
-
-    <table class="table">
-      <thead>
-        <th>상품코드</th>
-        <th>상품카테고리</th>
-        <th>상품명</th>
-        <th>상세보기</th>
-      </thead>
-      <tbody id="list-tbody"></tbody>
-    </table>
-
-    <div id="form-div"></div>
-    
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!-- jquery cdn -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
     <!-- axios cdn -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- qs cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.1/qs.min.js"></script>
+  </head>
+  <body>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <button id="insert-form-btn" class="btn btn-primary">
+              상품등록
+            </button>
+            <div class="card card-success">
+              <div class="card-header">
+                상품정보조회
+              </div>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <th>상품코드</th>
+                  <th>상품카테고리</th>
+                  <th>상품명</th>
+                  <th>상세</th>
+                </thead>
+                <tbody id="list-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div id="form-div"></div>
+          </div>
+        </div>
+        <div>
+          <form id="file-upload-form">
+            <label for="file-upload-input">Select file to upload</label>
+            <input type="file" id="file-upload-input" name="file" />
+            <button type="submit" id="#">파일등록</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <script>
       axios
         .get("/goods")
@@ -48,7 +77,7 @@
             `<td>${item.goodsCode}</td>` +
             `<td>${item.goodsCategoryCode}</td>` +
             `<td>${item.goodsName}</td>` +
-            `<td><button type="button" name=${item.goodsCode} class="view-btn" />상세보기</td>`;
+            `<td><button type="button" name=${item.goodsCode} class="view-btn btn btn-success" />상세</td>`;
           document.querySelector("tbody#list-tbody").appendChild(listEl);
         });
       };
@@ -58,34 +87,112 @@
         $("div#form-div").html("");
         const formEl = document.createElement("div");
         if (formType == "insert") {
-          formEl.innerHTML = `<form id="insert-form">
-          <input name="goodsCategoryCode" />
-          <input name="goodsName" />
-          <input name="goodsBarcode" />
-          <input name="goodsInputStaffCode" />
-          <input name="goodsInputDate" />
-          <input name="goodsUpdateStaffCode" />
-          <input name="goodsUpdateDate" />
-          <input name="goodsDesc" />
-          <input name="goodsImg" />
-          <button type="button" id="insert-btn">등록</button>
-          <button type="button" id="cancle-btn">취소</button>
+          formEl.innerHTML = `
+          <div class="card card-success">
+            <div class="card-header">상품정보입력</div>
+          </div>
+          <form id="insert-form" role="form">
+            <div class="card-body">
+
+            <div class="form-group">
+              <label>상품분류코드</label>
+              <input name="goodsCategoryCode" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+              <label>상품명</label>
+              <input name="goodsName" class="form-control"/>
+            </div>
+            
+            <div class="form-group">
+              <label>바코드</label>
+            <input name="goodsBarcode" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+              <label>상품상세설명</label>
+              <input name="goodsDesc" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+              <label>상품이미지</label>
+              <input name="goodsImg" class="form-control"/>
+            </div>
+
+            <button type="button" id="insert-btn" class="btn btn-primary">등록</button>
+            <button type="button" id="cancle-btn" class="btn btn-default">취소</button>
+            
+            </div>
           </form>`;
         } else if (formType == "view") {
-          formEl.innerHTML = `<form id="view-form">
-          <input name="goodsCode" value="${data.goodsCode}" readonly />
-          <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" readonly />
-          <input name="goodsName" value="${data.goodsName}" readonly />
-          <input name="goodsBarcode" value="${data.goodsBarcode}" readonly />
-          <input name="goodsInputStaffCode" value="${data.goodsInputStaffCode}" readonly />
-          <input name="goodsInputDate" value="${data.goodsInputDate}" readonly/>
-          <input name="goodsUpdateStaffCode" value="${data.goodsUpdateStaffCode}" readonly />
-          <input name="goodsUpdateDate" value="${data.goodsUpdateDate}" readonly />
-          <input name="goodsDesc" value="${data.goodsDesc}" readonly />
-          <input name="goodsImg" value="${data.goodsImg}" readonly />
-          <button type="button" name=${data.goodsCode} id="update-form-btn">수정</button>
-          <button type="button" id="delete-btn">삭제</button>
-          <button type="button" id="cancle-btn">취소</button>
+          formEl.innerHTML = `
+          <div class="card card-success">
+            <div class="card-header">상품정보조회</div>
+          </div>
+          <form id="insert-form" role="form">
+          <form id="view-form">
+            <div class="card-body">
+            
+            <div class="form-group">
+              <label>상품코드</label>
+              <input name="goodsCode" value="${data.goodsCode}" class="form-control" readonly />
+            </div>
+            
+            <div class="form-group">
+              <label>상품분류코드</label>
+              <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>상품분류명</label>
+              <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>상품명</label>
+              <input name="goodsName" value="${data.goodsName}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>바코드</label>
+              <input name="goodsBarcode" value="${data.goodsBarcode}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>등록직원</label>
+              <input name="goodsInputStaffCode" value="${data.goodsInputStaffCode}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>등록일</label>
+              <input name="goodsInputDate" value="${data.goodsInputDate}" class="form-control" readonly/>
+            </div>
+
+            <div class="form-group">
+              <label>수정직원</label>
+              <input name="goodsUpdateStaffCode" value="${data.goodsUpdateStaffCode}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>수정일</label>
+              <input name="goodsUpdateDate" value="${data.goodsUpdateDate}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>상품상세설명</label>
+              <input name="goodsDesc" value="${data.goodsDesc}" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>상품이미지</label>
+              <input name="goodsImg" value="${data.goodsImg}" class="form-control" readonly />
+            </div>
+
+            <button type="button" name=${data.goodsCode} id="update-form-btn" class="btn btn-warning">수정</button>
+            <button type="button" id="delete-btn" class="btn btn-danger">삭제</button>
+            <button type="button" id="cancle-btn" class="btn btn-default">취소</button>
+
+            </div>
           </form>`;
         } else if (formType == "update") {
           formEl.innerHTML = `<form id="update-form">
@@ -97,8 +204,8 @@
           <input name="goodsInputDate" value="${data.goodsInputDate}" readonly/>
           <input name="goodsDesc" value="${data.goodsDesc}" />
           <input name="goodsImg" value="${data.goodsImg}" />
-          <button type="button" id="update-btn">수정</button>
-          <button type="button" id="cancle-btn">취소</button>
+          <button type="button" id="update-btn" class="btn btn-warning">수정</button>
+          <button type="button" id="cancle-btn" class="btn btn-default">취소</button>
           </form>`;
         }
         $("div#form-div").append(formEl);
@@ -129,6 +236,8 @@
           contentType: "application/x-www-form-urlencoded; charset=euc-kr",
           success: msg => {
             console.log(msg);
+            const data = {};
+            renderForm("insert", data);
           }
         });
       });
@@ -145,8 +254,5 @@
           });
       });
     </script>
-    </div>
-    </th:block>
   </body>
 </html>
-
