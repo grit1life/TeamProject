@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>staffInsert.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">	
+	<section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>직원 이동 정보 수정</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">General Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  <section class="content">
+	
+	<div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">수정 내용 입력</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form class="form-horizontal" th:action="@{/admin/staffChangeUpdateConfirmation}" method="post">
+                <div class="card-body">
+	                  <div class="form-group row">
+	                    <label for="inputEmail3" class="col-sm-2 col-form-label">직원 아이디</label>
+	                    <div class="col-sm-10">
+	                      <input type="text" class="form-control" id="inputEmail3" placeholder="staffId" name="staffId">
+	                    </div>
+	                  </div>
+	                  
+	                  <div class="form-group row">
+	                    <label for="inputPassword3" class="col-sm-2 col-form-label">이름</label>
+	                    <div class="col-sm-10">
+	                      <input type="text" class="form-control" id="inputPassword3" placeholder="staffName" name="staffName">
+	                    </div>
+	                  </div>
+	                  
+	                  <div class="form-group row">
+	                    <label for="inputEmail3" class="col-sm-2 col-form-label">이동일(시작)</label>
+	                    <div class="col-sm-10">
+	                      <input type="date" class="form-control" id="inputEmail3" placeholder="staffFromPeriod" name="staffFromPeriod">
+	                    </div>
+	                  </div>
+	                  
+	                  <div class="form-group row">
+	                    <label for="inputPassword3" class="col-sm-2 col-form-label">이동일(끝)</label>
+	                    <div class="col-sm-10">
+	                      <input type="date" class="form-control" id="inputPassword3" placeholder="staffToPeriod" name="staffToPeriod">
+	                    </div>
+	                  </div>
+	                  
+	                  <div class="form-group row">
+	                    <label for="inputEmail3" class="col-sm-2 col-form-label">직책</label>
+	                    <div class="col-sm-10">
+	                      <input type="text" class="form-control" id="inputEmail3" placeholder="staffPosition" name="staffPosition">
+	                    </div>
+	                  </div>
+	                  
+	                  <div class="form-group row">
+	                    <label for="inputPassword3" class="col-sm-2 col-form-label">권한</label>
+	                    <div class="col-sm-10">
+	                      <select class="form-control" name="staffLevel">
+	                      	<option value="관리자">관리자</option>
+	                      	<option value="직원">직원</option>
+	                      </select>
+	                    </div>
+	                  </div>
+                  
+                </div>
+                
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button id="conBtn" type="submit" class="btn btn-info">입력 내용 확인</button>
+                  <button onClick="history.go(-1);" type="submit" class="btn btn-default float-right">Cancel</button>
+                </div>
+                <!-- /.card-footer -->
+              </form>
+            </div>
+   </section>
+</div>
+
+
+</th:block>
+</body>
+</html>
