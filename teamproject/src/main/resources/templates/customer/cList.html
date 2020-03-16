@@ -22,7 +22,7 @@
 	//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
 	$(function(){
 		$('#btn-remove').click(function(){
-			if(confirm("해당 고객 데이터를 완전히 삭제하시겠습니까?")){
+			if(confirm("한 번 삭제된 고객 데이터는 다시 복구할 수 없습니다. 부디 유념해주시길 바랍니다.")){
 				self.location.href = "/customer/remove?customerId=${Customer.customerId}";
 			}
 		});
@@ -204,7 +204,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <form th:action="@{/cDelete}" method="post">
+              
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <thead>
@@ -233,7 +233,7 @@
 	                        </a>    		
 						</td>				
 						<td>							
-							<button type="submit" class="btn btn-danger btn-sm" id="btn-remove">
+							<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
                               <i class="fas fa-trash">
                               </i>
                               Delete
@@ -245,7 +245,7 @@
                   </tbody>
                 </table>
               </div>
-           </form>   
+       
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

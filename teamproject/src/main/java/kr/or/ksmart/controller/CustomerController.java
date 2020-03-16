@@ -73,6 +73,8 @@ public class CustomerController {
 		}
 				
 		//개인고객 삭제
+		
+		
 		@PostMapping("/cDelete")
 		public String cDelete(@RequestParam(value="customerId", required = false) String customerId	
 				 , Model model) {
