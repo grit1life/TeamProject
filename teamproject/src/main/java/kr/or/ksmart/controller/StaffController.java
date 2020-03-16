@@ -38,9 +38,13 @@ public class StaffController {
 		return loginMap;
 	}
 
-	@GetMapping("/staffInsert")
+	@GetMapping("staffInsert")
 	public String staffInsert() {
 		return "staff/staffInsert";
+	}
+	@PostMapping("admin/staffInsertConfirmation")
+	public String staffInsertConfirmation() {
+		return "staff/staffInsertConfirmation";
 	}
 	
 	@GetMapping("/staffList")
@@ -57,18 +61,28 @@ public class StaffController {
 	}
 	
 	@GetMapping("/admin/staffDtails")
-	public String adminStaffDtails(Model model) {
+	public String StaffDtails(Model model) {
 		return "staff/adminStaffDtails";
 	}
 	
 	@GetMapping("/admin/staffUpdate")
-	public String adminStaffUpdate(Model model) {
+	public String StaffUpdate(Model model) {
 		return "staff/staffUpdate";
 	}
-	
 	@PostMapping("/admin/staffUpdateConfirmation")
 	public String staffUpdateConfirmation(Model model) {
 		return "staff/staffUpdateConfirmation";
 	}
+	
+	@GetMapping("/admin/staffChangeUpdate")
+	public String staffChangeUpdate(Model model) {
+		return "staff/staffChangeUpdate";
+	}
+	@PostMapping("/admin/staffChangeUpdateConfirmation")
+	public String staffChangeUpdateConfirmation(Model model) {
+		return "staff/staffChangeUpdateConfirmation";
+	}
+	
+
 	
 }

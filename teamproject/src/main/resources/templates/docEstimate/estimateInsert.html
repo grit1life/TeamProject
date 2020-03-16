@@ -5,52 +5,158 @@
   layout:decorate="~{layout/default}"
 >
 <th:block layout:fragment="customTitle">
-	<title>estimateInsert.html</title>
+	<title>staffList.html</title>
 </th:block>
+
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
-<div class="content-wrapper">
-	아이디  <input type="text">
-	이름<input type="text"><br>
-	전화번호<input type="text">
-	이메일 주소<input type="text"><br>
-	담당자<input type="text">
-	<button id="customerSerch">고객 검색</button><br><br><br>
-	<input type="date" name="rentalFromDate">~<input type="date" name="rentalToDate"><br>
-	<button>상품 검색</button><input type="number">개	<br>	
-	<button>세트 검색</button><input type="number">개	<br>	
-	<button id="staffSerch">담단자 검색</button>			
+ <div class="content-wrapper">
+    <section class="content-header">
+       
+       
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1>Advanced Form</h1>
+         </div>
+         <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+             <li class="breadcrumb-item active">Advanced Form</li>
+           </ol>
+         </div>
+       </div>
+     
 
-</div>
+      <div class="container-fluid">   
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Select2 (Default Theme)</h3>
 
-<script src="plugins/jquery/jquery.min.js"></script>
-<script>
-	$(function(){
-		$('#customerSerch').on('click',function(){
-			console.log("customerSerch");
-			
-			$.ajax({
-				type : 'post',
-				url : '/ajaxCustomerList',
-				dataType : "json",
-				data : {},
-				success : function(data){
-					console.log(data);
-				},
-				error : function(error){
-					console.log('error', error);
-				}
-			})
+		         <div class="card-tools">
+			     <div style="display: inline-block;">
+			     	<button type="button" data-card-widget="collapse" class="btn btn-block btn-secondary btn-xs">고객선택</button>
+			     </div>
+			     <div style="display: inline-block;">
+			     	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+			     </div>
+	   </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <!-- left -->
+            <div class="row">
+              <!-- 1 -->
+              <div class="col-md-6" style="max-width: 20%;">
+                <div class="form-group">
+                  <label>지점</label>
+		           <select class="form-control select2bs4" style="width: 100%;" name="branchName">
+		             <option selected="selected"></option>
+		             <option selected="selected" value="본사">본사</option>
+		             <option selected="selected" value="본사">전주시점</option>
+		           </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>직책</label>
+		           <select class="form-control select2bs4" style="width: 100%;" name="staffPosition">
+		             <option selected="selected"></option>
+		             <option selected="selected" value="부장">부장</option>
+		             <option selected="selected" value="과장">과장</option>
+		             <option selected="selected" value="">일방</option>
+		           </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- 2 -->
+              <div class="col-md-6" style="max-width: 20%;">
+                <div class="form-group">
+                  <label>권한</label>
+		           <select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+		             <option selected="selected"></option>
+		             <option selected="selected" value="관리자">관리자</option>
+		             <option selected="selected" value="직원">직원</option>
+		           </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>이름</label>
+		           <input type="text" class="form-control select2bs4" name="staffName">
+	            </div>
+                <!-- /.form-group -->
+              </div>
+              
+              <!-- 3 -->
+              <div class="col-md-6" style="max-width: 25%;">
+                <div class="form-group">
+                  <label>생년월일</label>
+		          <input type="date" class="form-control select2bs4" name="staffBirth">
+	           </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>전화번호</label>
+		          <input type="text" class="form-control select2bs4" name="staffTell">
+	           </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- 4 -->
+              <div class="col-md-6" style="max-width: 35%;">
+                <div class="form-group">
+                  <label>이메일</label>
+		          <input type="email" class="form-control select2bs4" name="staffEmail">
+	           </div>
+                <!-- /.form-group -->
+                <div class="form-group" style="position: absolute;bottom: 0;">
+                  <button type="button" class="btn btn-info">검색</button>
+	           </div>
+                <!-- /.form-group -->
+              </div>
 
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  
+  <section class="content">
+  	<div class="container-fluid">
 
-		})
-		$('#staffSerch').on('click',function(){
-			console.log("staffSerch");
-		})
-	})
-</script>
-
-</th:block>
+	<div class="card">
+	 <div class="card-body" style="margin-top:20px">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>지점</th>
+                  <th>직책</th>
+                  <th>직원 명</th>
+                  <th>생년월일</th>
+                  <th>전화번호</th>
+                  <th>이메일</th>
+                  <th>권한</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr th:each="L:${staffList}">
+                <td th:text="${L.branchName}"></td>
+                <td th:text="${L.staffPosition}"></td>
+                <td th:text="${L.staffName}"></td>
+                <td th:text="${L.staffBirth}"></td>
+                <td th:text="${L.staffTell}"></td>
+                <td th:text="${L.staffEmail}"></td>
+                <td th:text="${L.staffLevel}"></td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	 </div>
+      	
+    </div>
+    
+  </section>
+  </div>
+ </th:block>
 </body>
 </html>
