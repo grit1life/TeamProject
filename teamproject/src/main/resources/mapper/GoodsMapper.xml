@@ -3,66 +3,108 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="kr.or.ksmart.mapper.GoodsMapper">
+<mapper namespace="kr.or.ksmart.mapper.GoodsTradeMapper">
 
-	<resultMap type="Goods" id="goodsResultMap">
+	<resultMap type="GoodsTrade" id="goodsResultMap">
 		<result property="goodsCode" column="goods_code"/>
 		<result property="goodsCategoryCode" column="goods_category_code"/>
 		<result property="goodsName" column="goods_name"/>
+		<result property="goodsBarcode" column="goods_barcode"/>
 		<result property="goodsInputStaffCode" column="goods_input_staff_code"/>
 		<result property="goodsInputDate" column="goods_input_date"/>
+		<result property="goodsUpdateStaffCode" column="goods_update_staff_code"/>
+		<result property="goodsUpdateDate" column="goods_update_date"/>
+		<result property="goodsDesc" column="goods_desc"/>
+		<result property="goodsImg" column="goods_img"/>
+		
+		<result property="goodsCategoryName" column="goods_category_name"/>
+		<result property="goodsCategoryInputStaffCode" column="goods_category_input_staff_code"/>
+		<result property="goodsCategoryInputDate" column="goods_category_input_date"/>
 	</resultMap>
 	
 	<insert id="insertGoods" parameterType="Goods">
-		INSERT INTO goods
-			(	goods_code
-			, goods_category_code
-			, goods_name
-			, goods_input_staff_code
-			, goods_input_date)
-		VALUES 
-			(	#{goodsCode}
-			, #{goodsCategoryCode}
-			, #{goodsName}
-			, #{goodsInputStaffCode}
-			, NOW());
+	INSERT INTO goods
+		( goods_code
+		, goods_category_code
+		, goods_name
+		, goods_barcode
+		, goods_input_staff_code
+		, goods_input_date
+		, goods_update_staff_code
+		, goods_update_date
+		, goods_desc
+		, goods_img	)
+	VALUES 
+		( #{goodsCode}
+		, #{goodsCategoryCode}
+		, #{goodsName}
+		, #{goodsBarcode}
+		, #{goodsInputStaffCode}
+		, NOW()
+		, #{goodsUpdateStaffCode}
+		, NOW()
+		, #{goodsDesc}
+		, #{goodsImg}	)
 	</insert>
-	
+		
 	<select id="getGoodsList" resultMap="goodsResultMap">
-		SELECT
+		SELECT 
 				goods_code
 			, goods_category_code
 			, goods_name
+			, goods_barcode
 			, goods_input_staff_code
 			, goods_input_date
+			, goods_update_staff_code
+			, goods_update_date
+			, goods_desc
+			, goods_img
 		FROM
-				goods;
+			goods
+		ORDER BY
+			goods_code ASC;
 	</select>
 	
 	<select id="getGoods" parameterType="String" resultMap="goodsResultMap">
-		SELECT
+		SELECT 
 				goods_code
 			, goods_category_code
 			, goods_name
+			, goods_barcode
 			, goods_input_staff_code
 			, goods_input_date
+			, goods_update_staff_code
+			, goods_update_date
+			, goods_desc
+			, goods_img
 		FROM
-				goods
+			goods
 		WHERE
 			goods_code = #{goodsCode}
 		ORDER BY
 			goods_code ASC;
 	</select>
 	
-	<update id="goodsUpdate" parameterType="String">
-		UPDATE goods
-			SET
-				goods_category_code=''
-			,	goods_name=
-			,	goods_input_staff_code=
-			,	goods_input_date=
-		WHERE 
-			goods_code = ${goodsCode};
+	<update id="updateGoods" parameterType="Goods">
+		UPDATE
+				goods
+		SET
+			  goods_category_code= 			#{goodsCategoryCode}
+			, goods_name= 							#{goodsName}
+			, goods_barcode= 						#{goodsBarcode}
+			, goods_update_staff_code= 	#{goodsUpdateStaffCode}
+			, goods_update_date=				NOW()
+			, goods_desc= 							#{goodsDesc}
+			, goods_img= 								#{goodsImg}
+		WHERE
+			goods_code= #{goodsCode};
 	</update>
+	
+	<delete id="deleteGoods" parameterType="String">
+		DELETE FROM
+				goods
+		WHERE
+			goods_code= #{goodsCode};
+	</delete>
 	
 </mapper>
