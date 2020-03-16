@@ -16,9 +16,12 @@
 		<result property="zipCode" column="zip_code"/>
 		<result property="customerAddress" column="customer_address"/>
 		<result property="customerAddress2" column="customer_address2"/>
-		<result property="inputStaffCode" column="customer_address2"/>
+		<result property="inputStaffCode" column="input_staff_code"/>
 		<result property="inputStaffName" column="input_staff_name"/>
-		<result property="now()" column="input_date"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="updateStaffCode" column="update_staff_code"/>
+		<result property="updateStaffName" column="update_staff_name"/>
+		<result property="updateDate" column="update_date"/>
 	</resultMap>
 	
 	
@@ -73,7 +76,7 @@
 		</select>
 		
 	  <!--개인 고객 상세보기  -->
-	  <select id="SelectForUpdate" parameterType="String" resultMap="goodsResultMap">
+	  <select id="SelectForUpdate" parameterType="String" resultMap="customerResultMap">
 		SELECT
 			                  customer_id
 							 ,customer_pw
@@ -88,10 +91,39 @@
 							 ,input_staff_code
 							 ,input_staff_name
 							 ,input_date
+							 ,update_staff_code 
+							 ,update_staff_name
+							 ,update_date
 		FROM   customer
 		WHERE
 		customer_id = #{customerId};
 	</select>
+	
+	<!--개인 고객 업데이트  -->
+	<update id="cUpdate" parameterType="kr.or.ksmart.domain.Customer">
+		UPDATE customer
+		SET
+			customer_id=#{customerId},
+			customer_pw=#{customerPw},
+			customer_name=#{customerName},
+			customer_class=#{customerClass},
+			customer_call=#{customerCall},
+			customer_email=#{customerEmail},
+			zip_code=#{zipCode},
+			customer_address=#{customerAddress},
+			customer_address2=#{customerAddress2},
+			update_staff_code =#{updateStaffCode},
+			update_staff_name=#{updateStaffName},
+			update_date=#{updateDate}
+		WHERE 
+			customer_id=#{customerId}
+	
+	</update>
+	
+	<!--개인 고객 삭제  -->
+	<delete id="cDelete" parameterType="String">
+		DELETE FROM customer WHERE customer_id=#{customerId};
+	</delete>
 		
 		
 	 <!--개인사업/ 법인 고객 리스트  -->
