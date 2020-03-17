@@ -197,9 +197,9 @@
                     <tr>
                       <th>지점코드</th>
                       <th>지점명</th>
-                      <th>지점장 코드</th>
-                      <th>지점 전화번호</th>
-                      <th>지점 주소</th>
+                      <th>지점장명</th>
+                      <th>전화번호</th>
+                      <th>등록날짜</th>
                       <th>상세보기</th>
                       <th>삭제</th>
                     </tr>
@@ -208,19 +208,19 @@
                   	<tr th:each="l : ${BranchList}">
 						<td th:text="${l.branchCode}"></td>
 						<td th:text="${l.branchName}"></td>
-						<td th:text="${l.staffId}"></td>
+						<td th:text="${l.staffName}"></td>
 						<td th:text="${l.branchPhone}"></td>
-						<td th:text="${l.branchAddress}"></td>		
+						<td th:text="${l.inputDate}"></td>		
 						<td>
 						   
-							<a class="btn btn-primary btn-sm" href="#">
+							<a class="btn btn-primary btn-sm" th:href="@{/bUpdate(branchCode=${l.branchCode})}">
 	                              <i class="fas fa-folder">
 	                              </i>
 	                              View
 	                        </a>    		
 						</td>				
 						<td>
-							<a class="btn btn-danger btn-sm" href="#">
+							<a class="btn btn-danger btn-sm" th:href="@{/bDelete(branchCode=${l.branchCode})}">
                               <i class="fas fa-trash">
                               </i>
                               Delete

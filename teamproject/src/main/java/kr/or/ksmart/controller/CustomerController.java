@@ -25,14 +25,6 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	
-	//TEST
-	
-	@GetMapping("/advanced")
-	public String general() {
-		
-		
-		return "/customer/advanced";
-	}
 	
 	//개인 고객 등록
 	@GetMapping("/cInsert")
