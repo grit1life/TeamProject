@@ -12,12 +12,10 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
  <div class="content-wrapper">
-    <section class="content-header">
-       
-       
+    <section class="content-header"> 
        <div class="row mb-2">
          <div class="col-sm-6">
-           <h1>Advanced Form</h1>
+           <h1>견적서 작성</h1>
          </div>
          <div class="col-sm-6">
            <ol class="breadcrumb float-sm-right">
@@ -27,90 +25,82 @@
          </div>
        </div>
      
-
+	<!-- 거객 검색 -->
       <div class="container-fluid">   
         <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title">Select2 (Default Theme)</h3>
-
-		         <div class="card-tools">
-			     <div style="display: inline-block;">
-			     	<button type="button" data-card-widget="collapse" class="btn btn-block btn-secondary btn-xs">고객선택</button>
-			     </div>
-			     <div style="display: inline-block;">
-			     	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
-			     </div>
-	   </div>
+            <h3 class="card-title">거객 검색</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	<button id="customerHidden" type="button" data-card-widget="collapse" class="btn btn-block btn-secondary btn-xs">고객 검색</button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <!-- left -->
             <div class="row">
               <!-- 1 -->
-              <div class="col-md-6" style="max-width: 20%;">
-                <div class="form-group">
-                  <label>지점</label>
-		           <select class="form-control select2bs4" style="width: 100%;" name="branchName">
-		             <option selected="selected"></option>
-		             <option selected="selected" value="본사">본사</option>
-		             <option selected="selected" value="본사">전주시점</option>
-		           </select>
+              <div class="col-md-6" style="max-width: 25%;">
+                <div class="form-group" style="height:70px;">
+	                
+	                 <label style="margin-bottom: 15px;">구분</label><br>
+	                  <div class="icheck-primary d-inline">
+	                    <input class="person" type="radio" name="r1" id="radioPrimary1" checked value="a">
+	                    <label for="radioPrimary1">
+	                    	개인
+	                    </label>
+	                  </div>
+	                  <div class="icheck-primary d-inline">
+	                    <input class="company" type="radio" name="r1" id="radioPrimary2">
+	                    <label for="radioPrimary2">
+	                    	법인
+	                    </label>
+	                  </div>
+	             
                 </div>
                 <!-- /.form-group -->
-                <div class="form-group">
-                  <label>직책</label>
-		           <select class="form-control select2bs4" style="width: 100%;" name="staffPosition">
-		             <option selected="selected"></option>
-		             <option selected="selected" value="부장">부장</option>
-		             <option selected="selected" value="과장">과장</option>
-		             <option selected="selected" value="">일방</option>
-		           </select>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- 2 -->
-              <div class="col-md-6" style="max-width: 20%;">
-                <div class="form-group">
-                  <label>권한</label>
-		           <select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
-		             <option selected="selected"></option>
-		             <option selected="selected" value="관리자">관리자</option>
-		             <option selected="selected" value="직원">직원</option>
-		           </select>
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                  <label>이름</label>
-		           <input type="text" class="form-control select2bs4" name="staffName">
+                <div id="staff" class="form-group" style="display:none;">
+                  <label>담당자</label>
+		           <input type="text" class="form-control select2bs4" name="inputStaffName">
 	            </div>
                 <!-- /.form-group -->
               </div>
-              
-              <!-- 3 -->
+              <!-- 2 -->
               <div class="col-md-6" style="max-width: 25%;">
+                
                 <div class="form-group">
-                  <label>생년월일</label>
-		          <input type="date" class="form-control select2bs4" name="staffBirth">
+                  <label>아이디</label>
+                  <input name="customerId" type="text" class="form-control select2bs4">
+                </div>
+                
+                <div class="form-group">
+                  <label id="name">이름</label>
+		          <input name="customerName" type="text" class="form-control select2bs4">
+                </div>
+                <!-- /.form-group -->
+              </div>
+
+              <!-- 3 -->
+              <div class="col-md-6" style="max-width: 40%;">
+                <div class="form-group">
+                  <label id="tel">전화번호</label>
+		          <input type="text" class="form-control select2bs4" name="customerCall">
 	           </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>전화번호</label>
-		          <input type="text" class="form-control select2bs4" name="staffTell">
+                  <label id="email">이메일</label>
+		          <input type="text" class="form-control select2bs4" name="customerEmail">
 	           </div>
                 <!-- /.form-group -->
               </div>
-              <!-- 4 -->
-              <div class="col-md-6" style="max-width: 35%;">
-                <div class="form-group">
-                  <label>이메일</label>
-		          <input type="email" class="form-control select2bs4" name="staffEmail">
-	           </div>
-                <!-- /.form-group -->
-                <div class="form-group" style="position: absolute;bottom: 0;">
-                  <button type="button" class="btn btn-info">검색</button>
-	           </div>
-                <!-- /.form-group -->
+              <div class="col-md-6" style="max-width: 10%;">
+              	<a id="customerBtn" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;">검색</a>
               </div>
+              
 
               <!-- /.col -->
             </div>
@@ -120,12 +110,13 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
+    <!-- 거객 검색 end-->
   
+  <!-- 거객 리스트 -->
   <section class="content">
   	<div class="container-fluid">
-
-	<div class="card">
-	 <div class="card-body" style="margin-top:20px">
+	 <div class="card" id="staffList" style="display:none;">
+	 <div class="card-body">
 	  	<table id="example2" class="table table-bordered table-hover">
 	    	<thead>
                 <tr>
@@ -151,12 +142,115 @@
              </tbody>
 		</table>
 	  </div>
-	 </div>
-      	
-    </div>
-    
+	 </div>   	
+    </div>   
   </section>
+  <!-- 거객 리스트 end-->
+  
+  <!-- 견적서 입력 data -->
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card">
+	  <div class="card-body">
+	  	<div style="margin-bottom: 20px;">
+			<input type="text" name="customerId" readonly="readonly" value="cId 회사" style="font-size:1.3em;border:none;">
+			<div style="display:inline-block;width:175px;font-size:1.3em;">회사명</div>
+		  	<input type="text" name="gradeName" readonly="readonly" value="등급" style="font-size:1.3em;border:none;">
+		</div>	
+	  	<h5 style="display:inline-block;">렌탈 기간 : &emsp;</h5>
+	  	<input type="date" name="rentalFromDate" style="display:inline-block;width:20%;" class="form-control">&emsp;~&emsp;
+	  	<input type="date" name="rentalToDate" style="display:inline-block;width:20%;" class="form-control">
+	  	&emsp;&emsp;<input type="text" name="rentalPeriod" style="border:none;" value="12일">
+
+	  	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
+	    	<thead>
+                <tr>
+                  <th>코드</th>
+                  <th>세트명</th>
+                  <th>상품명</th>
+                  <th>단가</th>
+                  <th>갯수</th>
+                  <th>합계액</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr>
+                <td>코드</td>
+                <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
+                <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
+                <td>10000</td>
+                <td style="width:120px"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
+                <td>50000</td>
+              </tr>
+             </tbody>
+		</table>
+		할인코드<input type="text" name="saleCode">
+	  	할인적용기간
+	  	유효기간<input type="date" name="estimatesExpirationDate">
+		하볘액<input type="text" name="tradingTotal" readonly="readonly">
+		<textarea name="estimatesNote" class="form-control">memo</textarea>
+	  </div>
+	 </div>   	    
+	</div>
+  </section>
+    <!-- 견적서 입력 data end-->
   </div>
- </th:block>
+<script>
+	$('.company').click(function(){
+		console.log('company');
+		$('#name').text('회사명');
+		$('#name').next().attr('name','conpanyName');
+		$('#tel').text('대표 전화번호');
+		$('#tel').next().attr('name','customerCompanyCall');
+		$('#email').next().attr('name','customerCompanyEmail');
+		$('#staff').css('display','block');
+	});
+	$('.person').click(function(){
+		console.log('person');
+		$('#name').text('이름')
+		$('#name').next().attr('name','customerName');
+		$('#tel').text('전화번호');
+		$('#tel').next().attr('name','customerCall');
+		$('#email').next().attr('name','customerEmail');
+		$('#staff').css('display','none');
+	})
+		$('#customerBtn').click(function(){
+			$('#customerHidden').trigger("click");
+			$('#staffList').css('display','block');
+			
+			var inputStaffName = $('input[name=inputStaffName]').val();
+			var customerId = $('input[name=customerId]').val();
+
+			if($('.company').prop('checked')){
+				var customerName = $('input[name=customerName]').val();
+				var customerCompanyCall = $('input[name=customerCompanyCall]').val();
+				var customerCompanyEmail = $('input[name=customerCompanyEmail]').val();
+			}else{
+				var customerName = $('input[name=customerName]').val();
+				var customerCall = $('input[name=customerCall]').val();
+				var customerEmail = $('input[name=customerEmail]').val();
+				var request = $.ajax({
+					url : "/staffLogin",
+					method : "post",
+					dataType : "json",
+					data : {inputStaffName : inputStaffName
+							,customerId : customerId
+							,inputStaffName : inputStaffName
+							,customerId : customerId
+							,customerId : customerId}
+				})
+				request.done(function(loginMap){
+					alert(loginMap.result);
+					
+				})
+				request.fail(function( jqXHR, textStatus ) {
+					  alert("입력한 ID가 존재하지 안습니다");
+				});
+			}
+	})
+
+</script>  
+  
+</th:block>
 </body>
 </html>
