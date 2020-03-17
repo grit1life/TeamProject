@@ -9,21 +9,33 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
-
-  <div class="content-wrapper">  
- 	<div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">출근 현황</h3>
-              </div>
-              <div class="card-header border-transparent">
-                <h5 class="card-title" th:text=${staffName}></h5>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table id="boardTable" class="table m-0">
-                    <thead>
-                    <tr>
+<div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>출근 현황</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Advanced Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  
+  <section class="content">
+  	
+	
+	<div class="container-fluid">
+	<div class="card card-default">
+	 <div class="card-body" style="margin-top:20px">
+		 <h4 id="staffName"></h4>
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
                       <th>일자</th>
                       <th>출근시간</th>
                       <th>퇴근시간</th>
@@ -31,57 +43,106 @@
                       <th>조퇴</th>
                       <th>휴가</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="l : ${cList}">
-                      <td th:text="${l.commuteDate}"></td>
-                      <td th:text="${l.commuteArrive}"></a></td>
-                      <td th:text="${l.commuteLeave}"></td>
-                      <td th:text="${l.commuteLateness}"></td>
-                      <td th:text="${l.commuteEarlyleave}"></td>
-                      <td th:text="${l.commuteHoliday}"></td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- 페이징 -->
-	             <nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				    <li class="page-item">
-					    <th:block th:if="${currentPage>1}">
-					      <a class="page-link" th:href="@{staff/boardList(page=${currentPage-1})}" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-						</th:block>
-						<th:block th:unless="${currentPage>1}">
-					      <a class="page-link" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-						</th:block>
-				    </li>
-					<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
-				    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{staff/boardList(page=${num})}"></a></li>
-					</th:block>
-				    <li class="page-item">
-				    	<th:block th:if="${endPage>currentPage}">
-					      <a class="page-link" th:href="@{staff/boardList(page=${currentPage+1})}" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </th:block>
-					    <th:block th:unless="${endPage>currentPage}">
-					      <a class="page-link" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </th:block>
-				    </li>
-				  </ul>
-				</nav>
-                <!-- 페이징 끝 -->
-                <!-- /.table-responsive -->
-              </div>
-            </div>
+	         </thead>
+             <tbody>
+               
+             </tbody>
+		</table>
+	  </div>
+	 </div>
+			<!-- 페이징 -->
+             <nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    
+			  </ul>
+			</nav>
+             <!-- 페이징 끝 -->
+	 </div>
+  </section>
   </div>
+  
+<script type="text/javascript">
+	/* ajax 페이징 */
+	var cPage= 1;
+	
+	$(function(){
+		ajaxRequest(cPage);
+		
+		function ajaxRequest(currentPage){
+			var map = {};
+			map.currentPage = currentPage;
+			var request = $.ajax({
+			  url: "/staff/commuteList",
+			  method: "POST",
+			  async : 'true',
+			  contentType : "application/json",
+			  data : JSON.stringify(map),
+			  dataType: "json"
+			});
+			 
+			request.done(function( p ) {
+				$("#staffName").text(p.cList[0].staffName);
 
+				/* 테이블 근태현황 출력 */
+			  	$('tbody').children().remove();
+			  	for(var i=0; i<p.cList.length; i++){
+			  		$('tbody').append('<tr>');
+					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteDate+"</td>");					
+					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteArrive+"</td>");					
+					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteLeave+"</td>");					
+					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteLateness+"</td>");
+					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteEarlyleave+"</td>");
+					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteHoliday+"</td>");	
+					$('tbody').append('</tr>');
+				}
+
+				/* 페이징 */
+			  	$(".pagination").children().remove();
+				  if(p.currentPage>1){
+					  $(".pagination").append("<a id='prev' class='page-link' aria-label='Previous'> \
+				        							<span aria-hidden='true'>&laquo;</span> \
+				      							</a>");
+				  }
+				  for(var page = p.startPage; page <= p.endPage; page++){
+					  $(".pagination").append("<li class='page-item'><a class='page-link'>"+page+"</a></li>")
+				  }
+				  if(p.endPage>p.currentPage){
+					  $(".pagination").append("<a id='next' class='page-link' aria-label='Next'> \
+				         							<span aria-hidden='true'>&raquo;</span> \
+				      							</a>");
+				  }
+				  
+				  /* 페이징 클릭 */
+				  $(".page-item").click(function(){
+					  	cPage = $(".page-item").index(this) + 1;
+						ajaxRequest(cPage);
+				  })
+				  $("#prev").click(function(){
+					  cPage--;
+					  console.log(cPage);
+					  ajaxRequest(cPage);
+				  })
+				  $("#next").click(function(){
+					  cPage++;
+					  console.log(cPage);
+					  ajaxRequest(cPage);
+				  }) 
+				  
+				  /* 페이징 색 */
+				  $(".page-link").css('color', 'blue');
+				  $(".page-item").eq(cPage-1).children().css('color', 'black');
+				  $(".page-item").eq(cPage-1).hover(function(){
+					  
+				  })
+			});
+			 
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+			});
+		}
+		
+	})
+</script>
 </th:block>
 </body>
 </html>
