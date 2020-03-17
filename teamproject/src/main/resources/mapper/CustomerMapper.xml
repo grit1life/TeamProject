@@ -264,5 +264,11 @@
 			customer_id=#{customerId}
 	
 	</update>
+	
+	
+	<!--개인 사업/법인 삭제  -->
+	<delete id="cDelete2" parameterType="String">
+		DELETE FROM customer_company WHERE customer_id=#{customerId} and customer_name=#{customerName};
+	</delete>
  
  </mapper>
