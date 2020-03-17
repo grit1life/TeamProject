@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="card-body" style="height: 800px; overflow:auto;">
-              <div class="row">
+              <div class="row" style="margin-bottom: 10px;">
                 <div class="col-md-8">
                   <div class="form-group my-auto">
                     <select class="form-control">
@@ -87,19 +87,34 @@
             <div id="form-div"></div>
           </div>
         </div>
-        <div>
-          <form id="file-upload-form">
-            <label for="file-upload-input">Select file to upload</label>
-            <input type="file" id="file-upload-input" name="file" />
-            <button type="submit" id="#">파일등록</button>
-          </form>
-        </div>
       </div>
     </section>
+    <form id="test-form" enctype="multipart/form-data">
+      <input type="file" name="file" />
+      <button type="button" id="test-btn">전송</button>
+    </form>
 
+    <!-- 스크립트 -->
     <script>
-      // 함수
+      // 테스트
+      $(document).on("click", "button#test-btn", e => {
+        const formData = new FormData($("form#insert-form")[0]);
+        $.ajax({
+          type: "post",
+          url: "/upload",
+          processData: false,
+          contentType: false,
+          data: formData,
+          success: msg => {
+            // modal process by msg
+            renderList();
+            const data = {};
+            renderForm("insert", data);
+          }
+        });
+      });
 
+      // 함수
       const renderList = () => {
         document.querySelector("div#list-div").innerHTML = "";
         axios
@@ -110,7 +125,7 @@
               listEl.innerHTML = `
                 <div class="row" style= "border-bottom: 1px solid #CBCBCB;">
                   <div class="col-md-4 my-auto">
-                    <img src="images/200x200.png" alt="ImageNotFound">
+                    <img src="../images/${item.goodsImg}" class="rounded mw-100" alt="ImageNotFound">
                   </div>
                   <div class="col-md-7 my-auto">
                     <p>
@@ -122,7 +137,7 @@
                     </p>
                   </div>
                   <div class="col-md-1 my-auto">
-                    <button class="btn btn-default btn-lg pull-right view-btn"name="${item.goodsCode}">></button>
+                    <button class="btn btn-default btn-lg pull-right view-form-btn"name="${item.goodsCode}">></button>
                   </div>
                 </div>`;
               document.querySelector("div#list-div").appendChild(listEl);
@@ -136,40 +151,39 @@
       renderList();
 
       const renderForm = (formType, data) => {
-        console.log(data.goodsCode);
         $("div#form-div").html("");
         const formEl = document.createElement("div");
+
         if (formType == "insert") {
           formEl.innerHTML = `
           <div class="card card-success">
             <div class="card-header">상품정보입력</div>
           </div>
-          <form id="insert-form" role="form">
+          <form id="insert-form" role="form" enctype="multipart/form-data">
             <div class="card-body">
 
             <div class="form-group">
+              <input type="file" name="goodsImg" id="upload" class="form-control border-0">
+            </div>
+
+            <div class="form-group">
               <label>상품분류코드</label>
-              <input name="goodsCategoryCode" class="form-control" required/>
+              <input type="text" name="goodsCategoryCode" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label>상품명</label>
-              <input name="goodsName" class="form-control" required/>
+              <input type="text" name="goodsName" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label>바코드</label>
-            <input name="goodsBarcode" class="form-control" required/>
+            <input type="text" name="goodsBarcode" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label>상품상세설명</label>
-              <input name="goodsDesc" class="form-control" required/>
-            </div>
-
-            <div class="form-group">
-              <label>상품이미지</label>
-              <input name="goodsImg" class="form-control" required/>
+              <input type="text" name="goodsDesc" class="form-control" required/>
             </div>
 
             <button type="button" id="insert-btn" class="btn btn-primary">등록</button>
@@ -186,8 +200,10 @@
           <form id="view-form">
             <div class="card-body">
 
-            <div class="form-group d-flex justify-content-center">
-              <img src="images/200x200.png" alt="ImageNotFound">
+            <div class="row">
+              <div class="col-6" style="margin: 0 auto;">
+                <img src="../images/${data.goodsImg}" class="rounded mw-100" alt="ImageNotFound">
+              </div>
             </div>
 
             <div class="form-group">
@@ -245,6 +261,10 @@
           <form id="view-form">
             <div class="card-body">
 
+            <div class="d-flex justify-content-center">
+              <img src="images/200x200.png" class="img-fluid" alt="ImageNotFound">
+            </div>
+
             <div class="form-group">
               <label>상품분류코드</label>
               <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" class="form-control" />
@@ -265,11 +285,6 @@
               <input name="goodsDesc" value="${data.goodsDesc}" class="form-control" />
             </div>
 
-            <div class="form-group">
-              <label>상품이미지</label>
-              <input name="goodsImg" value="${data.goodsImg}" class="form-control" />
-            </div>
-
             <button type="button" name=${data.goodsCode} id="update-btn" class="btn btn-warning">수정</button>
             <button type="button" id="cancle-btn" class="btn btn-default">취소</button>
 
@@ -281,7 +296,7 @@
 
       // 버튼 이벤트
 
-      $(document).on("click", ".view-btn", e => {
+      $(document).on("click", ".view-form-btn", e => {
         const goodsCode = e.target.name;
         console.log(goodsCode);
         axios
@@ -299,14 +314,32 @@
         renderForm("insert", data);
       });
 
+      // $(document).on("click", "button#insert-btn", e => {
+      //   $.ajax({
+      //     type: "post",
+      //     url: "/goods",
+      //     data: $("form#insert-form").serialize(),
+      //     contentType: "application/x-www-form-urlencoded; charset=euc-kr",
+      //     success: msg => {
+      //       // modal process by msg
+      //       renderList();
+      //       const data = {};
+      //       renderForm("insert", data);
+      //     }
+      //   });
+      // });
+
       $(document).on("click", "button#insert-btn", e => {
+        const formData = new FormData($("form#insert-form")[0]);
+
         $.ajax({
           type: "post",
           url: "/goods",
-          data: $("form#insert-form").serialize(),
-          contentType: "application/x-www-form-urlencoded; charset=euc-kr",
+          processData: false,
+          contentType: false,
+          data: formData,
           success: msg => {
-            console.log(msg);
+            // modal process by msg
             renderList();
             const data = {};
             renderForm("insert", data);
@@ -319,8 +352,8 @@
         axios
           .get(`/goods/${goodsCode}`)
           .then(res => {
-            renderForm("update", res.data);
             renderList();
+            renderForm("update", res.data);
           })
           .catch(err => {
             console.error(err);
