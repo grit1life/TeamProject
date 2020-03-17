@@ -3,11 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
+    <!-- bootstrap cdn -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
+    />
+    <!-- font awesome cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <!-- jquery cdn -->
     <script
@@ -23,26 +29,57 @@
   <body>
     <section class="content">
       <div class="container-fluid">
+        <div style="padding: 20px;">
+          <div class="row">
+            <div class="col-md-2">
+              <select name="" id="" class="form-control">
+                <option value="">상품명</option>
+                <option value="">상품분류명</option>
+                <option value="">등록직원</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="검색어 입력후 Enter"
+              />
+            </div>
+            <div class="col-md-4">
+              <button id="insert-form-btn" class="btn btn-primary pull-right">
+                + 상품추가
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-6">
-            <button id="insert-form-btn" class="btn btn-primary">
-              상품등록
-            </button>
             <div class="card card-success">
               <div class="card-header">
                 상품정보조회
               </div>
             </div>
-            <div class="card-body">
-              <table class="table">
-                <thead>
-                  <th>상품코드</th>
-                  <th>상품카테고리</th>
-                  <th>상품명</th>
-                  <th>상세</th>
-                </thead>
-                <tbody id="list-tbody"></tbody>
-              </table>
+            <div class="card-body" style="height: 800px; overflow:auto;">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group my-auto">
+                    <select class="form-control">
+                      <option>제품별</option>
+                      <option>분류별</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group my-auto">
+                    <select class="form-control">
+                      <option>이름 오름차순</option>
+                      <option>이름 내림차순</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div id="list-div"></div>
             </div>
           </div>
 
@@ -61,26 +98,42 @@
     </section>
 
     <script>
-      axios
-        .get("/goods")
-        .then(res => {
-          renderList(res.data);
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      // 함수
 
-      const renderList = items => {
-        items.forEach(item => {
-          const listEl = document.createElement("tr");
-          listEl.innerHTML =
-            `<td>${item.goodsCode}</td>` +
-            `<td>${item.goodsCategoryCode}</td>` +
-            `<td>${item.goodsName}</td>` +
-            `<td><button type="button" name=${item.goodsCode} class="view-btn btn btn-success" />상세</td>`;
-          document.querySelector("tbody#list-tbody").appendChild(listEl);
-        });
+      const renderList = () => {
+        document.querySelector("div#list-div").innerHTML = "";
+        axios
+          .get("/goods")
+          .then(res => {
+            res.data.forEach(item => {
+              const listEl = document.createElement("div");
+              listEl.innerHTML = `
+                <div class="row" style= "border-bottom: 1px solid #CBCBCB;">
+                  <div class="col-md-4 my-auto">
+                    <img src="images/200x200.png" alt="ImageNotFound">
+                  </div>
+                  <div class="col-md-7 my-auto">
+                    <p>
+                      ${item.goodsName}
+                    </p>
+                    <p>
+                      ${item.goodsCode}
+                      ${item.goodsCategoryCode}
+                    </p>
+                  </div>
+                  <div class="col-md-1 my-auto">
+                    <button class="btn btn-default btn-lg pull-right view-btn"name="${item.goodsCode}">></button>
+                  </div>
+                </div>`;
+              document.querySelector("div#list-div").appendChild(listEl);
+            });
+          })
+          .catch(err => {
+            console.error(err);
+          });
       };
+
+      renderList();
 
       const renderForm = (formType, data) => {
         console.log(data.goodsCode);
@@ -96,48 +149,52 @@
 
             <div class="form-group">
               <label>상품분류코드</label>
-              <input name="goodsCategoryCode" class="form-control"/>
+              <input name="goodsCategoryCode" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label>상품명</label>
-              <input name="goodsName" class="form-control"/>
+              <input name="goodsName" class="form-control" required/>
             </div>
-            
+
             <div class="form-group">
               <label>바코드</label>
-            <input name="goodsBarcode" class="form-control"/>
+            <input name="goodsBarcode" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label>상품상세설명</label>
-              <input name="goodsDesc" class="form-control"/>
+              <input name="goodsDesc" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label>상품이미지</label>
-              <input name="goodsImg" class="form-control"/>
+              <input name="goodsImg" class="form-control" required/>
             </div>
 
             <button type="button" id="insert-btn" class="btn btn-primary">등록</button>
             <button type="button" id="cancle-btn" class="btn btn-default">취소</button>
-            
+
             </div>
           </form>`;
         } else if (formType == "view") {
           formEl.innerHTML = `
           <div class="card card-success">
-            <div class="card-header">상품정보조회</div>
+            <div class="card-header">상품상세조회</div>
           </div>
           <form id="insert-form" role="form">
           <form id="view-form">
             <div class="card-body">
-            
+
+            <div class="form-group d-flex justify-content-center">
+              <img src="images/200x200.png" alt="ImageNotFound">
+            </div>
+
             <div class="form-group">
               <label>상품코드</label>
               <input name="goodsCode" value="${data.goodsCode}" class="form-control" readonly />
             </div>
-            
+
             <div class="form-group">
               <label>상품분류코드</label>
               <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" class="form-control" readonly />
@@ -169,23 +226,8 @@
             </div>
 
             <div class="form-group">
-              <label>수정직원</label>
-              <input name="goodsUpdateStaffCode" value="${data.goodsUpdateStaffCode}" class="form-control" readonly />
-            </div>
-
-            <div class="form-group">
-              <label>수정일</label>
-              <input name="goodsUpdateDate" value="${data.goodsUpdateDate}" class="form-control" readonly />
-            </div>
-
-            <div class="form-group">
               <label>상품상세설명</label>
               <input name="goodsDesc" value="${data.goodsDesc}" class="form-control" readonly />
-            </div>
-
-            <div class="form-group">
-              <label>상품이미지</label>
-              <input name="goodsImg" value="${data.goodsImg}" class="form-control" readonly />
             </div>
 
             <button type="button" name=${data.goodsCode} id="update-form-btn" class="btn btn-warning">수정</button>
@@ -195,24 +237,53 @@
             </div>
           </form>`;
         } else if (formType == "update") {
-          formEl.innerHTML = `<form id="update-form">
-          <input name="goodsCode" value="${data.goodsCode}" readonly />
-          <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" />
-          <input name="goodsName" value="${data.goodsName}" />
-          <input name="goodsBarcode" value="${data.goodsBarcode}" />
-          <input name="goodsInputStaffCode" value="${data.goodsInputStaffCode}" readonly/>
-          <input name="goodsInputDate" value="${data.goodsInputDate}" readonly/>
-          <input name="goodsDesc" value="${data.goodsDesc}" />
-          <input name="goodsImg" value="${data.goodsImg}" />
-          <button type="button" id="update-btn" class="btn btn-warning">수정</button>
-          <button type="button" id="cancle-btn" class="btn btn-default">취소</button>
+          formEl.innerHTML = `
+          <div class="card card-warning">
+            <div class="card-header">상품수정</div>
+          </div>
+          <form id="insert-form" role="form">
+          <form id="view-form">
+            <div class="card-body">
+
+            <div class="form-group">
+              <label>상품분류코드</label>
+              <input name="goodsCategoryCode" value="${data.goodsCategoryCode}" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label>상품명</label>
+              <input name="goodsName" value="${data.goodsName}" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label>바코드</label>
+              <input name="goodsBarcode" value="${data.goodsBarcode}" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label>상품상세설명</label>
+              <input name="goodsDesc" value="${data.goodsDesc}" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label>상품이미지</label>
+              <input name="goodsImg" value="${data.goodsImg}" class="form-control" />
+            </div>
+
+            <button type="button" name=${data.goodsCode} id="update-btn" class="btn btn-warning">수정</button>
+            <button type="button" id="cancle-btn" class="btn btn-default">취소</button>
+
+            </div>
           </form>`;
         }
         $("div#form-div").append(formEl);
       };
 
+      // 버튼 이벤트
+
       $(document).on("click", ".view-btn", e => {
         const goodsCode = e.target.name;
+        console.log(goodsCode);
         axios
           .get(`/goods/${goodsCode}`)
           .then(res => {
@@ -236,6 +307,7 @@
           contentType: "application/x-www-form-urlencoded; charset=euc-kr",
           success: msg => {
             console.log(msg);
+            renderList();
             const data = {};
             renderForm("insert", data);
           }
@@ -248,6 +320,7 @@
           .get(`/goods/${goodsCode}`)
           .then(res => {
             renderForm("update", res.data);
+            renderList();
           })
           .catch(err => {
             console.error(err);
