@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>staffList.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+    <section class="content-header"> 
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1>기본 할인 등록</h1>
+         </div>
+         <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+             <li class="breadcrumb-item active">Advanced Form</li>
+           </ol>
+         </div>
+       </div>  
+    </section>
+  
+  <!-- 견적서 입력 data -->
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card">
+	  <div class="card-body">
+	  	<table class="table table-condensed">
+	  		<thead>
+	  			<tr>
+	  				<th align="center">할인 적용 렌탈 최소 일수</th>
+	  				<th></th>
+	  				<th>할인 적용 렌탈 최대 일수</th>
+	  				<th>할인율</th>
+	  				<th></th>
+	  			</tr>
+	  		
+	  		</thead>
+	  		
+	  		<tbody>
+	  			<tr>
+	  				<td><input type="number" class="form-control"></td>
+	  				<td>~</td>
+	  				<td><input type="number" class="form-control"></td>
+	  				<td><input type="number" class="form-control"></td>
+	  				<td>%</td>
+	  			</tr>
+	  		</tbody>
+	  	</table>
+
+	  </div>
+	 </div>   	    
+	</div>
+  </section>
+    <!-- 견적서 입력 data end-->
+  </div>
+<script>
+	$('.company').click(function(){
+		console.log('company');
+		$('#name').text('회사명');
+		$('#name').next().attr('name','conpanyName');
+		$('#tel').text('대표 전화번호');
+		$('#tel').next().attr('name','customerCompanyCall');
+		$('#email').next().attr('name','customerCompanyEmail');
+		$('#staff').css('display','block');
+	});
+	$('.person').click(function(){
+		console.log('person');
+		$('#name').text('이름')
+		$('#name').next().attr('name','customerName');
+		$('#tel').text('전화번호');
+		$('#tel').next().attr('name','customerCall');
+		$('#email').next().attr('name','customerEmail');
+		$('#staff').css('display','none');
+	})
+		$('#customerBtn').click(function(){
+			$('#customerHidden').trigger("click");
+			$('#staffList').css('display','block');
+			
+			var inputStaffName = $('input[name=inputStaffName]').val();
+			var customerId = $('input[name=customerId]').val();
+
+			if($('.company').prop('checked')){
+				var customerName = $('input[name=customerName]').val();
+				var customerCompanyCall = $('input[name=customerCompanyCall]').val();
+				var customerCompanyEmail = $('input[name=customerCompanyEmail]').val();
+			}else{
+				var customerName = $('input[name=customerName]').val();
+				var customerCall = $('input[name=customerCall]').val();
+				var customerEmail = $('input[name=customerEmail]').val();
+				var request = $.ajax({
+					url : "/staffLogin",
+					method : "post",
+					dataType : "json",
+					data : {inputStaffName : inputStaffName
+							,customerId : customerId
+							,inputStaffName : inputStaffName
+							,customerId : customerId
+							,customerId : customerId}
+				})
+				request.done(function(loginMap){
+					alert(loginMap.result);
+					
+				})
+				request.fail(function( jqXHR, textStatus ) {
+					  alert("입력한 ID가 존재하지 안습니다");
+				});
+			}
+	})
+
+</script>  
+  
+</th:block>
+</body>
+</html>
