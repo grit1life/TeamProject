@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.Commute;
+import kr.or.ksmart.domain.Holiday;
 import kr.or.ksmart.mapper.CommuteMapper;
 
 @Service
@@ -45,5 +46,10 @@ public class CommuteService {
 		resultMap.put("cList", cList);
 		
 		return resultMap;
+	}
+	
+	public List<Holiday> getHolidayList(String staffId){
+		List<Holiday> hList = commuteMapper.getHolidayList(staffId);
+		return hList;
 	}
 }

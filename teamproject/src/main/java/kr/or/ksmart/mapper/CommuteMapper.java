@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.domain.Commute;
+import kr.or.ksmart.domain.Holiday;
 
 @Mapper
 public interface CommuteMapper {
@@ -14,4 +15,5 @@ public interface CommuteMapper {
 	
 	public int getCommuteListCnt(String staffId);
 
+	public List<Holiday> getHolidayList(String staffId);
 }
