@@ -166,7 +166,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1></h1>
+            <h1>개인 사업/법인 고객 수정</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -462,74 +462,15 @@
                 <label for="inputName">홈페이지</label>
                 <input type="text" name="customerCompanyHomepage" th:value="${Customer.customerCompanyHomepage}" id="inputEstimatedBudget" class="form-control">
               </div>
+              <div class="row" id="row"> 	
+				<input type="submit" value="수정" class="btn btn-success float-right">
+	         	
+      		  </div>
             </div>  
              
             <!-- /.card-body -->
           </div>
-          
-           <div class="card card-secondary">
-            <div class="card-header">
-              <h3 class="card-title">입력 정보</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="inputEstimatedBudget">최초 입력자 코드</label>
-                <input type="text" name="inputStaffCode" th:value="${Customer.inputStaffCode}" id="inputStaffCode" class="form-control" readonly="readonly">
-              </div>
-              <div class="form-group">
-                <label for="inputEstimatedBudget">최초 입력자명</label>
-                <input type="text" name="inputStaffName" th:value="${Customer.inputStaffName}" id="inputStaffName" class="form-control" readonly="readonly">
-              </div>
-              <div class="form-group">
-                  <label>최초 입력일</label>
-                  <div class="input-group">                   
-                    <input type="text" name="inputDate" th:value="${Customer.inputDate}" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask readonly="readonly">
-                  </div>  
-            </div> 
-      	    </div>
-            <!-- /.card-body -->
-          </div>
-         <div class="card card-secondary">
-            <div class="card-header">
-              <h3 class="card-title">수정란</h3>
-
-              <div class="card-tools">
-                <button type="button"  class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="inputEstimatedBudget">수정자 코드</label>
-                <input type="text" name="updateStaffCode"  id="inputEstimatedBudget" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="inputEstimatedBudget">수정자명</label>
-                <input type="text" name="updateStaffName"  id="inputEstimatedBudget" class="form-control">
-              </div>
-              <div class="form-group">
-                  <label>수정날짜</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                    </div>
-                    <input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                  </div>                  
-            </div>   
-            <div class="row" id="row"> 	
-				<input type="submit" value="수정" class="btn btn-success float-right">
-	         	
-      		</div>
-            
-          <!-- /.card -->
-        </div>
-          <!-- /.card -->
-        </div>
+ 
       </div>
     </div>
   </form>    
