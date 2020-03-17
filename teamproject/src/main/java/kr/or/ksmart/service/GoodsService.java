@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.mapper.GoodsMapper;
+import kr.or.ksmart.domain.Goods;
 
 @Service
 @Transactional
@@ -18,6 +18,10 @@ public class GoodsService {
 	
 	//	상품 Create
 	public String insertGoods(Goods goods) {
+		
+		// 상품등록직원
+		goods.setGoodsInputStaffCode("id001");
+		
 		int insertResult = goodsMapper.insertGoods(goods);
 		String resultMsg;
 		

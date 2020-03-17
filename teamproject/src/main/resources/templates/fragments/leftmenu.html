@@ -21,7 +21,7 @@
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-chart-pie"></i>
 	              <p>
-	              	상품관리
+	              	상품
 	                <i class="fas fa-angle-left right"></i>
 	              </p>
 	            </a>
@@ -30,25 +30,13 @@
 	              <li class="nav-item">
 	                <a th:href="@{/admin/goods}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>!.상품정보관리.조</p>
+	                  <p>!.상품관리.조</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/purchaseList}" class="nav-link">
+	                <a th:href="@{/admin/goods}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.상품구매관리.조</p>
-	                </a>
-	              </li>
-	              <li class="nav-item">
-	                <a th:href="@{/sellList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.상품매각관리.조</p>
-	                </a>
-	              </li>
-	              <li class="nav-item">
-	                <a th:href="@{/discardList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.상품폐기관리.조</p>
+	                  <p>#.거래관리.조</p>
 	                </a>
 	              </li>
               </ul>
@@ -59,25 +47,32 @@
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-chart-pie"></i>
 	              <p>
-	              	재고관리.조
+	              	재고.조
 	                <i class="right fas fa-angle-left"></i>
 	              </p>
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/changeList}" class="nav-link">
+	                <a th:href="@{/admin/goods}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.입출고관리.조</p>
+	                  <p>#.입출고관리</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/stockList}" class="nav-link">
+	                <a th:href="@{/admin/goods}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>#.입출고기록</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/admin/goods}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.재고관리</p>
 	                </a>
 	              </li>
 	            </ul>
 	          </li>
+	          
 	          <!-- 렌탈 단가,할인 관리.아 -->
 	          <li class="nav-item has-treeview">
 	            <a href="#" class="nav-link">
@@ -183,7 +178,13 @@
 	              <li class="nav-item">
 	                <a th:href="@{/staff/commuteList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.직원근태관리.손</p>
+	                  <p>!.직원근태관리.손</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/staff/holidayRegist}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!.직원휴가관리.손</p>
 	                </a>
 	              </li>
 	            </ul>
@@ -233,21 +234,21 @@
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-chart-pie"></i>
 	              <p>
-	              	#.본사/지점 관리.국
+	              	 본사/지점 관리.국
 	                <i class="right fas fa-angle-left"></i>
 	              </p>
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/binsert}" class="nav-link">
+	                <a th:href="@{/bInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.지점등록.국</p>
+	                  <p>!.지점등록.국</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/blist}" class="nav-link">
+	                <a th:href="@{/bList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.지점조회.국</p>
+	                  <p>!.지점조회.국</p>
 	                </a>
 	              </li>
 	            </ul>

@@ -86,7 +86,11 @@ public class CustomerService {
 			return customerMapper.cUpdate2(customer);
 			
 		}		
-	
+   //개인 사업& 법인 고객 삭제
+		
+		public int cDelte2(String customerId, String customerName) {
+			return customerMapper.cDelete2(customerId, customerName);
+		}
 	
 	
 	

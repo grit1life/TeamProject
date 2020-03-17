@@ -4,18 +4,102 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="kr.or.ksmart.mapper.BranchMapper">
+ 	<resultMap type="kr.or.ksmart.domain.Branch" id="branchResultMap">
+		<result property="branchCode" column="branch_code"/>
+		<result property="branchName" column="branch_name"/>
+		<result property="staffId" column="staff_id"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="branchPhone" column="branch_phone"/>
+		<result property="branchZipCode" column="branch_zip_code"/>
+		<result property="branchAddress1" column="branch_address1"/>
+		<result property="branchAddress2" column="branch_address2"/>
+		<result property="inputStaffCode" column="input_staff_code"/>
+		<result property="inputStaffName" column="input_staff_name"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="updateStaffCode" column="update_staff_code"/>
+		<result property="updateStaffName" column="update_staff_name"/>
+		<result property="updateDate" column="update_date"/>
+	</resultMap>
+  
+ 	 <!-- 등록  -->
+ 	 <insert id="bInsert" parameterType="kr.or.ksmart.domain.Branch">
+		INSERT INTO branch  (   
+							  branch_code
+							 ,branch_name
+							 ,staff_id
+						     ,staff_name 	
+							 ,branch_phone
+							 ,branch_zip_code
+							 ,branch_address1
+							 ,branch_address2
+							 ,input_date
+							 ) VALUES(
+							   #{branchCode}
+							 , #{branchName}
+							 , #{staffId}
+							 , #{staffName}
+							 , #{branchPhone}
+							 , #{branchZipCode}
+							 , #{branchAddress1}
+							 , #{branchAddress2}
+							 , now()  
+							 );
+	
+	
+	
+	</insert>
  
-	 <!--고객/거래처 리스트  -->
+	 <!--리스트  -->
 	 <select id="getBranchList" parameterType="String" resultType="kr.or.ksmart.domain.Branch">
 		SELECT
 				 branch_code    AS branchCode
 				,branch_name 	AS branchName
+				,staff_name     AS staffName 
 				,branch_phone	AS branchPhone
-				,branch_address AS branchAddress
+				,input_date     AS inputDate
 		
 			FROM
 				branch
 		</select>
+		
+	 <!--상세보기  -->
+	  <select id="SelectForUpdate" parameterType="String" resultMap="branchResultMap">
+		SELECT
+			                  branch_code
+							 ,branch_name
+							 ,staff_id 
+						     ,staff_name 	
+							 ,branch_phone
+							 ,branch_zip_code
+							 ,branch_address1
+							 ,branch_address2
+							
+		FROM   branch
+		WHERE
+		branch_code = #{branchCode};
+	</select>
+	
+	<!--업데이트  -->
+	<update id="bUpdate" parameterType="kr.or.ksmart.domain.Branch">
+		UPDATE branch
+		SET
+			branch_code=#{branchCode},
+			branch_name=#{branchName},
+			staff_id =#{staffId},
+			staff_name 	=#{staffName},
+			branch_phone=#{branchPhone},
+			branch_zip_code=#{branchZipCode},
+			branch_address1=#{branchAddress1},
+			branch_address2=#{branchAddress2}				
+		WHERE 
+			branch_code=#{branchCode}
+	
+	</update>
+	
+	<!--개인 고객 삭제  -->
+	<delete id="bDelete" parameterType="String">
+		DELETE FROM branch WHERE branch_code=#{branchCode} and branch_name=#{branchName};
+	</delete>	
 
  
  </mapper>

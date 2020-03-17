@@ -11,8 +11,14 @@ import kr.or.ksmart.domain.Customer;
 @Mapper
 public interface BranchMapper {
 	
-	public int cInsert(Customer customer); 
+	public int bInsert(Branch branch); 
 	
 	public List<Branch> getBranchList();
+	
+	public Branch SelectForUpdate(String branchCode); 
+	
+	public int bUpdate(Branch branch);
+
+	public int bDelete(String branchCode, String branchName);	
 
 }

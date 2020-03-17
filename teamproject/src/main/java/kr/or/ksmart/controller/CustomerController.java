@@ -25,19 +25,6 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	
-	//TEST
-	@GetMapping("/advanced")
-	public String advanced() {
-		
-		
-		return "/customer/advanced";
-	}
-	@GetMapping("/general")
-	public String general() {
-		
-		
-		return "/customer/general";
-	}
 	
 	//개인 고객 등록
 	@GetMapping("/cInsert")
@@ -95,7 +82,7 @@ public class CustomerController {
 				             , Model model) {
 			model.addAttribute("customerId", customerId);
 			model.addAttribute("customerName", customerService.SelectForUpdate(customerId).getCustomerName());
-			return "customer/cDelete";
+			return "/customer/cDelete";
 		}
 		
 		@PostMapping("/cDelete")
@@ -157,12 +144,40 @@ public class CustomerController {
 			return "/customer/cUpdate2";
 		}
 		
-	//개인고객 업데이트(값 수정)
+	//개인사업, 법인 업데이트(값 수정)
 		@PostMapping("/cUpdate2")
 		public String cUpdate2(Customer customer) {
 					int result = customerService.cUpdate2(customer);
 					
 						return "redirect:/cList2";
-				}		
+				}
+		
+		//개인사업, 법인 삭제
+				@GetMapping("/cDelete2")
+				public String cDelete2(@RequestParam(value="customerId", required = false) String customerId							 
+			             ,@RequestParam(value="customerName", required = false) String customerName	
+			             , Model model) {
+					model.addAttribute("customerId", customerId);
+					model.addAttribute("customerName", customerService.SelectForUpdate2(customerId).getCustomerName());
+					
+					return "/customer/cDelete2";
+				}
+				@PostMapping("/cDelete2")
+				public String cDelete2(@RequestParam(value="customerId") String customerId	
+									 ,@RequestParam(value="customerName", required = false) String customerName		
+						             ,RedirectAttributes redirectA) {
+					Customer customer2 = customerService.SelectForUpdate2(customerId);
+					if(customerId != null && !"".equals(customerId)
+							&& customerId.equals(customer2.getCustomerId())) {
+						customerService.cDelte2(customerId, customerName);
+						return "redirect:/cList2";
+						
+					}else {
+						redirectA.addAttribute("customerName", customerName);
+						return "/customer/cDelete2";
+						
+					}
+					
+				}
 	
 }

@@ -32,6 +32,8 @@ public interface CustomerMapper {
 	public Customer SelectForUpdate2(String customerId); 
 	//개인사업&법인 업데이트(값 수정)
 	public int cUpdate2(Customer customer);
+	//개인사업&법인 삭제
+	public int cDelete2(String customerId, String customerName);	
 	
 	
 }

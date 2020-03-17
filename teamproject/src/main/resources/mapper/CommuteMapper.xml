@@ -13,7 +13,7 @@
 		<result property="commuteHoliday" column="commute_holiday"/>
 	</resultMap>
 	
-	<select id="commuteList" parameterType="String" resultMap="commuteResultMap">
+	<select id="commuteList" parameterType="Map" resultMap="commuteResultMap">
 		SELECT
 			  staff_name
 			, commute_date
@@ -31,5 +31,36 @@
 			AND 
 			commute.staff_id = #{staffId}
 		ORDER BY commute_date DESC
+		LIMIT #{startClmn}, #{clmnCnt}
 	</select>	
+	<select id="getCommuteListCnt" parameterType="String" resultType="int">
+		SELECT
+			 COUNT(1)
+		FROM
+			commute
+		INNER JOIN
+			staff
+		ON 
+			commute.staff_id = staff.staff_id
+			AND 
+			commute.staff_id = #{staffId}
+	</select>
+	
+	<resultMap type="Holiday" id="holidayResultMap">
+		<result property="holidayCode" column="holiday_code"/>
+		<result property="staffId" column="staff_id"/>
+		<result property="holidayDate" column="holiday_date"/>
+		<result property="holidaySort" column="holiday_sort"/>
+	</resultMap>
+	<select id="getHolidayList" parameterType="String" resultMap="holidayResultMap">
+		SELECT 
+			holiday_code,
+			staff_id,
+			holiday_date,
+			holiday_sort
+		FROM
+			holiday
+		WHERE 
+			staff_id = #{staffId}
+	</select>
 </mapper>
