@@ -12,8 +12,6 @@
 		<result property="goodsBarcode" column="goods_barcode"/>
 		<result property="goodsInputStaffCode" column="goods_input_staff_code"/>
 		<result property="goodsInputDate" column="goods_input_date"/>
-		<result property="goodsUpdateStaffCode" column="goods_update_staff_code"/>
-		<result property="goodsUpdateDate" column="goods_update_date"/>
 		<result property="goodsDesc" column="goods_desc"/>
 		<result property="goodsImg" column="goods_img"/>
 		
@@ -44,8 +42,6 @@
 			, goods_barcode
 			, goods_input_staff_code
 			, goods_input_date
-			, goods_update_staff_code
-			, goods_update_date
 			, goods_desc
 			, goods_img)
 		VALUES 
@@ -54,8 +50,6 @@
 			, #{goodsName}
 			, #{goodsBarcode}
 			, #{goodsInputStaffCode}
-			, NOW()
-			, #{goodsUpdateStaffCode}
 			, NOW()
 			, #{goodsDesc}
 			, #{goodsImg}	);
@@ -69,8 +63,6 @@
 			, goods_barcode
 			, goods_input_staff_code
 			, goods_input_date
-			, goods_update_staff_code
-			, goods_update_date
 			, goods_desc
 			, goods_img
 		FROM
@@ -87,8 +79,6 @@
 			, goods_barcode
 			, goods_input_staff_code
 			, goods_input_date
-			, goods_update_staff_code
-			, goods_update_date
 			, goods_desc
 			, goods_img
 		FROM
@@ -106,8 +96,6 @@
 			  goods_category_code= 			#{goodsCategoryCode}
 			, goods_name= 							#{goodsName}
 			, goods_barcode= 						#{goodsBarcode}
-			, goods_update_staff_code= 	#{goodsUpdateStaffCode}
-			, goods_update_date=				NOW()
 			, goods_desc= 							#{goodsDesc}
 			, goods_img= 								#{goodsImg}
 		WHERE
