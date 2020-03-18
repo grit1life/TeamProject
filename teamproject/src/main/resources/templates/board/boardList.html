@@ -5,78 +5,89 @@
 <th:block layout:fragment="customTitle">
 	<title>index</title>
 </th:block>
-
+	
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
 	<div class="content-wrapper">
 	<!-- TABLE: LATEST ORDERS -->
-            <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">공지사항 목록</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table id="boardTable" class="table m-0">
-                    <thead>
-                    <tr>
-                      <th>번호</th>
-                      <th>작성글</th>
-                      <th>작성자</th>
-                      <th>작성일</th>
-                      <th>조회수</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="l : ${bList}">
-                      <td th:text="${l.boardNo}"></td>
-                      <td><a th:href="@{/staff/board(no=${l.boardNo})}" th:text="${l.boardTitle}"></a></td>
-                      <td th:text="${l.staffName}"></td>
-                      <td th:text="${l.boardWrtDate}"></td>
-                      <td th:text="${l.boardViewCnt}"></td>
-                    </tr>
-                    </tbody>
-                  </table>
-                 <!-- 페이징 -->
-	             <nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				    <li class="page-item">
-					    <th:block th:if="${currentPage>1}">
-					      <a class="page-link" th:href="@{/staff/boardList(page=${currentPage-1})}" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-						</th:block>
-						<th:block th:unless="${currentPage>1}">
-					      <a class="page-link" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-						</th:block>
-				    </li>
-					<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
-				    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/boardList(page=${num})}"></a></li>
-					</th:block>
-				    <li class="page-item">
-				    	<th:block th:if="${endPage>currentPage}">
-					      <a class="page-link" th:href="@{/staff/boardList(page=${currentPage+1})}" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </th:block>
-					    <th:block th:unless="${endPage>currentPage}">
-					      <a class="page-link" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </th:block>
-				    </li>
-				  </ul>
-				</nav>
-                <!-- 페이징 끝 -->
-                </div>
-                <!-- /.table-responsive -->
-              <a th:href="@{/staff/writeBoard}" type="button" class="btn btn-block btn-primary">글쓰기</a>
-              </div>
-            </div>
-            <!-- /.card -->
-     </div>
+      <div class="card-header">
+        <h3 class="card-title"></h3>
+	 	  <div class="card-body p-0">
+		       <div class="row">
+		          <div class="col-12">
+	               		<h3>공지사항 목록</h3>
+		            <div class="card">
+		              <!-- <div class="card-header">
+		                <h3 class="card-title"></h3>
+		              </div> -->
+		              <!-- /.card-header -->
+		              <div class="card-body p-0">
+		                <div class="card-body table-responsive p-0">
+		                  <table id="boardTable" class="table table-hover">
+		                    <thead>
+		                    <tr>
+		                      <th>번호</th>
+		                      <th>작성글</th>
+		                      <th>작성자</th>
+		                      <th>작성일</th>
+		                      <th>조회수</th>
+		                    </tr>
+		                    </thead>
+		                    <tbody>
+		                    <tr th:each="l : ${bList}">
+		                      <td th:text="${l.boardNo}"></td>
+		                      <td><a th:href="@{/staff/board(no=${l.boardNo})}" th:text="${l.boardTitle}"></a></td>
+		                      <td th:text="${l.staffName}"></td>
+		                      <td th:text="${l.boardWrtDate}"></td>
+		                      <td th:text="${l.boardViewCnt}"></td>
+		                    </tr>
+		                    </tbody>
+		                  </table>
+		                </div>
+		                <!-- /.table-responsive -->
+		              </div>
+		            </div>
+		                 <!-- 페이징 -->
+			             <nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item">
+							    <th:block th:if="${currentPage>1}">
+							      <a class="page-link" th:href="@{/staff/boardList(page=${currentPage-1})}" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+								<th:block th:unless="${currentPage>1}">
+							      <a class="page-link" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+						    </li>
+							<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+						    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/boardList(page=${num})}"></a></li>
+							</th:block>
+						    <li class="page-item">
+						    	<th:block th:if="${endPage>currentPage}">
+							      <a class="page-link" th:href="@{/staff/boardList(page=${currentPage+1})}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+							    <th:block th:unless="${endPage>currentPage}">
+							      <a class="page-link" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+						    </li>
+						  </ul>
+						</nav>
+		                <!-- 페이징 끝 -->
+		              <a th:href="@{/staff/writeBoard}" type="button" class="btn btn-block btn-primary">글쓰기</a>
+		            <!-- /.card -->
+		          </div>
+		       </div>
+		    </div>
+		  </div>
+      </div>
+    
 </th:block>
 
 </body>

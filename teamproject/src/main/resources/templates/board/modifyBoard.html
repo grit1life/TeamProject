@@ -32,6 +32,7 @@
 	  	<form id="bForm" th:method="post" th:action="@{modifyBoard}">
 		    <!-- Main content -->
 		    <section class="content">
+		     <div class="container-fluid">
 		      <div class="row">
 		        <div class="col-md-12">
 		          <div class="card card-outline card-info">
@@ -57,6 +58,7 @@
 		        <!-- /.col-->
 		      </div>
 		      <!-- ./row -->
+		     </div>
 		    </section>
 		    <!-- /.content -->
 		    <input type="hidden" name="boardNo" th:value="${b.boardNo}">
