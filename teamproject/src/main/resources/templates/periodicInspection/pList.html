@@ -26,7 +26,7 @@
        </div>
        
        
-       
+       <!--서치폼 시작  -->
        <div class="container-fluid" >     	   
         <div class="card card-default">
              <div class="card-header">
@@ -107,7 +107,9 @@
        </div>
       </div> 
     </section>
-
+	 <!--서치폼 끝  -->
+	 
+	 
   <section class="content">
   	<div class="container-fluid">
 
@@ -117,8 +119,8 @@
 	    	<thead>
                 <tr>
                   <th>점검 번호</th>
-                  <th>계약서 코드</th>
-                  <th>지점명</th>
+                  <th>계약서 코드</th> 
+                  <th>지점 코드</th>              
                   <th>고객 아이디</th>
                   <th>최종 점검 날짜</th>
                   <th>상세보기</th>
@@ -126,14 +128,26 @@
                 </tr>
 	         </thead>
              <tbody>
-              <tr th:each="L:${staffList}">
-                <td th:text="${L.branchName}"></td>
-                <td th:text="${L.staffPosition}"></td>
-                <td th:text="${L.staffName}"></td>
-                <td th:text="${L.staffBirth}"></td>
-                <td th:text="${L.staffTell}"></td>
-                <td th:text="${L.staffEmail}"></td>
-                <td th:text="${L.staffLevel}"></td>
+              <tr th:each="l:${PeriodicInspectionList}">
+                <td th:text="${l.checkCode}"></td>
+                <td th:text="${l.contractCode}"></td>
+                <td th:text="${l.branchCode}"></td>
+                <td th:text="${l.customerId}"></td>
+                <td th:text="${l.checkDate}"></td>
+                <td> 
+					<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+	                   <i class="fas fa-folder">
+	                   </i>
+	                    View
+	                </a>    		
+				</td>				
+				<td>							
+					<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
+                       <i class="fas fa-trash">
+                       </i>
+                              Delete  	
+				</td>
+				
               </tr>
              </tbody>
 		</table>
