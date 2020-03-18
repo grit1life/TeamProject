@@ -98,10 +98,8 @@
                 <!-- /.form-group -->
               </div>
               <div class="col-md-6" style="max-width: 10%;">
-              	<a id="customerBtn" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;">검색</a>
+              	<a id="customerBtn" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;color:white;">검색</a>
               </div>
-              
-
               <!-- /.col -->
             </div>
             <!-- /.row -->
@@ -120,24 +118,30 @@
 	  	<table id="example2" class="table table-bordered table-hover">
 	    	<thead>
                 <tr>
-                  <th>지점</th>
-                  <th>직책</th>
-                  <th>직원 명</th>
-                  <th>생년월일</th>
+                  <th>회사명</th>
                   <th>전화번호</th>
-                  <th>이메일</th>
-                  <th>권한</th>
+                  <th>주소</th>
+                  <th>주소</th>
+                  <th>대표자</th>
+                  <th>담단자</th>
+                  <th>담당자 전화번호</th>
+                  <th>폐사 담단자</th>
+                  <th>등급</th>
+                  <th>선택</th>
                 </tr>
 	         </thead>
              <tbody>
-              <tr th:each="L:${staffList}">
-                <td th:text="${L.branchName}"></td>
-                <td th:text="${L.staffPosition}"></td>
-                <td th:text="${L.staffName}"></td>
-                <td th:text="${L.staffBirth}"></td>
-                <td th:text="${L.staffTell}"></td>
-                <td th:text="${L.staffEmail}"></td>
-                <td th:text="${L.staffLevel}"></td>
+              <tr>
+                <td>(주)GS칼텍스</td>
+                <td>02-000-0000</td>
+                <td>서울 강남구 논현로 508</td> 
+                <td>GS타워 13층 XX 2팀, 10호실</td>
+                <td>허세홍</td>
+                <td>나담당</td>
+                <td>010-000-0001</td>
+                <td>직원A</td>
+                <td>등급A</td>
+                <td><a id="customerListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle;bottom: 0;margin-bottom: 18px;color:white;">선택</a></td>
               </tr>
              </tbody>
 		</table>
@@ -152,24 +156,35 @@
   	<div class="container-fluid">
 	 <div class="card">
 	  <div class="card-body">
-	  	<div style="margin-bottom: 20px;">
-			<input type="text" name="customerId" readonly="readonly" value="cId 회사" style="font-size:1.3em;border:none;">
-			<div style="display:inline-block;width:175px;font-size:1.3em;">회사명</div>
-		  	<input type="text" name="gradeName" readonly="readonly" value="등급" style="font-size:1.3em;border:none;">
-		</div>	
-	  	<h5 style="display:inline-block;">렌탈 기간 : &emsp;</h5>
-	  	<input type="date" name="rentalFromDate" style="display:inline-block;width:20%;" class="form-control">&emsp;~&emsp;
-	  	<input type="date" name="rentalToDate" style="display:inline-block;width:20%;" class="form-control">
-	  	&emsp;&emsp;<input type="text" name="rentalPeriod" style="border:none;" value="12일">
-
+	  	<div class="row">
+		  	
+		  	<div class="col-md-6">
+		  		<label>선택한 고객정보</label><br>
+			  	(주)GS칼텍스<br>
+			  	대표 허세홍<br>
+			  	02-000-0000<br>
+			  	서울 강남구 논현로 508 GS타워 13층 XX 2팀, 10호실<br>
+			  	단당자 &emsp;나담당   010-000-0001<br>
+			  	등급 &emsp; &emsp;등급A
+		  	</div>
+		  	<div class="col-md-6">
+		  		<label>렌탈 기간</label><br>
+		  		<input type="date" name="rentalFromDate" style="display:inline-block;width:40%;" class="form-control">&emsp;~&emsp;
+			  	<input type="date" name="rentalToDate" style="display:inline-block;width:40%;" class="form-control">
+			  	12일
+			  	<label>적용 가능한 할인</label><br>
+		  	</div>
+	  	</div>
+	  
 	  	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
 	    	<thead>
                 <tr>
                   <th>코드</th>
                   <th>세트명</th>
                   <th>상품명</th>
-                  <th>단가</th>
+                  <th>단가(기본 할인후)</th>
                   <th>갯수</th>
+                  <th>등급 할인액</th>
                   <th>합계액</th>
                 </tr>
 	         </thead>
@@ -179,15 +194,39 @@
                 <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
                 <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
                 <td>10000</td>
-                <td style="width:120px"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
-                <td>50000</td>
+                <td style="width:120px;"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
+                <td>-300</td>
+                <td>49700</td>
+              </tr>
+              <tr>
+                <td>코드</td>
+                <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
+                <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
+                <td>20000</td>
+                <td style="width:120px;"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
+                <td>-600</td>
+                <td>99400</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>합계액</td>
+                <td><input type="text" name="tradingTotal" readonly="readonly"></td>
+              </tr>
+              <tr>
+                <td>특별 할인명</td>
+                <td>적용 기간</td>
+                <td>now()~</td>
+                <td>2020-03-30</td>
+                <td>20% 추가할인</td>
+                <td>할인후 금액</td>
+                <td><input type="text" name="tradingTotal" readonly="readonly"></td>
               </tr>
              </tbody>
 		</table>
-		할인코드<input type="text" name="saleCode">
-	  	할인적용기간
-	  	유효기간<input type="date" name="estimatesExpirationDate">
-		하볘액<input type="text" name="tradingTotal" readonly="readonly">
 		<textarea name="estimatesNote" class="form-control">memo</textarea>
 	  </div>
 	 </div>   	    
@@ -214,40 +253,27 @@
 		$('#email').next().attr('name','customerEmail');
 		$('#staff').css('display','none');
 	})
-		$('#customerBtn').click(function(){
-			$('#customerHidden').trigger("click");
-			$('#staffList').css('display','block');
-			
-			var inputStaffName = $('input[name=inputStaffName]').val();
-			var customerId = $('input[name=customerId]').val();
+	$('#customerBtn').click(function(){
+		$('#customerHidden').trigger("click");
+		$('#staffList').css('display','block');
+		
+		var inputStaffName = $('input[name=inputStaffName]').val();
+		var customerId = $('input[name=customerId]').val();
 
-			if($('.company').prop('checked')){
-				var customerName = $('input[name=customerName]').val();
-				var customerCompanyCall = $('input[name=customerCompanyCall]').val();
-				var customerCompanyEmail = $('input[name=customerCompanyEmail]').val();
-			}else{
-				var customerName = $('input[name=customerName]').val();
-				var customerCall = $('input[name=customerCall]').val();
-				var customerEmail = $('input[name=customerEmail]').val();
-				var request = $.ajax({
-					url : "/staffLogin",
-					method : "post",
-					dataType : "json",
-					data : {inputStaffName : inputStaffName
-							,customerId : customerId
-							,inputStaffName : inputStaffName
-							,customerId : customerId
-							,customerId : customerId}
-				})
-				request.done(function(loginMap){
-					alert(loginMap.result);
-					
-				})
-				request.fail(function( jqXHR, textStatus ) {
-					  alert("입력한 ID가 존재하지 안습니다");
-				});
-			}
-	})
+		if($('.company').prop('checked')){
+			var customerName = $('input[name=customerName]').val();
+			var customerCompanyCall = $('input[name=customerCompanyCall]').val();
+			var customerCompanyEmail = $('input[name=customerCompanyEmail]').val();
+		}else{
+			var customerName = $('input[name=customerName]').val();
+			var customerCall = $('input[name=customerCall]').val();
+			var customerEmail = $('input[name=customerEmail]').val();
+			
+		}
+	});
+	$('#customerListBtn').click(function(){
+		
+	});
 
 </script>  
   
