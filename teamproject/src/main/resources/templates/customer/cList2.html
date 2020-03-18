@@ -187,16 +187,31 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"></h3>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
-                </div>
+					
+				 <!-- 서치폼 -->
+				  <!-- sk  -->
+				  <div class="form-group" style="padding-bottom: 15px;">	
+		         	<div style="display: inline-block;">
+			           <select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+			                <option selected="selected" value="권한">권한</option>
+			             <option selected="selected" value="등급">등급</option>
+			             <option selected="selected" value="고객명">고객명</option>
+			             <option selected="selected" value="고객 아이디">ID</option>
+			           </select>
+		           </div> 
+		           <!-- sv  -->      	          
+		           <div style="display: inline-block;">
+			           <input type="text" class="form-control select2bs4" name="staffEmail">		           		
+		           </div>		          
+		           <div style="display: inline-block;margin-left:0px;">
+		           	<button type="submit" class="btn btn-info">
+		           		검색
+		           	</button>
+		           </div>		           
+		         </div>
+	       		  	
+					
+                
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
