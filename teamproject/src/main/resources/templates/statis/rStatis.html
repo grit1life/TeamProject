@@ -68,7 +68,7 @@
 
 <!-- ChartJS -->
 <script src="../../plugins/chart.js/Chart.min.js"></script>
-<script>
+<script th:inline="javascript">
   $(function () {
     /* ChartJS
      * -------
@@ -221,10 +221,17 @@
       data: barChartData,
       options: barChartOptions
     })
-    
+
     //전체 차트
+    var allData = [];
+    /*<![CDATA[*/
+    	/*[# th:each="l : ${allOutcomeList}"]*/
+    		allData.push(/*[[${l.sum}]]*/);
+    	/*[/]*/
+    /*]]>*/
+    
     areaChartData = {
-      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
       datasets: [
         {
           label               : '전체',
@@ -235,7 +242,7 @@
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
+          data                : allData
         },
       ]
     }

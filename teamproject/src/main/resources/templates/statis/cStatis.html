@@ -64,14 +64,13 @@
               </div>
               <!-- /.card-body -->
                           <!-- PIE CHART -->
-            <div class="card card-danger">
+            <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">고객 등급 비율</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                   </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                 </div>
               </div>
               <div class="card-body">
@@ -79,12 +78,12 @@
               </div>
               <!-- /.card-body -->
             </div>
-      	</div>
+        </div>
       </div>
 
 <!-- ChartJS -->
 <script src="../../plugins/chart.js/Chart.min.js"></script>
-<script>
+<script th:inline="javascript">
   $(function () {
     /* ChartJS
      * -------
@@ -269,22 +268,38 @@
       data: barChartData,
       options: barChartOptions
     })
-    
     //고객 등급 비율
     //-------------
     //- DONUT CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
+	
+    var gradeData = [];
+    //회원별 구분
+    /*<![CDATA[*/
+    	/*[# th:each="l : ${gradeList}"]*/
+    		if(String(/*[[${l.customerClass}]]*/)=="골드"){
+    			gradeData.push(/*[[${l.gradeCnt}]]*/);
+    		}else if(String(/*[[${l.customerClass}]]*/)=="실버"){
+    			gradeData.push(/*[[${l.gradeCnt}]]*/);
+    		}else if(String(/*[[${l.customerClass}]]*/)=="브론즈"){
+    			gradeData.push(/*[[${l.gradeCnt}]]*/);
+    		}else if(String(/*[[${l.customerClass}]]*/)=="플래티넘"){
+    			gradeData.push(/*[[${l.gradeCnt}]]*/);
+    		}
+    	/*[/]*/
+    /*]]>*/
+    
     var pieData        = {
       labels: [
           '골드 회원', 
           '실버 회원',
           '브론즈회원', 
-          '프래티넘회원',
+          '플래티넘회원',
       ],
       datasets: [
         {
-          data: [700,500,400,600],
+          data: gradeData,
           backgroundColor : ['#ffd700', '#c0c0c0', '#800000', '#9a9a9a', '#3c8dbc', '#d2d6de'],
         }
       ]

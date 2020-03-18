@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.mapper.StatisticMapper">
+	
+	<select id="getGradeForStatis" resultType="Grade">
+		SELECT 
+			customer_class AS customerClass,
+			COUNT(customer_class) AS gradeCnt
+		FROM
+			customer
+		GROUP BY 
+			customer_class
+	</select>	
+	<select id="getAllOutcome" resultType="Outcome">
+		SELECT
+			MONTH(contract_date) AS month
+		  , SUM(contract_total_price) AS sum
+		FROM
+			doc_contract
+		GROUP BY 
+			MONTH(contract_date)	
+		WHERE
+			YEAR(contract_date)>YEAR(NOW())-1
+	</select>
+	
+</mapper>
