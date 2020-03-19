@@ -5,7 +5,7 @@
   layout:decorate="~{layout/default}"
 >
 <th:block layout:fragment="customTitle">
-	<title>pInsert.html</title>
+	<title>staffList.html</title>
 </th:block>
 
 
@@ -20,6 +20,7 @@
          <div class="col-sm-6">
            <ol class="breadcrumb float-sm-right">
              <li class="breadcrumb-item"><a href="#">Home</a></li>
+             <li class="breadcrumb-item active">Advanced Form</li>
            </ol>
          </div>
        </div>
@@ -138,11 +139,11 @@
 	
 	<div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">정기점검 등록</h3>
+                <h3 class="card-title">A/S 접수</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form th:action="@{/cInsert}" method="post"> 
+              <form th:action="@{/aInsert}" method="post"> 
                 <div class="card-body">
                 
                   <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>

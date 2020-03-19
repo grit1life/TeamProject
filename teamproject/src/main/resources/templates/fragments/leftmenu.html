@@ -266,9 +266,9 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a href="pages/charts/chartjs.html" class="nav-link">
+	                <a th:href="@{/aInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.A/S접수현황.국</p>
+	                  <p>#.A/S접수.국</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
@@ -282,11 +282,17 @@
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.A/S수리현황.국</p>
 	                </a>
-	              </li>		                      
+	              </li>	
+	              <li class="nav-item">
+	                <a th:href="@{/pInsert}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!.정기점검등록.국</p>
+	                </a>
+	              </li>	                      
 	              <li class="nav-item">
 	                <a th:href="@{/pList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.정기점검현황.국</p>
+	                  <p>!.정기점검현황.국</p>
 	                </a>
 	              </li>
 	            </ul>
