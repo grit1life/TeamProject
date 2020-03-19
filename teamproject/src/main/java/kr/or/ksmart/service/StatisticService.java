@@ -27,4 +27,14 @@ public class StatisticService {
 		return allOutcomeList;
 	}
 	
+	public List<Outcome> getPersonalOutcome(){
+		List<Outcome> PersnlOutcomeList = statisMapper.getPersonalOutcome();
+		return PersnlOutcomeList;
+	}
+	
+	public List<Outcome> getBranchOutcome(){
+		List<Outcome> branchOutcomeList = statisMapper.getBranchOutcome();
+		return branchOutcomeList;
+	}
+	
 }

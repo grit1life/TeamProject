@@ -14,4 +14,8 @@ public interface StatisticMapper {
 	
 	public List<Outcome> getAllOutcome();
 	
+	public List<Outcome> getPersonalOutcome();
+	
+	public List<Outcome> getBranchOutcome();
+	
 }

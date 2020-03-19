@@ -18,11 +18,53 @@
 			MONTH(contract_date) AS month
 		  , SUM(contract_total_price) AS sum
 		FROM
-			doc_contract
-		GROUP BY 
-			MONTH(contract_date)	
+			doc_contract	
 		WHERE
 			YEAR(contract_date)>YEAR(NOW())-1
+		GROUP BY 
+			MONTH(contract_date)
 	</select>
-	
+	<select id="getPersonalOutcome" resultType="Outcome">
+		SELECT
+			staff_name AS staffName
+		  , MONTH(contract_date) AS month
+		  , SUM(contract_total_price) AS sum
+		FROM
+			doc_contract AS C
+		INNER JOIN
+			staff AS S
+		ON 
+			C.staff_code = S.staff_code
+		WHERE
+			YEAR(C.contract_date)>YEAR(NOW())-1
+		GROUP BY 
+			S.staff_code, MONTH(C.contract_date)
+		ORDER BY 
+			S.staff_name, MONTH(C.contract_date)
+	</select>
+	<select id="getBranchOutcome" resultType="Outcome">
+		SELECT
+			B.branch_name AS branchName
+		  , MONTH(C.contract_date) AS month
+		  , SUM(C.contract_total_price) AS sum
+		FROM
+			doc_contract AS C
+		INNER JOIN
+			staff AS S
+		INNER JOIN
+			staff_change AS SC
+		INNER JOIN
+			branch AS B
+		ON 
+			C.staff_code = S.staff_code
+				AND
+			S.staff_code = SC.staff_id
+				AND
+			SC.branch_code = B.branch_code
+		WHERE
+			YEAR(C.contract_date)>YEAR(NOW())-1
+		GROUP BY
+			B.branch_code, MONTH(C.contract_date)
+		ORDER BY B.branch_name, MONTH(C.contract_date) 
+	</select>
 </mapper>
