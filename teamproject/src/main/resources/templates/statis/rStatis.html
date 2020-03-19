@@ -12,6 +12,7 @@
     <th:block layout:fragment="customContents">
       <div class="content-wrapper">
                     <!-- BAR CHART -->
+             db 연결 완료(2020-03-19)
             <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">개인별 성과</h3>
@@ -81,32 +82,51 @@
 
     // Get context with jQuery - using jQuery's .get() method.
 	//개인별 차트
+    /*<![CDATA[*/
+    	var pList = /*[[${PersnlOutcomeList}]]*/
+    /*]]>*/
+	var persnlData = []; //차트 크기 값
+    var persnlNameData = []; //이름 배열
+	var tempArray = []; //임시 배열
+   	for(var i=0; i<pList.length; i++){
+   		var index = Number(pList[i].month) - 1;
+		tempArray[index] = pList[i].sum;
+   		if(pList[i+1]!=undefined){
+ 			if(String(pList[i].staffName) != String(pList[i+1].staffName)){
+ 				persnlNameData.push(pList[i].staffName);//이름 데이터 입력
+ 				persnlData.push(tempArray);
+ 				tempArray = []; //임시배열 초기화
+ 			}
+   		}else{  //마지막 배열값 입력
+   			persnlNameData.push(pList[i].staffName);
+   			persnlData.push(tempArray);
+   		}
+   	}
+	/* 지점 통계차트, 성과차트 공용 컬러 */
+	var backgroundColor = ['rgba(60,141,188,0.9)', 'rgba(210, 214, 222, 1)'];
+	var borderColor = ['rgba(60,141,188,0.8)', 'rgba(210, 214, 222, 1)'];
+	var pointColor = ['#3b8bba','rgba(210, 214, 222, 1)', 'rgba(210, 214, 222, 1)'];
+	var pointStrokeColor = ['rgba(60,141,188,1)', '#c1c7d1']
+	var pointHighlightFill = ['#fff', '#fff']
+	var pointHighlightStroke = ['rgba(60,141,188,1)', 'rgba(220,220,220,1)']
+	/* 지점 통계차트, 성과차트 공용 컬러 끝 */
+    var persnlDataset = [];
+    for(var i=0; i<persnlData.length; i++){
+    	persnlDataset.push({
+    		label               : persnlNameData[i],
+            backgroundColor     : backgroundColor[i%2],
+            borderColor         : borderColor[i%2],
+            pointRadius          : false,
+            pointColor          : pointColor[i%2],
+            pointStrokeColor    : pointStrokeColor[i%2],
+            pointHighlightFill  : pointHighlightFill[i%2],
+            pointHighlightStroke: pointHighlightStroke[i%2],
+            data                : persnlData[i]
+    	})
+    }
     var areaChartData = {
-      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
-      datasets: [
-        {
-          label               : '김시현',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label               : '손용민',
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-      ]
+      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      datasets: persnlDataset
     }
 
     var areaChartOptions = {
@@ -152,32 +172,45 @@
     })
     
     //지점별 차트
+    /*<![CDATA[*/
+		var bList = /*[[${branchOutcomeList}]]*/
+	/*]]>*/
+	var branchData = []; //차트 크기 값
+	var branchNameData = []; //이름 배열
+	var tempArray = []; //임시 배열
+	console.log(bList);
+	for(var i=0; i<bList.length; i++){
+		var index = Number(bList[i].month) - 1;
+		tempArray[index] = bList[i].sum;
+			if(bList[i+1]!=undefined){
+				if(String(bList[i].branchName) != String(bList[i+1].branchName)){
+					branchNameData.push(bList[i].branchName);//이름 데이터 입력
+					branchData.push(tempArray);
+					tempArray = []; //임시배열 초기화
+				}
+			}else{  //마지막 배열값 입력
+				branchNameData.push(bList[i].branchName);
+				branchData.push(tempArray);
+		}
+	} 
+	
+	 var branchDataset = [];
+    for(var i=0; i<branchData.length; i++){
+    	branchDataset.push({
+    		label               : branchNameData[i],
+            backgroundColor     : backgroundColor[i%2],
+            borderColor         : borderColor[i%2],
+            pointRadius          : false,
+            pointColor          : pointColor[i%2],
+            pointStrokeColor    : pointStrokeColor[i%2],
+            pointHighlightFill  : pointHighlightFill[i%2],
+            pointHighlightStroke: pointHighlightStroke[i%2],
+            data                : branchData[i]
+    	})
+    }
     var areaChartData = {
-      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
-      datasets: [
-        {
-          label               : '인천점',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label               : '부산점',
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-      ]
+      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      datasets: branchDataset
     }
 
     var areaChartOptions = {
@@ -225,10 +258,12 @@
     //전체 차트
     var allData = [];
     /*<![CDATA[*/
-    	/*[# th:each="l : ${allOutcomeList}"]*/
-    		allData.push(/*[[${l.sum}]]*/);
-    	/*[/]*/
+    	var allList = /*[[${allOutcomeList}]]*/
     /*]]>*/
+   		for(var i=0; i<allList.length; i++){
+   			var idx = allList[i].month - 1;
+   			allData[idx] = allList[i].sum;
+    	}
     
     areaChartData = {
       labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],

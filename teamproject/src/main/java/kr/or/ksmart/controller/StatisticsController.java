@@ -26,7 +26,11 @@ public class StatisticsController {
 	@GetMapping("/staff/rStatis")
 	public String rStatis(Model model) {
 		List<Outcome> allOutcomeList = statisService.getAllOutCome();
+		List<Outcome> PersnlOutcomeList = statisService.getPersonalOutcome();
+		List<Outcome> branchOutcomeList = statisService.getBranchOutcome();
 		model.addAttribute("allOutcomeList", allOutcomeList);		
+		model.addAttribute("PersnlOutcomeList", PersnlOutcomeList);	
+		model.addAttribute("branchOutcomeList", branchOutcomeList);	
 		return "statis/rStatis";
 	}
 }

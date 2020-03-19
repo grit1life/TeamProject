@@ -1,8 +1,22 @@
 package kr.or.ksmart.domain;
 
 public class Outcome {
+	private String branchName;
+	private String staffName;
 	private String month;
 	private String sum;
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
 	public String getMonth() {
 		return month;
 	}
@@ -17,6 +31,7 @@ public class Outcome {
 	}
 	@Override
 	public String toString() {
-		return "Outcome [month=" + month + ", sum=" + sum + "]";
+		return "Outcome [branchName=" + branchName + ", staffName=" + staffName + ", month=" + month + ", sum=" + sum
+				+ "]";
 	}
 }
