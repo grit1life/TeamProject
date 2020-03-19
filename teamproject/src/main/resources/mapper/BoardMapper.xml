@@ -40,7 +40,7 @@
 		INNER JOIN
 			staff
 		ON 
-			board.staff_id = staff.staff_id
+			board.staff_id = staff.staff_code
 		ORDER BY board_no DESC
 		LIMIT ${startClmn}, ${endClmn}
 	</select>
@@ -58,7 +58,7 @@
 		INNER JOIN
 			staff
 		ON 
-			board.staff_id = staff.staff_id
+			board.staff_id = staff.staff_code
 		WHERE 
 			board_no = #{no}
 	</select>
