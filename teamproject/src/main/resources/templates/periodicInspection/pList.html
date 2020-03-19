@@ -135,14 +135,14 @@
                 <td th:text="${l.customerId}"></td>
                 <td th:text="${l.checkDate}"></td>
                 <td> 
-					<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+					<a class="btn btn-primary btn-sm" th:href="@{/pUpdate(checkCode=${l.checkCode})}">
 	                   <i class="fas fa-folder">
 	                   </i>
 	                    View
 	                </a>    		
 				</td>				
 				<td>							
-					<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
+					<a class="btn btn-danger btn-sm" th:href="@{/pDelete(checkCode=${l.checkCode})}" id="btn-remove">
                        <i class="fas fa-trash">
                        </i>
                               Delete  	

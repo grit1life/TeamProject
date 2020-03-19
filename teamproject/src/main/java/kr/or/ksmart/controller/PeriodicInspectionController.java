@@ -31,6 +31,23 @@ public class PeriodicInspectionController {
 		return "/periodicInspection/pList";
 	}
 	
+	//상세보기
+	
+	@GetMapping("/pUpdate")
+	public String pUpdate(){
+		
+		
+		return "/periodicInspection/pUpdate";
+	}
+	
+	
+	//삭제
+	@GetMapping("/pDelete")
+	public String pDelete(){
+		
+		
+		return "/periodicInspection/pDelete";
+	}
 	
 	
 

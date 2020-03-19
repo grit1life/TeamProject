@@ -1,10 +1,149 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>pUpdate.html</title>
+</th:block>
 
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+    <section class="content-header"> 
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1>정기 점검 상세보기</h1>
+         </div>
+         <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+           </ol>
+         </div>
+       </div>
+     
+	
+  
+  <!--정기점검정보  -->
+  <section class="content">
+  	<div class="container-fluid">
+	
+	<div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">정기점검 정보</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form th:action="@{/pUpdate}" method="post"> 
+                <div class="card-body">
+                
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="1" name="contractCode" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 No</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="2" name="contractNo" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="3" name="customerId" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">상품코드</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="4"  name="goodsCode" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                   <label for="inputEmail3" class="col-sm-2 col-form-label" readonly="readonly">상품 세트 코드</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="5" name="setCode" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label" >세트 No</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="6" name="setNo" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">점검일</label>
+                  <div class="form-group row">
+	                  <div class="col-sm-10">	               		                   
+	                    <input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+	                  </div>                  
+           		  </div>   
+           		  
+           		  <label for="inputEmail3" class="col-sm-2 col-form-label">제품 상태</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <select class="form-control" id="inputEmail3" name="customerClass">
+                      	<option selected disabled>::제품 상태::</option>
+		                  <option>A</option>
+		                  <option>F</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">점검 내용</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" name="customerId" class="form-control">
+                    </div>
+                  </div>
+                  
+           		  
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">정기점검 지점</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <select class="form-control" id="inputEmail3" name="customerClass">
+                      	<option selected disabled>::선택해주세요::</option>
+		                  <option>AS001 : 본사</option>
+		                  <option>AS002 :인천점</option>
+		                  <option>AS003 :부산점</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">점검 기사 아이디</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" name="customerLevel" class="form-control">
+                    </div>
+                  </div>			
+                </div>
+                
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-info">등록</button>
+                   <a th:href="@{/index}" class="btn btn-default float-right">취소</button>
+                  
+                </div>
+                <!-- /.card-footer -->
+              </form>
+            </div>
+   </section>
+  
+  
+  </div>
+
+</th:block>
 </body>
 </html>
