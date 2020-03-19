@@ -38,11 +38,10 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3" style="display: none">
             <div class="sticky-top mb-3">
               <div class="card">
                 <div class="card-header">
-                  <h6 class="card-title">달력에 휴가 사항을 끌어주세요</h6>
                 </div>
                 <div class="card-body">
                   <!-- the events -->
@@ -50,7 +49,7 @@
                     <div class="external-event bg-success">연차</div>
                     <div class="external-event bg-warning">병가</div>
                     <div class="external-event bg-info">반차</div>
-                    <div class="checkbox" style="display: none">
+                    <div class="checkbox">
                       <label for="drop-remove">
                         <input type="checkbox" id="drop-remove">
                         remove after drop
@@ -75,6 +74,75 @@
             </div>
             <!-- /.card -->
           </div>
+          <!-- 테이블 시작 -->
+       <div class="card">
+          <div class="card-body p-0">
+             <div class="card-body table-responsive p-0">
+               <table id="boardTable" class="table table-hover">
+                 <thead>
+	                 <tr>
+	                   <th>휴가 시작일</th>
+	                   <th>휴가 종료일</th>
+	                   <th>휴가 종류</th>
+	                 </tr>
+                 </thead>
+                 <tbody>
+					<tr th:each="l : ${hList}">
+						<td th:text="${l.holidayFromDate}">
+						<td th:text="${l.holidayToDate}">
+						<td th:text="${l.holidaySort}">
+						<td>
+							<a class="btn btn-danger btn-sm" th:href="@{/staff/holidayDelete(hCode=${l.holidayCode})}">
+	                            <!-- <i class="Trash"  aria-hidden="true"></i> -->
+	                             Delete
+	                        </a> 
+						</td>
+					</tr>
+                 </tbody>
+               </table>
+             </div>
+           </div>
+		</div>
+              <!-- 테이블 끝 -->
+                <button style='display: none;' type="button" class="btn btn-default" id='modalBtn'
+                		data-toggle="modal" data-target="#modal-default">
+                  Launch Default Modal
+                </button>
+        <!-- 모달 -->
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">휴가 등록</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form th:action=@{/staff/holidayRegist} th:method="post">
+	            <div style="padding:30px;">
+				  <div style="width:47%; display:inline-block;" class="form-group">
+				    <input type="date" class="form-control" id="hFromDate" name="holidayFromDate">
+				  </div>
+				  &emsp;
+				  <div style="width:47%; display:inline-block;" class="form-group">
+				    <input type="date" class="form-control" id="hToDate" name="holidayToDate">
+				  </div>
+				  <select id="hSelect" class="form-control" name="holidaySort">
+					  <option>연차</option>
+					  <option>반차</option>
+					  <option>병가</option>
+					</select>
+			    </div>
+	            <div class="modal-footer justify-content-between">
+	              <button type="submit" class="btn btn-primary">등록</button>
+	              <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+	            </div>
+	         </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+      </div>
+       <!-- 모달 끝 -->
           <!-- /.col -->
         </div>
         <!-- /.row -->
@@ -92,7 +160,6 @@
 <!-- Page specific script -->
 <script th:inline="javascript">
   $(function () {
-	  console.log([[${hList}]])
     /* initialize the external events
      -----------------------------------------------------------------*/
     function ini_events(ele) {
@@ -150,64 +217,56 @@
       }
     });
 
-    
-    
-    var calendar = new Calendar(calendarEl, {
+
+	/*<![CDATA[*/
+ 		var hList = /*[[${hList}]]*/
+ 	/*]]>*/
+	var fromYear = [], fromMonth = [], fromDay = [];
+	var toYear = [], toMonth =[], toDay=[];
+	var hListSort = [];
+	for(var i=0; i<hList.length; i++){
+		hListSort.push(hList[i].holidaySort);
+		
+		var tempDate = new Date(hList[i].holidayFromDate);
+		fromYear.push(tempDate.getFullYear());
+		fromMonth.push(tempDate.getMonth());
+		fromDay.push(tempDate.getDate());
+		
+		tempDate = new Date(hList[i].holidayToDate);
+		toYear.push(tempDate.getFullYear());
+		toMonth.push(tempDate.getMonth());
+		toDay.push(tempDate.getDate());
+	}
+	var events = [];
+	for(var i=0; i<hListSort.length; i++){
+		var backgroundColor;
+		if(hListSort[i] =="연차"){
+			backgroundColor = '#28a745';
+		}else if(hListSort[i] =="병가"){
+			backgroundColor = '#ffc107';
+		}else if(hListSort[i] =="반차"){
+			backgroundColor = '#17a2b8';	
+		}
+		events.push(
+			{
+		          title          : hListSort[i],
+		          start          : new Date(fromYear[i], fromMonth[i], fromDay[i]),
+		          end			 : new Date(toYear[i], toMonth[i], toDay[i]+1),
+		          backgroundColor: backgroundColor, //red
+		          borderColor    : backgroundColor, //red
+		          allDay         : true
+		    }
+		);
+	} 
+      var calendar = new Calendar(calendarEl, {
       plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
       header    : {
         left  : 'prev,next today',
         center: 'title',
-        right : 'dayGridMonth,timeGridWeek,timeGridDay'
+        right : 'prev,next'/* 'dayGridMonth,timeGridWeek,timeGridDay' */
       },
       //Random default events
-      events    : [
-    	  
-        {
-          title          : 'All Day Event',
-          start          : new Date(y, m, 1),
-          backgroundColor: '#f56954', //red
-          borderColor    : '#f56954', //red
-          allDay         : true
-        },
-        {
-          title          : 'Long Event',
-          start          : new Date(y, m, d - 5),
-          end            : new Date(y, m, d - 2),
-          backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12' //yellow
-        },
-        {
-          title          : 'Meeting',
-          start          : new Date(y, m, d, 10, 30),
-          allDay         : false,
-          backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
-        },
-        {
-          title          : 'Lunch',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
-          allDay         : false,
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
-        },
-        {
-          title          : 'Birthday Party',
-          start          : new Date(y, m, d + 1, 19, 0),
-          end            : new Date(y, m, d + 1, 22, 30),
-          allDay         : false,
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
+      events    : events,
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       drop      : function(info) {
@@ -217,7 +276,8 @@
           info.draggedEl.parentNode.removeChild(info.draggedEl);
         }
       }    
-    });
+    });	
+      
 
     calendar.render();
     // $('#calendar').fullCalendar()
@@ -243,8 +303,8 @@
       if (val.length == 0) {
         return
       }
-
-      //Create events
+     
+    /*   //Create events
       var event = $('<div />')
       event.css({
         'background-color': currColor,
@@ -258,8 +318,17 @@
       ini_events(event)
 
       //Remove event from text input
-      $('#new-event').val('')
+      $('#new-event').val('') */
     })
+    
+    /* 달력 클릭 모달 출력 */
+    $('.fc-day,.fc-day-top').click(function(){
+    	$('#modalBtn').trigger('click');
+    	var sltDate = $(this).data().date;
+    	$('#hFromDate').val(sltDate);
+    	$('#hToDate').val(sltDate);
+	})
+
   })
 </script>
 </th:block>

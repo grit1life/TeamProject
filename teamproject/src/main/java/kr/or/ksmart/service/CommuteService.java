@@ -52,4 +52,14 @@ public class CommuteService {
 		List<Holiday> hList = commuteMapper.getHolidayList(staffId);
 		return hList;
 	}
+	
+	public void insertHoliday(Holiday holiday) {
+		int no = commuteMapper.getHolidayCode();
+		holiday.setHolidayCode("holiday"+(no+1));
+		commuteMapper.insertHoliday(holiday);
+	}
+	
+	public void deleteHoliday(String hCode) {
+		commuteMapper.deleteHoliday(hCode);
+	}
 }

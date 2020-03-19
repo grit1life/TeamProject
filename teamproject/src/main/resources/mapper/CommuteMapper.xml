@@ -27,7 +27,7 @@
 		INNER JOIN
 			staff
 		ON 
-			commute.staff_id = staff.staff_id
+			commute.staff_id = staff.staff_code
 			AND 
 			commute.staff_id = #{staffId}
 		ORDER BY commute_date DESC
@@ -41,26 +41,64 @@
 		INNER JOIN
 			staff
 		ON 
-			commute.staff_id = staff.staff_id
+			commute.staff_id = staff.staff_code
 			AND 
 			commute.staff_id = #{staffId}
 	</select>
 	
 	<resultMap type="Holiday" id="holidayResultMap">
 		<result property="holidayCode" column="holiday_code"/>
-		<result property="staffId" column="staff_id"/>
-		<result property="holidayDate" column="holiday_date"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="holidayFromDate" column="holiday_from_date"/>
+		<result property="holidayToDate" column="holiday_to_date"/>
 		<result property="holidaySort" column="holiday_sort"/>
 	</resultMap>
 	<select id="getHolidayList" parameterType="String" resultMap="holidayResultMap">
 		SELECT 
 			holiday_code,
-			staff_id,
-			holiday_date,
+			staff_name,
+			holiday_from_date,
+			holiday_to_date,
 			holiday_sort
 		FROM
 			holiday
+		INNER JOIN
+			staff
+		ON 
+			staff.staff_code=holiday.staff_id
 		WHERE 
 			staff_id = #{staffId}
+		ORDER BY
+			holiday_from_date ASC
 	</select>
+	<select id="getHolidayCode" resultType="int">
+		SELECT 
+			CAST(SUBSTRING(holiday_code, 8) AS DECIMAL) AS holidayCode
+		FROM 
+			holiday
+		ORDER BY 
+			holidayCode DESC
+		LIMIT 1
+	</select>
+	<insert id="insertHoliday" parameterType="Holiday">
+		INSERT INTO 
+		holiday (
+			  holiday_code
+			, staff_id
+			, holiday_from_date
+			, holiday_to_date
+			, holiday_sort) 
+		VALUES (
+			  #{holidayCode}
+			, #{staffId}
+			, #{holidayFromDate}
+			, #{holidayToDate}
+			, #{holidaySort});
+	</insert>
+	<delete id="deleteHoliday">
+		DELETE FROM
+			holiday
+		WHERE
+			holiday_code = #{hCode}	
+	</delete>
 </mapper>
