@@ -24,132 +24,202 @@
            </ol>
          </div>
        </div>
-     
-	<!-- 거객 검색 -->
-      <div class="container-fluid">   
-        <div class="card card-default">
-          <div class="card-header">
-            <h3 class="card-title">거객 검색</h3>
-		        <div class="card-tools">
-				    <div style="display: inline-block;">
-				    	<button id="customerHidden" type="button" data-card-widget="collapse" class="btn btn-block btn-secondary btn-xs">고객 검색</button>
-				    </div>
-				    <div style="display: inline-block;">
-				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
-				    </div>
-	   			</div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <!-- left -->
-            <div class="row">
-              <!-- 1 -->
-              <div class="col-md-6" style="max-width: 25%;">
-                <div class="form-group" style="height:70px;">
-	                
-	                 <label style="margin-bottom: 15px;">구분</label><br>
-	                  <div class="icheck-primary d-inline">
-	                    <input class="person" type="radio" name="r1" id="radioPrimary1" checked value="a">
-	                    <label for="radioPrimary1">
-	                    	개인
-	                    </label>
-	                  </div>
-	                  <div class="icheck-primary d-inline">
-	                    <input class="company" type="radio" name="r1" id="radioPrimary2">
-	                    <label for="radioPrimary2">
-	                    	법인
-	                    </label>
-	                  </div>
-	             
-                </div>
-                <!-- /.form-group -->
-                <div id="staff" class="form-group" style="display:none;">
-                  <label>담당자</label>
-		           <input type="text" class="form-control select2bs4" name="inputStaffName">
-	            </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- 2 -->
-              <div class="col-md-6" style="max-width: 25%;">
-                
-                <div class="form-group">
-                  <label>아이디</label>
-                  <input name="customerId" type="text" class="form-control select2bs4">
-                </div>
-                
-                <div class="form-group">
-                  <label id="name">이름</label>
-		          <input name="customerName" type="text" class="form-control select2bs4">
-                </div>
-                <!-- /.form-group -->
-              </div>
+     </section>
 
-              <!-- 3 -->
-              <div class="col-md-6" style="max-width: 40%;">
-                <div class="form-group">
-                  <label id="tel">전화번호</label>
-		          <input type="text" class="form-control select2bs4" name="customerCall">
-	           </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                  <label id="email">이메일</label>
-		          <input type="text" class="form-control select2bs4" name="customerEmail">
-	           </div>
-                <!-- /.form-group -->
-              </div>
-              <div class="col-md-6" style="max-width: 10%;">
-              	<a id="customerBtn" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;color:white;">검색</a>
-              </div>
-              <!-- /.col -->
+	<!-- 거객 검색 modal-->
+      <div class="modal fade" id="costomerModal">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">고객님 검색</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <!-- /.row -->
+            <!-- 고객님 검색 modal 내용 -->
+            <div class="modal-body">
+              <div>
+		          <div style="display:inline-block;">
+		              <div class="icheck-primary d-inline">
+		                <input class="person" type="radio" name="r1" id="radioPrimary1" checked value="a">
+		                <label for="radioPrimary1">
+		                	개인
+		                </label>
+		              </div>
+		              <div class="icheck-primary d-inline">
+		                <input class="company" type="radio" name="r1" id="radioPrimary2">
+		                <label for="radioPrimary2">
+		                	법인
+		                </label>
+		              </div>
+		          </div>
+		          <label>&emsp;아이디</label>
+	              <div style="display:inline-block;">
+	                <input name="customerId" type="text" style="width:130px" class="form-control select2bs4">
+	              </div>
+	              <label id="name">&emsp;이름</label>
+	              <div style="display:inline-block;">
+			          <input name="customerName" type="text" style="width:130px" class="form-control select2bs4">
+	              </div>
+	              <label id="tel">&emsp;전화번호</label>
+			      <div style="display:inline-block;">    
+			          <input type="text" class="form-control select2bs4" style="width:130px" name="customerCall">
+	              </div>
+	              <label id="email">&emsp;이메일</label>
+	              <div style="display:inline-block;">  
+			          <input type="text" class="form-control select2bs4" style="width:150px" name="customerEmail">
+	              </div>
+	              <div style="display:inline-block;">
+	            	  <a id="customerSerchBtn" class="btn btn-primary btn-sm" href="#" style="margin:10px;">
+			            <i class="fas fa-folder">
+			            </i>&ensp;검색
+			          </a>  
+	              </div>   
+	              </div>        
+	              <div id="staff" style="display:none;">
+	                <label>담당자</label>
+	                <div style="display:inline-block;"> 
+		          		<input type="text" style="width:100px" class="form-control select2bs4" name="inputStaffName">
+					</div>	
+	              </div>
+
+			  	<div id="staffList" class="container-fluid" style="display:none;">
+				 <div class="card-body">
+				  	<table id="example2" class="table table-bordered table-hover">
+				    	<thead>
+			                <tr>
+			                  <th>회사명</th>
+			                  <th>전화번호</th>
+			                  <th>주소</th>
+			                  <th>주소</th>
+			                  <th>대표자</th>
+			                  <th>담단자</th>
+			                  <th>담당자 전화번호</th>
+			                  <th>폐사 담단자</th>
+			                  <th>등급</th>
+			                  <th>선택</th>
+			                </tr>
+				         </thead>
+			             <tbody>
+			              <tr>
+			                <td>(주)GS칼텍스</td>
+			                <td>02-000-0000</td>
+			                <td>서울 강남구 논현로 508</td> 
+			                <td>GS타워 13층 XX 2팀, 10호실</td>
+			                <td>허세홍</td>
+			                <td>나담당</td>
+			                <td>010-000-0001</td>
+			                <td>직원A</td>
+			                <td>등급A</td>
+			                <td><a id="customerChoice" class="btn btn-sm btn-primary" style="vertical-align: middle;bottom: 0;margin-bottom: 18px;color:white;">선택</a></td>
+			              </tr>
+			             </tbody>
+					</table>
+				  </div>  	
+			    </div>   
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="coustomerClose" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           </div>
-          <!-- /.card-body -->
+          <!-- /.modal-content -->
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- 거객 검색 end-->
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
   
-  <!-- 거객 리스트 -->
-  <section class="content">
-  	<div class="container-fluid">
-	 <div class="card" id="staffList" style="display:none;">
-	 <div class="card-body">
-	  	<table id="example2" class="table table-bordered table-hover">
-	    	<thead>
-                <tr>
-                  <th>회사명</th>
-                  <th>전화번호</th>
-                  <th>주소</th>
-                  <th>주소</th>
-                  <th>대표자</th>
-                  <th>담단자</th>
-                  <th>담당자 전화번호</th>
-                  <th>폐사 담단자</th>
-                  <th>등급</th>
-                  <th>선택</th>
-                </tr>
-	         </thead>
-             <tbody>
-              <tr>
-                <td>(주)GS칼텍스</td>
-                <td>02-000-0000</td>
-                <td>서울 강남구 논현로 508</td> 
-                <td>GS타워 13층 XX 2팀, 10호실</td>
-                <td>허세홍</td>
-                <td>나담당</td>
-                <td>010-000-0001</td>
-                <td>직원A</td>
-                <td>등급A</td>
-                <td><a id="customerListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle;bottom: 0;margin-bottom: 18px;color:white;">선택</a></td>
-              </tr>
-             </tbody>
-		</table>
-	  </div>
+  <!-- 상품 리스트 modal-->
+      <div class="modal fade" id="goodsModal">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">상품 검색</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!-- 상품 검색 modal 내용 -->
+            <div class="modal-body">
+     			<section class="content">
+				<div class="container-fluid">
+				 	<!-- 상품검색 -->
+					<div style="margin-bottom: 20px;">
+				 		<label>렌탈 기간</label>
+				  		<input type="date" name="rentalFromDate" style="display:inline-block;width:160px;" class="form-control">&emsp;~&emsp;
+					  	<input type="date" name="rentalToDate" style="display:inline-block;width:160px;" class="form-control">
+					  	&emsp;12일&emsp;&emsp;
+					  	<label>기본 할인율</label>&emsp;3%<br>
+					</div>
+				  	<div style="margin-bottom: 20px;">
+				  		<div style="display:inline-block;">
+					  		<a>상품분류</a>
+					  		<div style="display:inline-block;">
+						  		<select class="form-control" style="display:inline-block;">
+						  			<option value="notebook">notebook</option>
+						  			<option value="pc">pc</option>
+						  		</select>
+					  		</div>
+					  	</div>
+					  	<div style="display:inline-block;">
+					  		<a>&emsp;&emsp;상품명</a>
+					  		<div style="display:inline-block;">
+						  		<input type="text" class="form-control" style="width:100px">
+					  		</div>
+					  	</div>
+					  	<div style="display:inline-block;">
+					  		<a>&emsp;&emsp;랜탈 가능 수량</a>
+					  		<div style="display:inline-block;">
+						  		<input type="number" class="form-control" style="width:100px">
+					  		</div>
+				  		</div>
+				  		&emsp;&emsp;<a class="btn btn-info btn-sm" href="#" style="padding:3px">
+				        	<i class="fas fa-folder"></i>&ensp;상품 검색</a>
+				  	</div>
+			        <table id="example2" class="table table-bordered table-hover">
+				    	<thead>
+			                <tr>
+			                  <th>회사명</th>
+			                  <th>전화번호</th>
+			                  <th>주소</th>
+			                  <th>주소</th>
+			                  <th>대표자</th>
+			                  <th>담단자</th>
+			                  <th>담당자 전화번호</th>
+			                  <th>폐사 담단자</th>
+			                  <th>등급</th>
+			                  <th>선택</th>
+			                </tr>
+				         </thead>
+			             <tbody>
+			              <tr>
+			                <td>(주)GS칼텍스</td>
+			                <td>02-000-0000</td>
+			                <td>서울 강남구 논현로 508</td> 
+			                <td>GS타워 13층 XX 2팀, 10호실</td>
+			                <td>허세홍</td>
+			                <td>나담당</td>
+			                <td>010-000-0001</td>
+			                <td>직원A</td>
+			                <td>등급A</td>
+			                <td><a id="customerChoice" class="btn btn-sm btn-primary" style="vertical-align: middle;bottom: 0;margin-bottom: 18px;color:white;">선택</a></td>
+			              </tr>
+			             </tbody>
+					</table>
+				    </div>
+
+			     <!-- /.modal-content -->
+			     	<div class="modal-footer justify-content-between">
+			         	<button id="coustomerClose" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			       	</div>
+				</section>
+			   <!-- /.modal-dialog -->
+			</div>
+			 <!-- /.modal -->
+ 	  </div>
 	 </div>   	
     </div>   
-  </section>
-  <!-- 거객 리스트 end-->
+  <!-- 상품 리스트 end-->
+  
   
   <!-- 견적서 입력 data -->
   <section class="content">
@@ -158,7 +228,7 @@
 	  <div class="card-body">
 	  	<div class="row">
 		  	
-		  	<div class="col-md-6">
+		  	<div class="col-md-6" style=" border: 1px solid #D3D3D3; border-radius: 10px;">
 		  		<label>선택한 고객정보</label><br>
 			  	(주)GS칼텍스<br>
 			  	대표 허세홍<br>
@@ -166,48 +236,77 @@
 			  	서울 강남구 논현로 508 GS타워 13층 XX 2팀, 10호실<br>
 			  	단당자 &emsp;나담당   010-000-0001<br>
 			  	등급 &emsp; &emsp;등급A
-		  	</div>
+			  	<button type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0" data-toggle="modal" data-target="#costomerModal">
+        			<i class="fas fa-folder"></i>&ensp;고객님 검색
+      			</button>
+			</div>
 		  	<div class="col-md-6">
-		  		<label>렌탈 기간</label><br>
-		  		<input type="date" name="rentalFromDate" style="display:inline-block;width:40%;" class="form-control">&emsp;~&emsp;
-			  	<input type="date" name="rentalToDate" style="display:inline-block;width:40%;" class="form-control">
-			  	12일
-			  	<label>적용 가능한 할인</label><br>
+		  	
+			  	<label>적용 가능성이 있는 할인</label><br>
 		  	</div>
 	  	</div>
-	  
 	  	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
 	    	<thead>
                 <tr>
-                  <th>코드</th>
+                  <th style="width: 10px;"></th>
                   <th>세트명</th>
                   <th>상품명</th>
                   <th>단가(기본 할인후)</th>
                   <th>갯수</th>
                   <th>등급 할인액</th>
                   <th>합계액</th>
+                  <th style="width:130px">삭제</th>
                 </tr>
 	         </thead>
              <tbody>
               <tr>
-                <td>코드</td>
+              	<td rowspan="2">1</td>
+              	<td colspan="7">렌탈기간&ensp;2020-04-01&ensp;~&ensp;2020-05-31&emsp;60일&emsp;할인율&ensp;5%</td>
+              </tr>
+              <tr>
                 <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
                 <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
                 <td>10000</td>
                 <td style="width:120px;"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
                 <td>-300</td>
                 <td>49700</td>
+                <td>
+                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+                    <i class="fas fa-trash"></i>&ensp;삭제</a>
+                </td>
               </tr>
               <tr>
-                <td>코드</td>
+              	<td rowspan="2">2
+              	</td>
+              	<td colspan="7">렌탈기간&ensp;2020-04-01&ensp;~&ensp;2020-05-31</td>
+              </tr>
+              <tr>
                 <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
                 <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
                 <td>20000</td>
                 <td style="width:120px;"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
                 <td>-600</td>
                 <td>99400</td>
+                <td>
+                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+                    <i class="fas fa-trash"></i>&ensp;삭제</a>
+                </td>
               </tr>
               <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                	<button type="button" class="btn btn-sm btn-info" style="padding:1px 4px 1px 4px;" data-toggle="modal" data-target="#goodsModal">
+        			<i class="fas fa-folder"></i>&ensp;상품 추가
+      				</button>
+              	</td>
+              </tr>
+              <tr style="border-top: solid #dee2e6 2px;">
                 <td></td>
                 <td></td>
                 <td></td>
@@ -215,6 +314,7 @@
                 <td></td>
                 <td>합계액</td>
                 <td><input type="text" name="tradingTotal" readonly="readonly"></td>
+                <td></td>
               </tr>
               <tr>
                 <td>특별 할인명</td>
@@ -224,10 +324,11 @@
                 <td>20% 추가할인</td>
                 <td>할인후 금액</td>
                 <td><input type="text" name="tradingTotal" readonly="readonly"></td>
+                <td></td>
               </tr>
              </tbody>
 		</table>
-		<textarea name="estimatesNote" class="form-control">memo</textarea>
+		<br><textarea name="estimatesNote" class="form-control">memo</textarea>
 	  </div>
 	 </div>   	    
 	</div>
@@ -237,28 +338,25 @@
 <script>
 	$('.company').click(function(){
 		console.log('company');
-		$('#name').text('회사명');
+		$('#name').html('&emsp;회사명');
 		$('#name').next().attr('name','conpanyName');
-		$('#tel').text('대표 전화번호');
+		$('#tel').html('&emsp;대표 전화번호');
 		$('#tel').next().attr('name','customerCompanyCall');
 		$('#email').next().attr('name','customerCompanyEmail');
 		$('#staff').css('display','block');
 	});
 	$('.person').click(function(){
-		console.log('person');
-		$('#name').text('이름')
+		console.log('person'); 
+		$('#name').html('&emsp;이름')
 		$('#name').next().attr('name','customerName');
-		$('#tel').text('전화번호');
+		$('#tel').html('&emsp;전화번호');
 		$('#tel').next().attr('name','customerCall');
 		$('#email').next().attr('name','customerEmail');
 		$('#staff').css('display','none');
 	})
-	$('#customerBtn').click(function(){
-		$('#customerHidden').trigger("click");
+	//고객 검색bottun click시 list 표시
+	$('#customerSerchBtn').click(function(){
 		$('#staffList').css('display','block');
-		
-		var inputStaffName = $('input[name=inputStaffName]').val();
-		var customerId = $('input[name=customerId]').val();
 
 		if($('.company').prop('checked')){
 			var customerName = $('input[name=customerName]').val();
@@ -268,11 +366,11 @@
 			var customerName = $('input[name=customerName]').val();
 			var customerCall = $('input[name=customerCall]').val();
 			var customerEmail = $('input[name=customerEmail]').val();
-			
 		}
 	});
-	$('#customerListBtn').click(function(){
-		
+	//고객을 선택시 검색창,list 비표시
+	$('#customerChoice').click(function(){
+		$('#coustomerClose').click();
 	});
 
 </script>  
