@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>rUpdate.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+ 
+ 	<!--수리현황 상세보기란 시작!!--> 
+    <section class="content-header"> 
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1>A/S 수리 현황</h1>
+         </div>
+         <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+           </ol>
+         </div>
+       </div>
+   
+  	   <div class="container-fluid">   
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">A/S 수리 현황</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	<button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <!-- left -->
+          <form action="/rUpdate" method="post" id="form">    
+            <div class="row">
+              
+              <!-- 작업 구분 시작 -->
+              <div class="col-md-6" style="max-width: 25%;">
+                <div class="form-group" style="height:70px;">	                
+	                 <label style="margin-bottom: 15px;">진행 상황</label><br>
+	                  <div class="icheck-primary d-inline">
+	                    <input class="InProgress" type="radio" name="r1" id="radioPrimary1" checked="" value="a">
+	                    <label for="radioPrimary1">
+	                    	수리 중
+	                    </label>
+	                  </div>
+	                  <div class="icheck-primary d-inline">
+	                    <input class="Complete" type="radio" name="r1" id="radioPrimary2">
+	                    <label for="radioPrimary2">
+	                    	수리 완료
+	                    </label>
+	                  </div>
+	             
+                </div>
+              </div>
+              <!--작업 구분 끝  -->
+                
+               
+              <!-- 오른쪽 div 시작-->				        
+  			  <div class="col-md-6" style="max-width: 25%;"> 
+	                <div class="form-group">
+	                  <label>계약서 코드</label>
+	                    <input type="text" id="1" name="contractCode" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                <div class="form-group">
+	                  <label>고객 아이디</label>
+			            <input type="text" id="3" name="customerId" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                <div class="form-group">
+	                  <label id="name3">교환 대상 상품 세트 코드</label>
+			            <input type="text" id="5" name="setCode" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                <div class="form-group">
+	                  <label>렌탈 시작 일자</label>
+			            <input type="text" id="7" name="rentalFromDate" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                 <div class="form-group">
+	                  <label>접수일</label>
+			            <input type="text" name="receptionDate" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                <div class="form-group">
+	                  <label>방문 예정일</label>
+			            <input type="text" name="visitExpectedDate" class="form-control" readonly="readonly">
+	                </div>
+	                
+					<div id="repairType" class="form-group" style="display:none;">
+						<label style="margin-bottom: 15px;">A/S 비용 발생 여부</label>
+                        <div class="custom-control custom-radio">
+                          <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
+                          <label for="customRadio1" class="custom-control-label">무상</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                          <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked="">
+                          <label for="customRadio2" class="custom-control-label">유상</label>
+                        </div>                       
+                    </div>
+   
+             	 	<div class="form-group">
+	                  <label>수리 담당자 아이디</label>
+			            <input type="text" name="staffId" class="form-control">
+	                </div>
+	                <!-- /.form-group -->
+	              </div>
+	         <!-- 오른쪽 div 끝 --> 
+	                
+	          <!-- 왼쪽 div 시작-->
+	              <div class="col-md-6" style="max-width: 40%;">
+	               	<div class="form-group">
+	                  <label>계약서 No</label>
+			           <input type="text" id="2" name="contractNo" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                <!-- /.form-group -->
+	                <div class="form-group">
+	                  <label id="name1">교환 대상 상품 코드</label>
+			           <input type="text" id="4"  name="goodsCode" class="form-control" readonly="readonly">
+		           </div>
+		           
+		           <div class="form-group">
+	                  <label id="name2">교환 대상 상품 세트 No</label>
+			           <input type="text" id="6" name="setNo" class="form-control" readonly="readonly">
+		           </div>
+		           
+		            <div class="form-group">
+	                  <label>렌탈 종료 일자</label>
+			            <input type="text" id="8" name="rentalToDate" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                 <div class="form-group">
+	                  <label>접수자 아이디</label>
+			            <input type="text" name="staffId" class="form-control" readonly="readonly">
+	                </div>
+	                   
+	                
+	                <div class="form-group">
+	                  <label>방문일</label>
+			            <input type="date" name="visitDate" class="form-control">
+	                </div>
+	                
+	               <div id="repairContents" class="form-group" style="display:none;">
+	                  <label>처리 결과</label>
+			            <input type="text" name="repairContents" class="form-control">
+	                </div>
+ 	           		
+ 	           		<div id="exchangeDate" class="form-group" style="display:none;">
+	                  <label>수리 완료일</label>
+			            <input id="exchangeDate" type="date" name="exchangeDate" class="form-control">
+	                </div>
+	                
+	                
+	                <!-- /.form-group -->
+	              </div>
+	              <div class="col-md-6" style="max-width: 10%;">
+	              	<button type="submit" id="customerBtn" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;color:white;">확인</button>
+	              </div>
+                 
+            </div>          
+          </form>
+          
+          </div>
+        </div>
+      </div>
+   </section>
+   <!--수리현황 상세보기 끝!!--> 
+   
+   
+   
+   <!--수리 비용 청구 등록 시작  -->
+  	<section class="content-header">  
+  	   <div class="container-fluid" id="repairCost" style="display:none;">   
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">A/S 수리 비용 청구</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	<button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <!-- left -->
+          <form action="/test" method="post" id="form">    
+            <div class="row">
+            	<label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" name="customerId" class="form-control" readonly="readonly">
+                    </div>
+                  </div>     
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">수리비 금액</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="number" name="repairCost" class="form-control">
+                    </div>
+                  </div>         
+                  
+                  <div class="col-md-6" style="max-width: 10%;">
+	              	<button type="submit" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;color:white;">확인</button>
+	              </div>   
+              
+                 
+            </div>          
+          </form>
+          
+          </div>
+        </div>
+      </div>
+   </section>
+   <!--수리 비용 청구 끝시작  -->
+   
+   
+   
+   
+   
+   
+   
+</div>
+  
+  
+  
+  
+  
+  <script>
+  $('.Complete').click(function(){
+	  
+	$('#exchangeDate').css('display','block');
+	$('#repairType').css('display','block');
+	$('#repairContents').css('display','block');
+		
+	})
+	
+  $('.InProgress').click(function(){
+	  
+	$('#exchangeDate').css('display','none');
+	$('#repairType').css('display','none');
+	$('#repairContents').css('display','none');
+	
+	
+	$('#repairType').click(function(){		  
+		  $('#repairCost').css('display','block');
+  
+	    }) 
+	  
+		
+	})
+	
+	
+    
+  
+
+  
+  
+  
+  
+  </script>
+  
+	
+</th:block>
+</body>
+</html>
