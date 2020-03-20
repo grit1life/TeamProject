@@ -11,6 +11,8 @@ public interface GoodsMapper {
 	
 	public int insertGoods(Goods goods);
 	
+	public String getNextGoodsCode ();
+	
 	public List<Goods> getGoodsList();
 	
 	public Goods getGoods(String goodsCode);

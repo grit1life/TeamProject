@@ -13,16 +13,48 @@
 		<result property="goodsInputStaffCode" column="goods_input_staff_code"/>
 		<result property="goodsInputDate" column="goods_input_date"/>
 		<result property="goodsDesc" column="goods_desc"/>
-		<result property="goodsImg" column="goods_img"/>
+		<result property="originFileName" column="origin_file_name"/>
+		<result property="convertFileName" column="convert_file_name"/>
 		
 		<result property="goodsCategoryName" column="goods_category_name"/>
 		<result property="goodsCategoryInputStaffCode" column="goods_category_input_staff_code"/>
 		<result property="goodsCategoryInputDate" column="goods_category_input_date"/>
 	</resultMap>
 	
+	<resultMap type="Goods" id="goodsCategoryResultMap">
+		<result property="goodsCategoryCode" column="goods_category_code"/>
+		<result property="goodsCategoryName" column="goods_category_name"/>
+		<result property="goodsCategoryInputStaffCode" column="goods_category_input_staff_code"/>
+		<result property="goodsCategoryInputDate" column="goods_category_input_date"/>
+	</resultMap>
+	
+	<!-- goods -->
+	
 	<insert id="insertGoods" parameterType="Goods">
-		<selectKey resultType="String" keyProperty="goodsCode" order="BEFORE">
-			SELECT
+			INSERT INTO goods
+				(	goods_code
+				, goods_category_code
+				, goods_name
+				, goods_barcode
+				, goods_input_staff_code
+				, goods_input_date
+				, goods_desc
+				, origin_file_name
+				, convert_file_name )
+			VALUES 
+				( #{goodsCode}
+				, #{goodsCategoryCode}
+				, #{goodsName}
+				, #{goodsBarcode}
+				, 'id001'
+				, NOW()
+				, #{goodsDesc}
+				, #{originFileName}
+				, #{convertFileName}	);
+	</insert>
+	
+	<select id="getNextGoodsCode" resultType="String">
+		SELECT
 				CASE
 					WHEN MAX(goods_code) LIKE 'goo_%'
 					THEN
@@ -33,60 +65,51 @@
 					ifnull(goods_code, 'goo_0001')
 				END AS goodsCode
 			FROM
-				goods
-		</selectKey>
-		INSERT INTO goods
-			(	goods_code
-			, goods_category_code
-			, goods_name
-			, goods_barcode
-			, goods_input_staff_code
-			, goods_input_date
-			, goods_desc
-			, goods_img)
-		VALUES 
-			( #{goodsCode}
-			, #{goodsCategoryCode}
-			, #{goodsName}
-			, #{goodsBarcode}
-			, #{goodsInputStaffCode}
-			, NOW()
-			, #{goodsDesc}
-			, #{goodsImg}	);
-	</insert>
+				goods;
+	</select>
 		
 	<select id="getGoodsList" resultMap="goodsResultMap">
 		SELECT 
 				goods_code
-			, goods_category_code
+			, g.goods_category_code
 			, goods_name
 			, goods_barcode
 			, goods_input_staff_code
 			, goods_input_date
 			, goods_desc
-			, goods_img
+			, origin_file_name
+			, convert_file_name
+			, c.goods_category_name
+			, c.goods_category_input_staff_code
+			, c.goods_category_input_date
 		FROM
-			goods
+			goods AS g
+			INNER JOIN goods_category AS c
+						ON	g.goods_category_code = c.goods_category_code
 		ORDER BY
-			goods_code ASC;
+			goods_code DESC;
 	</select>
 	
 	<select id="getGoods" parameterType="String" resultMap="goodsResultMap">
 		SELECT 
 				goods_code
-			, goods_category_code
+			, g.goods_category_code
 			, goods_name
 			, goods_barcode
 			, goods_input_staff_code
 			, goods_input_date
 			, goods_desc
-			, goods_img
+			, origin_file_name
+			, convert_file_name
+			, c.goods_category_name
+			, c.goods_category_input_staff_code
+			, c.goods_category_input_date
 		FROM
-			goods
+			goods as g
+			INNER JOIN goods_category AS c
+						ON	g.goods_category_code = c.goods_category_code
 		WHERE
 			goods_code = #{goodsCode}
-		ORDER BY
-			goods_code ASC;
 	</select>
 	
 	<update id="updateGoods" parameterType="Goods">
@@ -108,5 +131,24 @@
 		WHERE
 				goods_code= #{goodsCode};
 	</delete>
+	
+	<select id="checkOverlap" parameterType="String">
+		SELECT 
+				goods_code
+		FROM
+			goods as g
+			INNER JOIN goods_category AS c
+						ON	g.goods_category_code = c.goods_category_code
+		<if test="">
+			WHERE
+				goods_name = #{goodsName}		
+		</if>
+		<if test="">
+			WHERE
+				goods_barcode = #{goodsBarcode}
+		</if>
+	</select>
+	
+	<!-- goods END -->
 	
 </mapper>
