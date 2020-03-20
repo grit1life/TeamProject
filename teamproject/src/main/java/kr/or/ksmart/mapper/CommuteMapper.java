@@ -16,4 +16,10 @@ public interface CommuteMapper {
 	public int getCommuteListCnt(String staffId);
 
 	public List<Holiday> getHolidayList(String staffId);
+	
+	public int getHolidayCode();
+	
+	public int insertHoliday(Holiday holiday);
+	
+	public int deleteHoliday(String hCode);
 }

@@ -10,27 +10,45 @@
 		<result property="commuteLeave" column="commute_leave"/>
 		<result property="commuteLateness" column="commute_lateness"/>
 		<result property="commuteEarlyleave" column="commute_earlyleave"/>
-		<result property="commuteHoliday" column="commute_holiday"/>
+		<result property="holidaySort" column="holiday_sort"/>
 	</resultMap>
 	
 	<select id="commuteList" parameterType="Map" resultMap="commuteResultMap">
 		SELECT
-			  staff_name
-			, commute_date
-			, commute_arrive
-			, commute_leave
-			, commute_lateness
-			, commute_earlyleave
-			, commute_holiday
+			  S.staff_name
+			, CH.commute_date
+			, CH.commute_arrive
+			, CH.commute_leave
+			, CH.commute_lateness
+			, CH.commute_earlyleave
+			, CH.holiday_sort
 		FROM
-			commute
-		INNER JOIN
-			staff
+		(
+		SELECT
+			  C.staff_id
+			, C.commute_date
+			, C.commute_arrive
+			, C.commute_leave
+			, C.commute_lateness
+			, C.commute_earlyleave
+			, H.holiday_sort
+		FROM
+			commute AS C
+		LEFT JOIN
+			holiday AS H
 		ON 
-			commute.staff_id = staff.staff_id
+			C.staff_id = H.staff_id
+			AND
+			C.commute_date&gt;H.holiday_from_date 
 			AND 
-			commute.staff_id = #{staffId}
-		ORDER BY commute_date DESC
+			C.commute_date&lt;H.holiday_to_date
+		) AS CH
+		INNER JOIN
+			staff AS S
+		ON 
+			CH.staff_id = S.staff_code
+		WHERE CH.staff_id = "201804_0001"
+		ORDER BY CH.commute_date DESC
 		LIMIT #{startClmn}, #{clmnCnt}
 	</select>	
 	<select id="getCommuteListCnt" parameterType="String" resultType="int">
@@ -41,26 +59,64 @@
 		INNER JOIN
 			staff
 		ON 
-			commute.staff_id = staff.staff_id
+			commute.staff_id = staff.staff_code
 			AND 
 			commute.staff_id = #{staffId}
 	</select>
 	
 	<resultMap type="Holiday" id="holidayResultMap">
 		<result property="holidayCode" column="holiday_code"/>
-		<result property="staffId" column="staff_id"/>
-		<result property="holidayDate" column="holiday_date"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="holidayFromDate" column="holiday_from_date"/>
+		<result property="holidayToDate" column="holiday_to_date"/>
 		<result property="holidaySort" column="holiday_sort"/>
 	</resultMap>
 	<select id="getHolidayList" parameterType="String" resultMap="holidayResultMap">
 		SELECT 
 			holiday_code,
-			staff_id,
-			holiday_date,
+			staff_name,
+			holiday_from_date,
+			holiday_to_date,
 			holiday_sort
 		FROM
 			holiday
+		INNER JOIN
+			staff
+		ON 
+			staff.staff_code=holiday.staff_id
 		WHERE 
 			staff_id = #{staffId}
+		ORDER BY
+			holiday_from_date ASC
 	</select>
+	<select id="getHolidayCode" resultType="int">
+		SELECT 
+			CAST(SUBSTRING(holiday_code, 8) AS DECIMAL) AS holidayCode
+		FROM 
+			holiday
+		ORDER BY 
+			holidayCode DESC
+		LIMIT 1
+	</select>
+	<insert id="insertHoliday" parameterType="Holiday">
+		INSERT INTO 
+		holiday (
+			  holiday_code
+			, staff_id
+			, holiday_from_date
+			, holiday_to_date
+			, holiday_sort) 
+		VALUES (
+			  #{holidayCode}
+			, #{staffId}
+			, #{holidayFromDate}
+			, #{holidayToDate}
+			, #{holidaySort});
+	</insert>
+	<delete id="deleteHoliday">
+		DELETE FROM
+			holiday
+		WHERE
+			holiday_code = #{hCode}	
+	</delete>
 </mapper>

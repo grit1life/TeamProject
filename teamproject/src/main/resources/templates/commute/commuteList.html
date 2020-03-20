@@ -10,6 +10,9 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
 <div class="content-wrapper">
+	DB 연결완료</br>
+	첫 연결시 수정 필요,</br>
+	로그인시 자동 출근, 퇴근 필요(2020-03-20)
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -88,11 +91,23 @@
 			  	for(var i=0; i<p.cList.length; i++){
 			  		$('tbody').append('<tr>');
 					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteDate+"</td>");					
-					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteArrive+"</td>");					
-					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteLeave+"</td>");					
+					if(p.cList[i].commuteArrive!=null){
+						$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteArrive+"</td>");					
+					}else{
+						$('tbody').children('tr').eq(i).append("<td></td>");
+					}
+					if(p.cList[i].commuteLeave!=null){
+						$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteLeave+"</td>");					
+					}else{
+						$('tbody').children('tr').eq(i).append("<td></td>");
+					}
 					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteLateness+"</td>");
 					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteEarlyleave+"</td>");
-					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteHoliday+"</td>");	
+					if(p.cList[i].holidaySort!=null){
+						$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].holidaySort+"</td>");	
+					}else{
+						$('tbody').children('tr').eq(i).append("<td></td>");
+					}
 					$('tbody').append('</tr>');
 				}
 
