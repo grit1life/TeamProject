@@ -10,27 +10,45 @@
 		<result property="commuteLeave" column="commute_leave"/>
 		<result property="commuteLateness" column="commute_lateness"/>
 		<result property="commuteEarlyleave" column="commute_earlyleave"/>
-		<result property="commuteHoliday" column="commute_holiday"/>
+		<result property="holidaySort" column="holiday_sort"/>
 	</resultMap>
 	
 	<select id="commuteList" parameterType="Map" resultMap="commuteResultMap">
 		SELECT
-			  staff_name
-			, commute_date
-			, commute_arrive
-			, commute_leave
-			, commute_lateness
-			, commute_earlyleave
-			, commute_holiday
+			  S.staff_name
+			, CH.commute_date
+			, CH.commute_arrive
+			, CH.commute_leave
+			, CH.commute_lateness
+			, CH.commute_earlyleave
+			, CH.holiday_sort
 		FROM
-			commute
-		INNER JOIN
-			staff
+		(
+		SELECT
+			  C.staff_id
+			, C.commute_date
+			, C.commute_arrive
+			, C.commute_leave
+			, C.commute_lateness
+			, C.commute_earlyleave
+			, H.holiday_sort
+		FROM
+			commute AS C
+		LEFT JOIN
+			holiday AS H
 		ON 
-			commute.staff_id = staff.staff_code
+			C.staff_id = H.staff_id
+			AND
+			C.commute_date&gt;H.holiday_from_date 
 			AND 
-			commute.staff_id = #{staffId}
-		ORDER BY commute_date DESC
+			C.commute_date&lt;H.holiday_to_date
+		) AS CH
+		INNER JOIN
+			staff AS S
+		ON 
+			CH.staff_id = S.staff_code
+		WHERE CH.staff_id = "201804_0001"
+		ORDER BY CH.commute_date DESC
 		LIMIT #{startClmn}, #{clmnCnt}
 	</select>	
 	<select id="getCommuteListCnt" parameterType="String" resultType="int">

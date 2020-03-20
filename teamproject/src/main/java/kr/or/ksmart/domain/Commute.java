@@ -7,12 +7,18 @@ public class Commute {
 	private String commuteLeave;
 	private String commuteLateness;
 	private String commuteEarlyleave;
-	private String commuteHoliday;
+	private String holidaySort;
 	@Override
 	public String toString() {
 		return "Commute [staffName=" + staffName + ", commuteDate=" + commuteDate + ", commuteArrive=" + commuteArrive
 				+ ", commuteLeave=" + commuteLeave + ", commuteLateness=" + commuteLateness + ", commuteEarlyleave="
-				+ commuteEarlyleave + ", commuteHoliday=" + commuteHoliday + "]";
+				+ commuteEarlyleave + ", holidaySort=" + holidaySort + "]";
+	}
+	public String getHolidaySort() {
+		return holidaySort;
+	}
+	public void setHolidaySort(String holidaySort) {
+		this.holidaySort = holidaySort;
 	}
 	public String getStaffName() {
 		return staffName;
@@ -49,12 +55,6 @@ public class Commute {
 	}
 	public void setCommuteEarlyleave(String commuteEarlyleave) {
 		this.commuteEarlyleave = commuteEarlyleave;
-	}
-	public String getCommuteHoliday() {
-		return commuteHoliday;
-	}
-	public void setCommuteHoliday(String commuteHoliday) {
-		this.commuteHoliday = commuteHoliday;
 	}
 	
 }
