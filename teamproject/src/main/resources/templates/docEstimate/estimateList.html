@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>estimateList.html</title>
-</head>
-<body>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>staffList.html</title>
+</th:block>
 
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+    <section class="content-header"> 
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1>견적서 조회</h1>
+         </div>
+         <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+             <li class="breadcrumb-item active">Advanced Form</li>
+           </ol>
+         </div>
+       </div>
+     </section>
+    
+  <!-- 견적서 입력 data -->
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card">
+	  <div class="card-body">
+	  	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
+	    	<thead>
+                <tr>
+                  <th style="width: 10px;">1</th>
+                  <th>고객명</th>
+                  <th>상품명(세트)</th>
+                  <th>총금액</th>
+                  <th>갯수</th>
+                  <th>등급 할인액</th>
+                  <th>합계액</th>
+                  <th style="width:130px">삭제</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr th:each="l, i : ${eList}">
+                <td th:text="${i.count}"></td>
+                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName}"></td>
+                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+                <td th:if="${l.tradingTotal}!=null" th:text="${l.tradingTotal}"></td>
+                <td th:if="${l.tradingTotal}==null"></td>
+                <td>
+                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+                    <i class="fas fa-trash"></i>&ensp;삭제</a>
+                </td>
+              </tr>
+             </tbody>
+		</table>
+		<br><textarea name="estimatesNote" class="form-control">memo</textarea>
+	  </div>
+	 </div>   	    
+	</div>
+  </section>
+    <!-- 견적서 입력 data end-->
+  </div>
+
+</th:block>
 </body>
 </html>

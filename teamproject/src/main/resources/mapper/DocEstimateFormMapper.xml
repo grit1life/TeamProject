@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.mapper.DocEstimateFormMapper">
+	<resultMap type="DocEstimateForm" id="estimateResultMap">
+		<result property="estimateCode" column="estimate_code"/>
+		<result property="estimateNo" column="estimate_no"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="setNo" column="set_code"/>
+		<result property="tradingCount" column="trading_count"/>
+		<result property="rentalFromDate" column="rental_from_date"/>
+		<result property="rentalToDate" column="rental_to_date"/>
+		<result property="rentalPeriod" column="rental_period"/>
+		<result property="saleCode" column="sale_code"/>
+		<result property="tradingTotal" column="trading_total"/>
+		<result property="estimatesExpirationDate" column="estimates_expiration_date"/>
+		<result property="inputStaffCode" column="input_staff_code"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="estimatesIsend" column="estimates_isend"/>
+		<result property="estimatesNote" column="estimates_note"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerAddress" column="customer_address"/>
+		<result property="customerAddress2" column="customer_address2"/>
+		<result property="customerCompanyName" column="customer_comany_name"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="setName" column="set_name"/>
+	</resultMap>
+	
+	<select id="getEstimateList" parameterType="String" resultMap="estimateResultMap">
+		SELECT 
+			DC.estimate_code
+			,DC.estimate_no
+			,DC.customer_id
+			,DC.goods_code
+			,DC.set_code
+			,DC.trading_count
+			,DC.rental_from_date
+			,DC.rental_to_date
+			,DC.rental_period
+			,DC.sale_code
+			,SUM(DC.trading_total) AS tradingTotal
+			,COUNT(DC.estimate_code) AS count
+			,DC.estimates_expiration_date
+			,DC.input_staff_code
+			,DC.input_date
+			,DC.estimates_isend
+			,DC.estimates_note
+			,DC.grade_name
+			,C.customer_name
+			,C.customer_address
+			,C.customer_address2
+			,CC.customer_comany_name
+			,G.goods_name
+			,PS.set_name
+		FROM
+			doc_estimate AS DC
+		INNER JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON 
+			DC.goods_code = G.goods_code
+		LEFT JOIN 
+			price_set AS PS
+			ON 
+			DC.set_code = PS.set_code
+		<if test="cId neq null and cId neq ''.toString()">
+		WHERE
+			customer_id = #{cId};
+		</if>
+		GROUP BY
+			DC.estimate_code
+		ORDER BY
+			DC.estimate_code DESC	
+	</select>	
+</mapper>
