@@ -39,7 +39,7 @@
               <form th:action="@{/pUpdate}" method="post"> 
                 <div class="card-body">
                 
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
                       <input type="text" id="1" name="contractCode" class="form-control" readonly="readonly">
@@ -59,6 +59,44 @@
                       <input type="text" id="3" name="customerId" class="form-control" readonly="readonly">
                     </div>
                   </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="a" name="customerName" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="b" name="customerCall" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">우편 번호</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="text" id="c" name="zipCode" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">기본 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="d" name="customerAddress" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">상세 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="e" name="customerAddress2" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
                   
                    <label for="inputEmail3" class="col-sm-2 col-form-label">상품코드</label>
                   <div class="form-group row">
@@ -87,7 +125,8 @@
 	                  <div class="col-sm-10">	               		                   
 	                    <input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
 	                  </div>                  
-           		  </div>   
+           		  </div> 
+  		   
            		  
            		  <label for="inputEmail3" class="col-sm-2 col-form-label">제품 상태</label>
                   <div class="form-group row">

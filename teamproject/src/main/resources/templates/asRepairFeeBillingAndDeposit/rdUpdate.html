@@ -5,7 +5,7 @@
   layout:decorate="~{layout/default}"
 >
 <th:block layout:fragment="customTitle">
-	<title>rUpdate.html</title>
+	<title>rdUpdate.html</title>
 </th:block>
 
 
@@ -13,7 +13,7 @@
 <th:block layout:fragment="customContents">
  <div class="content-wrapper">
  
- 	<!--수리현황 상세보기란 시작!!--> 
+ 	<!--수리비 청구 현황 상세보기란 시작!!--> 
     <section class="content-header"> 
        <div class="row mb-2">
          <div class="col-sm-6">
@@ -29,7 +29,7 @@
   	   <div class="container-fluid">   
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">A/S 수리 현황</h3>
+            <h3 class="card-title">A/S 비용 청구 현황</h3>
 		        <div class="card-tools">
 				    <div style="display: inline-block;">
 				    	<button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -46,19 +46,19 @@
             <div class="row">
               
               <!-- 작업 구분 시작 -->
-              <div class="col-md-6" style="max-width: 25%;">
+               <div class="col-md-6" style="max-width: 25%;">
                 <div class="form-group" style="height:70px;">	                
-	                 <label style="margin-bottom: 15px;">진행 상황</label><br>
+	                 <label style="margin-bottom: 15px;">입금 여부</label><br>
 	                  <div class="icheck-primary d-inline">
-	                    <input class="InProgress" type="radio" name="r1" id="radioPrimary1" checked="" value="a">
+	                    <input  type="radio" name="r1" id="radioPrimary1"  value="a">
 	                    <label for="radioPrimary1">
-	                    	수리 중
+	                    	예
 	                    </label>
 	                  </div>
 	                  <div class="icheck-primary d-inline">
-	                    <input class="Complete" type="radio" name="r1" id="radioPrimary2">
+	                    <input  type="radio" name="r1" id="radioPrimary2" checked="">
 	                    <label for="radioPrimary2">
-	                    	수리 완료
+	                    	아니오
 	                    </label>
 	                  </div>
 	             
@@ -108,28 +108,30 @@
 	                  <label>접수일</label>
 			            <input type="text" name="receptionDate" class="form-control" readonly="readonly">
 	                </div>
-	                
+	                	                
 	                <div class="form-group">
 	                  <label>방문 예정일</label>
 			            <input type="text" name="visitExpectedDate" class="form-control" readonly="readonly">
 	                </div>
 	                
-					<div id="repairType" class="form-group" style="display:none;">
-						<label style="margin-bottom: 15px;">A/S 비용 발생 여부</label>
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio" checked="">
-                          <label for="customRadio1" class="custom-control-label">무상</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio">
-                          <label for="customRadio2" class="custom-control-label">유상</label>
-                        </div>                       
-                    </div>
-   
-             	 	<div class="form-group">
-	                  <label>수리 담당자 아이디</label>
-			            <input type="text" name="staffId" class="form-control">
+	                
+	                 <div class="form-group">
+	                  <label>수리 현황 번호</label>
+			             <input type="text" name="receptionCode" class="form-control" readonly="readonly">
 	                </div>
+	                
+	                   
+	               <div class="form-group">
+	                  <label>처리 결과</label>
+			            <input type="text" name="repairContents" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                <div class="form-group">
+	                  <label>수리비</label>
+			           <input type="number" name="repairCost" class="form-control" readonly="readonly">
+	                </div>
+ 	           						
+             	 	
 	                <!-- /.form-group -->
 	              </div>
 	         <!-- 오른쪽 div 끝 --> 
@@ -182,17 +184,22 @@
 	                
 	                <div class="form-group">
 	                  <label>방문일</label>
-			            <input type="date" name="visitDate" class="form-control">
+			            <input type="date" name="visitDate" class="form-control" readonly="readonly">
 	                </div>
 	                
-	               <div id="repairContents" class="form-group" style="display:none;">
-	                  <label>처리 결과</label>
-			            <input type="text" name="repairContents" class="form-control">
+	                <div class="form-group">
+	                  <label>수리 담당자 아이디</label>
+			            <input type="text" name="staffId" class="form-control" readonly="readonly">
 	                </div>
- 	           		
- 	           		<div id="exchangeDate" class="form-group" style="display:none;">
+	                	             
+ 	           		<div class="form-group">
 	                  <label>수리 완료일</label>
-			            <input id="exchangeDate" type="date" name="exchangeDate" class="form-control">
+			            <input id="repairCompletionDate" type="date" name="repairCompletionDate" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                <div class="form-group">
+	                  <label>청구일</label>
+			            <input type="date" name="repairCostDate" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                
@@ -209,117 +216,13 @@
         </div>
       </div>
    </section>
-   <!--수리현황 상세보기 끝!!--> 
+   <!-- 상세보기 끝!!--> 
    
-   
-   
-   <!--수리 비용 청구 등록 시작  -->
-  	<section class="content-header">  
-  	   <div class="container-fluid" id="repairCost" style="display:none;">   
-        <div class="card card-info">
-          <div class="card-header">
-            <h3 class="card-title">A/S 수리 비용 청구</h3>
-		        <div class="card-tools">
-				    <div style="display: inline-block;">
-				    	<button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-				    </div>
-				    <div style="display: inline-block;">
-				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
-				    </div>
-	   			</div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <!-- left -->
-          <form action="/test" method="post" id="form">    
-            <div class="row">
-            	<div class="col-md-6" style="max-width: 25%;"> 
-	                <div class="form-group">
-	                  <label>수리 현황 번호</label>
-	                    <input type="text" name="receptionCode" class="form-control" readonly="readonly">
-	                </div>  
-	            </div> 
-	            
-	            <div class="col-md-6" style="max-width: 25%;"> 
-	            	<div class="form-group">
-	                  <label>수리비 금액</label>
-	                    <input type="number" name="repairCost" class="form-control">
-	                </div>          
-	            </div>  
-	            <div class="col-md-6" style="max-width: 25%;"> 
-	            	<div class="form-group">
-	                  <label>청구일</label>
-	                    <input type="date" name="repairCostDate" class="form-control">
-	                </div> 
-	            </div> 
-     
-                  
-                  <div class="col-md-6" style="max-width: 10%;">
-	              	<button type="submit" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;color:white;">확인</button>
-	              </div>   
-       
-            </div> 
-           
-          </form>
-          
-          </div>
-        </div>
-      </div>
-   </section>
-   <!--수리 비용 청구 끝시작  -->
-   
-   
-   
-   
-   
-   
-   
+ 
 </div>
   
   
-  
-  
-  
-  <script>
-  $('.Complete').click(function(){
-	  
-	$('#exchangeDate').css('display','block');
-	$('#repairType').css('display','block');
-	$('#repairContents').css('display','block');
-		
-	})
-	
-  $('.InProgress').click(function(){
-	  
-	$('#exchangeDate').css('display','none');
-	$('#repairType').css('display','none');
-	$('#repairContents').css('display','none');
-	$('#repairCost').css('display','none');
-	
-	
-		
-	})
-   $('#customRadio1').click(function(){		  
-		
-		$('#repairCost').css('display','none');
-  
-	    }) 	
-	
-	
-  $('#customRadio2').click(function(){		  
-		
-		$('#repairCost').css('display','block');
-  
-	    }) 
-	  
-  
 
-  
-  
-  
-  
-  </script>
-  
 	
 </th:block>
 </body>
