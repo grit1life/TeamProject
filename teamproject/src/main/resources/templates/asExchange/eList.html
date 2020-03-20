@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+
+<th:block layout:fragment="customTitle">
+	<title>eList.html</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+     <section class="content-header">
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1>A/S 교환 접수 목록</h1>
+         </div>
+         <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+           </ol>
+         </div>
+       </div>
+	
+	
+	  
+  <section class="content">
+  	<div class="container-fluid">
+	<div class="card">
+	 <div class="card-body" style="margin-top:20px">
+	 
+	 	<!-- 서치폼 -->
+		<!-- sk  -->
+		<div class="form-group" style="padding-bottom: 15px;">	
+			<div style="display: inline-block;">
+				<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+			        <option selected="selected" value="상품 코드">상품 코드</option>
+			        <option selected="selected" value="고객 아이디">고객 아이디</option>
+			        <option selected="selected" value="교환 코드">교환 코드</option>
+			        <option selected="selected" value="접수 코드">접수 코드</option>
+			    </select>
+		    </div> 
+		<!-- sv  -->      	          
+		 	<div style="display: inline-block;">
+				<input type="text" class="form-control select2bs4" name="staffEmail">		           		
+		    </div>		          
+		    <div style="display: inline-block;margin-left:0px;">
+		    	<button type="submit" class="btn btn-info">
+		           		검색
+		        </button>
+		    </div>		           
+		</div>
+	       		  
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>접수 코드</th>
+                  <th>교환 코드</th>             
+                  <th>고객 아이디</th>
+                  <th>교환 요청 상품코드</th>
+                  <th>교환 사유</th>
+                  <th>접수일</th>
+                  <th>상세보기</th>
+                  <th>삭제</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr>
+                <td>reception_code01</td>
+                <td>ecxhange_code01</td>
+                <td>test01</td>
+                <td>goods_code01</td>
+                <td>오배송</td>
+                <td>0000-00-00</td>            
+                <td> 
+					<a class="btn btn-primary btn-sm" th:href="@{/eUpdate}">
+	                   <i class="fas fa-folder">
+	                   </i>
+	                    	확인
+	                </a>    		
+				</td>
+				<td>							
+					<a class="btn btn-danger btn-sm" th:href="@{/eDelete}" id="btn-remove">
+                       <i class="fas fa-trash">
+                       </i>
+                            	 삭제
+                    </a>
+				</td>						
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	 </div>
+      	
+    </div>
+    
+  </section>
+  </div>
+ </th:block>
+
+<!-- jQuery -->
+<!-- Page script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    //Timepicker
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+    
+    //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    });
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+  })
+</script>
+
+</body>
+</html>
