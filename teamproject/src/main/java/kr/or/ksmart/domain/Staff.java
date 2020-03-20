@@ -2,7 +2,7 @@ package kr.or.ksmart.domain;
 
 public class Staff {
 
-	private String staffId;
+	private String staffCode;
 	private String staffPw;
 	private String staffName;
 	private String staffBirth;
@@ -21,11 +21,11 @@ public class Staff {
 	private String branchPhone;
 	private String branchAddress;
 	private String branchName;
-	public String getStaffId() {
-		return staffId;
+	public String getStaffCode() {
+		return staffCode;
 	}
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
+	public void setStaffCode(String staffCode) {
+		this.staffCode = staffCode;
 	}
 	public String getStaffPw() {
 		return staffPw;
@@ -125,7 +125,7 @@ public class Staff {
 	}
 	@Override
 	public String toString() {
-		return "Staff [staffId=" + staffId + ", staffPw=" + staffPw + ", staffName=" + staffName + ", staffBirth="
+		return "Staff [staffCode=" + staffCode + ", staffPw=" + staffPw + ", staffName=" + staffName + ", staffBirth="
 				+ staffBirth + ", staffTell=" + staffTell + ", staffEmail=" + staffEmail + ", inputStaffId="
 				+ inputStaffId + ", inputStaffName=" + inputStaffName + ", inputDate=" + inputDate + ", staffLevel="
 				+ staffLevel + ", staffFromPeriod=" + staffFromPeriod + ", staffToPeriod=" + staffToPeriod
@@ -134,7 +134,6 @@ public class Staff {
 	}
 	
 	
-
 	
 
 }
