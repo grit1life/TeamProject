@@ -1,5 +1,6 @@
 const renderMsgModal = (title, msg) => {
-  document.querySelector("#modal-div").innerHTML = "";
+  const modalDiv = document.querySelector("#modal-div");
+  modalDiv.innerHTML = "";
 
   const msgModalEl = document.createElement("div");
   msgModalEl.innerHTML = `
@@ -8,7 +9,7 @@ const renderMsgModal = (title, msg) => {
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">${title}</h4>
-          <button type="button" class="close" data-dismiss="modal">
+          <button type="button" class="close" onclick="removeModal" data-dismiss="modal">
             &times;
           </button>
         </div>
@@ -18,7 +19,7 @@ const renderMsgModal = (title, msg) => {
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">
+          <button type="button" class="btn btn-primary" onclick="removeModal();" data-dismiss="modal">
             확인
           </button>
         </div>
@@ -26,7 +27,11 @@ const renderMsgModal = (title, msg) => {
     </div>
   </div>
   `;
-  document.querySelector("#modal-div").appendChild(msgModalEl);
+  modalDiv.appendChild(msgModalEl);
 
   $("#msg-modal").modal();
+};
+
+const removeModal = () => {
+  document.querySelector("#modal-div").innerHTML = "";
 };
