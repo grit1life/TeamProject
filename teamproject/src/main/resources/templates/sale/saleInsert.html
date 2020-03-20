@@ -33,25 +33,35 @@
 	  <div class="card-body">
 	  	<table class="table table-condensed">
 	  		<thead>
-	  			<tr>
+	  			<tr class="trAddSale">
 	  				<th style="text-align:center;">할인 적용 렌탈 최소 일수</th>
 	  				<th></th>
-	  				<th style="text-align:center;">할인 적용 렌탈 최대 일수</th>
-	  				<th></th>
 	  				<th style="text-align:center;">할인율</th>
+	  				<th></th>
+	  				<th style="text-align:center;">적용 시작 날</th>
+	  				<th></th>
 	  				<th></th>
 	  			</tr>
 	  		
 	  		</thead>
 	  		
 	  		<tbody>
-	  			<tr>
+	  			<tr class="trAddSale">
 	  				<td><input type="number" class="form-control" style="padding-right:0px;"></td>
 	  				<td style="text-align:left;vertical-align:bottom;padding-left:0px;">일 ~</td>
 	  				<td><input type="number" class="form-control"></td>
-	  				<td style="text-align:left;vertical-align:bottom;padding-left:0px;">일 ~</td>
-	  				<td><input type="number" class="form-control"></td>
-	  				<td style="vertical-align:bottom;padding-left:0px;">%</td>
+	  				<td style="text-align:left;vertical-align:bottom;padding-left:0px;">% 할인</td>
+	  				<td><input type="date" class="form-control"></td>
+	  				<td>
+                		<button type="button" class="addSale btn btn-sm btn-info" style="padding:1px 4px 1px 4px;">
+        					<i class="fas fa-folder"></i>&ensp;추가
+	      				</button>
+	              	</td>
+	  				
+	  				<td>
+	  					<a class="delete btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+                    		<i class="fas fa-trash"></i>&ensp;삭제</a>
+                    </td>
 	  			</tr>
 	  		</tbody>
 	  	</table>
@@ -63,60 +73,15 @@
     <!-- 견적서 입력 data end-->
   </div>
 <script>
-	$('.company').click(function(){
-		console.log('company');
-		$('#name').text('회사명');
-		$('#name').next().attr('name','conpanyName');
-		$('#tel').text('대표 전화번호');
-		$('#tel').next().attr('name','customerCompanyCall');
-		$('#email').next().attr('name','customerCompanyEmail');
-		$('#staff').css('display','block');
+	$(document).on('click', '.addSale', function(){
+	    var clone = $(this).parents('.trAddSale').clone();
+	    $(this).parents('.trAddSale').parent().after(clone);
 	});
-	$('.person').click(function(){
-		console.log('person');
-		$('#name').text('이름')
-		$('#name').next().attr('name','customerName');
-		$('#tel').text('전화번호');
-		$('#tel').next().attr('name','customerCall');
-		$('#email').next().attr('name','customerEmail');
-		$('#staff').css('display','none');
-	})
-		$('#customerBtn').click(function(){
-			$('#customerHidden').trigger("click");
-			$('#staffList').css('display','block');
-			
-			var inputStaffName = $('input[name=inputStaffName]').val();
-			var customerId = $('input[name=customerId]').val();
-
-			if($('.company').prop('checked')){
-				var customerName = $('input[name=customerName]').val();
-				var customerCompanyCall = $('input[name=customerCompanyCall]').val();
-				var customerCompanyEmail = $('input[name=customerCompanyEmail]').val();
-			}else{
-				var customerName = $('input[name=customerName]').val();
-				var customerCall = $('input[name=customerCall]').val();
-				var customerEmail = $('input[name=customerEmail]').val();
-				var request = $.ajax({
-					url : "/staffLogin",
-					method : "post",
-					dataType : "json",
-					data : {inputStaffName : inputStaffName
-							,customerId : customerId
-							,inputStaffName : inputStaffName
-							,customerId : customerId
-							,customerId : customerId}
-				})
-				request.done(function(loginMap){
-					alert(loginMap.result);
-					
-				})
-				request.fail(function( jqXHR, textStatus ) {
-					  alert("입력한 ID가 존재하지 안습니다");
-				});
-			}
-	})
-
-</script>  
+	$(document).on('click', '.delete', function(){
+		if($('.delete').length>1) $(this).parents('.trAddSale').remove();
+		else  alert('더 이상 삭제하실 수 없습니다');
+	});
+</script>
   
 </th:block>
 </body>
