@@ -38,15 +38,23 @@
 
 		 <div class="card-body">
 			<div style="margin-bottom: 20px;">
-				<label>적용 시작 날&emsp;</label>
+				<label>할인명&emsp;</label>
 				<div style="display:inline-block;">
-					<input name="rentalFromPeriod" type="date" class="form-control" style="padding-right:0px;">
-				</div>
+					<input type="text" name="rentalFromDate" style="display:inline-block;width:160px;" class="form-control">&emsp;
+			  	</div>
+				
+				
+				<label>적용 기간&emsp;</label>
+				<div style="display:inline-block;">
+					<input type="date" name="rentalFromDate" style="display:inline-block;width:160px;" class="form-control">&emsp;~&emsp;
+			  		<input type="date" name="rentalToDate" style="display:inline-block;width:160px;" class="form-control">
+			  	</div>
 		  	</div>	
 		  	<table id="example2" class="table table-bordered table-hover">
 		    	<thead>
 		  			<tr class="trAddSale">
 		  				<th style="text-align:center;">렌탈 최소 일수</th>
+		  				<th style="text-align:center;">렌탈 최소 금액</th>
 		  				<th style="text-align:center;">할인율</th>
 		  				<th></th>
 		  				<th></th>
@@ -57,7 +65,7 @@
 		             <tr class="trAddSale">
 		  				<td>
 		  					<div style="display:inline-block;">
-		  						<input name="rentalFromPeriod" value="1" type="number" class="form-control" style="padding-right:0px;">
+		  						<input name="rentalFromPeriod" type="number" class="form-control" style="padding-right:0px;">
 		  					</div>
 		  					<div style="display:inline-block;">
 		  						일 ~
@@ -65,10 +73,18 @@
 		  				</td>
 		  				<td>
 		  					<div style="display:inline-block;">
+		  						<input name="rentalFromPeriod" type="number" class="form-control" style="padding-right:0px;">
+		  					</div>
+		  					<div style="display:inline-block;">
+		  						원 ~
+		  					</div>
+		  				</td>
+		  				<td>
+		  					<div style="display:inline-block;">
 		  						<input name="discountRate" type="number" class="form-control" style="padding-right:0px;">
 		  					</div>
 		  					<div style="display:inline-block;">
-		  						% 할인
+		  						% 추가 할인
 		  					</div>
 		  				</td>
 		  				<td style="text-align: center;vertical-align: middle;">
