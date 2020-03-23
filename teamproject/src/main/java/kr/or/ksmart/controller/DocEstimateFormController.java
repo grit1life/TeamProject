@@ -22,7 +22,7 @@ public class DocEstimateFormController {
 	@Autowired
 	private DocEstimateFormService docEstimateFormService;
 	
-	@GetMapping("staff/estimateForm")
+	@GetMapping("customer/estimateForm")
 	public String estimateForm(@RequestParam(value = "estimateCode") String estimateCode,
 							   @RequestParam(value = "no") String no,
 							   Model model) {
