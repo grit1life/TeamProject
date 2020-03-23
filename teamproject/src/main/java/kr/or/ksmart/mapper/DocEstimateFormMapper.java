@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.domain.DocEstimateForm;
+import kr.or.ksmart.domain.Mycompany;
 
 
 @Mapper
@@ -16,4 +17,7 @@ public interface DocEstimateFormMapper {
 	
 	public List<DocEstimateForm> getAjaxFormList(String estimateCode);
 	
+	public DocEstimateForm getEstimateForm(String estimateCode, String no);
+	
+	public Mycompany getMycompany();
 }

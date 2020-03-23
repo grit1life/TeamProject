@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ksmart.domain.DocEstimateForm;
+import kr.or.ksmart.domain.Mycompany;
 import kr.or.ksmart.service.DocEstimateFormService;
 
 @Controller
@@ -22,8 +23,13 @@ public class DocEstimateFormController {
 	private DocEstimateFormService docEstimateFormService;
 	
 	@GetMapping("staff/estimateForm")
-	public String estimateForm(@RequestParam(value = "estimateCode") String estimateCode) {
-		
+	public String estimateForm(@RequestParam(value = "estimateCode") String estimateCode,
+							   @RequestParam(value = "no") String no,
+							   Model model) {
+		DocEstimateForm docEstimateForm = docEstimateFormService.getEstimateForm(estimateCode, no);
+		Mycompany mycompany = docEstimateFormService.getMycompany();
+		model.addAttribute("estimate", docEstimateForm);
+		model.addAttribute("mycompany", mycompany);
 		return "docEstimate/estimateForm";
 	}
 	

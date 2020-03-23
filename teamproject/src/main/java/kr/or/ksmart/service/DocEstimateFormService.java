@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.DocEstimateForm;
+import kr.or.ksmart.domain.Mycompany;
 import kr.or.ksmart.mapper.DocEstimateFormMapper;
 
 @Service
@@ -31,5 +32,15 @@ public class DocEstimateFormService {
 		String estimateCode = (String) map.get("estimateCode");
 		List<DocEstimateForm> list = docEstimateFormMapper.getAjaxFormList(estimateCode);
 		return list;
+	}
+	
+	public DocEstimateForm getEstimateForm(String estimateCode, String no) {
+		DocEstimateForm docEstimateForm = docEstimateFormMapper.getEstimateForm(estimateCode, no);
+		return docEstimateForm;
+	}
+	
+	public Mycompany getMycompany() {
+		Mycompany mycompany = docEstimateFormMapper.getMycompany();
+		return mycompany;
 	}
 }
