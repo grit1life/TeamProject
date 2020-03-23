@@ -25,57 +25,114 @@
          </div>
        </div>
        
-       
-       <!--서치폼 시작  -->
-       <div class="container-fluid" >     	   
+       <!-- 정기점검 대상자별 검색 -->
+      <div class="container-fluid">   
         <div class="card card-default">
-             <div class="card-header">
-            	<h3 class="card-title">Search</h3>
-		         <div class="card-tools">
-			     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-				     <div style="display: inline-block;">
-				     	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
-				     </div>
-	   			 </div>
-          	  </div>
-              <div class="card-body">
-               
-                <label>정기 점검 대상자 조회</label>
-                <div class="row">
-                  <div class="col-3">
-                   	<select class="form-control" style="width: 150px;">
-                   		<option>고객 아이디</option>                  	
+          <div class="card-header">
+            <h3 class="card-title">정기점검 대상자별 조회</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <!-- 1 -->
+              <div class="col-md-6">
+              		<select class="form-control" style="width: 130px;">    
+                   		<option>고객 아이디</option>                            	
                    	</select>
-                  </div> 
-                  <div class="col-4">
-                   	<input type="text" class="form-control" style="width: 250px; margin-left: -180px;">                	
-                  </div>
-                  <div class="col-5">
-		           	<button type="submit" class="btn btn-info" style="margin-left: -380px;">
+                   	
+              </div>
+              <div class="col-md-6">
+              		<input type="text" class="form-control" style="width: 250px; margin-left: -540px;">             					              	
+              </div>
+              
+              <div class="col-md-6" style="max-width: 10%; margin-left: -550px; ">
+              		<button type="submit" id="contractBtn" class="btn btn-info" style="margin-left: -410px;">
 		           		검색
 		           	</button>
-		           </div>		                              
-                </div>
-
-                <label>지점별 정기 점검 조회</label>
-                <div class="row">
-                  <div class="col-3">
-                   	<select class="form-control" style="width: 150px;">
-                   		<option>지점명</option>                  	
+              </div>
+              <!-- 2 -->
+              
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- 정기점검 대상자별 검색 end-->
+    
+       <!-- 지점별 검색 -->
+     <section class="content-header">  
+      <div class="container-fluid">   
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">지점별 정기점검 조회</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <!-- 1 -->
+              <div class="col-md-6">
+              		<select class="form-control" style="width: 130px;">    
+                   		<option>지점코드</option>                            	
                    	</select>
-                  </div> 
-                  <div class="col-4">
-                   	<input type="text" class="form-control" style="width: 250px; margin-left: -180px;">                	
-                  </div> 
-                  <div class="col-5">
-		           	<button type="submit" class="btn btn-info" style="margin-left: -380px;">
+                   	
+              </div>
+              <div class="col-md-6">
+              		<input type="text" class="form-control" style="width: 250px; margin-left: -540px;">             					              	
+              </div>
+              
+              <div class="col-md-6" style="max-width: 10%; margin-left: -550px; ">
+              		<button type="submit" id="contractBtn" class="btn btn-info" style="margin-left: -410px;">
 		           		검색
 		           	</button>
-		           </div>			                             
-                </div>
-                
-          		<label>기간별 정기 점검 조회</label>
-                <div class="row">
+              </div>
+              <!-- 2 -->
+              
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div><!-- /.container-fluid -->
+   </section>   
+    <!-- 지점별 검색 end-->
+    
+    
+      <!-- 기간별 검색 -->
+     <section class="content-header">  
+      <div class="container-fluid">   
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">기간별 정기점검 조회</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
                 	<div class="form-group">
 	                  <div class="input-group">
 	                    <div class="input-group-prepend">
@@ -102,14 +159,15 @@
 		           	</button>
 		           </div>			                             
                 </div>
-              <!-- /.card-body -->
-            </div>
-       </div>
-      </div> 
-    </section>
-	 <!--서치폼 끝  -->
-	 
-	 
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div><!-- /.container-fluid -->
+   </section>   
+    <!-- 지점별 검색 end-->
+    
+
   <section class="content">
   	<div class="container-fluid">
 
@@ -122,7 +180,7 @@
                   <th>계약서 코드</th> 
                   <th>지점 코드</th>              
                   <th>고객 아이디</th>
-                  <th>최종 점검 날짜</th>
+                  <th>점검일</th>
                   <th>상세보기</th>
                   <th>삭제</th>
                 </tr>

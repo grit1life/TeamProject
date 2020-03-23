@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.or.ksmart.mapper.GoodsCategoryMapper">
+
+	<resultMap type="Goods" id="goodsCategoryResultMap">
+		<result property="goodsCategoryCode" column="goods_category_code"/>
+		<result property="goodsCategoryName" column="goods_category_name"/>
+		<result property="goodsCategoryInputStaffCode" column="goods_category_input_staff_code"/>
+		<result property="goodsCategoryInputDate" column="goods_category_input_date"/>
+	</resultMap>
+	
+	<!-- goods_category -->
+	
+	<insert id="insertGoodsCategory" parameterType="Goods">
+	<selectKey>
+		
+	</selectKey>
+		INSERT INTO goods_category
+			(goods_category_code
+			, goods_category_name
+			, goods_category_input_staff_code
+			, goods_category_input_date)
+		VALUES
+			(	#{goodsCategoryCode}
+			, #{goodsCategoryCode}
+			, 'id001'
+			, NOW())	
+	</insert>
+	
+	<select id="getGoodsCategoryList" resultMap="goodsCategoryResultMap">
+		SELECT
+				goods_category_code
+			, goods_category_name
+			, goods_category_input_staff_code
+			, goods_category_input_date
+		FROM
+				goods_category	
+	</select>
+	
+	<select id="getGoodsCategory" parameterType="String" resultMap="goodsCategoryResultMap">
+		SELECT
+				goods_category_code
+			, goods_category_name
+			, goods_category_input_staff_code
+			, goods_category_input_date
+		FROM
+				goods_category
+		WHERE
+			goodsCategoryCode = #{goodsCategoryCode};
+	</select>
+	
+	<!-- goods_category END -->
+	
+</mapper>

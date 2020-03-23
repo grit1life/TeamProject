@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.or.ksmart.mapper.StaffMapper">
 	<resultMap type="Staff" id="StaffMap">
-		<result property="staffId" column="staff_id"/>
+		<result property="staffCode" column="staff_code"/>
 		<result property="staffPw" column="staff_pw"/>
 		<result property="staffName" column="staff_name"/>
 		<result property="staffBirth" column="staff_birth"/>
@@ -32,7 +32,7 @@
 		LEFT JOIN 
 			staff_change AS SC
 		ON 
-			SC.staff_id=S.staff_id
+			SC.staff_id=S.staff_code
 		LEFT JOIN
 			branch AS B
 		ON 
@@ -53,9 +53,9 @@
 		LEFT JOIN 
 			staff_change AS SC
 		ON 
-			SC.staff_id=S.staff_id
+			SC.staff_id=S.staff_code
 		AND
-			S.staff_id=#{staff_id}
+			S.staff_code=#{staff_id}
 		LEFT JOIN
 			branch AS B
 		ON 

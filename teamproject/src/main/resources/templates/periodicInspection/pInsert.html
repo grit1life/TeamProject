@@ -28,7 +28,7 @@
       <div class="container-fluid">   
         <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title">계약서 조회</h3>
+            <h3 class="card-title">정기 점검 대상자 검색</h3>
 		        <div class="card-tools">
 				    <div style="display: inline-block;">
 				    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -44,7 +44,9 @@
               <!-- 1 -->
               <div class="col-md-6">
               		<select class="form-control" style="width: 130px;">
-                   		<option>계약서 코드</option>                  	
+                   		<option>계약서 코드</option> 
+                   		<option>계약서 No</option>      
+                   		<option>고객 아이디</option>                            	
                    	</select>
                    	
               </div>
@@ -67,7 +69,9 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- 계약서 검색 end-->
-  
+    
+    
+    
   <!-- 계약서 리스트 -->
   <section class="content">
   	<div class="container-fluid">
@@ -132,6 +136,119 @@
   </section>
   <!-- 계약 리스트 end-->
   
+   <!-- 고객 검색 -->
+	<section class="content-header">   
+      <div class="container-fluid">   
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">고객 검색</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <!-- 1 -->
+              <div class="col-md-6">
+              		<select class="form-control" style="width: 130px;"> 
+                   		<option>고객 아이디</option>                            	
+                   		<option>고객명</option>      
+                   	</select>
+                   	
+              </div>
+              <div class="col-md-6">
+              		<input type="text" class="form-control" style="width: 250px; margin-left: -540px;">             					              	
+              </div>
+              
+              <div class="col-md-6" style="max-width: 10%; margin-left: -550px; ">
+              		<button type="submit" id="customerListBtn" class="btn btn-info" style="margin-left: -410px;">
+		           		검색
+		           	</button>
+              </div>
+              <!-- 2 -->
+              
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- 고객 검색 end-->
+    
+    
+     <!-- 고객 리스트 -->
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card" id="customerList" style="display:none;">
+	 <div class="card-body">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>고객 아이디</th>
+                  <th>고객명</th>
+                  <th>권한</th>
+                  <th>등급</th>
+                  <th>연락처</th>
+                  <th>이메일</th>
+                  <th>우편번호</th>
+                  <th>기본주소</th>
+                  <th>상세주소</th>                 
+                  <th>선택</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr>
+                <td>
+                	<input type="text" class="form-control" name=customerId style="border: 0" readonly="readonly" value="client01">
+                </td>
+                <td>
+					<input type="text" class="form-control" name=customerName style="border: 0" readonly="readonly" value="김철수">
+                </td>
+                <td>
+                	<input type="text" class="form-control" name=customerLevel style="border: 0" readonly="readonly" value="개인">        
+                </td> 
+                <td>
+                	<input type="text" class="form-control" name=customerClass style="border: 0" readonly="readonly" value="브론즈">              
+                </td>
+                <td>
+                	<input type="text" class="form-control" name=customerCall style="border: 0" readonly="readonly" value="010-000-0001">                   
+                </td>
+                <td>
+                	<input type="text" class="form-control" name=customerEmail style="border: 0" readonly="readonly" value="cus01@email.com">                   
+                </td>
+                <td>
+                	<input type="text" class="form-control" name=zipCode style="border: 0" readonly="readonly" value="111-11"> 
+                </td>
+                <td>
+                	<input type="text" class="form-control" name=customerAddress style="border: 0" readonly="readonly" value="서울시 구로구">
+                </td>
+                <td>
+                	<input type="text" class="form-control" name=customerAddress2 style="border: 0" readonly="readonly" value="XX아파트 X동XXX호">                	
+                </td>                          
+                <td>
+                	<a id="customerListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle; bottom: 0; margin-bottom: 18px; color:white;">
+                		<i class="fas fa-check"></i>            	
+                	</a>
+                	
+                </td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	 </div>   	
+    </div>   
+  </section>
+  <!-- 고객 리스트 end-->
+  
+  
+  
   <!--정기점검 등록  -->
   <section class="content">
   	<div class="container-fluid">
@@ -165,6 +282,47 @@
                       <input type="text" id="3" name="customerId" class="form-control" readonly="readonly">
                     </div>
                   </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="a" name="customerName" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="b" name="customerCall" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">우편 번호</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="text" id="c" name="zipCode" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">기본 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="d" name="customerAddress" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">상세 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="e" name="customerAddress2" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  
+                  
+                  
                   
                    <label for="inputEmail3" class="col-sm-2 col-form-label">상품코드</label>
                   <div class="form-group row">
@@ -250,9 +408,47 @@
   
   </div>
 <script>
+	$('.exchange').click(function(){
+		$('#name1').text('교환 대상 상품 코드');
+		$('#name1').next().attr('name','goodsCode');
+		$('#name2').text('교환 대상 상품 세트 No');
+		$('#name2').next().attr('name','setNo');
+		$('#name3').text('교환 대상 상품 세트 코드');
+		$('#name3').next().attr('name','setCode');
+		
+		$('#exchangeReason').css('display','block');
+		$('#repairReason').css('display','none');
+		
+	     document.forms.form.action="/eInsert"; 
+		
+	});
+	
+	
+	
+	$('.repair').click(function(){
+		$('#name1').text('수리 대상 상품 코드');
+		$('#name1').next().attr('name','goodsCode');
+		$('#name2').text('수리 대상 상품 세트 No');
+		$('#name2').next().attr('name','setNo');
+		$('#name3').text('수리 대상 상품 세트 코드');
+		$('#name3').next().attr('name','setCode');	
+	
+		$('#exchangeReason').css('display','none');
+		$('#repairReason').css('display','block');
+		
+		document.forms.form.action="/rInsert"; 
+		
+	})
+	
+	
 	
 	$('#contractBtn').click(function(){
 		$('#contractList').css('display','block');
+		
+	});
+	
+	$('#customerListBtn').click(function(){
+		$('#customerList').css('display','block');
 		
 	});
 	
@@ -264,6 +460,8 @@
 		var goodsCode = $('input[name=goodsCode]').val();
 		var setCode = $('input[name=setCode]').val();
 		var setNo = $('input[name=setNo]').val();
+		var rentalFromDate = $('input[name=rentalFromDate]').val();
+		var rentalToDate = $('input[name=rentalToDate]').val();
 		
 		   $('#1').val(contractCode);
 		   $('#2').val(contractNo);
@@ -271,8 +469,34 @@
 		   $('#4').val(goodsCode);
 		   $('#5').val(setCode);
 		   $('#6').val(setNo);
-		
+		   $('#7').val(rentalFromDate);		   
+		   $('#8').val(rentalToDate);		 
+		    
 	});
+	
+	
+
+	$('#customerListBtn').click(function(){		
+		var customerName = $('input[name=customerName]').val();
+		var customerCall = $('input[name=customerCall]').val();
+		var zipCode = $('input[name=zipCode]').val();
+		var customerAddress = $('input[name=customerAddress]').val();
+		var customerAddress2 = $('input[name=customerAddress2]').val();
+		var customerEmail = $('input[name=customerEmail]').val();
+		
+		
+		  
+		   $('#a').val(customerName);
+		   $('#b').val(customerCall);
+		   $('#c').val(zipCode);
+		   $('#d').val(customerAddress);
+		   $('#e').val(customerAddress2);
+		   $('#f').val(customerEmail);		   
+		 
+		    
+	});
+	
+
 
 </script>  
   

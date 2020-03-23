@@ -1,5 +1,8 @@
 package kr.or.ksmart.domain;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class Goods {
 	
@@ -9,14 +12,15 @@ public class Goods {
 	private String goodsBarcode;
 	private String goodsInputStaffCode;
 	private String goodsInputDate;
-	private String goodsUpdateStaffCode;
-	private String goodsUpdateDate;
 	private String goodsDesc;
-	private String goodsImg;
 	
 	private String goodsCategoryName;
 	private String goodsCategoryInputStaffCode;
 	private String goodsCategoryInputDate;
+	
+	private List<MultipartFile> file;
+	private String originFileName;
+	private String convertFileName;
 	
 	public String getGoodsCode() {
 		return goodsCode;
@@ -54,29 +58,11 @@ public class Goods {
 	public void setGoodsInputDate(String goodsInputDate) {
 		this.goodsInputDate = goodsInputDate;
 	}
-	public String getGoodsUpdateStaffCode() {
-		return goodsUpdateStaffCode;
-	}
-	public void setGoodsUpdateStaffCode(String goodsUpdateStaffCode) {
-		this.goodsUpdateStaffCode = goodsUpdateStaffCode;
-	}
-	public String getGoodsUpdateDate() {
-		return goodsUpdateDate;
-	}
-	public void setGoodsUpdateDate(String goodsUpdateDate) {
-		this.goodsUpdateDate = goodsUpdateDate;
-	}
 	public String getGoodsDesc() {
 		return goodsDesc;
 	}
 	public void setGoodsDesc(String goodsDesc) {
 		this.goodsDesc = goodsDesc;
-	}
-	public String getGoodsImg() {
-		return goodsImg;
-	}
-	public void setGoodsImg(String goodsImg) {
-		this.goodsImg = goodsImg;
 	}
 	public String getGoodsCategoryName() {
 		return goodsCategoryName;
@@ -95,6 +81,24 @@ public class Goods {
 	}
 	public void setGoodsCategoryInputDate(String goodsCategoryInputDate) {
 		this.goodsCategoryInputDate = goodsCategoryInputDate;
+	}
+	public List<MultipartFile> getFile() {
+		return file;
+	}
+	public void setFile(List<MultipartFile> file) {
+		this.file = file;
+	}
+	public String getOriginFileName() {
+		return originFileName;
+	}
+	public void setOriginFileName(String originFileName) {
+		this.originFileName = originFileName;
+	}
+	public String getConvertFileName() {
+		return convertFileName;
+	}
+	public void setConvertFileName(String convertFileName) {
+		this.convertFileName = convertFileName;
 	}
 	
 }
