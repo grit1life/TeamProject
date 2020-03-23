@@ -14,4 +14,6 @@ public interface DocEstimateFormMapper {
 
 	public List<DocEstimateForm> getEstimateList(String cId);
 	
+	public List<DocEstimateForm> getAjaxFormList(String estimateCode);
+	
 }

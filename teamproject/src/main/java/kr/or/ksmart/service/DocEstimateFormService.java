@@ -1,6 +1,7 @@
 package kr.or.ksmart.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,12 @@ public class DocEstimateFormService {
 	public List<DocEstimateForm> getEstimateList(String cId){
 		List<DocEstimateForm> eList  = docEstimateFormMapper.getEstimateList(cId);
 		return eList;
+	}
+	
+	public List<DocEstimateForm> getAjaxFormList(Map<String, Object> map){
+		String estimateCode = (String) map.get("estimateCode");
+		List<DocEstimateForm> list = docEstimateFormMapper.getAjaxFormList(estimateCode);
+		System.out.println(list);
+		return list;
 	}
 }
