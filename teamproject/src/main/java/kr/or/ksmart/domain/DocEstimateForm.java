@@ -8,6 +8,20 @@ public class DocEstimateForm extends DocEstimate {
 	private String customerCompanyName;
 	private String goodsName;
 	private String setName;
+	private String customerCall;
+	public String getCustomerCall() {
+		return customerCall;
+	}
+	public void setCustomerCall(String customerCall) {
+		this.customerCall = customerCall;
+	}
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getGoodsName() {
 		return goodsName;
 	}

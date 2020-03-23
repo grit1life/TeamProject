@@ -14,7 +14,6 @@
 		<result property="rentalToDate" column="rental_to_date"/>
 		<result property="rentalPeriod" column="rental_period"/>
 		<result property="saleCode" column="sale_code"/>
-		<result property="tradingTotal" column="trading_total"/>
 		<result property="estimatesExpirationDate" column="estimates_expiration_date"/>
 		<result property="inputStaffCode" column="input_staff_code"/>
 		<result property="inputDate" column="input_date"/>
@@ -26,6 +25,7 @@
 		<result property="customerCompanyName" column="customer_comany_name"/>
 		<result property="goodsName" column="goods_name"/>
 		<result property="setName" column="set_name"/>
+		<result property="customerCall" column="customer_call"/>
 	</resultMap>
 	
 	<select id="getEstimateList" parameterType="String" resultMap="estimateResultMap">
@@ -49,6 +49,7 @@
 			,DC.estimates_note
 			,DC.grade_name
 			,C.customer_name
+			,C.customer_call
 			,C.customer_address
 			,C.customer_address2
 			,CC.customer_comany_name
@@ -80,5 +81,5 @@
 			DC.estimate_code
 		ORDER BY
 			DC.estimate_code DESC	
-	</select>	
+	</select>
 </mapper>

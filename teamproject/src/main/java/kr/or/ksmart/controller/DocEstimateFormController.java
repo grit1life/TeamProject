@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ksmart.domain.DocEstimateForm;
 import kr.or.ksmart.service.DocEstimateFormService;
@@ -16,17 +17,17 @@ public class DocEstimateFormController {
 	@Autowired
 	private DocEstimateFormService docEstimateFormService;
 	
-	@GetMapping("customer/estimateForm")
-	public String estimateForm() {
+	@GetMapping("staff/estimateForm")
+	public String estimateForm(@RequestParam(value = "estimateCode") String estimateCode) {
 		
-		return "docEstimate/estimateList";
+		return "docEstimate/estimateForm";
 	}
 	
 	@GetMapping("staff/estimateFormList")
 	public String estimateFormList(Model model) {
 		List<DocEstimateForm> eList = docEstimateFormService.getEstimateList();
 		model.addAttribute("eList", eList);
-		return "docEstimate/estimateList";
+		return "docEstimate/staffEstimateFormList";
 	}
 	
 	@GetMapping("customer/estimateFormList")
@@ -34,6 +35,6 @@ public class DocEstimateFormController {
 		String cId = "client01"; //임시 고객 아이디 로그인시 연결필요
 		List<DocEstimateForm> eList = docEstimateFormService.getEstimateList(cId);
 		model.addAttribute("eList", eList);
-		return "docEstimate/cusEstimateList";
+		return "docEstimate/cusEstimateFormList";
 	}
 }
