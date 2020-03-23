@@ -36,9 +36,9 @@ public class DocEstimateFormController {
 	
 	@GetMapping("customer/estimateFormList")
 	public String estimateCustomerFormList(Model model) {
-		String cId = "client01"; //임시 고객 아이디 로그인시 연결필요
-		List<DocEstimateForm> eList = docEstimateFormService.getEstimateList(cId);
-		model.addAttribute("eList", eList);
+		//String cId = "client01"; //임시 고객 아이디 로그인시 연결필요
+		//List<DocEstimateForm> eList = docEstimateFormService.getEstimateList(cId);
+		//model.addAttribute("eList", eList);
 		return "docEstimate/cusEstimateFormList";
 	}
 	

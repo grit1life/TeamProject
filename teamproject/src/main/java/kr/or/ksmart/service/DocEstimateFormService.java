@@ -30,7 +30,6 @@ public class DocEstimateFormService {
 	public List<DocEstimateForm> getAjaxFormList(Map<String, Object> map){
 		String estimateCode = (String) map.get("estimateCode");
 		List<DocEstimateForm> list = docEstimateFormMapper.getAjaxFormList(estimateCode);
-		System.out.println(list);
 		return list;
 	}
 }

@@ -82,7 +82,7 @@
 		ORDER BY
 			DC.estimate_code DESC	
 	</select>
-	<select id="getAjaxFormList" parameterType="String">
+	<select id="getAjaxFormList" parameterType="String" resultMap="estimateResultMap">
 				SELECT 
 			DC.estimate_code
 			,DC.estimate_no
@@ -90,6 +90,7 @@
 			,DC.goods_code
 			,DC.set_code
 			,DC.trading_count
+			,DC.trading_total AS tradingTotal
 			,DC.rental_from_date
 			,DC.rental_to_date
 			,DC.rental_period
