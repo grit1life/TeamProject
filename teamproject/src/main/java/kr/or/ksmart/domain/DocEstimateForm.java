@@ -9,6 +9,13 @@ public class DocEstimateForm extends DocEstimate {
 	private String goodsName;
 	private String setName;
 	private String customerCall;
+	private String setGoodsName;
+	public String getSetGoodsName() {
+		return setGoodsName;
+	}
+	public void setSetGoodsName(String setGoodsName) {
+		this.setGoodsName = setGoodsName;
+	}
 	public String getCustomerCall() {
 		return customerCall;
 	}

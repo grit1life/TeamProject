@@ -26,6 +26,7 @@
 		<result property="goodsName" column="goods_name"/>
 		<result property="setName" column="set_name"/>
 		<result property="customerCall" column="customer_call"/>
+		<result property="setGoodsName" column="setGoodsName"/>
 	</resultMap>
 	
 	<select id="getEstimateList" parameterType="String" resultMap="estimateResultMap">
@@ -155,6 +156,7 @@
 			,CC.customer_comany_name
 			,G.goods_name
 			,PS.set_name
+			,GFSG.goods_name AS setGoodsName
 		FROM
 			doc_estimate AS DC
 		INNER JOIN
@@ -173,6 +175,14 @@
 			price_set AS PS
 			ON 
 			DC.set_code = PS.set_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			SG.set_code = DC.set_code
+		LEFT JOIN
+			goods AS GFSG <!-- 위의 goods와 구분 Goods for set_goods-->
+			ON
+			SG.goods_code = GFSG.goods_code
 		WHERE
 			DC.estimate_code = #{estimateCode}
 			AND

@@ -77,10 +77,10 @@
 		<h1><u>&emsp;견&emsp;적&emsp;서&emsp;</u></h1>
 		<div style="float: left">
 			<h3 th:text="'날짜 : '+${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"></h3>
-			<h3 th:if="${estimate.customerCompanyName}!=null" th:text="${estimate.customerCompanyName}+'고객님 귀하'"></h3>
-			<h3 th:if="${estimate.customerCompanyName}==null" th:text="${estimate.customerName}+' 고객님 귀하'"></h3>
-			<h3 th:text="'렌탈시작일 : ' +${estimate.rentalFromDate}"></h3>
-			<h3 th:text="'렌탈종료일 : ' +${estimate.rentalToDate}"></h3>
+			<h3 th:if="${eList[0].customerCompanyName}!=null" th:text="${eList[0].customerCompanyName}+'고객님 귀하'"></h3>
+			<h3 th:if="${eList[0].customerCompanyName}==null" th:text="${eList[0].customerName}+' 고객님 귀하'"></h3>
+			<h3 th:text="'렌탈시작일 : ' +${eList[0].rentalFromDate}"></h3>
+			<h3 th:text="'렌탈종료일 : ' +${eList[0].rentalToDate}"></h3>
 			<h3>아래와 같이 견적합니다</h3>
 		</div>
 		<table class="company-info">
@@ -119,9 +119,10 @@
 				<th class="price">세액</th>
 				<th class="note">비고</th>
 			</tr>
-			<tr>
-				<td></td>
-				<td></td>
+			<tr th:each="l, index : ${eList}">
+				<td th:text="${index.count}"></td>
+				<td th:if="${l.setCode}!=null" th:text="${l.setGoodsName}"></td>
+				<td th:if="${l.setCode}==null" th:text="${l.goodsName}"></td>
 				<td></td>
 				<td></td>
 				<td></td>

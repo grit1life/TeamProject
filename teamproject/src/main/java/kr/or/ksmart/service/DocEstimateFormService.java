@@ -34,9 +34,9 @@ public class DocEstimateFormService {
 		return list;
 	}
 	
-	public DocEstimateForm getEstimateForm(String estimateCode, String no) {
-		DocEstimateForm docEstimateForm = docEstimateFormMapper.getEstimateForm(estimateCode, no);
-		return docEstimateForm;
+	public List<DocEstimateForm> getEstimateForm(String estimateCode, String no) {
+		List<DocEstimateForm> eList = docEstimateFormMapper.getEstimateForm(estimateCode, no);
+		return eList;
 	}
 	
 	public Mycompany getMycompany() {

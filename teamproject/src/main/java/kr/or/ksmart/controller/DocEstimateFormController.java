@@ -26,10 +26,11 @@ public class DocEstimateFormController {
 	public String estimateForm(@RequestParam(value = "estimateCode") String estimateCode,
 							   @RequestParam(value = "no") String no,
 							   Model model) {
-		DocEstimateForm docEstimateForm = docEstimateFormService.getEstimateForm(estimateCode, no);
+		List<DocEstimateForm> eList = docEstimateFormService.getEstimateForm(estimateCode, no);
 		Mycompany mycompany = docEstimateFormService.getMycompany();
-		model.addAttribute("estimate", docEstimateForm);
+		model.addAttribute("eList", eList);
 		model.addAttribute("mycompany", mycompany);
+		System.out.println();
 		return "docEstimate/estimateForm";
 	}
 	
