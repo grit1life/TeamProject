@@ -38,16 +38,16 @@ public class StaffController {
 		return loginMap;
 	}
 
-	@GetMapping("staffInsert")
+	@GetMapping("/admin/staffInsert")
 	public String staffInsert() {
 		return "staff/staffInsert";
 	}
-	@PostMapping("admin/staffInsertConfirmation")
+	@PostMapping("/admin/staffInsertConfirmation")
 	public String staffInsertConfirmation() {
 		return "staff/staffInsertConfirmation";
 	}
 	
-	@GetMapping("/staffList")
+	@GetMapping("/staff/staffList")
 	public String staffList(Model model) {
 		List<Staff> staffList = staffService.staffList();
 		System.out.println(staffList.toString());
