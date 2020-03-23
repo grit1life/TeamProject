@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PriceController {
 
-	@GetMapping("/goodsPriceInsert")
+	@GetMapping("/admin/goodsPriceInsert")
 	public String goodsPriceInsert() {
 		return "price/goodsPriceInsert";
 	}
@@ -14,12 +14,20 @@ public class PriceController {
 	public String goodsPriceList() {
 		return "price/goodsPriceList";
 	}
-	@GetMapping("/saleInsert")
-	public String saleInsert() {
-		return "price/saleInsert";
+	@GetMapping("/admin/basicSaleInsert")
+	public String basicSaleInsert() {
+		return "price/basicSaleInsert";
 	}
-	@GetMapping("/saleList")
-	public String saleList() {
-		return "price/saleList";
+	@GetMapping("/basicSaleList")
+	public String basicSaleList() {
+		return "price/basicSaleList";
+	}
+	@GetMapping("/admin/specialSaleInsert")
+	public String specialSaleInsert() {
+		return "price/specialSaleInsert";
+	}
+	@GetMapping("/specialSaleList")
+	public String specialSaleList() {
+		return "price/specialSaleList";
 	}
 }

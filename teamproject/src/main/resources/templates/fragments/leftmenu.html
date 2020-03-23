@@ -84,33 +84,45 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/admin/saleInsert}" class="nav-link">
+	                <a th:href="@{/admin/goodsPriceInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.단가 등록.아</p>
+	                  <p>!.단가 등록.아</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a href="pages/charts/flot.html" class="nav-link">
+	                <a th:href="@{/goodsPriceList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.단가 목록(수정,삭제).아</p>
+	                  <p>!.단가 목록.아</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a href="pages/charts/inline.html" class="nav-link">
+	                <a th:href="@{/admin/basicSaleInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.할인 등록.아</p>
+	                  <p>!.기본 할인 등록.아</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a href="pages/charts/inline.html" class="nav-link">
+	                <a th:href="@{/basicSaleList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.할인 조회.아</p>
+	                  <p>!.기본 할인 조회.아</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/admin/specialSaleInsert}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!.특별 할인 등록.아</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/specialSaleList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!.특별 할인 조회.아</p>
 	                </a>
 	              </li>
 	            </ul>
 	          </li>
 	          
-	          <!-- 계약 관리.아 -->
+	          <!-- 견적 계약 관리.아 -->
 	          <li class="nav-item has-treeview">
 	            <a href="#" class="nav-link">
 	              <i class="nav-icon fas fa-chart-pie"></i>
@@ -121,27 +133,27 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/estimateInsert}" class="nav-link">
+	                <a th:href="@{/staff/estimateInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.견적서 작성.아</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/estimateList}" class="nav-link">
+	                <a th:href="@{/staff/estimateList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.견적서 조회.아</p>
+	                  <p>#.견적서 조회.손</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/contractInsert}" class="nav-link">
+	                <a th:href="@{/staff/contractInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>#.계약서 작성.아</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/contractList}" class="nav-link">
+	                <a th:href="@{/staff/contractList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.계약 사항 조회.아</p>
+	                  <p>#.계약 사항 조회.손</p>
 	                </a>
 	              </li>
 	            </ul>
@@ -158,13 +170,13 @@
 	            </a>
 	            <ul class="nav nav-treeview">
 	              <li class="nav-item">
-	                <a th:href="@{/staffInsert}" class="nav-link">
+	                <a th:href="@{/admin/staffInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>!.직원 등록.아</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/staffList}" class="nav-link">
+	                <a th:href="@{/staff/staffList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>!.직원 정보 조회.아</p>
 	                </a>

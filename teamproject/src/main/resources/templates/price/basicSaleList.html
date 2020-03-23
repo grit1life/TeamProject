@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>기본 할인 목록</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>기본 할인 목록</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Advanced Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card card-default">
+	 <div class="card-header">
+	   <h3 class="card-title">직원 검색</h3>
+	
+	   <div class="card-tools">
+	     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+	     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+	   </div>
+	 </div>
+	 
+	 <div class="card-body">
+            <!-- left -->
+            <div class="row">
+              <!-- 1 -->
+              <div class="col-md-6" style="max-width: 20%;">
+                <div class="form-group">
+                  <label>렌탈 최소 일수</label>
+		          <input type="number" class="form-control select2bs4" name="staffName">
+	           </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- 2 -->
+              <div class="col-md-6" style="max-width: 20%;">
+                <div class="form-group">
+                  <label>할인율</label>
+		          <input type="text" class="form-control select2bs4" name="staffName">
+	            </div>
+                <!-- /.form-group -->
+              </div>
+              
+              <!-- 3 -->
+              <div class="col-md-6" style="max-width: 25%;">
+                <div class="form-group">
+                  <label>적용 시작 날</label>
+		          <select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+		             <option selected="selected"></option>
+		             <option selected="selected" value="2019-04-01">2019-04-01</option>
+		             <option selected="selected" value="2020-07-01">2020-07-01</option>
+		           </select>
+		        </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+	 </div>
+	
+	<div class="card">
+	 <div class="card-body" style="margin-top:20px">
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>렌탈 최소 일수</th>
+                  <th>할인율</th>
+                  <th>적용 시작 날</th>
+                </tr>
+	         </thead>
+             <tbody>
+              <tr th:each="L:${staffList}">
+                <td th:text="${L.branchName}"></td>
+                <td th:text="${L.staffPosition}"></td>
+                <td th:text="${L.staffName}"></td>
+              </tr>
+             </tbody>
+		</table>
+	  </div>
+	  <!-- /.card-body -->
+	 </div>
+     <!-- /.card --> 	
+    </div>
+    
+  </section>
+  </div>
+ </th:block>
+</body>
+</html>

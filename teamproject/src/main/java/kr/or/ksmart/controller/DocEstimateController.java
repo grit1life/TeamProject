@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DocEstimateController {
 	
-	@GetMapping("/estimateInsert")
+	@GetMapping("/staff/estimateInsert")
 	public String estimateInsert() {
 		
 		return "docEstimate/estimateInsert";
