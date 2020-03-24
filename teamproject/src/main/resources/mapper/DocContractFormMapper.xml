@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.mapper.DocContractFormMapper">
+	<resultMap type="DocContractForm" id="contractResultMap">
+		<result property="contractCode" column="contract_code"/>
+		<result property="contractNo" column="contract_no"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="setCode" column="set_code"/>
+		<result property="rentalCount" column="rental_count"/>
+		<result property="rentalFromDate" column="rental_from_date"/>
+		<result property="rentalToDate" column="rental_to_date"/>
+		<result property="rentalPeriod" column="rental_period"/>
+		<result property="saleCode" column="sale_code"/>
+		<result property="gradeName" column="grade_name"/>
+		<result property="effectivenessDate" column="effectiveness_date"/>
+		<result property="contractTotalPrice" column="contract_total_price"/>
+		<result property="deliveryWay" column="delivery_way"/>
+		<result property="deriveryNumber" column="derivery_number"/>
+		<result property="deriveryAddress" column="derivery_address"/>
+		<result property="deriveryDetailAddress" column="derivery_detail_address"/>
+		<result property="deriveryTel" column="derivery_tel"/>
+	</resultMap>
+	<select id="getContractList" resultMap="contractResultMap">
+		SELECT 
+		*
+		FROM
+			doc_contract
+	</select>
+</mapper>

@@ -2,8 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>index</title>
-</head>
-  <body>
 <style>
 	.container{
 	 	padding: 30px; 
@@ -72,8 +70,66 @@
 	}
 
 </style>
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var supplyPrice = 0;
+		var priceTax = 0;
+		$('.suppliedValue').each(function(){
+			supplyPrice += Number($(this).text());
+			$('.supplySum').text(supplyPrice);
+		})
+		$('.priceTax').each(function(){
+			priceTax += Number($(this).text());
+			$('.taxSum').text(priceTax);
+		})
+		var supplySum = Number($('.supplySum').text());
+		var taxSum = Number($('.taxSum').text());
+		$('#totalNum').text(numberFormat(supplySum+taxSum)) //총금액
+		$('#totalKor').text(viewKorean(String(supplySum+taxSum))) //한글 총금액
+		
+		$('.supplySum').text(numberFormat(supplySum));
+		$('.taxSum').text(numberFormat(taxSum));
+		$('.priceNum').each(function(){
+			if($(this).text()!=0){
+				var priceNum = Math.floor($(this).text());
+				priceNum = numberFormat(priceNum);
+				$(this).text(priceNum);
+			}else{
+				$(this).text('');
+			}
+		})
+		
+		$('.btnPrint').click(function(){
+			window.print();
+		})
+		
+		function numberFormat(inputNumber) {
+		   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		function viewKorean(num) { 
+			var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십"); 
+			var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천"); 
+			var result = "";
+			for(i=0; i<num.length; i++) { 
+				str = ""; 
+				han = hanA[num.charAt(num.length-(i+1))]; 
+				if(han != "") str += han+danA[i]; 
+				if(i == 4) str += "만"; 
+				if(i == 8) str += "억"; 
+				if(i == 12) str += "조"; 
+				result = str + result; 
+			} 
+			return result ; 
+		}
+	})
+</script>
+</head>
+<body>
     <div class="content-wrapper">
 	  <div class="container">
+	  익스플로어 미리보기, 페이징 필요(2020-03-24)
 		<h1><u>&emsp;견&emsp;적&emsp;서&emsp;</u></h1>
 		<div style="float: left">
 			<h3 th:text="'날짜 : '+${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"></h3>
@@ -97,9 +153,9 @@
 			<tr>
 				<td class="tableSmlTitle">전화번호</td><td th:text="${mycompany.mycompanyTel}"></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td class="tableSmlTitle">팩스</td><td th:text="${mycompany.mycompanyFax}"></td>
-			</tr>
+			</tr> -->
 		</table>
 		<table class="estimate-info">
 			<tr class="tableSmlTitle">
@@ -119,17 +175,23 @@
 				<th class="price">세액</th>
 				<th class="note">비고</th>
 			</tr>
-			<tr th:each="l, index : ${eList}">
-				<td th:text="${index.count}"></td>
-				<td th:if="${l.setCode}!=null" th:text="${l.setGoodsName}"></td>
+			<tr th:each="l, i : ${eList}">
+				<td th:if="${l.estimateNo}!=null" th:text="${l.estimateNo}"></td>
+				<td th:if="${l.estimateNo}==null"></td>
+				<td th:if="${l.setCode}!=null" th:text="${l.setName}"></td>
 				<td th:if="${l.setCode}==null" th:text="${l.goodsName}"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td th:text="${l.tradingCount}"></td>
+				 
+				<td th:if="${l.setCode}!=null" class="priceNum" th:text="${l.setDayPrice*0.9}"></td>
+				<td th:if="${l.setCode}==null" class="priceNum" th:text="${l.rentalDayPrice*0.9}"></td>
+				<td th:if="${l.setCode}!=null" class="priceNum suppliedValue" th:text="${l.tradingCount}*${l.setDayPrice}*0.9"></td>
+				<td th:if="${l.setCode}==null" class="priceNum suppliedValue" th:text="${l.tradingCount}*${l.rentalDayPrice}*0.9"></td>
+				<td th:if="${l.setCode}!=null" class="priceNum priceTax" th:text="${l.tradingCount}*${l.setDayPrice}*0.1"></td>
+				<td th:if="${l.setCode}==null" class="priceNum priceTax" th:text="${l.tradingCount}*${l.rentalDayPrice}*0.1"></td>
+  
 				<td><input class="note" type="text" value=""></td>
 			</tr>
-			<tr>
+			<tr th:each="num : ${#numbers.sequence(eList.size(), 10)}">
 				<td></td>
 				<td></td>
 				<td></td>
@@ -140,8 +202,8 @@
 			</tr>
 			<tr>
 				<td colspan="4" class="tableSmlTitle">합계</td>
-				<td></td>
-				<td></td>
+				<td class="supplySum"></td>
+				<td class="taxSum"></td>
 				<td></td>	
 			</tr>
 		</table>
@@ -160,38 +222,5 @@
 		</div>
 	</div>
 	    </div>
-<script>
-	totalKor = document.getElementById('totalKor');
-	totalNum = document.getElementById('totalNum');
-	btnPrint = document.querySelector('.btnPrint');
-	
-	function estimatePrint(){
-		window.print();
-	}
-	
-	/* window.onload=function(){
-		totalNum.innerText = numberFormat("<%= totalSum %>");
-		totalKor.innerText = viewKorean("<%= totalSum %>");
-	}
-	function numberFormat(inputNumber) {
-	   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
-	function viewKorean(num) { 
-		var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십"); 
-		var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천"); 
-		var result = "";
-		for(i=0; i<num.length; i++) { 
-			str = ""; 
-			han = hanA[num.charAt(num.length-(i+1))]; 
-			if(han != "") str += han+danA[i]; 
-			if(i == 4) str += "만"; 
-			if(i == 8) str += "억"; 
-			if(i == 12) str += "조"; 
-			result = str + result; 
-		} 
-		
-		return result ; 
-	} */
-</script>
   </body>
 </html>

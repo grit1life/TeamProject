@@ -1,7 +1,6 @@
 package kr.or.ksmart.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,13 +23,11 @@ public class DocEstimateFormController {
 	
 	@GetMapping("customer/estimateForm")
 	public String estimateForm(@RequestParam(value = "estimateCode") String estimateCode,
-							   @RequestParam(value = "no") String no,
 							   Model model) {
-		List<DocEstimateForm> eList = docEstimateFormService.getEstimateForm(estimateCode, no);
+		List<DocEstimateForm> eList = docEstimateFormService.getEstimateForm(estimateCode);
 		Mycompany mycompany = docEstimateFormService.getMycompany();
 		model.addAttribute("eList", eList);
 		model.addAttribute("mycompany", mycompany);
-		System.out.println();
 		return "docEstimate/estimateForm";
 	}
 	
@@ -49,9 +46,11 @@ public class DocEstimateFormController {
 		return "docEstimate/cusEstimateFormList";
 	}
 	
-	@PostMapping("ajaxEstimateFormList")
+	/*
+	@PostMapping("/ajaxEstimateFormList")
 	public @ResponseBody List<DocEstimateForm> getAjaxFormList(@RequestBody Map<String, Object> map) {
 		List<DocEstimateForm> list = docEstimateFormService.getAjaxFormList(map);
 		return list; 
 	}
+	*/
 }
