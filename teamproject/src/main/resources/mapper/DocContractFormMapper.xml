@@ -22,11 +22,40 @@
 		<result property="deriveryAddress" column="derivery_address"/>
 		<result property="deriveryDetailAddress" column="derivery_detail_address"/>
 		<result property="deriveryTel" column="derivery_tel"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerComanyName" column="customer_comany_name"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="setName" column="set_name"/>
 	</resultMap>
 	<select id="getContractList" resultMap="contractResultMap">
 		SELECT 
-		*
+				*
+			, COUNT(1) AS count
+			, C.customer_name
+			, CC.customer_comany_name
+			, G.goods_name
+			, PS.set_name
 		FROM
-			doc_contract
+			doc_contract AS DC
+		LEFT JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			DC.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G		
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			DC.set_code= PS.set_code
+		GROUP BY
+			DC.contract_code
+		ORDER BY
+			DC.contract_code DESC
 	</select>
 </mapper>

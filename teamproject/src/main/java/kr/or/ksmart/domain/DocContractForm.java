@@ -24,6 +24,43 @@ public class DocContractForm {
 	private String deriveryAddress;
 	private String deriveryDetailAddress;
 	private String deriveryTel;
+	
+	private String customerName;
+	private String customerComanyName;
+	private String goodsName;
+	private String setName;
+	private int count;
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	public String getCustomerComanyName() {
+		return customerComanyName;
+	}
+	public void setCustomerComanyName(String customerComanyName) {
+		this.customerComanyName = customerComanyName;
+	}
+	public String getGoodsName() {
+		return goodsName;
+	}
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
+	public String getSetName() {
+		return setName;
+	}
+	public void setSetName(String setName) {
+		this.setName = setName;
+	}
 	public String getContractCode() {
 		return contractCode;
 	}

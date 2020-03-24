@@ -18,6 +18,7 @@ public class DocContractFormService {
 	
 	public List<DocContractForm> getContractList(){
 		List<DocContractForm> list = docContractFormMapper.getContractList();
+		
 		return list;
 	}
 }
