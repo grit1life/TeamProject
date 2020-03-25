@@ -37,8 +37,12 @@
 			branch AS B
 		ON 
 			SC.branch_code=B.branch_code
+	
 		WHERE 
-			SC.staff_to_period='9999-01-01';
+			SC.staff_to_period='9999-01-01'
+		<if test="branchCode neq null branchCode mId neq ''.toString()">
+			
+		</if>
 	</select>
 	
 	

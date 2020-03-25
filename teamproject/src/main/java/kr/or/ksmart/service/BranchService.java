@@ -47,6 +47,10 @@ public class BranchService {
 		public int bDelte(String branchCode, String branchName) {
 			return branchMapper.bDelete(branchCode, branchName);
 		}
+		
+	public List<Branch> selectBranch(){
+			return branchMapper.selectBranch();			
+	}
 	
 	
 	

@@ -5,7 +5,7 @@
   layout:decorate="~{layout/default}"
 >
 <th:block layout:fragment="customTitle">
-	<title>staffList.html</title>
+	<title>직원 목록</title>
 </th:block>
 
 
@@ -42,26 +42,22 @@
 	 
 	 <div class="card-body">
          <!-- left -->
-         <div class="row">
+         <div class="row" id="staffSerch">
            <!-- 1 -->
            <div class="col-md-6" style="max-width: 20%;">
              <div class="form-group">
                <label>지점</label>
-          <select class="form-control select2bs4" style="width: 100%;" name="branchName">
-            <option selected="selected"></option>
-            <option selected="selected" value="본사">본사</option>
-            <option selected="selected" value="본사">전주시점</option>
-          </select>
+	          <select class="form-control select2bs4" style="width: 100%;" name="branchCode">
+	            <option selected="selected"></option>
+	            <th:block th:each="B:${branchSerectList}">
+	            	<option selected="selected" th:value="${B.branchCode}" th:text="${B.branchName}">본사</option>
+	       		</th:block>
+	          </select>
              </div>
              <!-- /.form-group -->
              <div class="form-group">
                <label>직책</label>
-          <select class="form-control select2bs4" style="width: 100%;" name="staffPosition">
-            <option selected="selected"></option>
-            <option selected="selected" value="부장">부장</option>
-            <option selected="selected" value="과장">과장</option>
-            <option selected="selected" value="">일방</option>
-          </select>
+          	   <input type="text" class="form-control select2bs4" style="width: 100%;" name="staffPosition">
              </div>
              <!-- /.form-group -->
            </div>
@@ -100,12 +96,12 @@
            <div class="col-md-6" style="max-width: 35%;">
              <div class="form-group">
                <label>이메일</label>
-         <input type="email" class="form-control select2bs4" name="staffEmail">
-         </div>
+               <input type="email" class="form-control select2bs4" name="staffEmail">
+             </div>
              <!-- /.form-group -->
              <div class="form-group" style="position: absolute;bottom: 0;">
-               <button type="button" class="btn btn-info">검색</button>
-         </div>
+               <button id="staffSerchBtn" type="button" class="btn btn-info">검색</button>
+             </div>
              <!-- /.form-group -->
            </div>
 
@@ -148,6 +144,37 @@
     </div>
     
   </section>
+  
+ <script type="text/javascript">
+	$(function(){
+		$('#staffSerchBtn').click(function(){
+			console.log("staffSerchBtn");
+			
+			const insertGoods = async () => {
+				  const formData = new FormData($("form#insert-form")[0]);
+
+				  await $.ajax({
+				    type: "post",
+				    url: "/staff/staffList",
+				    processData: false,
+				    contentType: false,
+				    data: formData,
+				    error: err => {
+				      renderMsgModal(
+				        "오류 메시지",
+				        "서버 에러가 발생했습니다. 관리자에게 문의 바랍니다."
+				      );
+				      console.log(err);
+				    },
+				    success: data => {
+				    	alert(data);
+				    }
+				  });
+				};
+
+		})
+	})
+</script>	
   </div>
  </th:block>
 </body>
