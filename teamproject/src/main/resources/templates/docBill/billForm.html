@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	section{
+		margin-left: 40px;
+	}
+	th, td{
+		border: 1px solid black;
+	}
+</style>
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+	/*<![CDATA[*/
+		var fromDate = /*[[${list[0].rentalFromDate}]]*/;
+		var toDate = /*[[${list[0].rentalToDate}]]*/;
+		var list = /*[[${list}]]*/;
+	 /*]]>*/
+	 	fromDate = new Date(fromDate);
+	 	toDate = new Date(toDate);
+	var rentalDayPeriod = (toDate-fromDate)/1000/60/60/24
+	$('.rentalPeriod').text(rentalDayPeriod);
+	
+	const depositDay = 10;//렌탈 전 입금기한
+	$('.dateDeposit').text(dateForm(fromDate-(depositDay*24*60*60*1000))) //입금전 날짜 
+
+	var total = 0;
+	for(var i=0; i<list.length; i++){
+		total += Number(list[i].contractTotalPrice);
+	}
+	
+	$('.totalPrice').text(numberFormat(total))
+	$('.priceKor').text(viewKorean(String(total))); //가격 숫자->한글 
+	
+	$('.date').each(function(){
+		$(this).text(dateForm($(this).text())); //날짜 년월일
+	})
+	
+	function dateForm(inputDate){
+		var date = new Date(inputDate);
+		return date.getFullYear()+"년 "+(date.getMonth()+1)+"월 "+date.getDate()+"일";
+	}
+	function viewKorean(num) { 
+		var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십"); 
+		var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천"); 
+		var result = "";
+		for(i=0; i<num.length; i++) { 
+			str = ""; 
+			han = hanA[num.charAt(num.length-(i+1))]; 
+			if(han != "") str += han+danA[i]; 
+			if(i == 4) str += "만"; 
+			if(i == 8) str += "억"; 
+			if(i == 12) str += "조"; 
+			result = str + result; 
+		} 
+		return result ; 
+	}
+	function numberFormat(inputNumber) {
+	   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+})
+</script>
+</head>
+<body>
+<div class="content-wrapper">
+	<h1>청구서</h1>
+	  <div id="container">
+		<section>  	
+			<p>1. 계  약  건  명 : </p>
+			<p>2. 계  약  금  액 :  (\-)</p>                              
+			<p>3. 계 약 년 월 일 : 201 년    월    일</p>
+			<p>4. 납 품 예 정 일 : 201 년    월    일</p>
+			<p>5. 실 제 납 품 일 : 201 년    월    일</p>
+		</section>
+		<section>
+		○ 계  약  자
+		             ․주  소 : 
+			       ․상  호 : 
+			       ․성  명 : 
+		
+		상기물품을 납품완료 함에 따라 이에 대금청구서를 제출합니다.
+		</section>
+		<section>
+		○ 계좌입금내용
+		
+		은  행  명
+		 
+		계 좌 번 호
+		 
+		예  금  주
+  		</section>
+		<section>
+			201 년    월    일
+			
+				위 청구인    주  소 :  
+				(계약자)      상  호 :  
+		              성  명 :          (인)
+	  	</section>
+	  
+	  </div>
+</div>
+</body>
+</html>
