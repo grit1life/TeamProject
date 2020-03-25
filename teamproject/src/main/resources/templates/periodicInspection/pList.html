@@ -192,24 +192,25 @@
              <tbody>
               <tr th:each="l:${PeriodicInspectionList}">
                 <td th:text="${l.checkCode}"></td>
-                <td th:text="${l.contractCode}"></td>
-                <td th:text="${l.branchCode}"></td>
-                <td th:text="${l.customerId}"></td>
-                <td th:text="${l.checkDate}"></td>
-                <td th:text="${l.customerId}"></td>
+                <td th:text="${l.branchName}"></td>
+                <td th:text="${l.customerName}"></td>
+                <td th:text="${l.goodsCode}"></td>
+                <td th:text="${l.productStatus}"></td>
+                <td th:text="${l.staffName}"></td>
                 <td th:text="${l.checkDate}"></td>
                 <td> 
-					<a class="btn btn-primary btn-sm" th:href="@{/pUpdate(checkCode=${l.checkCode})}">
+					<a th:href="@{/pUpdate(checkCode=${l.checkCode})}"  class="btn btn-primary btn-sm">
 	                   <i class="fas fa-folder">
 	                   </i>
 	                    View
 	                </a>    		
 				</td>				
 				<td>							
-					<a class="btn btn-danger btn-sm" th:href="@{/pDelete(checkCode=${l.checkCode})}" id="btn-remove">
+					<a th:href="@{/pDelete(checkCode=${l.checkCode})}" class="btn btn-danger btn-sm" >
                        <i class="fas fa-trash">
                        </i>
-                              Delete  	
+                              Delete 
+                    </a>           	
 				</td>
 				
               </tr>

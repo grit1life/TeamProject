@@ -6,9 +6,13 @@ public class PeriodicInspection {
 	private String checkCode; //점검번호
 	private String contractCode; // 계약서 코드
 	private String branchCode; //점검 지점코드
+	private String branchName; //점검 지점명
 	private String customerId;// 고객 아이디
+	private String customerName;// 고객 이름
 	private String staffId; //점검 기사 아이디
+	private String staffName; //점검 기사 이름
 	private String checkDate;//점검일
+	private String goodsCode; // 상품코드
 	private String productStatus; //제품상태
 	private String checkContents; //점검내용
 	
@@ -21,6 +25,30 @@ public class PeriodicInspection {
 	
 	
 	
+	public String getGoodsCode() {
+		return goodsCode;
+	}
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
+	}
+	public String getBranchName() {
+		return branchName;
+	}
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
 	public String getCustomerId() {
 		return customerId;
 	}
@@ -108,19 +136,24 @@ public class PeriodicInspection {
 	@Override
 	public String toString() {
 		return "PeriodicInspection [checkCode=" + checkCode + ", contractCode=" + contractCode + ", branchCode="
-				+ branchCode + ", customerId=" + customerId + ", staffId=" + staffId + ", checkDate=" + checkDate
-				+ ", productStatus=" + productStatus + ", checkContents=" + checkContents + ", inputStaffCode="
-				+ inputStaffCode + ", inputStaffName=" + inputStaffName + ", inputDate=" + inputDate
-				+ ", updateStaffCode=" + updateStaffCode + ", updateStaffName=" + updateStaffName + ", updateDate="
-				+ updateDate + ", getCustomerId()=" + getCustomerId() + ", getCheckCode()=" + getCheckCode()
-				+ ", getContractCode()=" + getContractCode() + ", getBranchCode()=" + getBranchCode()
-				+ ", getStaffId()=" + getStaffId() + ", getCheckDate()=" + getCheckDate() + ", getProductStatus()="
-				+ getProductStatus() + ", getCheckContents()=" + getCheckContents() + ", getInputStaffCode()="
-				+ getInputStaffCode() + ", getInputStaffName()=" + getInputStaffName() + ", getInputDate()="
-				+ getInputDate() + ", getUpdateStaffCode()=" + getUpdateStaffCode() + ", getUpdateStaffName()="
-				+ getUpdateStaffName() + ", getUpdateDate()=" + getUpdateDate() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ branchCode + ", branchName=" + branchName + ", customerId=" + customerId + ", customerName="
+				+ customerName + ", staffId=" + staffId + ", staffName=" + staffName + ", checkDate=" + checkDate
+				+ ", goodsCode=" + goodsCode + ", productStatus=" + productStatus + ", checkContents=" + checkContents
+				+ ", inputStaffCode=" + inputStaffCode + ", inputStaffName=" + inputStaffName + ", inputDate="
+				+ inputDate + ", updateStaffCode=" + updateStaffCode + ", updateStaffName=" + updateStaffName
+				+ ", updateDate=" + updateDate + ", getGoodsCode()=" + getGoodsCode() + ", getBranchName()="
+				+ getBranchName() + ", getCustomerName()=" + getCustomerName() + ", getStaffName()=" + getStaffName()
+				+ ", getCustomerId()=" + getCustomerId() + ", getCheckCode()=" + getCheckCode() + ", getContractCode()="
+				+ getContractCode() + ", getBranchCode()=" + getBranchCode() + ", getStaffId()=" + getStaffId()
+				+ ", getCheckDate()=" + getCheckDate() + ", getProductStatus()=" + getProductStatus()
+				+ ", getCheckContents()=" + getCheckContents() + ", getInputStaffCode()=" + getInputStaffCode()
+				+ ", getInputStaffName()=" + getInputStaffName() + ", getInputDate()=" + getInputDate()
+				+ ", getUpdateStaffCode()=" + getUpdateStaffCode() + ", getUpdateStaffName()=" + getUpdateStaffName()
+				+ ", getUpdateDate()=" + getUpdateDate() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
+	
+	
 	
 	
 	
