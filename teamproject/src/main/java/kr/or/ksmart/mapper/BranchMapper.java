@@ -20,5 +20,7 @@ public interface BranchMapper {
 	public int bUpdate(Branch branch);
 
 	public int bDelete(String branchCode, String branchName);	
+	
+	public List<Branch> selectBranch();
 
 }

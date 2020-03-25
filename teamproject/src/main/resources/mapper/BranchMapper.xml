@@ -100,6 +100,15 @@
 	<delete id="bDelete" parameterType="String">
 		DELETE FROM branch WHERE branch_code=#{branchCode} and branch_name=#{branchName};
 	</delete>	
-
+	
+	<!--select option 내용 -->
+	 <select id="selectBranch" resultMap="branchResultMap">
+		SELECT
+				 branch_code
+				,branch_name
+				
+			FROM
+				branch
+	</select>
  
  </mapper>

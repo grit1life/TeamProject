@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.or.ksmart.domain.Branch;
 import kr.or.ksmart.domain.Staff;
+import kr.or.ksmart.service.BranchService;
 import kr.or.ksmart.service.StaffService;
 
 @Controller
@@ -23,7 +25,10 @@ public class StaffController {
 	@Autowired
 	private StaffService staffService;
 	
-	@GetMapping("/staffLogin")
+	@Autowired
+	private BranchService branchService;
+	
+	@GetMapping("/staff/staffLogin")
 	public String staffLogin() {
 		return "staff/staffLogin";
 	}
@@ -49,10 +54,24 @@ public class StaffController {
 	
 	@GetMapping("/staff/staffList")
 	public String staffList(Model model) {
+		List<Branch> branchSerectList = branchService.selectBranch();
+		System.out.println(branchSerectList.toString());
+		model.addAttribute("branchSerectList", branchSerectList);
+
 		List<Staff> staffList = staffService.staffList();
 		System.out.println(staffList.toString());
 		model.addAttribute("staffList", staffList);
 		return "staff/staffList";
+	}
+	
+	@PostMapping(value="/staff/staffList", produces = "application/json")
+	@ResponseBody
+	public List<Staff> staffList(Staff staff) {
+		System.out.println("ajax 왔다");
+		List<Staff> staffList = staffService.staffList();
+		System.out.println("ajax"+staffList.toString());
+		
+		return staffList;
 	}
 	
 	@GetMapping("/admin/staffList")
