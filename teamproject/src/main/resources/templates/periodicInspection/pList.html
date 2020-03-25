@@ -45,7 +45,7 @@
               <!-- 1 -->
               <div class="col-md-6">
               		<select class="form-control" style="width: 130px;">    
-                   		<option>고객 아이디</option>                            	
+                   		<option>고객명</option>                            	
                    	</select>
                    	
               </div>
@@ -167,7 +167,9 @@
    </section>   
     <!-- 지점별 검색 end-->
     
-
+    
+    
+    
   <section class="content">
   	<div class="container-fluid">
 
@@ -177,10 +179,12 @@
 	    	<thead>
                 <tr>
                   <th>점검 번호</th>
-                  <th>계약서 코드</th> 
-                  <th>지점 코드</th>              
-                  <th>고객 아이디</th>
-                  <th>점검일</th>
+                  <th>지점명</th> 
+                  <th>고객명</th>
+                  <th>상품코드</th>              
+                  <th>상품 상태</th>
+                  <th>점검 기사명</th>
+                  <th>점검완료일</th>
                   <th>상세보기</th>
                   <th>삭제</th>
                 </tr>
@@ -188,22 +192,25 @@
              <tbody>
               <tr th:each="l:${PeriodicInspectionList}">
                 <td th:text="${l.checkCode}"></td>
-                <td th:text="${l.contractCode}"></td>
-                <td th:text="${l.branchCode}"></td>
-                <td th:text="${l.customerId}"></td>
+                <td th:text="${l.branchName}"></td>
+                <td th:text="${l.customerName}"></td>
+                <td th:text="${l.goodsCode}"></td>
+                <td th:text="${l.productStatus}"></td>
+                <td th:text="${l.staffName}"></td>
                 <td th:text="${l.checkDate}"></td>
                 <td> 
-					<a class="btn btn-primary btn-sm" th:href="@{/pUpdate(checkCode=${l.checkCode})}">
+					<a th:href="@{/pUpdate(checkCode=${l.checkCode})}"  class="btn btn-primary btn-sm">
 	                   <i class="fas fa-folder">
 	                   </i>
 	                    View
 	                </a>    		
 				</td>				
 				<td>							
-					<a class="btn btn-danger btn-sm" th:href="@{/pDelete(checkCode=${l.checkCode})}" id="btn-remove">
+					<a th:href="@{/pDelete(checkCode=${l.checkCode})}" class="btn btn-danger btn-sm" >
                        <i class="fas fa-trash">
                        </i>
-                              Delete  	
+                              Delete 
+                    </a>           	
 				</td>
 				
               </tr>

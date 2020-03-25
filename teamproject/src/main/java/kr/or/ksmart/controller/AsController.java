@@ -15,5 +15,14 @@ public class AsController {
 		
 	}
 	
+	@GetMapping("/aList")
+	public String aList(){
+		
+		
+		return "/as/aList";
+		
+		
+	}
+	
 
 }
