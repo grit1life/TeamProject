@@ -24,7 +24,7 @@ $(function(){
 	var rentalDayPeriod = (toDate-fromDate)/1000/60/60/24
 	$('.rentalPeriod').text(rentalDayPeriod);
 	
-	const depositDay = 10;
+	const depositDay = 10;//렌탈 전 입금기한
 	$('.dateDeposit').text(dateForm(fromDate-(depositDay*24*60*60*1000))) //입금전 날짜 
 
 	var total = 0;
