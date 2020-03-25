@@ -10,4 +10,6 @@ import kr.or.ksmart.domain.DocContractForm;
 public interface DocContractFormMapper {
 
 	public List<DocContractForm> getContractList();
+	
+	public List<DocContractForm> getContractForm(String contractCode);
 }

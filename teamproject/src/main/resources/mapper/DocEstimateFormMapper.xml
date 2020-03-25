@@ -22,7 +22,7 @@
 		<result property="customerName" column="customer_name"/>
 		<result property="customerAddress" column="customer_address"/>
 		<result property="customerAddress2" column="customer_address2"/>
-		<result property="customerCompanyName" column="customer_comany_name"/>
+		<result property="customerCompanyName" column="customer_company_name"/>
 		<result property="goodsName" column="goods_name"/>
 		<result property="setName" column="set_name"/>
 		<result property="customerCall" column="customer_call"/>
@@ -56,7 +56,7 @@
 			,C.customer_call
 			,C.customer_address
 			,C.customer_address2
-			,CC.customer_comany_name
+			,CC.customer_company_name
 			,G.goods_name
 			,PS.set_name
 		FROM
@@ -109,7 +109,7 @@
 			,C.customer_call
 			,C.customer_address
 			,C.customer_address2
-			,CC.customer_comany_name
+			,CC.customer_company_name
 			,G.goods_name
 			,PS.set_name
 		FROM
@@ -156,7 +156,7 @@
 			,C.customer_call
 			,C.customer_address
 			,C.customer_address2
-			,CC.customer_comany_name
+			,CC.customer_company_name
 			,G.goods_name
 			,PS.set_name
 			,PS.set_day_price	<!-- 세트가격 -->

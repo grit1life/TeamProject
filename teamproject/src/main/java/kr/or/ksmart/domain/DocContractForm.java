@@ -20,17 +20,60 @@ public class DocContractForm {
 	
 	private String contractTotalPrice;
 	private String deliveryWay;
-	private String deriveryNumber;
-	private String deriveryAddress;
-	private String deriveryDetailAddress;
-	private String deriveryTel;
-	
+	private String deliveryNumber;
+	private String deliveryAddress;
+	private String deliveryDetailAddress;
+	private String deliveryTel;
+
 	private String customerName;
-	private String customerComanyName;
+
+	private String contractDate;
+	private String staffCode;
+	private String inputStaffCode;
+	private String inputDate;
+	private String contractIsend;
+	private String progressStatus;
+	private String ispay;
+	private String setGoodsName;
+	private String setGoodsCount;
+	private String customerCompanyName;
+	private String customerCompanyPresident;
+	private String customerCompanyCall;
 	private String goodsName;
 	private String setName;
 	private int count;
+	private int total;
 	
+	public String getCustomerCompanyCall() {
+		return customerCompanyCall;
+	}
+	public void setCustomerCompanyCall(String customerCompanyCall) {
+		this.customerCompanyCall = customerCompanyCall;
+	}
+	public String getCustomerCompanyPresident() {
+		return customerCompanyPresident;
+	}
+	public void setCustomerCompanyPresident(String customerCompanyPresident) {
+		this.customerCompanyPresident = customerCompanyPresident;
+	}
+	public String getSetGoodsCount() {
+		return setGoodsCount;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public void setSetGoodsCount(String setGoodsCount) {
+		this.setGoodsCount = setGoodsCount;
+	}
+	public String getSetGoodsName() {
+		return setGoodsName;
+	}
+	public void setSetGoodsName(String setGoodsName) {
+		this.setGoodsName = setGoodsName;
+	}
 	public int getCount() {
 		return count;
 	}
@@ -43,11 +86,11 @@ public class DocContractForm {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	public String getCustomerComanyName() {
-		return customerComanyName;
+	public String getCustomerCompanyName() {
+		return customerCompanyName;
 	}
-	public void setCustomerComanyName(String customerComanyName) {
-		this.customerComanyName = customerComanyName;
+	public void setCustomerCompanyName(String customerCompanyName) {
+		this.customerCompanyName = customerCompanyName;
 	}
 	public String getGoodsName() {
 		return goodsName;
@@ -145,29 +188,29 @@ public class DocContractForm {
 	public void setDeliveryWay(String deliveryWay) {
 		this.deliveryWay = deliveryWay;
 	}
-	public String getDeriveryNumber() {
-		return deriveryNumber;
+	public String getDeliveryNumber() {
+		return deliveryNumber;
 	}
-	public void setDeriveryNumber(String deriveryNumber) {
-		this.deriveryNumber = deriveryNumber;
+	public void setDeliveryNumber(String deliveryNumber) {
+		this.deliveryNumber = deliveryNumber;
 	}
-	public String getDeriveryAddress() {
-		return deriveryAddress;
+	public String getDeliveryAddress() {
+		return deliveryAddress;
 	}
-	public void setDeriveryAddress(String deriveryAddress) {
-		this.deriveryAddress = deriveryAddress;
+	public void setDeliveryAddress(String deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
 	}
-	public String getDeriveryDetailAddress() {
-		return deriveryDetailAddress;
+	public String getDeliveryDetailAddress() {
+		return deliveryDetailAddress;
 	}
-	public void setDeriveryDetailAddress(String deriveryDetailAddress) {
-		this.deriveryDetailAddress = deriveryDetailAddress;
+	public void setDeliveryDetailAddress(String deliveryDetailAddress) {
+		this.deliveryDetailAddress = deliveryDetailAddress;
 	}
-	public String getDeriveryTel() {
-		return deriveryTel;
+	public String getDeliveryTel() {
+		return deliveryTel;
 	}
-	public void setDeriveryTel(String deriveryTel) {
-		this.deriveryTel = deriveryTel;
+	public void setDeliveryTel(String deliveryTel) {
+		this.deliveryTel = deliveryTel;
 	}
 	public String getContractDate() {
 		return contractDate;
@@ -211,12 +254,5 @@ public class DocContractForm {
 	public void setIspay(String ispay) {
 		this.ispay = ispay;
 	}
-	private String contractDate;
-	private String staffCode;
-	private String inputStaffCode;
-	private String inputDate;
-	private String contractIsend;
-	private String progressStatus;
-	private String ispay;
 	
 }
