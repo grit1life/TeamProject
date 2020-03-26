@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	section{
+		margin: 20px, 40px;
+	}
+	th, td{
+		border: 1px solid black;
+	}
+	u {
+	   text-decoration : none;
+	   border-bottom : 4px double black;
+	   padding-bottom : 5px;
+	}
+	h1{
+		text-align: center;
+	}
+</style>
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+	
+
+	$('.priceKor').each(function(){
+		$(this).text(viewKorean($(this).text())); //가격 숫자->한글 
+	})
+	$('.price').each(function(){
+		$(this).text(numberFormat($(this).text())) //숫자 콤마
+	})
+ 	$('.date').each(function(){
+		$(this).text(dateForm($(this).text())); //날짜 년월일
+	}) 
+	
+	function dateForm(inputDate){
+		var date = new Date(inputDate);
+		return date.getFullYear()+"년 "+(date.getMonth()+1)+"월 "+date.getDate()+"일";
+	}
+	function viewKorean(num) { 
+		var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십"); 
+		var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천"); 
+		var result = "";
+		for(i=0; i<num.length; i++) { 
+			str = ""; 
+			han = hanA[num.charAt(num.length-(i+1))]; 
+			if(han != "") str += han+danA[i]; 
+			if(i == 4) str += "만"; 
+			if(i == 8) str += "억"; 
+			if(i == 12) str += "조"; 
+			result = str + result; 
+		} 
+		result = "금"+result+"원정";
+		return result ; 
+	}
+	function numberFormat(inputNumber) {
+	   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+})
+</script>
+</head>
+<body>
+<div class="content-wrapper">
+	디자인 수정 필요(2020.03.26)
+	<h1><u>청&emsp;구&emsp;서</u></h1>
+	  <div id="container">
+		<section>  	
+			<p>1. 계  약  건  명 :
+				<span th:if="${docBill.setName==null}" th:text="${docBill.goodsName}"></span>
+				<span th:if="${docBill.setName!=null}" th:text="${docBill.setName}"></span>
+				<span th:if="${docBill.count>1}" th:text="'외 '+${docBill.count-1}+'품목'"></span>
+				렌탈
+			</p>
+			<p>2. 계  약  금  액 :  <span class="priceKor" th:text="${docBill.total}"></span>
+							(\<span class="price" th:text="${docBill.total}"></span>)</p>                              
+			<p>2. 청  구  금  액 :  <span class="priceKor" th:text="${docBill.payMonth}"></span>
+							(\<span class="price" th:text="${docBill.payMonth}"></span>)</p>                              
+			<p>3. 렌 탈 시 작 일 : <span class="date" th:text="${docBill.rentalFromDate}"></span></p>
+			<p>4. 렌 탈 종 료 일 : <span class="date" th:text="${docBill.rentalToDate}"></span></p>
+			<p>5. 청 구 예 정 일 : <span class="date" th:text="${docBill.billExpectedDate}"></span></p>
+		</section>
+		<section>
+		○ 계  약  자 </br>
+		             ․주  소 : <span th:text="${docBill.deliveryAddress}+${docBill.deliveryDetailAddress}"></span></br>
+			 <th:block th:if="${docBill.customerCompanyName!=null}">  
+			  	 ․상  호 :  <span th:text="${docBill.customerCompanyName}"></span></br>
+			  </th:block>  
+			    ․성  명 : <span th:text="${docBill.customerName}"></span>
+		</br>
+		상기물품의 월 렌탈료에 대한 대금청구서를 제출합니다.
+		</section>
+		<section>
+		○ 계좌입금내용 </br>
+			<table>
+				<tr>
+					<td>은  행  명</td>
+					<td><span th:text="${myComDeposit.mydepositBank}"></span></td>
+			 	</tr>
+				<tr>
+					<td>계 좌 번 호</td>
+					<td><span th:text="${myComDeposit.mydepositAccount}"></span></td>
+			 	</tr>
+				<tr>
+					<td>예  금  주</td>
+					<td><span th:text="${myComDeposit.mydepositAccountHolder}"></span></td>
+	  			</tr>
+  		</table>
+  		</section>
+		<section>
+			201 년    월    일 </br>
+			
+			위 청구인    주  소 :  <span th:text="${mycompany.mycompanyAddr}" ></span></br>
+			(계약자)      상  호 :  <span th:text="${mycompany.mycompanyName}"></span></br>
+		        성  명 :     <span th:text="${mycompany.mycompanyPresident}"></span>     (인)
+	  	</section>
+	  
+	  </div>
+</div>
+</body>
+</html>

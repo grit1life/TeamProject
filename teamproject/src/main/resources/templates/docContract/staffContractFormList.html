@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+<th:block layout:fragment="customTitle">
+	<title>staffList.html</title>
+</th:block>
+<th:block layout:fragment="customTestScript">
+<script type="text/javascript">
+$(function(){
+	$('.contractBtn').click(function(){
+			window.open("/customer/contractForm?contractCode="+$(this).data('set'), "",
+			"_blank width=800, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no")
+		})
+})
+</script>
+</th:block> 
+
+<th:block layout:fragment="customContents">
+<body class="hold-transition sidebar-mini layout-fixed">
+ <div class="content-wrapper">
+  
+    <section class="content-header"> 
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1>계약서 조회</h1>
+         </div>
+         <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right">
+             <li class="breadcrumb-item"><a href="#">Home</a></li>
+             <li class="breadcrumb-item active">Advanced Form</li>
+           </ol>
+         </div>
+       </div>
+     </section>
+    
+  <!-- 견적서 입력 data -->
+  <section class="content">
+  	<div class="container-fluid">
+	 <div class="card">
+	  <div class="card-body">
+	  	<table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+	    	<thead>
+                <tr>
+                  <th style="width: 10px;"></th>
+                  <th>고객명</th>
+                  <th>상품명(세트)</th>
+                  <th>렌탈시작일</th>
+                  <th>렌탈종료일</th>
+                  <th>전화번호</th>
+                  <th>총금액</th>
+                  <th style="width:100px">계약서</th>
+                  <th style="width:85px">삭제</th>
+                </tr>
+	         </thead>
+             <tbody>
+             <tr th:each="l, i : ${list}">
+                <td th:text="${i.count}"></td>
+                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+	         	<!--    상품 or 세트, 외  몇 건 -->
+	            <th:block th:if="${l.count>1}">
+	                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+	                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+               	</th:block>
+	            <th:block th:if="${l.count==1}">
+	                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+	                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+               	</th:block>
+               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+               	<td th:text="${l.rentalFromDate}">
+               	<td th:text="${l.rentalToDate}">
+               	<td th:text="${l.deliveryTel}">
+                <td th:text="${#numbers.formatInteger(l.total, 0,'COMMA')}"></td>
+                <td>
+	               	<a class="contractBtn btn btn-success btn-sm" th:data-set="${l.contractCode}" href="#" style="padding:1px 4px 1px 4px">
+	                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"/>
+						</svg>&ensp;계약서
+					</a>
+                </td>
+                <td>
+                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+                    <i class="fas fa-trash"></i>&ensp;삭제</a>
+                </td>
+              </tr>
+             </tbody>
+		</table>
+		<br><textarea name="contractNote" class="form-control">memo</textarea>
+
+	  </div>
+	 </div>   	    
+	</div>
+  </section>
+</div>
+</body>
+</th:block>
+</html>

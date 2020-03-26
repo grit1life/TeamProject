@@ -16,7 +16,7 @@
      <section class="content-header">
        <div class="row mb-2">
          <div class="col-sm-6">
-           <h1>A/S 교환 접수 목록</h1>
+           <h1>A/S접수 현황</h1>
          </div>
          <div class="col-sm-6">
            <ol class="breadcrumb float-sm-right">
@@ -24,9 +24,8 @@
            </ol>
          </div>
        </div>
-	
-	
-	  
+       
+  
   <section class="content">
   	<div class="container-fluid">
 	<div class="card">
@@ -37,10 +36,26 @@
 		<div class="form-group" style="padding-bottom: 15px;">	
 			<div style="display: inline-block;">
 				<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
-			        <option selected="selected" value="상품 코드">상품 코드</option>
-			        <option selected="selected" value="고객 아이디">고객 아이디</option>
-			        <option selected="selected" value="교환 코드">교환 코드</option>
-			        <option selected="selected" value="접수 코드">접수 코드</option>
+			        <option>작업 구분</option>
+			        <option>교환</option>
+			        <option>수리</option>
+			    </select>
+		    </div> 
+		    
+		    
+		    <div style="display: inline-block;">
+				<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+			        <option>진행 상황</option>
+			        <option>진행 중</option>
+			        <option>진행 완료</option>
+			    </select>
+		    </div> 
+		    
+		    <div style="display: inline-block;">
+				<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+			        <option>요청인</option>
+			        <option>A/S 처리점</option>
+			        <option>A/S 처리기사</option>
 			    </select>
 		    </div> 
 		<!-- sv  -->      	          
@@ -53,15 +68,34 @@
 		        </button>
 		    </div>		           
 		</div>
+		
+		<!-- sk2  -->
+		<div class="form-group">
+                  <label>Date range button:</label>
+
+                  <div class="input-group">
+                    <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                      <i class="far fa-calendar-alt"></i> Date range picker
+                      <i class="fas fa-caret-down"></i>
+                    </button>
+                  </div>
+                </div>
+                
+        <div style="display: inline-block;margin-left:0px;">
+		    	<button type="submit" class="btn btn-info">
+		           		검색
+		        </button>
+		    </div>		        
 	       		  
 	  	<table id="example2" class="table table-bordered table-hover">
 	    	<thead>
                 <tr>
                   <th>접수 코드</th>
-                  <th>교환 코드</th>             
-                  <th>고객 아이디</th>
-                  <th>교환 요청 상품코드</th>
-                  <th>교환 사유</th>
+                  <th>작업 구분</th> 
+                  <th>진행 상황</th>              
+                  <th>요청인</th>
+                  <th>A/S처리점</th>
+                  <th>A/S처리 기사</th>
                   <th>접수일</th>
                   <th>상세보기</th>
                   <th>삭제</th>
@@ -70,11 +104,12 @@
              <tbody>
               <tr>
                 <td>reception_code01</td>
-                <td>ecxhange_code01</td>
-                <td>test01</td>
+                <td>교환</td>
+                <td>진행 중</td>
+                <td>김아무개</td>
                 <td>goods_code01</td>
-                <td>오배송</td>
-                <td>0000-00-00</td>            
+                <td>goods_code01</td>
+                <td>20xx-00-00</td>            
                 <td> 
 					<a class="btn btn-primary btn-sm" th:href="@{/eUpdate}">
 	                   <i class="fas fa-folder">

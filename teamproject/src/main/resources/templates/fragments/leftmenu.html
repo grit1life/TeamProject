@@ -34,15 +34,15 @@
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/admin/goods}" class="nav-link">
+	                <a th:href="@{/admin/history}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.히스토리.조</p>
+	                  <p>!.히스토리.조</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/admin/goods}" class="nav-link">
+	                <a th:href="@{/admin/dashboard}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.대시보드.조</p>
+	                  <p>!.대시보드.조</p>
 	                </a>
 	              </li>
               </ul>
@@ -126,9 +126,9 @@
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/staff/contractList}" class="nav-link">
+	                <a th:href="@{/staff/contractFormList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.계약 사항 조회.손</p>
+	                  <p>!.계약 사항 조회.손</p>
 	                </a>
 	              </li>
 	            </ul>
@@ -198,7 +198,13 @@
 	              <li class="nav-item">
 	                <a th:href="@{/cList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>!고객 정보 조회.국</p>
+	                  <p>!개인 고객 정보 조회.국</p>
+	                </a>
+	              </li>	
+	              <li class="nav-item">
+	                <a th:href="@{/cList2}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!기업 고객 정보 조회.국</p>
 	                </a>
 	              </li>		             
               </ul>
@@ -242,21 +248,15 @@
 	              <li class="nav-item">
 	                <a th:href="@{/aInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>!.A/S접수.국</p>
+	                  <p>!.A/S접수 등록.국</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
-	                <a th:href="@{/eList}" class="nav-link">
+	                <a th:href="@{/aList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>!.A/S교환 현황.국</p>
+	                  <p>!.A/S접수 현황.국</p>
 	                </a>
-	              </li>	                        
-	              <li class="nav-item">
-	                <a th:href="@{/rList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>!.A/S수리 현황.국</p>
-	                </a>
-	              </li>	              
+	              </li>	                        	                      
 	              <li class="nav-item">
 	                <a th:href="@{/rdList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
@@ -292,42 +292,25 @@
 	              <li class="nav-item">
 	                <a th:href="@{/staff/billList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.청구서 조회.손</p>
+	                  <p>!.청구서 조회.손</p>
 	                </a>
 	              </li>
 	              <li class="nav-item">
 	                <a th:href="@{/staff/depositList}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.입금 조회.손</p>
+	                  <p>!.입금 조회.손</p>
+	                </a>
+	              </li>
+	              <li class="nav-item">
+	                <a th:href="@{/staff/rentalShipList}" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                  <p>!.렌탈 출하 조회.손</p>
 	                </a>
 	              </li>
 	            </ul>
 	          </li>
 	          
-	          <!-- 상품 출하 -->
-	          <li class="nav-item has-treeview">
-	            <a href="#" class="nav-link">
-	              <i class="nav-icon fas fa-chart-pie"></i>
-	              <p>
-	              	출하관리.손
-	                <i class="right fas fa-angle-left"></i>
-	              </p>
-	            </a>
-	            <ul class="nav nav-treeview">
-	              <li class="nav-item">
-	                <a th:href="@{/staff/rentalShipList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.렌탈 출하 조회.손</p>
-	                </a>
-	              </li>
-	              <li class="nav-item">
-	                <a th:href="@{/staff/repairShipList}" class="nav-link">
-	                  <i class="far fa-circle nav-icon"></i>
-	                  <p>#.수리 출하 조회.손</p>
-	                </a>
-	              </li>
-	            </ul>
-	          </li>
+	          
 	           <!-- 통계 -->
 	          <li class="nav-item has-treeview">
 	            <a href="#" class="nav-link">

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ksmart.mapper.DocContractFormMapper">
+	<resultMap type="DocContractForm" id="contractResultMap">
+		<result property="contractCode" column="contract_code"/>
+		<result property="contractNo" column="contract_no"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="setCode" column="set_code"/>
+		<result property="rentalCount" column="rental_count"/>
+		<result property="rentalFromDate" column="rental_from_date"/>
+		<result property="rentalToDate" column="rental_to_date"/>
+		<result property="rentalPeriod" column="rental_period"/>
+		<result property="saleCode" column="sale_code"/>
+		<result property="gradeName" column="grade_name"/>
+		<result property="effectivenessDate" column="effectiveness_date"/>
+		<result property="contractTotalPrice" column="contract_total_price"/>
+		<result property="contractDate" column="contract_date"/>
+		<result property="deliveryWay" column="delivery_way"/>
+		<result property="deliveryNumber" column="delivery_number"/>
+		<result property="deliveryAddress" column="delivery_address"/>
+		<result property="deliveryDetailAddress" column="delivery_detail_address"/>
+		<result property="deliveryTel" column="delivery_tel"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerCompanyName" column="customer_company_name"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="setName" column="set_name"/>
+		<result property="setGoodsCount" column="set_goods_count"/>
+		<result property="setGoodsName" column="setGoodsName"/>
+		<result property="customerCompanyPresident" column="customer_company_president"/>
+		<result property="customerCompanyCall" column="customer_company_call"/>
+		<result property="total" column="total"/>
+	</resultMap>
+	<select id="getContractList" resultMap="contractResultMap">
+		SELECT 
+				*
+			, COUNT(1) AS count
+			, SUM(DC.contract_total_price) AS total
+			, C.customer_name
+			, CC.customer_company_name
+			, G.goods_name
+			, PS.set_name
+		FROM
+			doc_contract AS DC
+		LEFT JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			DC.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G		
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			DC.set_code= PS.set_code
+		GROUP BY
+			DC.contract_code
+		ORDER BY
+			DC.contract_code DESC
+	</select>
+	<select id="getContractForm" parameterType="String" resultMap="contractResultMap">
+		SELECT 
+				*
+			, C.customer_name
+			, CC.customer_company_name
+			, G.goods_name
+			, PS.set_name
+			, CC.customer_company_president
+			, CC.customer_company_call
+			, SG.set_goods_count
+			, GFSG.goods_name AS setGoodsName
+		FROM
+			doc_contract AS DC
+		LEFT JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			DC.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G		
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			DC.set_code= PS.set_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			PS.set_code = SG.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
+		WHERE 
+			contract_code = #{contractCode}
+		ORDER BY
+			DC.contract_code ASC
+	</select>
+</mapper>

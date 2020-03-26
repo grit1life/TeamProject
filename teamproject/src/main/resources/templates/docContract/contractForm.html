@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	section{
+		margin-left: 40px;
+	}
+	th, td{
+		border: 1px solid black;
+	}
+</style>
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+	/*<![CDATA[*/
+		var fromDate = /*[[${list[0].rentalFromDate}]]*/;
+		var toDate = /*[[${list[0].rentalToDate}]]*/;
+		var list = /*[[${list}]]*/;
+	 /*]]>*/
+	 	fromDate = new Date(fromDate);
+	 	toDate = new Date(toDate);
+	var rentalDayPeriod = (toDate-fromDate)/1000/60/60/24
+	$('.rentalPeriod').text(rentalDayPeriod);
+	
+	const depositDay = 10;//렌탈 전 입금기한
+	$('.dateDeposit').text(dateForm(fromDate-(depositDay*24*60*60*1000))) //입금전 날짜 
+
+	var total = 0;
+	for(var i=0; i<list.length; i++){
+		total += Number(list[i].contractTotalPrice);
+	}
+	
+	$('.totalPrice').text(numberFormat(total))
+	$('.priceKor').text(viewKorean(String(total))); //가격 숫자->한글 
+	
+	$('.date').each(function(){
+		$(this).text(dateForm($(this).text())); //날짜 년월일
+	})
+	
+	function dateForm(inputDate){
+		var date = new Date(inputDate);
+		return date.getFullYear()+"년 "+(date.getMonth()+1)+"월 "+date.getDate()+"일";
+	}
+	function viewKorean(num) { 
+		var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십"); 
+		var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천"); 
+		var result = "";
+		for(i=0; i<num.length; i++) { 
+			str = ""; 
+			han = hanA[num.charAt(num.length-(i+1))]; 
+			if(han != "") str += han+danA[i]; 
+			if(i == 4) str += "만"; 
+			if(i == 8) str += "억"; 
+			if(i == 12) str += "조"; 
+			result = str + result; 
+		} 
+		return result ; 
+	}
+	function numberFormat(inputNumber) {
+	   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+})
+</script>
+</head>
+<body>
+<div class="content-wrapper">
+	계약서 db 연결 (2020-03-25)
+	디자인 수정 필요, 인쇄 구현 필요
+	<h1>렌탈 계약서</h1>
+	  <div class="container">
+		 
+		<p>렌탈 사업자 [[${mycompany.mycompanyName}]](이하 “갑”이라 한다)과
+		 렌탈 서비스 이용자 [[${list[0].customerCompanyName}!=null?${list[0].customerCompanyName}:${list[0].customerName}]](이하 “을”이라 한다)은(는)
+		  계약당사자간 아래와 같은 렌탈 계약을 체결한다.</p>
+		
+		<h4>제1조【렌탈 내역】</h4>
+		<section>
+			<table>
+				<tr>
+					<th> 세트명(상품명) </th><th> 품목 </th><th> 수량 </th>
+				</tr>
+				<tr th:each="l : ${list}">
+					<td th:if="${l.setCode}!=null" th:text="${l.setName}"></td>
+					<td th:if="${l.setCode}==null" th:text="${l.goodsName}"></td>
+					<td th:if="${l.setCode}!=null" th:text="${l.setGoodsName}"></td>
+					<td th:if="${l.setCode}==null" th:text="${l.goodsName}"></td>
+					<td th:text="${l.rentalCount}"></td>
+				</tr>
+			</table> 
+		</section>
+		<h4>제2조【렌탈금액】</h4>
+		<section>
+			금<span class="priceKor" ></span>원정  ( \<span class="totalPrice"></span> )  (부가세포함)
+		</section>
+		<h4>제3조【렌탈 기간】</h4>
+		<section>
+			렌탈 기간은 <span class="rentalPeriod"></span>일로 
+			<span class="date" th:text="${list[0].rentalFromDate}"></span>부터  <span class="date" th:text="${list[0].rentalToDate}"></span>까지로 한다.
+		</section>
+		<h4>제4조【렌탈료】</h4>
+		<section>
+			렌탈료는 <span class="rentalPeriod"></span>일  <span class='totalPrice'></span>원이다. 배송료는 갑이 부담한다.
+		</section>
+		<h4>제5조【렌탈 기간】</h4>
+		<section>
+			<span class="rentalPeriod"></span>일 렌탈료 <span class='totalPrice'></span>원(부가세포함)은
+			 <span class="dateDeposit"></span>까지 “갑”이 지정한 은행계좌로 현금 입금해야 한다.
+		</section>
+		<h4>제6조【렌탈료 입금방법】</h4>
+		<section>
+			“을”은 “갑”이 지정한 다음의 은행 계좌로 렌탈료를 이체하기로 한다.</br></br>
+			은    행 : <span th:text="${deposit.mydepositBank}"></span></br>
+			예 금 주 : <span th:text="${deposit.mydepositAccountHolder}"></span></br>
+			계좌번호 : <span th:text="${deposit.mydepositAccount}"></span>
+		</section>
+		<h4>제7조【렌탈계약의 중도해지】</h4>
+		<section>
+			임차인은 렌탈 계약을 중도에 해지할 수 없다.
+		</section>
+		<h4>제8조【렌탈계약의 중도해지】</h4>
+		<section>
+			임차인이 계약 중도에 해지를 원할 때, 선납된 렌탈료는 환불이 안된다.
+		</section>
+		<h4>제9조【렌탈계약의 연장】</h4>
+		<section>
+			임차인은 임대인에게 계약 만료 4주전에 계약 연장 여부를 알려주도록 한다.
+		</section>
+		<h4>제10조【렌탈가구의 손상】</h4>
+		<section>
+			임차인에 의해 렌탈 물품이 손상된 경우, 임차인은 손해 배상의 책임이 있으며 만약 그 원인이 임대인에 의한 것이면 그 물품을 임차인에게 수리 또는 교체를 해주어야 한다.
+		</section>
+		<h4>제11조【물품의 안전책임】</h4>
+		<section>
+			물품의 안전책임은 물품을 인도시 까지는 “갑”이 모든 책임을 지며, 물품 인도 후 검수가 완료된 후는 “을”의 책임으로 한다.
+		</section>
+		<h4>제12조【계약의 해제】</h4>
+		<section>
+			1. 물품내용이 계약과 상이 할 때</br>
+			2. 납기 내에 완납하지 못하고, 장기간 시간이 경과되어 양 당사자가 인정하는 경우</br>
+			3. “갑”이 본 계약을 위반하였을 때</br>
+			4. 본 건의 진행 중 “을”의 사유에 의한 계약의 파기 시 “갑”에게 기 지불된 계약금 및 계약과 관련하여 “을”이 “갑”에게 지불한 대금은 “갑”에게 귀속된다.
+		</section>
+		<h4>제13조【기  타】</h4>
+		<section>
+			1. 본 계약에 의한 분쟁의 해결은 “갑”의 본점 소재지 관할법원으로 한다.</br>
+			2. 본 계약상 “갑”, “을” 간에 이의가 있을 시는 일반 상관례에 의한다.
+		</section>
+		</br></br>
+		<p>위와 같이 본 계약이 유효하게 성립하였음을 각 당사자는 증명하면서 본 계약서 2통을 작성하여, 각각 서명(또는 기명)날인 후 “갑”과 “을”이 각각 1통씩을 보관한다.</p>
+		
+		<div>
+			계약일자 : <span class="date" th:text="${list[0].contractDate}"></span></br></br></br>
+		
+			<div>
+				(갑)</br>
+				주    소 : <span th:text="${mycompany.mycompanyAddr}"></span></br>
+				회 사 명 : <span th:text="${mycompany.mycompanyName}"></span></br>
+				대 표 자 : <span th:text="${mycompany.mycompanyPresident}"></span>(인)</br>
+				연 락 처 : <span th:text="${mycompany.mycompanyTel}"></span></br></br>
+				
+				
+				(을)</br>
+				<th:block th:if=${list[0].customerCompanyName!=null}>
+					주    소 : <span th:text="${list[0].deliveryAddress}+' '+${list[0].deliveryDetailAddress}"></span></br>
+					회 사  명 : <span th:text="${list[0].customerCompanyName}"></span></br>
+					대 표 자 : <span th:text="${list[0].customerCompanyPresident}"></span> (인)</br>
+					연 락 처 : <span th:text="${list[0].deliveryTel}"></span>
+				</th:block>
+				<th:block th:if=${list[0].customerCompanyName==null}>
+					주    소 : <span th:text="${list[0].deliveryAddress}+' '+${list[0].deliveryDetailAddress}"></span></br>
+					고 객 명 : <span th:text="${list[0].customerName}"></span></br>
+					연 락 처 : <span th:text="${list[0].deliveryTel}"></span>
+				</th:block>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -9,6 +9,34 @@ public class DocEstimateForm extends DocEstimate {
 	private String goodsName;
 	private String setName;
 	private String customerCall;
+	private String setGoodsName;
+	private int rentalDayPrice; //단품가격
+	private int setDayPrice; //세트가격
+	private String setGoodsCount;
+	public String getSetGoodsCount() {
+		return setGoodsCount;
+	}
+	public void setSetGoodsCount(String setGoodsCount) {
+		this.setGoodsCount = setGoodsCount;
+	}
+	public int getSetDayPrice() {
+		return setDayPrice;
+	}
+	public void setSetDayPrice(int setDayPrice) {
+		this.setDayPrice = setDayPrice;
+	}
+	public int getRentalDayPrice() {
+		return rentalDayPrice;
+	}
+	public void setRentalDayPrice(int rentalDayPrice) {
+		this.rentalDayPrice = rentalDayPrice;
+	}
+	public String getSetGoodsName() {
+		return setGoodsName;
+	}
+	public void setSetGoodsName(String setGoodsName) {
+		this.setGoodsName = setGoodsName;
+	}
 	public String getCustomerCall() {
 		return customerCall;
 	}

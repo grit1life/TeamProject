@@ -7,12 +7,137 @@
   <th:block layout:fragment="customTitle">
     <title>index</title>
   </th:block>
-
+<th:block layout:fragment="customTestScript">
+</th:block>
+<th:block layout:fragment="customContents">
   <body class="hold-transition sidebar-mini layout-fixed">
-    <th:block layout:fragment="customContents">
       <div class="content-wrapper">
-        index 화면입니다
+      	검색, 페이징, 입금api 구현 필요(2020-03-26)
+        <section class="content-header"> 
+	       <div class="row mb-2">
+	         <div class="col-sm-6">
+	           <h1>입금조회</h1>
+	         </div>
+	         <div class="col-sm-6">
+	           <ol class="breadcrumb float-sm-right">
+	             <li class="breadcrumb-item"><a href="#">Home</a></li>
+	             <li class="breadcrumb-item active">Advanced Form</li>
+	           </ol>
+	         </div>
+	       </div>
+         </section>
+	  	<div class="container-fluid">
+		  <div class="card-body">
+		        <div class="card card-defualt card-outline">
+		          <div class="card-body">
+		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+		              <li class="nav-item">
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">미입금목록</a>
+		              </li>
+		              <li class="nav-item">
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">입금목록</a>
+		              </li>
+		            </ul>
+		            <div class="tab-content" id="custom-content-above-tabContent">
+		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+		                <!-- 미입금목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>전화번호</th>
+				                  <th>청구회차</th>
+				                  <th>입금기한</th>
+				                  <th>입금금액(월)</th>
+				                  <th>총금액</th>
+				                  <th>입금</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="l, i : ${list}">
+				                <td th:text="${i.count}"></td>
+				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${l.count>1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${l.count==1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${l.rentalFromDate}"></td>
+				               	<td th:text="${l.rentalToDate}"></td>
+				               	<td th:text="${l.deliveryTel}"></td>
+				               	<td th:text="${l.billPayNumber}"></td>
+				               	<td th:text="${l.billDate}"></td>
+				               	<td th:text="${#numbers.formatInteger(l.payMonth, 0,'COMMA')}"></td>
+				                <td th:text="${#numbers.formatInteger(l.total, 0,'COMMA')}"></td>
+				                <td>
+				                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;입금</a>
+				                </td>
+				              </tr>
+				             </tbody>
+						</table>
+		              </div>
+		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+		                <!-- 입금 목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>전화번호</th>
+				                  <th>청구회차</th>
+				                  <th>입금일자</th>
+				                  <th>납부금액(월)</th>
+				                  <th>총금액</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="pl, i : ${paidList}">
+				                <td th:text="${i.count}"></td>
+				                <td th:if="${pl.customerCompanyName}!=null" th:text="${pl.customerCompanyName+'(법인)'}"></td>
+				                <td th:if="${pl.customerCompanyName}==null" th:text="${pl.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${pl.count>1}">
+					                <td th:if="${pl.goodsName}!=null" th:text="${pl.goodsName+'&nbsp;외 '+(pl.count-1)+'품목'}"></td>
+					                <td th:if="${pl.goodsName}==null" th:text="${pl.setName+'&nbsp;외 '+(pl.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${pl.count==1}">
+					                <td th:if="${pl.goodsName}!=null" th:text="${pl.goodsName}"></td>
+					                <td th:if="${pl.goodsName}==null" th:text="${pl.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${pl.rentalFromDate}"></td>
+				               	<td th:text="${pl.rentalToDate}"></td>
+				               	<td th:text="${pl.deliveryTel}"></td>
+				               	<td th:text="${pl.billPayNumber}"></td>
+				               	<td th:text="${pl.billPayday}"></td>
+				               	<td th:text="${#numbers.formatInteger(pl.payMonth, 0,'COMMA')}"></td>
+				                <td th:text="${#numbers.formatInteger(pl.total, 0,'COMMA')}"></td>
+				              </tr>
+				             </tbody>
+						</table>		              
+
+		              </div>
+		            </div>
+		          </div>
+		          <!-- /.card -->
+		        </div>
+		      </div>
+		 </div>
       </div>
-    </th:block>
   </body>
+    </th:block>
 </html>

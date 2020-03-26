@@ -8,12 +8,13 @@
 		<result property="estimateNo" column="estimate_no"/>
 		<result property="customerId" column="customer_id"/>
 		<result property="goodsCode" column="goods_code"/>
-		<result property="setNo" column="set_code"/>
+		<result property="setCode" column="set_code"/>
 		<result property="tradingCount" column="trading_count"/>
 		<result property="rentalFromDate" column="rental_from_date"/>
 		<result property="rentalToDate" column="rental_to_date"/>
 		<result property="rentalPeriod" column="rental_period"/>
 		<result property="saleCode" column="sale_code"/>
+		<result property="deliveryTel" column="delivery_tel"/>
 		<result property="estimatesExpirationDate" column="estimates_expiration_date"/>
 		<result property="inputStaffCode" column="input_staff_code"/>
 		<result property="inputDate" column="input_date"/>
@@ -22,10 +23,14 @@
 		<result property="customerName" column="customer_name"/>
 		<result property="customerAddress" column="customer_address"/>
 		<result property="customerAddress2" column="customer_address2"/>
-		<result property="customerCompanyName" column="customer_comany_name"/>
+		<result property="customerCompanyName" column="customer_company_name"/>
 		<result property="goodsName" column="goods_name"/>
 		<result property="setName" column="set_name"/>
 		<result property="customerCall" column="customer_call"/>
+		<result property="setGoodsName" column="setGoodsName"/>
+		<result property="setDayPrice" column="set_day_price"/>
+		<result property="rentalDayPrice" column="rental_day_price"/>
+		<result property="setGoodsCount" column="set_goods_count"/>
 	</resultMap>
 	
 	<select id="getEstimateList" parameterType="String" resultMap="estimateResultMap">
@@ -52,7 +57,7 @@
 			,C.customer_call
 			,C.customer_address
 			,C.customer_address2
-			,CC.customer_comany_name
+			,CC.customer_company_name
 			,G.goods_name
 			,PS.set_name
 		FROM
@@ -82,7 +87,7 @@
 		ORDER BY
 			DC.estimate_code DESC	
 	</select>
-	<select id="getAjaxFormList" parameterType="String" resultMap="estimateResultMap">
+	<!-- <select id="getAjaxFormList" parameterType="String" resultMap="estimateResultMap">
 				SELECT 
 			DC.estimate_code
 			,DC.estimate_no
@@ -105,7 +110,7 @@
 			,C.customer_call
 			,C.customer_address
 			,C.customer_address2
-			,CC.customer_comany_name
+			,CC.customer_company_name
 			,G.goods_name
 			,PS.set_name
 		FROM
@@ -128,7 +133,7 @@
 			DC.set_code = PS.set_code
 		WHERE
 			DC.estimate_code = #{estimateCode};
-	</select>
+	</select> -->
 	<select id="getEstimateForm" parameterType="String" resultMap="estimateResultMap">
 		SELECT 
 			DC.estimate_code
@@ -152,9 +157,13 @@
 			,C.customer_call
 			,C.customer_address
 			,C.customer_address2
-			,CC.customer_comany_name
+			,CC.customer_company_name
 			,G.goods_name
 			,PS.set_name
+			,PS.set_day_price	<!-- 세트가격 -->
+			,PG.rental_day_price <!-- 단품 가격 -->
+			,GFSG.goods_name AS setGoodsName
+			,SG.set_goods_count
 		FROM
 			doc_estimate AS DC
 		INNER JOIN
@@ -173,10 +182,20 @@
 			price_set AS PS
 			ON 
 			DC.set_code = PS.set_code
+		LEFT JOIN
+			price_goods AS PG
+			ON
+			PG.goods_code = DC.goods_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			SG.set_code = DC.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
 		WHERE
 			DC.estimate_code = #{estimateCode}
-			AND
-			DC.estimate_no = #{no}
 	</select>
 	<resultMap type="Mycompany" id="mycompanyResultMap">
 		<result property="mycompanyNumber" column="mycompany_number"/>

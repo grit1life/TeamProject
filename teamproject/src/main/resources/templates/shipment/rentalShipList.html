@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>index</title>
+  </th:block>
+<th:block layout:fragment="customTestScript">
+<script>
+$(function(){
+	$('.shipList').click(function(){
+		var shipmentCode = $(this).data('set');
+		var map = {};
+		map.shipmentCode = shipmentCode;
+		$.ajax({
+			type : 'post',
+			url : '/ajaxShipmentList',
+			async : 'true',
+			contentType : "application/json",
+			data : JSON.stringify(map),
+			success : function(data){
+				$('#modalTable').children().remove();
+				var html="";
+				for(var i=0; i<data.length; i++){
+					html += "<tr>";
+					html += "<td>"+(i+1)+"</td>";
+					if(data[i].goodsName != null){
+						html += "<td>"+data[i].goodsName+"</td>";
+					}else{
+						html += "<td>"+data[i].setGoodsName+"</td>";
+					}
+					if(data[i].setGoodsCount == null){
+						html += "<td>"+(data[i].rentalCount)+"</td>";
+					}else{
+						html += "<td>"+data[i].rentalCount+"*"+data[i].setGoodsCount +"="
+							+(Number(data[i].rentalCount)*Number(data[i].setGoodsCount))+"</td>";
+					}
+					html += "<td>" +data[i].rentalFromDate+"</td>";
+					html += "<td>" +data[i].rentalToDate+"</td>";
+					html += "<td>" +data[i].shipmentDate+"</td>";
+					html += "<td>" +data[i].deliveryTel+"</td>";
+					html += "<td>" +data[i].deliveryAddress+" "+data[i].deliveryDetailAddress+"</td>";
+					html += "</tr>";
+				}
+				$('#modalTable').append(html);
+			},
+			error : function(error){
+				console.log('error', error);
+			}
+		})
+		$('.modal').modal();
+	})
+})
+</script>
+</th:block>
+<th:block layout:fragment="customContents">
+  <body class="hold-transition sidebar-mini layout-fixed">
+  	출하완료 버튼 누르면 출하완료 목록으로 넘어가게 변경 필요</br>
+  	검색창 페이징 필요 (2020-03-26)
+      <div class="content-wrapper">
+        <section class="content-header"> 
+	       <div class="row mb-2">
+	         <div class="col-sm-6">
+	           <h1>출하조회</h1>
+	         </div>
+	         <div class="col-sm-6">
+	           <ol class="breadcrumb float-sm-right">
+	             <li class="breadcrumb-item"><a href="#">Home</a></li>
+	             <li class="breadcrumb-item active">Advanced Form</li>
+	           </ol>
+	         </div>
+	       </div>
+         </section>
+	  	<div class="container-fluid">
+		  <div class="card-body">
+		        <div class="card card-defualt card-outline">
+		          <div class="card-body">
+		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+		              <li class="nav-item">
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">출하목록</a>
+		              </li>
+		              <li class="nav-item">
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">출하완료목록</a>
+		              </li>
+		            </ul>
+		            <div class="tab-content" id="custom-content-above-tabContent">
+		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+		                <!-- 미출하목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>출하일</th>
+				                  <th>전화번호</th>
+				                  <th>주소</th>
+				                  <th>출하목록</th>
+				                  <th>출하완료</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="l, i : ${list}">
+				                <td th:text="${i.count}"></td>
+				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${l.count>1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${l.count==1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${l.rentalFromDate}"></td>
+				               	<td th:text="${l.rentalToDate}"></td>
+				               	
+				               	<td th:text="${l.shipmentDate}"></td>
+				               	<td th:text="${l.deliveryTel}"></td>
+				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
+				               	<td>
+				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;출하목록</a>
+				                </td>
+				               	<td>
+				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;출하완료</a>
+				                </td>
+				              </tr>
+				             </tbody>
+						</table>
+		              </div>
+		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+		                <!-- 입금 목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>출하일</th>
+				                  <th>전화번호</th>
+				                  <th>주소</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="l, i : ${deliveredList}">
+				                <td th:text="${i.count}"></td>
+				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${l.count>1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${l.count==1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${l.rentalFromDate}"></td>
+				               	<td th:text="${l.rentalToDate}"></td>
+				               	
+				               	<td th:text="${l.shipmentDate}"></td>
+				               	<td th:text="${l.deliveryTel}"></td>
+				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
+				               	<td>
+				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;출하목록</a>
+				                </td>
+				              </tr>
+				             </tbody>
+						</table>		              
+
+		              </div>
+		            </div>
+		          </div>
+		          <!-- /.card -->
+          	<!-- 모달 -->
+	  	<div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content" style="width:1000px">
+            <div class="modal-header">
+              <h4 class="modal-title"></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
+	    	<thead>
+                <tr>
+                  <th style="width: 10px;"></th>
+                  <th>상품명</th>
+     			  <th>상품수량</th>
+                  <th>렌탈시작일</th>
+                  <th>렌탈종료일</th>
+                  <th>출하일</th>
+                  <th>전화번호</th>
+                  <th>주소</th>
+                </tr>
+	         </thead>
+             <tbody id="modalTable">
+             </tbody>
+		</table>
+            </div>
+          </div>
+        </div>
+      </div>
+      		<!--모달 끝 -->
+		        </div>
+		      </div>
+		 </div>
+      </div>
+  </body>
+    </th:block>
+</html>

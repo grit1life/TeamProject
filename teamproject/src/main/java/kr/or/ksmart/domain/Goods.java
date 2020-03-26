@@ -10,17 +10,39 @@ public class Goods {
 	private String goodsCategoryCode;
 	private String goodsName;
 	private String goodsBarcode;
-	private String goodsInputStaffCode;
+	private int stockCount;
 	private String goodsInputDate;
 	private String goodsDesc;
 	
+	private MultipartFile img;
+	private String originImgName;
+	private String convertImgName;
+	
 	private String goodsCategoryName;
-	private String goodsCategoryInputStaffCode;
-	private String goodsCategoryInputDate;
+	
+	private String goodsTradeCode;
+	private String goodsTradeCategory;
+	private String goodsTradeCount;
+	private String goodsTradeCost;
+	private String goodsTradeInputDate;
+	
+	private String stockChangeCode;
+	private String stockChangeCategory;
+	private String stockCountBefore;
+	private String stockCountAfter;
+	private String stockChangeInputDate;
 	
 	private List<MultipartFile> file;
+	private String fileCode;
 	private String originFileName;
 	private String convertFileName;
+
+	private int goodsCountByGoodsCategory;
+	private int stockCountByGoodsCategory;
+	
+	private int stockByDay;
+	private int totalStockIncrease;
+	private int totalStockDecrease;
 	
 	public String getGoodsCode() {
 		return goodsCode;
@@ -46,11 +68,11 @@ public class Goods {
 	public void setGoodsBarcode(String goodsBarcode) {
 		this.goodsBarcode = goodsBarcode;
 	}
-	public String getGoodsInputStaffCode() {
-		return goodsInputStaffCode;
+	public int getStockCount() {
+		return stockCount;
 	}
-	public void setGoodsInputStaffCode(String goodsInputStaffCode) {
-		this.goodsInputStaffCode = goodsInputStaffCode;
+	public void setStockCount(int stockCount) {
+		this.stockCount = stockCount;
 	}
 	public String getGoodsInputDate() {
 		return goodsInputDate;
@@ -64,29 +86,101 @@ public class Goods {
 	public void setGoodsDesc(String goodsDesc) {
 		this.goodsDesc = goodsDesc;
 	}
+	public MultipartFile getImg() {
+		return img;
+	}
+	public void setImg(MultipartFile img) {
+		this.img = img;
+	}
+	public String getOriginImgName() {
+		return originImgName;
+	}
+	public void setOriginImgName(String originImgName) {
+		this.originImgName = originImgName;
+	}
+	public String getConvertImgName() {
+		return convertImgName;
+	}
+	public void setConvertImgName(String convertImgName) {
+		this.convertImgName = convertImgName;
+	}
 	public String getGoodsCategoryName() {
 		return goodsCategoryName;
 	}
 	public void setGoodsCategoryName(String goodsCategoryName) {
 		this.goodsCategoryName = goodsCategoryName;
 	}
-	public String getGoodsCategoryInputStaffCode() {
-		return goodsCategoryInputStaffCode;
+	public String getGoodsTradeCode() {
+		return goodsTradeCode;
 	}
-	public void setGoodsCategoryInputStaffCode(String goodsCategoryInputStaffCode) {
-		this.goodsCategoryInputStaffCode = goodsCategoryInputStaffCode;
+	public void setGoodsTradeCode(String goodsTradeCode) {
+		this.goodsTradeCode = goodsTradeCode;
 	}
-	public String getGoodsCategoryInputDate() {
-		return goodsCategoryInputDate;
+	public String getGoodsTradeCategory() {
+		return goodsTradeCategory;
 	}
-	public void setGoodsCategoryInputDate(String goodsCategoryInputDate) {
-		this.goodsCategoryInputDate = goodsCategoryInputDate;
+	public void setGoodsTradeCategory(String goodsTradeCategory) {
+		this.goodsTradeCategory = goodsTradeCategory;
+	}
+	public String getGoodsTradeCount() {
+		return goodsTradeCount;
+	}
+	public void setGoodsTradeCount(String goodsTradeCount) {
+		this.goodsTradeCount = goodsTradeCount;
+	}
+	public String getGoodsTradeCost() {
+		return goodsTradeCost;
+	}
+	public void setGoodsTradeCost(String goodsTradeCost) {
+		this.goodsTradeCost = goodsTradeCost;
+	}
+	public String getGoodsTradeInputDate() {
+		return goodsTradeInputDate;
+	}
+	public void setGoodsTradeInputDate(String goodsTradeInputDate) {
+		this.goodsTradeInputDate = goodsTradeInputDate;
+	}
+	public String getStockChangeCode() {
+		return stockChangeCode;
+	}
+	public void setStockChangeCode(String stockChangeCode) {
+		this.stockChangeCode = stockChangeCode;
+	}
+	public String getStockChangeCategory() {
+		return stockChangeCategory;
+	}
+	public void setStockChangeCategory(String stockChangeCategory) {
+		this.stockChangeCategory = stockChangeCategory;
+	}
+	public String getStockCountBefore() {
+		return stockCountBefore;
+	}
+	public void setStockCountBefore(String stockCountBefore) {
+		this.stockCountBefore = stockCountBefore;
+	}
+	public String getStockCountAfter() {
+		return stockCountAfter;
+	}
+	public void setStockCountAfter(String stockCountAfter) {
+		this.stockCountAfter = stockCountAfter;
+	}
+	public String getStockChangeInputDate() {
+		return stockChangeInputDate;
+	}
+	public void setStockChangeInputDate(String stockChangeInputDate) {
+		this.stockChangeInputDate = stockChangeInputDate;
 	}
 	public List<MultipartFile> getFile() {
 		return file;
 	}
 	public void setFile(List<MultipartFile> file) {
 		this.file = file;
+	}
+	public String getFileCode() {
+		return fileCode;
+	}
+	public void setFileCode(String fileCode) {
+		this.fileCode = fileCode;
 	}
 	public String getOriginFileName() {
 		return originFileName;
@@ -100,5 +194,35 @@ public class Goods {
 	public void setConvertFileName(String convertFileName) {
 		this.convertFileName = convertFileName;
 	}
-	
+	public int getGoodsCountByGoodsCategory() {
+		return goodsCountByGoodsCategory;
+	}
+	public void setGoodsCountByGoodsCategory(int goodsCountByGoodsCategory) {
+		this.goodsCountByGoodsCategory = goodsCountByGoodsCategory;
+	}
+	public int getStockCountByGoodsCategory() {
+		return stockCountByGoodsCategory;
+	}
+	public void setStockCountByGoodsCategory(int stockCountByGoodsCategory) {
+		this.stockCountByGoodsCategory = stockCountByGoodsCategory;
+	}
+	public int getStockByDay() {
+		return stockByDay;
+	}
+	public void setStockByDay(int stockByDay) {
+		this.stockByDay = stockByDay;
+	}
+	public int getTotalStockIncrease() {
+		return totalStockIncrease;
+	}
+	public void setTotalStockIncrease(int totalStockIncrease) {
+		this.totalStockIncrease = totalStockIncrease;
+	}
+	public int getTotalStockDecrease() {
+		return totalStockDecrease;
+	}
+	public void setTotalStockDecrease(int totalStockDecrease) {
+		this.totalStockDecrease = totalStockDecrease;
+	}
+
 }

@@ -1,10 +1,6 @@
 // // 정적 변수 선언
-const listFormTitleDiv = document.querySelector("#list-form-title-div");
-const listFormDiv = document.querySelector("#list-form-div");
 const listDiv = document.querySelector("#list-div");
 const formDiv = document.querySelector("#form-div");
-
-// // 기능 함수
 
 // 파일 업로드 함수
 const imageUpload = e => {
@@ -20,11 +16,9 @@ const imageUpload = e => {
     fileSize = e.target.files[0].size;
   }
 
-  alert("파일사이즈 : " + fileSize + ", 최대파일사이즈 : " + maxSize);
-
   if (fileSize > maxSize) {
-    alert("첨부파일 사이즈는 2MB 이내로 등록 가능합니다.");
-    $("input#file-input").val("");
+    renderMsgModal("업로드 불가", "파일 첨부는 2MB까지 가능합니다.");
+    $("#file-input").val("");
     removePreview();
     return;
   } else {
@@ -33,7 +27,8 @@ const imageUpload = e => {
 };
 
 const insertGoods = async () => {
-  const formData = new FormData($("form#insert-form")[0]);
+  const formData = new FormData($("#insert-form")[0]);
+  console.log(formData);
 
   await $.ajax({
     type: "post",
@@ -54,10 +49,10 @@ const insertGoods = async () => {
         renderGoodsList();
       }, 500);
       setTimeout(() => {
-        renderViewForm(data.goodsCode);
+        renderViewForm(data);
       }, 500);
       setTimeout(() => {
-        activeList(data.goodsCode);
+        activeList(data);
       }, 1000);
     }
   });
@@ -65,12 +60,13 @@ const insertGoods = async () => {
 
 const deleteGoods = e => {
   const goodsCode = e.target.name;
+  console.log(goodsCode);
 
   axios
     .delete(`/goods/${goodsCode}`)
     .then(res => {
       console.log(res.data.msg);
-      renderList();
+      renderGoodsList();
       renderIntroForm();
     })
     .catch(err => {
@@ -78,7 +74,37 @@ const deleteGoods = e => {
     });
 };
 
-// // 렌더링 함수
+const updateGoods = async () => {
+  const formData = new FormData($("#update-form")[0]);
+  console.log(formData);
+
+  await $.ajax({
+    type: "put",
+    url: "/goods",
+    processData: false,
+    contentType: false,
+    data: formData,
+    error: err => {
+      renderMsgModal(
+        "오류 메시지",
+        "서버 에러가 발생했습니다. 관리자에게 문의 바랍니다."
+      );
+      console.log(err);
+    },
+    success: data => {
+      renderMsgModal("확인 메시지", "요청이 정상적으로 처리되었습니다.");
+      setTimeout(() => {
+        renderGoodsList();
+      }, 500);
+      setTimeout(() => {
+        renderViewForm(data);
+      }, 500);
+      setTimeout(() => {
+        activeList(data);
+      }, 1000);
+    }
+  });
+};
 
 // 프리뷰 이미지 생성
 const renderPreview = e => {
@@ -100,46 +126,6 @@ const removePreview = () => {
     .setAttribute("src", "../images/img-not-found.png");
 };
 
-// 리스트 폼 타이틀 렌더링
-
-const renderGoodsListFormTitle = () => {
-  listFormTitleDiv.innerHTML = "";
-  const listtFormTitleEl = document.createElement("div");
-  listtFormTitleEl.innerHTML = `
-  <div class="card card-success">
-    <div class="card-header">
-      상품리스트
-    </div>
-  </div>
-  `;
-  listFormTitleDiv.appendChild(listtFormTitleEl);
-};
-
-// 리스트 폼 렌더링
-
-const renderGoodsListForm = () => {
-  listFormDiv.innerHTML = "";
-  listFormEl = document.createElement("div");
-  listFormEl.innerHTML = `
-  <div class="row" style="margin-bottom: 10px;">
-    <div class="col-md-8">
-      <div class="form-group my-auto">
-        <select class="form-control" id="dynamic-goods-category-select"></select>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group my-auto">
-        <select class="form-control">
-          <option>최신등록순</option>
-          <option>오래된등록순</option>
-        </select>
-      </div>
-    </div>
-  </div>  
-  `;
-  listFormDiv.appendChild(listFormEl);
-};
-
 // 상품 리스트 렌더링
 const renderGoodsList = () => {
   listDiv.innerHTML = "";
@@ -151,20 +137,24 @@ const renderGoodsList = () => {
         const listEl = document.createElement("div");
         listEl.innerHTML = `
           <div class="row list-row" style="border-bottom: 1px solid #CBCBCB;">
-            <div class="col-md-4 my-auto">
+            <div class="col-md-3 my-auto">
               <img
-                src="../images/${data.convertFileName}"
-                alt="../pages/img-not-found.png"
-                class="rounded mw-100"
+                src="../images/${data.convertImgName}"
+                alt="이미지가 없습니다."
+                width="100"
+                height="75"
               />
             </div>
-            <div class="col-md-7 my-auto">
+            <div class="col-md-5 my-auto">
               <p>
                 ${data.goodsName}
               </p>
               <p style="color: #696969;">
                 ${data.goodsCategoryName}
               </p>
+            </div>
+            <div class="col-md-3 my-auto">
+              ${data.stockCount}
             </div>
             <div class="col-md-1 my-auto">
               <button
@@ -198,6 +188,7 @@ const removeActive = () => {
 // 대시보드 폼 렌더링
 const renderIntroForm = () => {
   formDiv.innerHTML = "";
+
   const formEl = document.createElement("div");
   formEl.innerHTML = `
     <div class="card card-success">
@@ -205,16 +196,13 @@ const renderIntroForm = () => {
     </div>
     <div class="card-body" style="min-height: 600px;">
       <p>
-        안녕하세요 {사용자이름} 님.
+        UI 작업 미완료
       </p>
       <p>
-        UI 작업 미완료.
+        상품 리스트 조회 미완성
       </p>
       <p>
-        상품 리스트 조회 구현중(미완성)
-      </p>
-      <p>
-        상품 입력 기능 구현중(미완성)
+        상품 입력 기능 미완성
       </p>
     </div>
   `;
@@ -232,63 +220,85 @@ const renderInsertForm = () => {
     </div>
     <form id="insert-form" role="form" enctype="multipart/form-data">
       <div class="card-body">
-        <div class="form-group">
-          <div class="col-6" style="margin: 0 auto;">
-            <img
-              id="preview-img"
-              src="../images/img-not-found.png"
-              style= "margin: 0 auto"
-              height = "150"
-              width = "200"
-            />
-            <input
-              type="file"
-              name="file"
-              class="form-control-file border-0"
-              id="file-input"
-            />
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>
+              <img
+                id="preview-img"
+                src="../images/img-not-found.png"
+                style="margin: 0 auto"
+                width="100"
+                height="75"
+              />
+              <input
+                type="file"
+                name="img"
+                class="custom-file-input"
+                accept="image/*"
+                id="file-input"
+              />
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-10">
+            <div class="form-group row">
+              <label class="col-sm-2">상품분류</label>
+              <div class="col-sm-8">
+                <select
+                  name="goodsCategoryCode"
+                  class="form-control"
+                  id="dynamic-goods-category-select"
+                ></select>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" class="btn btn-default" id="goods-category-add-btn">
+                  <i class="fa fa-plus-square"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2">상품명</label>
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  name="goodsName"
+                  class="form-control"
+                  placeholder="상품명을 입력하세요."
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2">바코드</label>
+              <div class="col-md-8">
+                <input
+                  type="text"
+                  name="goodsBarcode"
+                  class="form-control"
+                  maxlength="12"
+                  placeholder="12자리 숫자+영문"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2">기타메모</label>
+              <div class="col-md-8">
+                <input type="text" name="goodsDesc" class="form-control" />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label>상품분류</label>
-          <select name="goodsCategoryCode" class="form-control" id="dynamic-goods-category-select"></select>
-        </div>
-
-        <div class="form-group">
-          <label>상품명</label>
-          <input type="text" name="goodsName" class="form-control" placeholder="상품명을 입력하세요. 입력값은 자동으로 중복검사를 진행합니다." required />
-        </div>
-
-        <div class="form-group">
-          <label>바코드</label>
-          <input
-            type="text"
-            name="goodsBarcode"
-            class="form-control"
-            maxlength="6"
-            placeholder="12자리 영문+숫자,입력하지 않을 시 중복값이 아닌 값으로 자동으로 생성됩니다."
-          />
-        </div>
-
-        <div class="form-group">
-          <label>기타메모</label>
-          <input
-            type="text"
-            name="goodsDesc"
-            class="form-control"
-          />
-        </div>
-
         <div class="card-footer">
-          <button type="submit" id="insert-btn" class="btn btn-primary">
-            등록
-          </button>
-          <button type="button" id="cancle-btn" class="btn btn-default pull-right">
-            취소
+          <button type="submit" id="insert-btn" class="btn btn-outline-primary">
+            <i class="fa fa-plus-square-o"> 등록</i>
           </button>
         </div>
-
       </div>
     </form>
     `;
@@ -302,112 +312,112 @@ const renderViewForm = async goodsCode => {
   formDiv.innerHTML = "";
 
   await axios.get(`/goods/${goodsCode}`).then(res => {
+    console.log(res.data);
     const formEl = document.createElement("div");
     formEl.innerHTML = `
-      <div class="card card-success">
-        <div class="card-header">상품조회</div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-6" style="margin: 0 auto;">
-            <img
-              src="../images/${res.data.convertFileName}"
-              class="rounded mw-100"
-              alt="ImageNotFound"
-            />
+        <div class="card card-success">
+          <div class="card-header">상품페이지</div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-2">
+              <img
+                src="../images/${res.data.convertImgName}"
+                alt="../images/img-not-found.png"
+                width="100"
+                height="75"
+              />
+            </div>
+
+            
+            <div class="col-md-10">
+              <div class="row" style="padding: 20px;">
+                <div class="col-md-12">
+                  <a href="/goodsHistory?goodsCode=${res.data.goodsCode}" class="btn btn-outline-primary btn-block">
+                    입/출고
+                  </a>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2">상품코드</label>
+                <div class="col-sm-8">
+                  <input
+                    name="goodsCode"
+                    value="${res.data.goodsCode}"
+                    class="form-control-plaintext"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">상품분류</label>
+                <div class="col-sm-8">
+                  <input
+                    name="goodsCategoryCode"
+                    value="${res.data.goodsCategoryCode} : ${res.data.goodsCategoryName}"
+                    class="form-control-plaintext"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">상품명</label>
+                <div class="col-sm-8">
+                  <input
+                    name="goodsName"
+                    value="${res.data.goodsName}"
+                    class="form-control-plaintext"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">바코드</label>
+                <div class="col-sm-8">
+                  <input
+                    name="goodsBarcode"
+                    value="${res.data.goodsBarcode}"
+                    class="form-control-plaintext"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">등록일</label>
+                <div class="col-sm-8">
+                  <input
+                    name="goodsInputDate"
+                    value="${res.data.goodsInputDate}"
+                    class="form-control-plaintext"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">상세설명</label>
+                <div class="col-sm-8">
+                  <input
+                    name="goodsDesc"
+                    value="${res.data.goodsDesc}"
+                    class="form-control-plaintext"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" id="update-form-btn" name="${res.data.goodsCode}" class="btn btn-outline-primary">
+              수정
+            </button>
           </div>
         </div>
-
-        <div class="form-group">
-          <label>상품코드</label>
-          <input
-            name="goodsCode"
-            value="${res.data.goodsCode}"
-            class="form-control"
-            readonly
-          />
-        </div>
-
-        <div class="form-group">
-          <label>상품분류</label>
-          <input
-            name="goodsCategoryCode"
-            value="${res.data.goodsCategoryCode} : ${res.data.goodsCategoryName}"
-            class="form-control"
-            readonly
-          />
-        </div>
-
-        <div class="form-group">
-          <label>상품명</label>
-          <input
-            name="goodsName"
-            value="${res.data.goodsName}"
-            class="form-control"
-            readonly
-          />
-        </div>
-
-        <div class="form-group">
-          <label>바코드</label>
-          <input
-            name="goodsBarcode"
-            value="${res.data.goodsBarcode}"
-            class="form-control"
-            readonly
-          />
-        </div>
-
-        <div class="form-group">
-          <label>등록직원</label>
-          <input
-            name="goodsInputStaffCode"
-            value="${res.data.goodsInputStaffCode}"
-            class="form-control"
-            readonly
-          />
-        </div>
-
-        <div class="form-group">
-          <label>등록일</label>
-          <input
-            name="goodsInputDate"
-            value="${res.data.goodsInputDate}"
-            class="form-control"
-            readonly
-          />
-        </div>
-
-        <div class="form-group">
-          <label>상세설명</label>
-          <input
-            name="goodsDesc"
-            value="${res.data.goodsDesc}"
-            class="form-control"
-            readonly
-          />
-        </div>
-
-        <button
-          type="button"
-          name="${res.data.goodsCode}"
-          id="update-form-btn"
-          class="btn btn-warning"
-        >
-          정보수정
-        </button>
-        <button
-          type="button"
-          name="${res.data.goodsCode}"
-          id="delete-btn"
-          class="btn btn-danger"
-        >
-          삭제
-        </button>
-        <button type="button" id="cancle-btn" class="btn btn-default">
-          취소
-        </button>
-      </div>
       `;
     formDiv.appendChild(formEl);
     activeList(goodsCode);
@@ -421,66 +431,115 @@ const renderUpdateForm = async goodsCode => {
   await axios.get(`/goods/${goodsCode}`).then(res => {
     const formEl = document.createElement("div");
     formEl.innerHTML = `
-      <div class="card card-warning">
-        <div class="card-header">정보수정</div>
+      <div class="card card-success">
+        <div class="card-header">수정</div>
       </div>
-      <form id="view-form">
+      <form id="update-form" role="form" enctype="multipart/form-data">
         <div class="card-body">
-          <div class="col-6" style="margin: 0 auto;">
-              <img
-                src="../images/${res.data.convertFileName}"
-                class="rounded mw-100"
-                alt="ImageNotFound"
-              />
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>
+                  <img
+                    src="../images/${res.data.convertImgName}"
+                    alt="../images/img-not-found.png"
+                    id="preview-img"
+                    width="100"
+                    height="75"
+                  />
+                  <input
+                    type="file"
+                    name="img"
+                    class="custom-file-input"
+                    id="file-input"
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div class="col-md-10">
+              <div class="form-group row">
+                <label class="col-sm-2">상품코드</label>
+                <div class="col-sm-8">
+                  <input
+                    name="goodsCode"
+                    value="${res.data.goodsCode}"
+                    class="form-control-plaintext"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">상품분류</label>
+                <div class="col-sm-8">
+                  <select
+                    name="goodsCategoryCode"
+                    class="form-control"
+                    id="dynamic-goods-category-select"
+                    value="${res.data.goodsCategoryCode}"
+                  ></select>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-default">
+                    <i class="fa fa-plus-square"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">상품명</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    name="goodsName"
+                    class="form-control"
+                    value="${res.data.goodsName}"
+                    placeholder="상품명을 입력하세요."
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">바코드</label>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    name="goodsBarcode"
+                    class="form-control"
+                    maxlength="12"
+                    value="${res.data.goodsBarcode}"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2">기타메모</label>
+                <div class="col-md-8">
+                  <input type="text" name="goodsDesc" class="form-control" value="${res.data.goodsDesc}" />
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>상품분류</label>
-            <select name="goodsCategoryCode" class="form-control" id="dynamic-category-select"></select>
+          <div class="card-footer">
+            <button type="submit" id="update-btn" class="btn btn-outline-primary">
+              저장
+            </button>
+            <button
+              type="button"
+              id="delete-btn"
+              name="${res.data.goodsCode}"
+              class="btn btn-outline-dark float-right"
+            >
+              삭제
+            </button>
           </div>
-
-          <div class="form-group">
-            <label>상품명</label>
-            <input
-              name="goodsName"
-              value="${res.data.goodsName}"
-              class="form-control"
-            />
-          </div>
-
-          <div class="form-group">
-            <label>바코드</label>
-            <input
-              name="goodsBarcode"
-              value="${res.data.goodsBarcode}"
-              class="form-control"
-            />
-          </div>
-
-          <div class="form-group">
-            <label>상세설명</label>
-            <input
-              name="goodsDesc"
-              value="${res.data.goodsDesc}"
-              class="form-control"
-            />
-          </div>
-
-          <button
-            type="button"
-            name="${res.data.goodsCode}"
-            id="update-btn"
-            class="btn btn-warning"
-          >
-            수정
-          </button>
-          <button type="button" id="cancle-btn" class="btn btn-default">
-            취소
-          </button>
         </div>
       </form>
       `;
     formDiv.appendChild(formEl);
-    renderDynamicCategory();
+    renderDynamicGoodsCategory();
   });
 };

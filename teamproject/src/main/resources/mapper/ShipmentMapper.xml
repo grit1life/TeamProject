@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.or.ksmart.mapper.ShipmentMapper">
+  	<resultMap type="Shipment" id="shipmentResultMap">
+  		<result property="shipmentCode" column="shipment_code"/>
+  		<result property="billCode" column="bill_code"/>
+  		<result property="contractNo" column="contract_no"/>
+  		<result property="shipmentDate" column="shipment_date"/>
+  		<result property="inputStaffId" column="input_staff_id"/>
+  		<result property="inputDate" column="input_date"/>
+  		<result property="updateStaffId" column="update_staff_id"/>
+  		<result property="updateDate" column="update_date"/>
+  		<result property="rentalCount" column="rental_count"/>
+  		<result property="goodsName" column="goods_name"/>
+  		<result property="setGoodsCount" column="set_goods_count"/>
+  		<result property="setGoodsName" column="setGoodsName"/>
+  		<result property="customerName" column="customer_name"/>
+  		<result property="customerCompanyName" column="customer_company_name"/>
+  		<result property="count" column="count"/>
+  		<result property="rentalFromDate" column="rental_from_date"/>
+  		<result property="rentalToDate" column="rental_to_date"/>
+  		<result property="deliveryTel" column="delivery_tel"/>
+  		<result property="deliveryAddress" column="delivery_address"/>
+  		<result property="deliveryDetailAddress" column="delivery_detail_address"/>
+  	</resultMap>
+  	
+  	<select id="getShipmentList" parameterType="boolean" resultMap="shipmentResultMap">
+  		SELECT 
+			*
+			, DC.rental_count
+			, G.goods_name
+			, SG.set_goods_count
+			, GFSG.goods_name AS setGoodsName
+			, C.customer_name
+			, CC.customer_company_name
+			, COUNT(1) AS count
+		FROM 
+			shipment AS S
+		INNER JOIN
+			doc_bill AS B
+			ON
+			S.bill_code = B.bill_code
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			S.contract_code = DC.contract_code 
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			DC.set_code = SG.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
+		LEFT JOIN
+			customer AS C
+			ON
+			C.customer_id = DC.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			CC.customer_id = C.customer_id
+		<if test="delivered neq true and delivered eq null">
+		WHERE
+			NOT(ISNULL(S.shipment_date))
+		</if>
+		<if test="delivered eq true">
+		WHERE
+			(ISNULL(S.shipment_date))
+		</if>
+		GROUP BY
+			shipment_code
+  	</select>
+  	<select id="ajaxShipmentList" parameterType="String" resultMap="shipmentResultMap">
+  		SELECT 
+			*
+			, DC.rental_count
+			, G.goods_name
+			, SG.set_goods_count
+			, GFSG.goods_name AS setGoodsName
+			, C.customer_name
+			, CC.customer_company_name
+		FROM 
+			shipment AS S
+		INNER JOIN
+			doc_bill AS B
+			ON
+			S.bill_code = B.bill_code
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			S.contract_code = DC.contract_code 
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			DC.set_code = SG.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
+		LEFT JOIN
+			customer AS C
+			ON
+			C.customer_id = DC.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			CC.customer_id = C.customer_id
+		WHERE 
+			S.shipment_code = #{shipmentCode}
+  	</select>
+  </mapper>

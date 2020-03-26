@@ -1,29 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
-    <!-- jquery cdn -->
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.js"
-      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-      crossorigin="anonymous"
-    ></script>
-    <!-- bootstrap cdn -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!-- font awesome cdn -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <!-- axios cdn -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <th:block layout:fragment="customTitle">
+      <title>index</title>
+    </th:block>
 
     <style>
       .list-actived {
@@ -37,94 +22,141 @@
       }
     </style>
   </head>
-  <body>
-    <section class="content">
-      <div class="container-fluid">
-        <div style="padding: 20px;">
-          <div class="row">
-            <div class="col-md-6">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="/ 키를 눌러서 이곳으로 커서를 이동"
-              />
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <th:block layout:fragment="customContents">
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="container-fluid">
+            <div style="padding: 20px;">
+              <div class="row">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="/ 키를 눌러서 이곳으로 커서를 이동"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <button id="insert-form-btn" class="btn btn-outline-primary">
+                    <i class="fa fa-plus-square"> 새로운상품</i>
+                  </button>
+                  <button
+                    id="goods-category-form-btn"
+                    class="btn btn-outline-dark"
+                  >
+                    <i class="fa fa-cog"> 분류관리</i>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="col-md-6">
-              <button id="insert-form-btn" class="btn btn-primary">
-                <i class="fa fa-plus-square"></i> 새로운상품
-              </button>
-            </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <div id="list-form-title-div"></div>
-            <div class="card-body" style="height: 800px; overflow:auto;">
-              <div id="list-form-div"></div>
-              <div id="list-div"></div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card card-success">
+                  <div class="card-header">
+                    상품리스트
+                  </div>
+                </div>
+                <div class="card-body" style="height: 800px; overflow:auto;">
+                  <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-md-8">
+                      <div class="form-group my-auto">
+                        <select
+                          class="form-control"
+                          id="dynamic-goods-category-select"
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group my-auto">
+                        <select class="form-control">
+                          <option>최신등록순</option>
+                          <option>오래된등록순</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="list-div"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div id="form-div" style="height: 800px; overflow:auto;"></div>
+              </div>
             </div>
           </div>
-
-          <div class="col-md-6">
-            <div id="form-div" style="height: 800px; overflow:auto;"></div>
-          </div>
-        </div>
+        </section>
       </div>
-    </section>
 
-    <!-- Modal div -->
-    <div id="modal-div"></div>
+      <!-- Modal div -->
+      <div id="modal-div"></div>
 
-    <!-- 스크립트 -->
-    <script src="../js/rendering-functions.js"></script>
-    <script src="../js/modal-functions.js"></script>
-    <script src="../js/goods-category-functions.js"></script>
-    <script src="../js/goods-functions.js"></script>
+      <!-- axios cdn -->
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <!-- 스크립트 -->
+      <script src="../js/modal-functions.js"></script>
+      <script src="../js/goods-category-functions.js"></script>
+      <script src="../js/goods-functions.js"></script>
 
-    <script>
-      // 최초 렌더링
-
-      initRender();
+      <script>
+      renderGoodsList();
+      renderIntroForm();
+      renderDynamicGoodsCategory();
 
       // 렌더링 이벤트
 
-      $(document).on("click", "button#cancle-btn", () => {
+      $(document).on("click", "#cancle-btn", () => {
         renderIntroForm();
       });
 
-      $(document).on("click", "button#insert-form-btn", () => {
+      $(document).on("click", "#insert-form-btn", () => {
         renderInsertForm();
       });
 
-      $(document).on("click", "button.view-form-btn", e => {
-        const goodsCode = e.target.name;
-        renderViewForm(goodsCode);
+      $(document).on("click", ".view-form-btn", e => {
+        renderViewForm(e.target.name);
       });
 
-      $(document).on("click", "button#update-form-btn", e => {
-        const goodsCode = e.target.name;
-        renderUpdateForm(goodsCode);
+      $(document).on("click", "#update-form-btn", e => {
+        renderUpdateForm(e.target.name);
+      });
+
+      $(document).on("click", "#goods-category-form-btn", e => {
+        renderCategoryForm();
+      });
+      
+      $(document).on("click", "#goods-category-add-btn", e => {
+         renderGoodsCategoryAddModal();
       });
 
       // 기능 이벤트
 
-      $(document).on("click", "input#file-input", e => {
+      $(document).on("click", "#file-input", e => {
         removePreview();
       });
 
-      $(document).on("input", "input#file-input", e => {
+      $(document).on("input", "#file-input", e => {
         imageUpload(e);
       });
 
-      $(document).on("submit", "form#insert-form", e => {
+      $(document).on("submit", "#insert-form", e => {
         e.preventDefault();
         insertGoods();
       });
 
-      $(document).on("click", "button#delete-btn", e => {
+      $(document).on("click", "#delete-btn", e => {
         deleteGoods(e);
       });
-    </script>
+
+      $(document).on("click", "#update-btn", e => {
+        e.preventDefault();
+        updateGoods(e);
+      });
+
+      $(document).on("click", "#goods-category-insert-btn", e => {
+        e.preventDefault();
+        insertGoodsCategory();
+      });
+      </script>
+    </th:block>
   </body>
 </html>

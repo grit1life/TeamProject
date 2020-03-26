@@ -89,7 +89,7 @@
                     </div>
                   </div>
                   
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
+                  <label for="inputEmail3"  id="name1" class="col-sm-2 col-form-label">고객명</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
                       <input type="text" name="customerName" class="form-control">
@@ -97,14 +97,14 @@
                   </div>
                  
                   
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
+                  <label for="inputEmail3" id="name2" class="col-sm-2 col-form-label">고객 연락처</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
                       <input type="text" name="customerCall" class="form-control">
                     </div>
                   </div>
                   
-                  <label for="inputPassword3" class="col-sm-2 col-form-label">고객 이메일</label>
+                  <label for="inputPassword3" id="name3" class="col-sm-2 col-form-label">고객 이메일</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
                       <input type="text" name="customerEmail" class="form-control">
@@ -114,7 +114,7 @@
 					
 
 
-                  <label>우편번호</label>
+                  <label id="name4">우편번호</label>
                   <div class="input-group mb-3">
                   <input type="text" id="sample4_postcode" name="zipCode">
                   <div class="input-group-append">
@@ -126,7 +126,7 @@
                 
 
                   
-                  <label for="inputPassword3" class="col-sm-2 col-form-label">기본주소</label>
+                  <label for="inputPassword3" id="name5" class="col-sm-2 col-form-label">기본주소</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
                       <input type="text" id="sample4_roadAddress" name="customerAddress" class="form-control">
@@ -137,7 +137,7 @@
                    <span id="guide" style="color:#999;display:none"></span>
 					
                    
-                   <label for="inputPassword3" class="col-sm-2 col-form-label">상세주소</label>
+                   <label for="inputPassword3"  id="name6" class="col-sm-2 col-form-label">상세주소</label>
                    <div class="form-group row">
                     <div class="col-sm-10">
                       <input type="text" id="sample4_detailAddress" name="customerAddress2" class="form-control">
@@ -406,6 +406,12 @@
 		$('#customRadio1').click(function(){
 			$('#customerCompanyInsert').css('display','none');
 			$('#submit').css('display','block');
+			$('#name1').text('고객명');
+			$('#name2').text('고객 연락처');
+			$('#name3').text('고객 이메일');
+			$('#name4').text('우편번호');
+			$('#name5').text('기본주소');
+			$('#name6').text('상세주소');
 
 			
 			$('#cInsertBtn').click(function(){
@@ -422,6 +428,12 @@
 		$('#customRadio2').click(function(){
 			$('#customerCompanyInsert').css('display','block');
 			$('#submit').css('display','none');
+			$('#name1').text('담당자명');
+			$('#name2').text('담당자 연락처');
+			$('#name3').text('담당자 이메일');
+			$('#name4').text('담당자 우편번호');
+			$('#name5').text('담당자 기본주소');
+			$('#name6').text('담당자 상세주소');
 
 			
 			$('#cInsertBtn2').click(function(){
@@ -446,6 +458,19 @@
 
 			
 			});
+			
+		});
+		
+		
+		
+		$('#customRadio1').click(function(){
+			$('#name1').text('고객명');
+			$('#name2').text('고객 연락처');
+			$('#name3').text('고객 이메일');
+			$('#name4').text('우편번호');
+			$('#name5').text('기본주소');
+			$('#name6').text('상세주소');
+
 			
 		});
 

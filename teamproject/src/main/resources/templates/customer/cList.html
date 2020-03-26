@@ -167,105 +167,230 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-     
-    <!-- Main content -->
-    <section class="content">
+    
+    
+    <!-- 개인고객리스트 시작 -->
+    <section class="content" id="customerList">
 
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
           <h3 class="card-title"></h3>
-        <div class="card-body p-0">
-          <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title"></h3>
-                
-               <div style="width: 100%;">  
-	         
-	         <!-- 서치폼 -->
-				  <!-- sk  -->
-				  <div class="form-group" style="padding-bottom: 15px;">	
-		         	<div style="display: inline-block;">
-			           <select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
-			             <option selected="selected" value="권한">권한</option>
-			             <option selected="selected" value="등급">등급</option>
-			             <option selected="selected" value="고객명">고객명</option>
-			             <option selected="selected" value="고객 아이디">ID</option>
-			           </select>
-		           </div> 
-		           <!-- sv  -->      	          
-		           <div style="display: inline-block;">
-			           <input type="text" class="form-control select2bs4" name="staffEmail">		           		
-		           </div>		          
-		           <div style="display: inline-block;margin-left:0px;">
-		           	<button type="submit" class="btn btn-info">
-		           		검색
-		           	</button>
-		           </div>		           
-		         </div>
-	       		  
-	          </div>
-          	</div>
-              
-              
-              <!-- /.card-header -->
-              
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>고객명</th>
-                      <th>권한</th>
-                      <th>등급</th>
-                      <th>최초입력일</th>
-                      <th>상세보기</th>
-                      <th>삭제</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  	<tr th:each="l : ${CustomerList}">
-						<td th:text="${l.customerId}"></td>
-						<td th:text="${l.customerName}"></td>
-						<td th:text="${l.customerLevel}"></td>
-						<td th:text="${l.customerClass}"></td>
-						<td th:text="${l.inputDate}"></td>								
-						<td> 
-							<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
-	                              <i class="fas fa-folder">
-	                              </i>
-	                              View
-	                        </a>    		
-						</td>				
-						<td>							
-							<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                        	</a>
-						</td>
-				
-					</tr>
-                   
-                  </tbody>
-                </table>
-              </div>
-       
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
+       		 <div class="card-body p-0">
+		          <div class="row">
+			          <div class="col-12">
+                         			          
+			            <div  class="card">					   
+			              <!-- 작업 구분 시작 -->
+			              <div class="col-md-6" style="max-width: 25%;">
+			                <div class="form-group" style="height:0px;">
+				                
+				                 <label style="margin-bottom: 15px;"></label><br>
+				                  <div class="icheck-primary d-inline">
+				                    <input class="person" type="radio" name="r1" id="radioPrimary1" value="a">
+				                    <label for="radioPrimary1">
+				                    	개인
+				                    </label>
+				                  </div>
+				                  <div class="icheck-primary d-inline">
+				                    <input class="company" type="radio" name="r1" id="radioPrimary2">
+				                    <label for="radioPrimary2">
+				                    	개인 사업/법인
+				                    </label>
+				                  </div>	
+			                </div>			           
+			              </div>
+			              <!--작업 구분 끝  --> 
+             
+                      
+                          <!--서치폼 시작 -->
+	                      <div class="col-md-6" style="float: right; margin-left: 900px;">
+	                      	<div class="form-group" style="height:70px;">
+	                      		<div style="display: inline-block;">
+									<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+								        <option>ID</option>
+								        <option>고객명</option>
+								        <option>등급</option>
+								    </select>
+							    </div> 
+								<!-- sv  -->      	          
+							 	<div style="display: inline-block;">
+									<input type="text" class="form-control select2bs4">		           		
+							    </div>		          
+							    <div style="display: inline-block;margin-left:0px;">
+							    	<button type="submit" class="btn btn-info">
+							           		검색
+							        </button>
+							    </div>		                         	
+	                      	</div>                    
+	                      </div>
+	                      <!--서치폼 끝-->
+					 
+			              
+						  <!--개인 고객 테이블  -->					
+			              <div class="card-body table-responsive p-0">
+			                <table class="table table-hover">
+			                  <thead>
+			                    <tr>
+			                      <th>ID</th>
+			                      <th>고객명</th>
+			                      <th>권한</th>
+			                      <th>등급</th>
+			                      <th>최초입력일</th>
+			                      <th>상세보기</th>
+			                      <th>삭제</th>
+			                    </tr>
+			                  </thead>
+			                  <tbody>
+			                  	<tr th:each="l : ${CustomerList}">
+									<td th:text="${l.customerId}"></td>
+									<td th:text="${l.customerName}"></td>
+									<td th:text="${l.customerLevel}"></td>
+									<td th:text="${l.customerClass}"></td>
+									<td th:text="${l.inputDate}"></td>								
+									<td> 
+										<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+				                              <i class="fas fa-folder">
+				                              </i>
+				                              View
+				                        </a>    		
+									</td>				
+									<td>							
+										<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
+			                              <i class="fas fa-trash">
+			                              </i>
+			                              Delete
+			                        	</a>
+									</td>
+							
+								</tr>
+			                   
+			                  </tbody>
+			                </table>
+			              </div>
+			               <!-- 개인 고객 테이블 끝  -->
+			              
+			            </div>
+			         </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>	            
+		</section>      
+		<!-- 개인 고객 리스트 끝  -->
+			            
+    <!-- 개인사업자/법인 고객리스트 시작 -->
+    <section class="content" id="customerCompanyList" style="display: none;">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"></h3>
+       		 <div class="card-body p-0">
+		          <div class="row">
+			          <div class="col-12">
+                         			          
+			            <div  class="card">					   
+			              <!-- 작업 구분 시작 -->
+			              <div class="col-md-6" style="max-width: 25%;">
+			                <div class="form-group" style="height:0px;">
+				                
+				                 <label style="margin-bottom: 15px;"></label><br>
+				                  <div class="icheck-primary d-inline">
+				                    <input class="person" type="radio" name="r1" id="radioPrimary1" value="a">
+				                    <label for="radioPrimary1">
+				                    	개인
+				                    </label>
+				                  </div>
+				                  <div class="icheck-primary d-inline">
+				                    <input class="company" type="radio" name="r1" id="radioPrimary2">
+				                    <label for="radioPrimary2">
+				                    	개인 사업/법인
+				                    </label>
+				                  </div>	
+			                </div>			           
+			              </div>
+			              <!--작업 구분 끝  --> 
+             
+                      
+                          <!--서치폼 시작 -->
+	                      <div class="col-md-6" style="float: right; margin-left: 900px;">
+	                      	<div class="form-group" style="height:70px;">
+	                      		<div style="display: inline-block;">
+									<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+								        <option>ID</option>
+								        <option>고객명</option>
+								        <option>등급</option>
+								    </select>
+							    </div> 
+								<!-- sv  -->      	          
+							 	<div style="display: inline-block;">
+									<input type="text" class="form-control select2bs4">		           		
+							    </div>		          
+							    <div style="display: inline-block;margin-left:0px;">
+							    	<button type="submit" class="btn btn-info">
+							           		검색
+							        </button>
+							    </div>		                         	
+	                      	</div>                    
+	                      </div>
+	                      <!--서치폼 끝-->
+					 
+			              
+						  <!--개인사업/법인 고객 테이블  -->					
+			              <div class="card-body table-responsive p-0">
+			                <table class="table table-hover">
+			                  <thead>
+			                    <tr>
+			                      <th>ID</th>
+			                      <th>고객명</th>
+			                      <th>권한</th>
+			                      <th>등급</th>
+			                      <th>최초입력일</th>
+			                      <th>상세보기</th>
+			                      <th>삭제</th>
+			                    </tr>
+			                  </thead>
+			                  <tbody>
+			                  	 <tr th:each="l : ${CustomerCompanyList}">
+									<td th:text="${l.customerId}"></td>
+									<td th:text="${l.customerCompanyName}"></td>
+									<td th:text="${l.customerLevel}"></td>
+									<td th:text="${l.customerClass}"></td>
+									<td th:text="${l.inputDate}"></td>								
+									<td> 
+										<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+				                              <i class="fas fa-folder">
+				                              </i>
+				                              View
+				                        </a>    		
+									</td>				
+									<td>							
+										<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
+			                              <i class="fas fa-trash">
+			                              </i>
+			                              Delete
+			                        	</a>
+									</td>
+							
+								</tr>
+			                   
+			                  </tbody>
+			                </table>
+			              </div>
+			               <!-- 개인사업/법인 고객 테이블 끝  -->
+			              
+			            </div>
+			         </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>	            
+		</section>      
+		<!-- 개인사업자/법인 고객 리스트 끝  -->
+      </div>
                        
-        </div>
+   </div>
    
   <!-- /.content-wrapper -->
 
@@ -293,5 +418,27 @@
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+
+	<!--자바스크립트  -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+	$('.person').click(function(){
+		
+		$('#customerCompanyList').css('display','none');
+		$('#customerList').css('display','block');
+		
+		
+	});
+	
+	
+    $('.company').click(function(){
+		
+		$('#customerCompanyList').css('display','block');
+		$('#customerList').css('display','none');
+		
+		
+	});
+
+    </script>   
 </body>
 </html>
