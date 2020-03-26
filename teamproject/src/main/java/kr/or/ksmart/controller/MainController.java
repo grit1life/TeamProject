@@ -7,8 +7,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 	
-	@GetMapping("/admin/goods")
+	@GetMapping("/")
 	public String index() {
+		return "index";
+	}
+	
+	@GetMapping("/admin/goods")
+	public String goods() {
 		return "goods/goods";
+	}
+	
+	@GetMapping("/admin/history")
+	public String history() {
+		return "goods/history";
+	}
+	
+	@GetMapping("/admin/dashboard")
+	public String dashboard() {
+		return "goods/dashboard";
 	}
 }
