@@ -123,6 +123,10 @@
       $(document).on("click", "#goods-category-form-btn", e => {
         renderCategoryForm();
       });
+      
+      $(document).on("click", "#goods-category-add-btn", e => {
+         renderGoodsCategoryAddModal();
+      });
 
       // 기능 이벤트
 
@@ -146,10 +150,6 @@
       $(document).on("click", "#update-btn", e => {
         e.preventDefault();
         updateGoods(e);
-      });
-
-      $(document).on("click", "#goods-category-add-btn", e => {
-        renderGoodsCategoryAddModal();
       });
 
       $(document).on("click", "#goods-category-insert-btn", e => {

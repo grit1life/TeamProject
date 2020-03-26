@@ -11,7 +11,66 @@
   <body class="hold-transition sidebar-mini layout-fixed">
     <th:block layout:fragment="customContents">
       <div class="content-wrapper">
-        index 화면입니다(2020.03.23 15:05)
+        <section class="content">
+          <div class="container-fluid">
+            <div style="padding: 20px;">
+              <div class="row">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="/ 키를 눌러서 이곳으로 커서를 이동"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <button id="insert-form-btn" class="btn btn-outline-primary">
+                    <i class="fa fa-plus-square"> 새로운상품</i>
+                  </button>
+                  <button
+                    id="goods-category-form-btn"
+                    class="btn btn-outline-dark"
+                  >
+                    <i class="fa fa-cog"> 분류관리</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card card-success">
+                  <div class="card-header">
+                    상품리스트
+                  </div>
+                </div>
+                <div class="card-body" style="height: 800px; overflow:auto;">
+                  <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-md-8">
+                      <div class="form-group my-auto">
+                        <select
+                          class="form-control"
+                          id="dynamic-goods-category-select"
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group my-auto">
+                        <select class="form-control">
+                          <option>최신등록순</option>
+                          <option>오래된등록순</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="list-div"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div id="form-div" style="height: 800px; overflow:auto;"></div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
       <script></script>
     </th:block>

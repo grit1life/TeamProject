@@ -142,7 +142,7 @@
 			INNER JOIN goods_category AS c
 						ON	g.goods_category_code = c.goods_category_code
 			WHERE
-				goods_barcode = #{goodsBarcode}
+				goods_barcode = #{goodsBarcode};
 	</select>
 	
 </mapper>

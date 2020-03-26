@@ -11,7 +11,75 @@
   <body class="hold-transition sidebar-mini layout-fixed">
     <th:block layout:fragment="customContents">
       <div class="content-wrapper">
-        index 화면입니다(2020.03.23 15:05)
+        <section class="content">
+          <div class="container-fluid">
+            <div style="padding: 20px;">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <label class="my-auto">입고/출고</label>
+                    <div class="col-md-1">
+                      <select class="custom-select">
+                        <option value="0">전체</option>
+                        <option value="1">입고</option>
+                        <option value="2">출고</option>
+                      </select>
+                    </div>
+                    <label class="my-auto">제품별</label>
+                    <div class="col-md-2">
+                      <select class="custom-select">
+                        <option value="0">전체</option>
+                        <option value="1">입고</option>
+                        <option value="2">출고</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <input type="date" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                  <input type="date" class="form-control" />
+                </div>
+                <button type="button" class="btn btn-outline-secondary">
+                  조회
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">최근7일</a>
+                  <a class="dropdown-item" href="#">최근30일</a>
+                  <a class="dropdown-item" href="#">최근90일</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    히스토리
+                  </div>
+                  <div class="card-body" style="height: 800px; overflow:auto;">
+                    <div class="row" style="margin-bottom: 10px;">
+                      <div class="row"> </div>
+                    </div>
+                    <div id="list-div"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
       <script></script>
     </th:block>

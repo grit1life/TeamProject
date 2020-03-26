@@ -316,7 +316,7 @@ const renderViewForm = async goodsCode => {
     const formEl = document.createElement("div");
     formEl.innerHTML = `
         <div class="card card-success">
-          <div class="card-header">상품조회</div>
+          <div class="card-header">상품페이지</div>
         </div>
         <div class="card-body">
           <div class="row">
@@ -329,7 +329,15 @@ const renderViewForm = async goodsCode => {
               />
             </div>
 
+            
             <div class="col-md-10">
+              <div class="row" style="padding: 20px;">
+                <div class="col-md-12">
+                  <a href="/goodsHistory?goodsCode=${res.data.goodsCode}" class="btn btn-outline-primary btn-block">
+                    입/출고
+                  </a>
+                </div>
+              </div>
               <div class="form-group row">
                 <label class="col-sm-2">상품코드</label>
                 <div class="col-sm-8">
@@ -523,7 +531,7 @@ const renderUpdateForm = async goodsCode => {
               type="button"
               id="delete-btn"
               name="${res.data.goodsCode}"
-              class="btn btn-outline-dark pull-right"
+              class="btn btn-outline-dark float-right"
             >
               삭제
             </button>
