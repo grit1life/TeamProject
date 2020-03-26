@@ -328,12 +328,11 @@ const renderViewForm = async goodsCode => {
                 height="75"
               />
             </div>
-
             
             <div class="col-md-10">
               <div class="row" style="padding: 20px;">
                 <div class="col-md-12">
-                  <a href="/goodsHistory?goodsCode=${res.data.goodsCode}" class="btn btn-outline-primary btn-block">
+                  <a href="/admin/trade?goodsCode=${res.data.goodsCode}" class="btn btn-outline-primary btn-block">
                     입/출고
                   </a>
                 </div>
