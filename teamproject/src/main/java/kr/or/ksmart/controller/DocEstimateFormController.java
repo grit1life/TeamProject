@@ -1,6 +1,7 @@
 package kr.or.ksmart.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,16 +33,25 @@ public class DocEstimateFormController {
 	}
 	
 	@GetMapping("staff/estimateFormList")
-	public String estimateFormList(Model model) {
-		List<DocEstimateForm> eList = docEstimateFormService.getEstimateList();
-		model.addAttribute("eList", eList);
+	public String estimateFormList(Model model, @RequestParam(value="page", required = false) String page) {
+		if(page==null) {
+			page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		Map<String, Object> map = docEstimateFormService.getEstimateList(pageNum);
+		model.addAttribute("eList", map.get("eList"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		
 		return "docEstimate/staffEstimateFormList";
 	}
 	
 	@GetMapping("customer/estimateFormList")
 	public String estimateCustomerFormList(Model model) {
 		//String cId = "client01"; //임시 고객 아이디 로그인시 연결필요
-		//List<DocEstimateForm> eList = docEstimateFormService.getEstimateList(cId);
+		//List<DocEstimateForm> eList = docEstimateFormService.getCusEstimateList(cId);
 		//model.addAttribute("eList", eList);
 		return "docEstimate/cusEstimateFormList";
 	}

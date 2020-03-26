@@ -13,7 +13,10 @@ public interface DocEstimateFormMapper {
 
 	public List<DocEstimateForm> getEstimateList();
 
-	public List<DocEstimateForm> getEstimateList(String cId);
+	public List<DocEstimateForm> getEstimateList(int firstClmn, int lastClmn);
+	public int getEstimateListCnt();
+	
+	public List<DocEstimateForm> getCusEstimateList(String cId);
 	
 	/*public List<DocEstimateForm> getAjaxFormList(String estimateCode);*/
 	

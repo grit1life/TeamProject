@@ -33,7 +33,7 @@
 		<result property="setGoodsCount" column="set_goods_count"/>
 	</resultMap>
 	
-	<select id="getEstimateList" parameterType="String" resultMap="estimateResultMap">
+	<select id="getEstimateList" parameterType="int" resultMap="estimateResultMap">
 		SELECT 
 			DC.estimate_code
 			,DC.estimate_no
@@ -78,14 +78,93 @@
 			price_set AS PS
 			ON 
 			DC.set_code = PS.set_code
-		<if test="cId neq null and cId neq ''.toString()">
-		WHERE
-			customer_id = #{cId};
-		</if>
 		GROUP BY
 			DC.estimate_code
 		ORDER BY
-			DC.estimate_code DESC	
+			DC.estimate_code DESC
+		LIMIT ${firstClmn}, ${lastClmn}
+	</select>
+	<select id="getEstimateListCnt" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM
+				doc_estimate AS DC
+			INNER JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON 
+				DC.goods_code = G.goods_code
+			LEFT JOIN 
+				price_set AS PS
+				ON 
+				DC.set_code = PS.set_code
+			GROUP BY
+				DC.estimate_code
+		) AS SQ
+	</select>
+	
+	<select id="getCusEstimateList" parameterType="String" resultMap="estimateResultMap">
+	SELECT 
+			DC.estimate_code
+			,DC.estimate_no
+			,DC.customer_id
+			,DC.goods_code
+			,DC.set_code
+			,DC.trading_count
+			,DC.rental_from_date
+			,DC.rental_to_date
+			,DC.rental_period
+			,DC.sale_code
+			,SUM(DC.trading_total) AS tradingTotal
+			,COUNT(DC.estimate_code) AS count
+			,DC.estimates_expiration_date
+			,DC.input_staff_code
+			,DC.input_date
+			,DC.estimates_isend
+			,DC.estimates_note
+			,DC.grade_name
+			,C.customer_name
+			,C.customer_call
+			,C.customer_address
+			,C.customer_address2
+			,CC.customer_company_name
+			,G.goods_name
+			,PS.set_name
+		FROM
+			doc_estimate AS DC
+		INNER JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON 
+			DC.goods_code = G.goods_code
+		LEFT JOIN 
+			price_set AS PS
+			ON 
+			DC.set_code = PS.set_code
+		WHERE
+			customer_id = #{cId};
+		GROUP BY
+			DC.estimate_code
+		ORDER BY
+			DC.estimate_code DESC
 	</select>
 	<!-- <select id="getAjaxFormList" parameterType="String" resultMap="estimateResultMap">
 				SELECT 

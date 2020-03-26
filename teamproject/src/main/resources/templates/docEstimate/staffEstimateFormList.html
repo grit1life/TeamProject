@@ -149,6 +149,40 @@
               </tr>
              </tbody>
 		</table>
+       <!-- 페이징 -->
+	   </br>
+	   <nav aria-label="Page navigation example">
+		  <ul class="pagination">
+		    <li class="page-item">
+			    <th:block th:if="${currentPage>1}">
+			      <a class="page-link" th:href="@{/staff/estimateFormList(page=${currentPage-1})}" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+				</th:block>
+				<th:block th:unless="${currentPage>1}">
+			      <a class="page-link" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+				</th:block>
+		    </li>
+			<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+		    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/estimateFormList(page=${num})}"></a></li>
+			</th:block>
+		    <li class="page-item">
+		    	<th:block th:if="${endPage>currentPage}">
+			      <a class="page-link" th:href="@{/staff/estimateFormList(page=${currentPage+1})}" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </th:block>
+			    <th:block th:unless="${endPage>currentPage}">
+			      <a class="page-link" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </th:block>
+		    </li>
+		  </ul>
+		</nav>
+             <!-- 페이징 끝 -->
 		<!-- 
 		<button id="modalHiddenBtn" hidden="hidden" type="button" class="btn modal-default" data-toggle="modal" data-target="#modal-default">
 		dd</button>  -->

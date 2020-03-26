@@ -24,7 +24,7 @@
 		<result property="rentalToDate" column="rental_to_date"/>
 	</resultMap>
 	
-	<select id="getDocBillList" resultMap="docBillResultMap">
+	<select id="getDocBillList" parameterType="int" resultMap="docBillResultMap">
 		SELECT
 			*
 			,DC.contract_total_price
@@ -61,6 +61,40 @@
 			DB.bill_code
 		ORDER BY
 			DB.bill_expected_date DESC
+		LIMIT ${firstClmn}, ${lastClmn}
+	</select>
+	<select id="getDocBillListCnt" resultType="int">
+		SELECT 
+			COUNT(SQ.CNT)
+		FROM
+		(
+		SELECT
+				COUNT(1) AS CNT
+			FROM
+				doc_bill AS DB
+			INNER JOIN
+				doc_contract AS DC
+				ON
+				DB.contract_code = DC.contract_code
+			INNER JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				DC.set_code = PS.set_code
+			GROUP BY
+				DB.bill_code
+		) AS SQ
 	</select>
 	<select id="getDocBillForm" resultMap="docBillResultMap">
 		SELECT

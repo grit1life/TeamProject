@@ -1,6 +1,7 @@
 package kr.or.ksmart.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.ksmart.domain.Board;
 import kr.or.ksmart.domain.DocEstimateForm;
 import kr.or.ksmart.domain.Mycompany;
 import kr.or.ksmart.mapper.DocEstimateFormMapper;
@@ -19,13 +21,33 @@ public class DocEstimateFormService {
 	@Autowired
 	private DocEstimateFormMapper docEstimateFormMapper;
 	
-	public List<DocEstimateForm> getEstimateList(){
-		List<DocEstimateForm> eList  = docEstimateFormMapper.getEstimateList();
-		return eList;
+	public Map<String, Object> getEstimateList(int currentPage){
+		int cnt = docEstimateFormMapper.getEstimateListCnt();
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		List<DocEstimateForm> eList = docEstimateFormMapper.getEstimateList(firstClmn, lastClmn);
+		
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("eList", eList);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
 	}
 
-	public List<DocEstimateForm> getEstimateList(String cId){
-		List<DocEstimateForm> eList  = docEstimateFormMapper.getEstimateList(cId);
+	public List<DocEstimateForm> getCusEstimateList(String cId){
+		List<DocEstimateForm> eList  = docEstimateFormMapper.getCusEstimateList(cId);
 		return eList;
 	}
 	/*

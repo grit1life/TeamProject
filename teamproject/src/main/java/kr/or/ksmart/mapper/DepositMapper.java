@@ -9,8 +9,9 @@ import kr.or.ksmart.domain.Deposit;
 @Mapper
 public interface DepositMapper {
 
-	public List<Deposit> getDepositList();
-
+	public List<Deposit> getDepositList(int firstClmn, int lastClmn);
+	public int getDepositListCnt();
+	
 	public List<Deposit> getDepositList(boolean paid);
 	
 }

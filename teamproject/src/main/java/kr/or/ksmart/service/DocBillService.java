@@ -5,13 +5,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.DocBill;
+import kr.or.ksmart.domain.DocContractForm;
 import kr.or.ksmart.mapper.DocBillMapper;
 
 @Service
@@ -21,9 +24,12 @@ public class DocBillService {
 	@Autowired
 	private DocBillMapper docBillMapper;
 	
-	public List<DocBill> getDocBillList(){
-		List<DocBill> list = docBillMapper.getDocBillList();
+	public Map<String, Object> getDocBillList(int currentPage){
 		
+		int cnt = docBillMapper.getDocBillListCnt();
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		List<DocBill> list = docBillMapper.getDocBillList(firstClmn, lastClmn);
 		for(int i=0; i<list.size(); i++) {
 			String fromDate = list.get(i).getRentalFromDate();
 			String toDate = list.get(i).getRentalToDate();
@@ -34,7 +40,24 @@ public class DocBillService {
 			list.get(i).setPayMonth((int)total);
 		}
 		
-		return list;
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
+		
 	}
 	
 	public DocBill getDocBillForm(String billCode) {

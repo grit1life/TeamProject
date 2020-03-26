@@ -33,7 +33,7 @@
 		<result property="customerCompanyCall" column="customer_company_call"/>
 		<result property="total" column="total"/>
 	</resultMap>
-	<select id="getContractList" resultMap="contractResultMap">
+	<select id="getContractList" parameterType="int" resultMap="contractResultMap">
 		SELECT 
 				*
 			, COUNT(1) AS count
@@ -64,6 +64,36 @@
 			DC.contract_code
 		ORDER BY
 			DC.contract_code DESC
+		LIMIT ${firstClmn}, ${lastClmn}
+	</select>
+	<select id="getContractListCnt" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM
+				doc_contract AS DC
+			LEFT JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				DC.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G		
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				DC.set_code= PS.set_code
+			GROUP BY
+				DC.contract_code
+		) AS SQ	
 	</select>
 	<select id="getContractForm" parameterType="String" resultMap="contractResultMap">
 		SELECT 

@@ -1,6 +1,7 @@
 package kr.or.ksmart.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,17 @@ public class DocBillController {
 	private MyCompanyDepositService myCompanyDepositService;
 	
 	@GetMapping("/staff/billList")
-	public String billList(Model model) {
-		List<DocBill> list = docBillService.getDocBillList();
-		model.addAttribute("list", list);
+	public String billList(Model model, @RequestParam(value="page", required = false) String page) {
+		if(page==null) {
+			page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		Map<String, Object> map = docBillService.getDocBillList(pageNum);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
 		return "docBill/billList";
 	}
 	

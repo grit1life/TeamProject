@@ -72,4 +72,39 @@
 		ORDER BY
 			DB.bill_expected_date DESC
 	</select>
+	<select id="getDepositList" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT
+				COUNT(1) AS CNT
+			FROM
+				doc_bill AS DB
+			INNER JOIN
+				doc_contract AS DC
+				ON
+				DB.contract_code = DC.contract_code
+			INNER JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				DC.set_code = PS.set_code
+				WHERE 
+					ISNULL(DB.bill_payday)
+			GROUP BY
+				DB.bill_code
+		) AS SQ
+	</select>
  </mapper>

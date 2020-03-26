@@ -1,6 +1,8 @@
 package kr.or.ksmart.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,30 @@ public class DepositService {
 	@Autowired
 	private DocBillService docBillService;
 	
-	public List<Deposit> getDepositList(){
-		List<Deposit> list = depositMapper.getDepositList();
+	public Map<String, Object> getDepositList(int currentPage){
+		int cnt = depositMapper.getDepositListCnt();
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		List<Deposit> list = depositMapper.getDepositList(firstClmn, lastClmn);
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
 		list = calListPayMonth(list);
-		return list;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
 	}
 	public List<Deposit> getDepositList(boolean paid){
 		List<Deposit> list = depositMapper.getDepositList(paid);

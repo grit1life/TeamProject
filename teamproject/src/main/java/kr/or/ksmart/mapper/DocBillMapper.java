@@ -9,7 +9,8 @@ import kr.or.ksmart.domain.DocBill;
 @Mapper
 public interface DocBillMapper {
 
-	public List<DocBill> getDocBillList();
+	public List<DocBill> getDocBillList(int firstClmn, int lastClmn);
+	public int getDocBillListCnt();
 	
 	public DocBill getDocBillForm(String billCode);
 	
