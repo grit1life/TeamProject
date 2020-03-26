@@ -193,7 +193,7 @@
 	 <select id="getCustomerCompanyList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
 		SELECT
 				 customer_id    AS customerId
-				,customer_name 	AS customerName
+				,customer_company_name 	AS customerCompanyName
 				,customer_class	AS customerClass
 				,customer_level	AS customerLevel
 				,input_date	    AS inputDate

@@ -15,8 +15,8 @@ public class Customer {
 	private String customerLevel;//개인 고객 권한 (개인, 법인, 개인사업자)
 	
 	/********** 개인사업/법인 고객 ***********/
-	private String customerComanyName;
-	private String customerComanyPresident;
+	private String customerCompanyName;
+	private String customerCompanyPresident;
 	private String customerCompanyCall;
 	private String customerCompanyZipCode;
 	private String customerCompanyAddress1;
@@ -91,17 +91,17 @@ public class Customer {
 	public void setCustomerLevel(String customerLevel) {
 		this.customerLevel = customerLevel;
 	}
-	public String getCustomerComanyName() {
-		return customerComanyName;
+	public String getCustomerCompanyName() {
+		return customerCompanyName;
 	}
-	public void setCustomerComanyName(String customerComanyName) {
-		this.customerComanyName = customerComanyName;
+	public void setCustomerCompanyName(String customerComanyName) {
+		this.customerCompanyName = customerComanyName;
 	}
 	public String getCustomerComanyPresident() {
-		return customerComanyPresident;
+		return customerCompanyPresident;
 	}
 	public void setCustomerComanyPresident(String customerComanyPresident) {
-		this.customerComanyPresident = customerComanyPresident;
+		this.customerCompanyPresident = customerComanyPresident;
 	}
 	public String getCustomerCompanyCall() {
 		return customerCompanyCall;
@@ -180,8 +180,8 @@ public class Customer {
 		return "Customer [customerId=" + customerId + ", customerPw=" + customerPw + ", customerName=" + customerName
 				+ ", customerCall=" + customerCall + ", customerEmail=" + customerEmail + ", zipCode=" + zipCode
 				+ ", customerAddress=" + customerAddress + ", customerAddress2=" + customerAddress2 + ", customerClass="
-				+ customerClass + ", customerLevel=" + customerLevel + ", customerComanyName=" + customerComanyName
-				+ ", customerComanyPresident=" + customerComanyPresident + ", customerCompanyCall="
+				+ customerClass + ", customerLevel=" + customerLevel + ", customerComanyName=" + customerCompanyName
+				+ ", customerComanyPresident=" + customerCompanyPresident + ", customerCompanyCall="
 				+ customerCompanyCall + ", customerCompanyZipCode=" + customerCompanyZipCode
 				+ ", customerCompanyAddress1=" + customerCompanyAddress1 + ", customerCompanyAddress2="
 				+ customerCompanyAddress2 + ", customerCompanyEmail=" + customerCompanyEmail
@@ -193,7 +193,7 @@ public class Customer {
 				+ ", getCustomerEmail()=" + getCustomerEmail() + ", getZipCode()=" + getZipCode()
 				+ ", getCustomerAddress()=" + getCustomerAddress() + ", getCustomerAddress2()=" + getCustomerAddress2()
 				+ ", getCustomerClass()=" + getCustomerClass() + ", getCustomerLevel()=" + getCustomerLevel()
-				+ ", getCustomerComanyName()=" + getCustomerComanyName() + ", getCustomerComanyPresident()="
+				+ ", getCustomerComanyName()=" + getCustomerCompanyName() + ", getCustomerComanyPresident()="
 				+ getCustomerComanyPresident() + ", getCustomerCompanyCall()=" + getCustomerCompanyCall()
 				+ ", getCustomerCompanyZipCode()=" + getCustomerCompanyZipCode() + ", getCustomerCompanyAddress1()="
 				+ getCustomerCompanyAddress1() + ", getCustomerCompanyAddress2()=" + getCustomerCompanyAddress2()
