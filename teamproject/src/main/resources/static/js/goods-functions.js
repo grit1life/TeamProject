@@ -254,7 +254,7 @@ const renderInsertForm = () => {
               </div>
               <div class="col-sm-2">
                 <button type="button" class="btn btn-default" id="goods-category-add-btn">
-                  <i class="fa fa-plus-square"> 추가</i>
+                  <i class="fa fa-plus-square"></i>
                 </button>
               </div>
             </div>
@@ -474,7 +474,7 @@ const renderUpdateForm = async goodsCode => {
                 </div>
                 <div class="col-sm-2">
                   <button type="button" class="btn btn-default">
-                    <i class="fa fa-plus-square"> 추가</i>
+                    <i class="fa fa-plus-square"></i>
                   </button>
                 </div>
               </div>

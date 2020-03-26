@@ -17,11 +17,6 @@ public class MainController {
 		return "goods/goods";
 	}
 	
-	@GetMapping("admin/trade")
-	public String trade() {
-		return "goods/trade";
-	}
-	
 	@GetMapping("/admin/history")
 	public String history() {
 		return "goods/history";
