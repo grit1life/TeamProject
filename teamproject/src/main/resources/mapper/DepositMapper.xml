@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.ksmart.mapper.DocBillMapper">
-	<resultMap type="DocBill" id="docBillResultMap">
+  
+ <mapper namespace="kr.or.ksmart.mapper.DepositMapper">
+ 	<resultMap type="Deposit" id="depositResultMap">
 		<result property="billCode" column="bill_code"/>
 		<result property="contractCode" column="contract_code"/>
 		<result property="billExpectedDate" column="bill_expected_date"/>
 		<result property="billDate" column="bill_date"/>
 		<result property="billPayday" column="bill_payday"/>
 		<result property="billPayNumber" column="bill_pay_number"/>
+		<result property="deliveryTel" column="delivery_tel"/>
 		<result property="deliveryAddress" column="delivery_address"/>
 		<result property="deliveryDetailAddress" column="delivery_detail_address"/>
 		<result property="contractTotalPrice" column="contract_total_price"/>
@@ -24,7 +26,7 @@
 		<result property="rentalToDate" column="rental_to_date"/>
 	</resultMap>
 	
-	<select id="getDocBillList" resultMap="docBillResultMap">
+	<select id="getDepositList" resultMap="depositResultMap" parameterType="boolean">
 		SELECT
 			*
 			,DC.contract_total_price
@@ -57,47 +59,17 @@
 			price_set AS PS
 			ON
 			DC.set_code = PS.set_code
+		<if test="paid neq true or paid eq null">
+			WHERE 
+				ISNULL(DB.bill_payday)
+		</if>
+		<if test="paid eq true">
+			WHERE
+				NOT(ISNULL(DB.bill_payday))
+		</if>
 		GROUP BY
 			DB.bill_code
 		ORDER BY
 			DB.bill_expected_date DESC
 	</select>
-	<select id="getDocBillForm" resultMap="docBillResultMap">
-		SELECT
-			*
-			,DC.contract_total_price
-			,C.customer_name
-			,C.customer_call
-			,CC.customer_company_name
-			,G.goods_name
-			,PS.set_name
-			,COUNT(1) AS count
-			,SUM(DC.contract_total_price) AS total
-		FROM
-			doc_bill AS DB
-		INNER JOIN
-			doc_contract AS DC
-			ON
-			DB.contract_code = DC.contract_code
-		INNER JOIN
-			customer AS C
-			ON
-			DC.customer_id = C.customer_id
-		LEFT JOIN
-			customer_company AS CC
-			ON
-			C.customer_id = CC.customer_id
-		LEFT JOIN
-			goods AS G
-			ON
-			DC.goods_code = G.goods_code
-		LEFT JOIN
-			price_set AS PS
-			ON
-			DC.set_code = PS.set_code
-		WHERE 
-			DB.bill_code=#{billCode}
-		GROUP BY
-			DB.bill_code
-	</select>
-</mapper>
+ </mapper>

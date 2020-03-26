@@ -3,12 +3,12 @@ package kr.or.ksmart.domain;
 public class DocBill {
 	private String billCode;
 	private String contractCode;
-	private String billExpectedDate;
-	private String billDate;
-	private String billPayday;
-	private String billPayNumber;
+	private String billExpectedDate; //청구일자
+	private String billDate;	//입금기한
+	private String billPayday; //입금일자
+	private String billPayNumber;  //청구회차
 	private String contractTotalPrice;
-	private String customerName;
+	private String deliveryTel;
 	private String customerCall;
 	private String customerCompanyName;
 	private String goodsName;
@@ -19,6 +19,27 @@ public class DocBill {
 	private int total;
 	private String rentalFromDate;
 	private String rentalToDate;
+	public String getDeliveryTel() {
+		return deliveryTel;
+	}
+	public void setDeliveryTel(String deliveryTel) {
+		this.deliveryTel = deliveryTel;
+	}
+	private String deliveryAddress;
+	private String deliveryDetailAddress;
+	private String customerName;
+	public String getDeliveryAddress() {
+		return deliveryAddress;
+	}
+	public void setDeliveryAddress(String deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+	public String getDeliveryDetailAddress() {
+		return deliveryDetailAddress;
+	}
+	public void setDeliveryDetailAddress(String deliveryDetailAddress) {
+		this.deliveryDetailAddress = deliveryDetailAddress;
+	}
 	public int getPayMonth() {
 		return payMonth;
 	}

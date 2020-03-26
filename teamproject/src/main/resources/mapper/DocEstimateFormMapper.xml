@@ -14,6 +14,7 @@
 		<result property="rentalToDate" column="rental_to_date"/>
 		<result property="rentalPeriod" column="rental_period"/>
 		<result property="saleCode" column="sale_code"/>
+		<result property="deliveryTel" column="delivery_tel"/>
 		<result property="estimatesExpirationDate" column="estimates_expiration_date"/>
 		<result property="inputStaffCode" column="input_staff_code"/>
 		<result property="inputDate" column="input_date"/>
