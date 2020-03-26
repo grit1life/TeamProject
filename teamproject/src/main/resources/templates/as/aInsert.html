@@ -394,7 +394,7 @@
            		  
            		   <label for="inputEmail3" class="col-sm-2 col-form-label">A/S 출동 기사명</label>
                   <div class="input-group mb-3" style="width: 300px;">
-                  <input type="text" class="form-control" id="sn" name="staffName"  readonly="readonly" placeholder="직원을 검색해주세요.">              
+                  <input type="text" class="form-control" id="9" name="staffName" placeholder="직원을 검색해주세요.">              
 	                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal3" style="margin-left: 10px;">
 	                    	<i class="fas fa-search">검색</i> 
 	                    </button>             
@@ -407,7 +407,7 @@
 						<div class="modal-dialog modal-xl" role="document">
 							<div class="modal-content">
 								<div class="modal-header">								
-									<h4 class="modal-title" id="myModalLabel">출동 기사 검색</h4>
+									<h4 class="modal-title" id="myModalLabel">출동 기사 조회</h4>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 								</div>
 								
@@ -426,8 +426,7 @@
 								   			&ensp;	
 						             	 <div style="display:inline-block;">
 						                 	<select class="form-control" style="width: 130px;">                            	
-							                   		<option>직원명</option>  
-							                   		<option>직원 아이디</option> 							                   		   
+							                   		<option>직원명</option>  							                   		   
 							          	    </select>        	
 						              	 </div>
 						              	 
@@ -449,7 +448,7 @@
 								    &ensp;
 								    <!-- 직원 검색 리스트 시작 -->
 								    <div class="row">			   
-										 <div  id="staffList" style="display:none;">
+										 <div  id="staffList">
 										  	<table id="example2" class="table table-bordered table-hover">
 										    	<thead>
 									                <tr>
@@ -468,7 +467,7 @@
 									                	<input type="text" class="form-control" name=branchName style="border: 0" readonly="readonly" value="인천점">
 									                </td>
 									                <td>
-														<input type="text" class="form-control" name=staffName style="border: 0" readonly="readonly" value="유기사">
+														<input type="text" class="form-control" name=staffName2 style="border: 0" readonly="readonly" value="유기사">
 									                </td>
 									                <td>
 									                	<input type="text" class="form-control" name=staffTell style="border: 0" readonly="readonly" value="010-000-0000">        
@@ -485,7 +484,7 @@
 									                
 									                </td>  
 									                	<td>
-									                	<a id="staffListListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle; bottom: 0; margin-bottom: 18px; color:white;">
+									                	<a id="staffListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle; bottom: 0; margin-bottom: 18px; color:white;">
 									                		<i class="fas fa-check"></i>            	
 									                	</a>
 									                </td>                          
@@ -668,9 +667,11 @@
 	
 	
 	
-	$('#staffListListBtn').click(function(){	
-		var staffName = $('input[name=staffName]').val();		
-		   $('#sn').val(staffName);
+	$('#staffListBtn').click(function(){	
+
+		var staffName = $('input[name=staffName2]').val();
+		
+		   $('#9').val(staffName);
 		    
 	});
 	
