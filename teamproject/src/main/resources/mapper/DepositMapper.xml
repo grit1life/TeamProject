@@ -26,7 +26,7 @@
 		<result property="rentalToDate" column="rental_to_date"/>
 	</resultMap>
 	
-	<select id="getDepositList" resultMap="depositResultMap" parameterType="boolean">
+	<select id="getDepositList" resultMap="depositResultMap" parameterType="int">
 		SELECT
 			*
 			,DC.contract_total_price
@@ -59,20 +59,15 @@
 			price_set AS PS
 			ON
 			DC.set_code = PS.set_code
-		<if test="paid neq true or paid eq null">
 			WHERE 
 				ISNULL(DB.bill_payday)
-		</if>
-		<if test="paid eq true">
-			WHERE
-				NOT(ISNULL(DB.bill_payday))
-		</if>
 		GROUP BY
 			DB.bill_code
 		ORDER BY
 			DB.bill_expected_date DESC
+		LIMIT ${firstClmn}, ${lastClmn}
 	</select>
-	<select id="getDepositList" resultType="int">
+	<select id="getDepositListCnt" resultType="int">
 		SELECT
 			COUNT(SQ.CNT)
 		FROM
@@ -103,6 +98,82 @@
 				DC.set_code = PS.set_code
 				WHERE 
 					ISNULL(DB.bill_payday)
+			GROUP BY
+				DB.bill_code
+		) AS SQ
+	</select>
+	<select id="getPaidDepositList" resultMap="depositResultMap" parameterType="int">
+		SELECT
+			*
+			,DC.contract_total_price
+			,C.customer_name
+			,C.customer_call
+			,CC.customer_company_name
+			,G.goods_name
+			,PS.set_name
+			,COUNT(1) AS count
+			,SUM(DC.contract_total_price) AS total
+		FROM
+			doc_bill AS DB
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			DB.contract_code = DC.contract_code
+		INNER JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			DC.set_code = PS.set_code
+		WHERE
+			NOT(ISNULL(DB.bill_payday))
+		GROUP BY
+			DB.bill_code
+		ORDER BY
+			DB.bill_expected_date DESC
+		LIMIT ${firstClmn}, ${lastClmn}
+	</select>
+	<select id="getPaidDepositListCnt" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT
+				COUNT(1) AS CNT
+			FROM
+				doc_bill AS DB
+			INNER JOIN
+				doc_contract AS DC
+				ON
+				DB.contract_code = DC.contract_code
+			INNER JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				DC.set_code = PS.set_code
+				WHERE 
+					NOT(ISNULL(DB.bill_payday))
 			GROUP BY
 				DB.bill_code
 		) AS SQ

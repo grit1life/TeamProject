@@ -12,6 +12,6 @@ public interface DepositMapper {
 	public List<Deposit> getDepositList(int firstClmn, int lastClmn);
 	public int getDepositListCnt();
 	
-	public List<Deposit> getDepositList(boolean paid);
-	
+	public List<Deposit> getPaidDepositList(int firstClmn, int lastClmn);
+	public int getPaidDepositListCnt();
 }

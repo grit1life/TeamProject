@@ -8,6 +8,18 @@
     <title>index</title>
   </th:block>
 <th:block layout:fragment="customTestScript">
+<script>
+$(function(){
+	var url = window.location.search
+	url = url.substring(url.lastIndexOf("&")+1)
+	if(url=='2tab'){
+		$('#custom-content-above-home-tab').removeClass('active').attr('aria-selected','false');
+		$('#custom-content-above-profile-tab').addClass('active').attr('aria-selected', 'true')
+		$('#custom-content-above-home').removeClass('active').removeClass('show');
+		$('#custom-content-above-profile').addClass('active').addClass('show')
+	}
+})
+</script>
 </th:block>
 <th:block layout:fragment="customContents">
   <body class="hold-transition sidebar-mini layout-fixed">
@@ -86,6 +98,39 @@
 				              </tr>
 				             </tbody>
 						</table>
+						<!-- 페이징 -->
+					   <nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item">
+							    <th:block th:if="${currentPage>1}">
+							      <a class="page-link" th:href="@{/staff/depositList(page=${currentPage-1},paidPage=${paidCurrentPage})}" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+								<th:block th:unless="${currentPage>1}">
+							      <a class="page-link" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+						    </li>
+							<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+						    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/depositList(page=${num},paidPage=${paidCurrentPage})}"></a></li>
+							</th:block>
+						    <li class="page-item">
+						    	<th:block th:if="${endPage>currentPage}">
+							      <a class="page-link" th:href="@{/staff/depositList(page=${currentPage+1},paidPage=${paidCurrentPage})}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+							    <th:block th:unless="${endPage>currentPage}">
+							      <a class="page-link" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+						    </li>
+						  </ul>
+						</nav>
+				             <!-- 페이징 끝 -->
 		              </div>
 		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
 		                <!-- 입금 목록 -->
@@ -134,27 +179,27 @@
 				   <nav aria-label="Page navigation example">
 					  <ul class="pagination">
 					    <li class="page-item">
-						    <th:block th:if="${currentPage>1}">
-						      <a class="page-link" th:href="@{/staff/staffContractFormList(page=${currentPage-1})}" aria-label="Previous">
+						    <th:block th:if="${paidCurrentPage>1}">
+						      <a class="page-link" th:href="@{/staff/depositList(page=${currentPage},paidPage=${paidCurrentPage-1},2tab)}" aria-label="Previous">
 						        <span aria-hidden="true">&laquo;</span>
 						      </a>
 							</th:block>
-							<th:block th:unless="${currentPage>1}">
+							<th:block th:unless="${paidCurrentPage>1}">
 						      <a class="page-link" aria-label="Previous">
 						        <span aria-hidden="true">&laquo;</span>
 						      </a>
 							</th:block>
 					    </li>
-						<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
-					    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/staffContractFormList(page=${num})}"></a></li>
+						<th:block th:each="num : ${#numbers.sequence(paidStartPage, paidEndPage)}">
+					    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/depositList(page=${currentPage},paidPage=${num},2tab)}"></a></li>
 						</th:block>
 					    <li class="page-item">
-					    	<th:block th:if="${endPage>currentPage}">
-						      <a class="page-link" th:href="@{/staff/staffContractFormList(page=${currentPage+1})}" aria-label="Next">
+					    	<th:block th:if="${paidEndPage>paidCurrentPage}">
+						      <a class="page-link" th:href="@{/staff/depositList(page=${currentPage},paidPage=${paidCurrentPage+1},2tab)}" aria-label="Next">
 						        <span aria-hidden="true">&raquo;</span>
 						      </a>
 						    </th:block>
-						    <th:block th:unless="${endPage>currentPage}">
+						    <th:block th:unless="${paidEndPage>paidCurrentPage}">
 						      <a class="page-link" aria-label="Next">
 						        <span aria-hidden="true">&raquo;</span>
 						      </a>

@@ -46,10 +46,32 @@ public class DepositService {
 		
 		return map;
 	}
-	public List<Deposit> getDepositList(boolean paid){
-		List<Deposit> list = depositMapper.getDepositList(paid);
+	public Map<String, Object> getPaidDepositList(int currentPage){
+		int cnt = depositMapper.getPaidDepositListCnt();
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		List<Deposit> list = depositMapper.getPaidDepositList(firstClmn, lastClmn);
 		list = calListPayMonth(list);
-		return list;
+		
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		list = calListPayMonth(list);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
 	}
 	
 	/**

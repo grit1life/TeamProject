@@ -24,22 +24,29 @@ public class DepositController {
 	 * @return
 	 */
 	@GetMapping("/staff/depositList")
-	public String depositList(Model model, @RequestParam(value="page", required = false) String page) {
+	public String depositList(Model model, @RequestParam(value="page", required = false) String page
+							,@RequestParam(value="paidPage", required = false) String paidPage) {
 		if(page==null) {
 			page = "1";
 		}
 		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = depositService.getDepositList(page);
-		boolean paid = true;
+		Map<String, Object> map = depositService.getDepositList(pageNum);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("currentPage", map.get("currentPage"));
 		model.addAttribute("startPage", map.get("startPage"));
 		model.addAttribute("endPage", map.get("endPage"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		
-		List<Deposit> paidList = depositService.getDepositList(paid);
-		model.addAttribute("list", list);
-		model.addAttribute("paidList", paidList);
+		if(paidPage==null) {
+			paidPage = "1";
+		}
+		int paidPageNum = Integer.parseInt(paidPage);
+		Map<String, Object> paidMap = depositService.getPaidDepositList(paidPageNum);
+		model.addAttribute("paidList", paidMap.get("list"));
+		model.addAttribute("paidCurrentPage", map.get("currentPage"));
+		model.addAttribute("paidStartPage", map.get("startPage"));
+		model.addAttribute("paidEndPage", map.get("endPage"));
+		model.addAttribute("paidLastPage", map.get("lastPage"));
 		return "docBill/depositList";
 	}
 }
