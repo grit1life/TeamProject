@@ -44,7 +44,7 @@
 			  	서울 강남구 논현로 508 GS타워 13층 XX 2팀, 10호실<br>
 			  	단당자 &emsp;나담당   010-000-0001<br>
 			  	등급 &emsp; &emsp;등급A<br>
-			  	<button id="customerModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
+			  	<button type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0" data-toggle="modal" data-target="#costomerModal">
         			<i class="fas fa-folder"></i>&ensp;고객님 검색
       			</button>
 			</div>
@@ -52,8 +52,9 @@
 		  	<div class="col-sm-3 invoice-col">
 		  		<label>배송지 정보</label><br>
 		  		<input type="radio" name="address">계약자 주서하고 동일<br>
-		  		<input type="radio" name="address" id="addressModal">세로 입력
-	
+		  		<input type="radio" name="address" data-toggle="modal" data-target="#deliveryModal">세로 입력
+		  		
+		  		
 			  	서울 강남구 논현로 508 GS타워 13층 XX 2팀, 10호실<br>
 			  	010-000-0001<br>
 
@@ -158,12 +159,25 @@
 	선택한 테이블 데이타 삽입 : <input type="text" id="addTableData"> 
   
   </div>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/jsModal/staffModal.js"></script>
-<script src="/jsModal/addressModal.js"></script>
-<script src="/jsModal/customerModal.js"></script>
 <script>
-
+	$('.company').click(function(){
+		console.log('company');
+		$('#name').html('&emsp;회사명');
+		$('#name').next().attr('name','conpanyName');
+		$('#tel').html('&emsp;대표 전화번호');
+		$('#tel').next().attr('name','customerCompanyCall');
+		$('#email').next().attr('name','customerCompanyEmail');
+		$('#staff').css('display','block');
+	});
+	$('.person').click(function(){
+		console.log('person'); 
+		$('#name').html('&emsp;이름')
+		$('#name').next().attr('name','customerName');
+		$('#tel').html('&emsp;전화번호');
+		$('#tel').next().attr('name','customerCall');
+		$('#email').next().attr('name','customerEmail');
+		$('#staff').css('display','none');
+	})
 	//고객 검색bottun click시 list 표시
 	$('#customerSerchBtn').click(function(){
 		$('#customerList').css('display','block');
@@ -184,34 +198,163 @@
 	});
 
 	
-	// modal 이용
-	// /jsModal/staffModal.js -> staffListModal작성,검색
+	//modal 이용
 	$(function(){
-
+		
+		const __modalRquest = function(modalUrl ,title, param){
+			//modalUrl로 mapping해서 return삾의 html File의 코드를 modal내에 표시
+			//title -> modal의 title
+			//param -> modal로 보내는 값
+			
+			//param 변수가 undefined 라면 
+			if(param == undefined){
+				var request = $.ajax({
+					  url: modalUrl,
+					  method: "GET",
+					  dataType: "html"
+					});
+			}else{
+				var request = $.ajax({
+					  url: modalUrl,
+					  method: "POST",
+					  processData: false,
+					  contentType: false,
+					  data: param,
+					  dataType: "html"
+					});
+			}
+			
+			request.done(function( data ) {
+				
+				let modalHtml = '';
+				modalHtml += '<div class="modal fade" id="__showModal">';
+				modalHtml += '<div class="modal-dialog modal-xl">';
+				modalHtml += '<div class="modal-content">';
+				modalHtml += '<div class="modal-header">';
+				modalHtml += '<h4 class="modal-title">'+ title +'</h4>';
+				modalHtml += '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+				modalHtml += '</div>';
+				modalHtml += '<div class="modal-body">';
+				modalHtml += data;
+				modalHtml += '</div>';
+				modalHtml += '<div class="modal-footer">';
+				modalHtml += '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+				modalHtml += '</div>';
+				modalHtml += '</div>';
+				modalHtml += '</div>';
+				modalHtml += '</div>';
+				
+				if($('#__showModal').length > 1){				
+					$('#__showModal').remove();
+				}
+				
+				$('body').append(modalHtml)
+				
+				//html 렌더링이 완료될때까지 대기
+				setTimeout(function(){
+					$('#__showModal').modal('show');
+				}, 50);
+				
+			});
+			 
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+			}); 
+			
+		}
+		//직원(담당자)검색 modal 표시
+		//function(modalUrl ,title, param)
+		//modalUrl로 mapping해서 return삾의 html File의 코드를 modal내에 표시
+		//title -> modal의 title
+		//param -> modal로 보내는 값
+		$('#staffModal').click(function(){	
+			const formData=undefined;
+			__modalRquest('/modalStaffList', '모달타이틀', formData);	
+		});
+		$(document).on('click', '#staffSerchBtn', function(){
+			console.log("staffSerchBtn");
+			const formData = new FormData($("form#staffSerch")[0]);
+			$('#staffList').remove();
+			console.log(formData.get('branchCode'));
+			__modalRquest('/modalStaffList', '모달타이틀', formData);
+			
+		})
 		//modal에서 직원 선택시
 		$(document).on('click', '#staffChoice', function(){
 			console.log("staffChoice");
 			console.log(this);
 			var str = $(this).parents('tr');
 			console.log(str+"<-str");
-			$('#staff').remove();
-			var staffChoiceHtml = '<div id="staff">'
-				staffChoiceHtml += str.find('#branchName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffTell').text()+'<br>';
-				staffChoiceHtml += str.find('#staffEmail').text()+'<br>';
-				staffChoiceHtml += '</div>';
+			var staffChoiceHtml = '<br>'+str.find('.branchName').text()+'<br>';
+				staffChoiceHtml += str.find('.staffName').text()+'<br>';
+				staffChoiceHtml += str.find('.staffTell').text()+'<br>';
+				staffChoiceHtml += str.find('.staffEmail').text()+'<br>';
 			console.log(staffChoiceHtml+"<-staffChoiceHtml");
 			$('label#staffChoice').after(staffChoiceHtml);
-			$('#__staffModal').modal('hide');
+			$('#__showModal').modal('hide');
 		});
 		
-	});		
-		
+	});
+	
+	
+	$(document).on('click', '#sampleModalTable tr', function(){
+		var tdText = $(this).find('td').text();
+		$('#addTableData').val(tdText);
+		$('#__showModal').modal('hide');
+	})
+
 </script>  
 
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-    
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>      
   
 </th:block>
 </body>

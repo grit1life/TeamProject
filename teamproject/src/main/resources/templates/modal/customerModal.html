@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <form id="customerSerch">
+ <div class="row" style="margin-bottom:20px">
+   <div class="col-sm-3" style="padding:30px 0 0 20px">
+     <div class="icheck-primary d-inline" style="display:inline-block;">
+       <input class="person" type="radio" name="r1" id="radioPrimary1" checked value="a">
+       <label for="radioPrimary1">
+       	개인
+       </label>
+     </div>
+     <div class="icheck-primary d-inline" style="display:inline-block;">
+       <input class="company" type="radio" name="r1" id="radioPrimary2">
+       <label for="radioPrimary2">
+       	법인
+       </label>
+     </div>
+   </div>
+   <div class="col-sm-3">
+	   <div>
+		   <label>아이디</label>
+		   <div style="display:inline-block;">
+		     <input name="customerId" type="text" class="form-control select2bs4">
+		   </div>
+	   </div>
+	   <label id="name">이름</label>
+	   <div style="display:inline-block;">
+	  	 <input name="customerName" type="text" class="form-control select2bs4">
+	   </div>
+   </div>
+   <div class="col-sm-3 invoice-col">
+	   <label id="tel">전화번호</label>
+	   <input type="text" class="form-control select2bs4" name="customerCall">
+	   <label id="email">이메일</label>
+	   <input type="text" class="form-control select2bs4" name="customerEmail">
+   </div>
+   <div class="col-sm-3 invoice-col">
+	   <div id="staff" style="display:none;">
+		 <label>담당자</label>
+		 <input type="text" class="form-control select2bs4" name="inputStaffName">
+	   </div>
+	   <div style="display:inline-block;">
+	      <a id="customerSerchBtn" class="btn btn-primary btn-sm" href="#" style="margin:0;position: absolute;bottom: 0;">
+		      <i class="fas fa-folder">
+		      </i>&ensp;검색
+	      </a>  
+	   </div> 
+   </div>
+</div>
+
+</form>
+      
+	<table id="example2" class="modalTable table table-bordered table-hover">
+   		<thead>
+        	<tr>
+                <th>지점</th>
+                <th>직책</th>
+                <th>직원 명</th>
+                <th>생년월일</th>
+                <th>전화번호</th>
+                <th>이메일</th>
+                <th>권한</th>
+                <th></th>
+        	</tr>
+        </thead>
+        <tbody>
+         <tr th:each="L:${staffList}">
+           <td id="branchName" th:text="${L.branchName}"></td>
+           <td id="staffPosition" th:text="${L.staffPosition}"></td>
+           <td id="staffName" th:text="${L.staffName}"></td>
+           <td id="staffBirth" th:text="${L.staffBirth}"></td>
+           <td id="staffTell" th:text="${L.staffTell}"></td>
+           <td id="staffEmail" th:text="${L.staffEmail}"></td>
+           <td id="staffLevel" th:text="${L.staffLevel}"></td>
+           <td><button id="staffChoice" class="btn btn-info" type="button">선택</button></td>
+         </tr>
+        </tbody>
+	</table>

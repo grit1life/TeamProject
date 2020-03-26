@@ -28,6 +28,7 @@ public class StaffController {
 	@Autowired
 	private BranchService branchService;
 	
+
 	@GetMapping("/staff/staffLogin")
 	public String staffLogin() {
 		return "staff/staffLogin";
@@ -57,7 +58,7 @@ public class StaffController {
 		List<Branch> branchSerectList = branchService.selectBranch();
 		System.out.println(branchSerectList.toString());
 		model.addAttribute("branchSerectList", branchSerectList);
-
+		
 		List<Staff> staffList = staffService.staffList();
 		System.out.println(staffList.toString());
 		model.addAttribute("staffList", staffList);
@@ -68,9 +69,9 @@ public class StaffController {
 	@ResponseBody
 	public List<Staff> staffList(Staff staff) {
 		System.out.println("ajax 왔다");
-		List<Staff> staffList = staffService.staffList();
+		System.out.println(staff.toString());
+		List<Staff> staffList = staffService.staffList(staff);
 		System.out.println("ajax"+staffList.toString());
-		
 		return staffList;
 	}
 	

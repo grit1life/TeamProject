@@ -20,6 +20,10 @@ public class StaffService {
 	@Autowired
 	private StaffMapper staffMapper;
 	
+	public List<Staff> staffList(Staff staff) {
+		List<Staff> staffList = staffMapper.staffList(staff);
+		return staffList;
+	}
 	public List<Staff> staffList() {
 		List<Staff> staffList = staffMapper.staffList();
 		return staffList;
