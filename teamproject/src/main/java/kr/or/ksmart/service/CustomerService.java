@@ -58,37 +58,38 @@ public class CustomerService {
 	}
 	
 	
-	//개인 사업& 법인 고객 등록 
+	//개인 사업& 법인 고객 등록1 
 	
-		public int cInsert2(Customer customer){
+	public int cInsert2(Customer customer){
 			
-			return customerMapper.cInsert2(customer);
+		return customerMapper.cInsert2(customer);
 			
 		}
+		
 	
 	
 	
 	//개인 사업& 법인 고객 리스트
-		public List<Customer> getCustomerCompanyList() {
+	public List<Customer> getCustomerCompanyList() {
 			return customerMapper.getCustomerCompanyList();
 
 		
 		}
 		
    //개인 사업& 법인 고객 업데이트(값가져오기)
-		public Customer SelectForUpdate2(String customerId) {
+	public Customer SelectForUpdate2(String customerId) {
 			
 			return customerMapper.SelectForUpdate2(customerId);
 		} 
 		
 	//개인 사업& 법인 고객 업데이트(값 수정)
-		public int cUpdate2(Customer customer) {
+	public int cUpdate2(Customer customer) {
 			return customerMapper.cUpdate2(customer);
 			
 		}		
    //개인 사업& 법인 고객 삭제
 		
-		public int cDelte2(String customerId, String customerName) {
+	public int cDelte2(String customerId, String customerName) {
 			return customerMapper.cDelete2(customerId, customerName);
 		}
 	
