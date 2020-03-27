@@ -61,13 +61,18 @@
 					        <option>진행 완료</option>
 					    </select>
 				    </div> 
+
 				    
-				    <div style="display: inline-block;">
+				     <div style="display: inline-block;">
 						<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
 					        <option>요청인</option>
 					        <option>A/S 처리점</option>
 					        <option>A/S 처리기사</option>
 					    </select>
+				    </div> 
+				    
+				    <div style="display: inline-block;">
+						<input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
 				    </div> 
 				<!-- sv  -->      	          
 				 	<div style="display: inline-block;">
@@ -79,36 +84,14 @@
 				        </button>
 				    </div>		           
 				</div>
-              </div>
-              <div class="row">
-              	<div class="form-group" style="padding-bottom: 15px;">	
-	                  <div class="input-group">
-	                    <div class="input-group-prepend">
-	                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-	                    </div>
-	                    <input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-	                  </div>                           
-           		   </div> 
-                 
-                  <div class="col-5">
-		           	<button type="submit" class="btn btn-info" style="margin-left:0px;">
-		           		검색
-		           	</button>
-		           </div>			                             
-             </div>
+              </div>             
             </div>
           </div>
       </div>
     </section>
-  </div>
-        
-  
     <!--검색 end-->
-    
-    
-<div class="content-wrapper">     
-  <section class="content">
-  	<div class="container-fluid">
+     <section class="content-header">  
+      <div class="container-fluid">
 	<div class="card">
 	 <div class="card-body" style="margin-top:20px">
 
@@ -179,9 +162,8 @@
 	 </div>
       	
     </div>
-    
-  </section>
-</div>
+    </section>
+
  </th:block>
 
 <!-- jQuery -->
