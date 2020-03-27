@@ -25,9 +25,12 @@ public class DocEstimateFormController {
 	@GetMapping("customer/estimateForm")
 	public String estimateForm(@RequestParam(value = "estimateCode") String estimateCode,
 							   Model model) {
-		List<DocEstimateForm> eList = docEstimateFormService.getEstimateForm(estimateCode);
+		Map<String, Object> map = docEstimateFormService.getEstimateForm(estimateCode);
 		Mycompany mycompany = docEstimateFormService.getMycompany();
-		model.addAttribute("eList", eList);
+		model.addAttribute("eList", map.get("resultList"));
+		model.addAttribute("page", map.get("page"));
+		model.addAttribute("remainClmn", map.get("remainClmn"));
+		model.addAttribute("cnt", map.get("cnt"));
 		model.addAttribute("mycompany", mycompany);
 		return "docEstimate/estimateForm";
 	}

@@ -26,7 +26,7 @@
   		<result property="deliveryDetailAddress" column="delivery_detail_address"/>
   	</resultMap>
   	
-  	<select id="getShipmentList" parameterType="boolean" resultMap="shipmentResultMap">
+  	<select id="getShipmentList" resultMap="shipmentResultMap">
   		SELECT 
 			*
 			, DC.rental_count
@@ -66,16 +66,143 @@
 			customer_company AS CC
 			ON
 			CC.customer_id = C.customer_id
-		<if test="delivered neq true and delivered eq null">
 		WHERE
 			NOT(ISNULL(S.shipment_date))
-		</if>
-		<if test="delivered eq true">
-		WHERE
-			(ISNULL(S.shipment_date))
-		</if>
 		GROUP BY
 			shipment_code
+		LIMIT ${firstClmn}, ${lastClmn}
+  	</select>
+  	<select id="getShipmentListCnt" resultType="int">
+		SELECT
+			COUNT(SQ.CNT) AS count
+			FROM
+			(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM 
+				shipment AS S
+			INNER JOIN
+				doc_bill AS B
+				ON
+				S.bill_code = B.bill_code
+			INNER JOIN
+				doc_contract AS DC
+				ON
+				S.contract_code = DC.contract_code 
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				set_goods AS SG
+				ON
+				DC.set_code = SG.set_code
+			LEFT JOIN
+				goods AS GFSG
+				ON
+				SG.goods_code = GFSG.goods_code
+			LEFT JOIN
+				customer AS C
+				ON
+				C.customer_id = DC.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				CC.customer_id = C.customer_id
+			WHERE
+				NOT(ISNULL(S.shipment_date))
+			GROUP BY
+				shipment_code
+		) AS SQ
+  	</select>
+  	<select id="getDeliveredShipmentList" resultMap="shipmentResultMap">
+  		SELECT 
+			*
+			, DC.rental_count
+			, G.goods_name
+			, SG.set_goods_count
+			, GFSG.goods_name AS setGoodsName
+			, C.customer_name
+			, CC.customer_company_name
+			, COUNT(1) AS count
+		FROM 
+			shipment AS S
+		INNER JOIN
+			doc_bill AS B
+			ON
+			S.bill_code = B.bill_code
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			S.contract_code = DC.contract_code 
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			DC.set_code = SG.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
+		LEFT JOIN
+			customer AS C
+			ON
+			C.customer_id = DC.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			CC.customer_id = C.customer_id
+		WHERE
+			(ISNULL(S.shipment_date))
+		GROUP BY
+			shipment_code
+		LIMIT ${firstClmn}, ${lastClmn}
+  	</select>
+  	<select id="getDeliveredShipmentCnt" resultType="int">
+	  	SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				 COUNT(1) AS CNT
+			FROM 
+				shipment AS S
+			INNER JOIN
+				doc_bill AS B
+				ON
+				S.bill_code = B.bill_code
+			INNER JOIN
+				doc_contract AS DC
+				ON
+				S.contract_code = DC.contract_code 
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				set_goods AS SG
+				ON
+				DC.set_code = SG.set_code
+			LEFT JOIN
+				goods AS GFSG
+				ON
+				SG.goods_code = GFSG.goods_code
+			LEFT JOIN
+				customer AS C
+				ON
+				C.customer_id = DC.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				CC.customer_id = C.customer_id
+			WHERE
+				(ISNULL(S.shipment_date))
+			GROUP BY
+				shipment_code
+		) AS SQ
   	</select>
   	<select id="ajaxShipmentList" parameterType="String" resultMap="shipmentResultMap">
   		SELECT 

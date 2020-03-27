@@ -31,8 +31,9 @@
 		float: right;	
 	}
 	.estimate-info{
-		padding-top: 30px;
+		margin-top: 50px;
 		clear: both;
+		margin-bottom: 50px;
 	}
 	.num{
 		width:50px;
@@ -72,8 +73,86 @@
 </style>
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 	$(function(){
+		/*<![CDATA[*/
+		var eList = /*[[ ${eList} ]]*/;
+		var page = /*[[ ${page} ]]*/;
+		var remainClmn = /*[[ ${remainClmn} ]]*/;
+		/*]]*/
+		console.log(eList);
+
+		var html = "";
+		html += "<table class='estimate-info'>	\
+					<tr class='tableSmlTitle'>\
+						<th colspan='2'>합계금액</th>\
+						<th colspan='3' rowspan='2'>금<span id='totalKor'></span>원정</th>\
+						<th colspan='2' rowspan='2'>(\\<span id='totalNum'></span>)</th>\
+					</tr>\
+					<tr class='tableSmlTitle'>\
+						<th colspan='2'>(공급가액+세액)</th>\
+					</tr>"
+		html+="<tr class='tableSmlTitle'>\
+			<th class='num'>번호</th>\
+			<th class='lineItem'>품목명</th>\
+			<th class='num'>수량</th>\
+			<th class='price'>단가</th>\
+			<th class='price'>공급가액</th>\
+			<th class='price'>세액</th>\
+			<th class='note'>비고</th>\
+		</tr>"
+		var i=0
+		for(i; i<eList.length; i++){
+			if(i%10==0 && i!=0){
+				html+="</table>";
+				html+="<table class='estimate-info' style='page-break-before:always'>"
+				html+="<tr class='tableSmlTitle'>\
+						<th class='num'>번호</th>\
+						<th class='lineItem'>품목명</th>\
+						<th class='num'>수량</th>\
+						<th class='price'>단가</th>\
+						<th class='price'>공급가액</th>\
+						<th class='price'>세액</th>\
+						<th class='note'>비고</th>\
+					</tr>"
+			}
+				html += "<tr>"
+				if(eList[i].estimateNo!=null){
+					html += "<td>"+eList[i].estimateNo+"</td>";
+				}else{
+					html += "<td></td>";
+				}
+				if(eList[i].setCode!=null){
+					html += "<td>"+eList[i].setName+"</td>";
+					html += "<td>"+eList[i].tradingCount+"</td>"
+					html += "<td class='priceNum'>"+eList[i].setDayPrice*0.9+"</td>";
+					html += "<td class='priceNum suppliedValue'>"+(eList[i].tradingCount*eList[i].setDayPrice*0.9)+"</td>";
+					html += "<td class='priceNum priceTax'>"+(eList[i].tradingCount*eList[i].setDayPrice*0.1)+"</td>";
+				}else{
+					html += "<td>"+eList[i].goodsName+"</td>";
+					html += "<td>"+eList[i].tradingCount +"</td>"
+					html += "<td class='priceNum'>"+eList[i].rentalDayPrice*0.9+"</td>";
+					html += "<td class='priceNum suppliedValue'>"+(eList[i].tradingCount*eList[i].rentalDayPrice*0.9)+"</td>";
+					html += "<td class='priceNum priceTax'>"+(eList[i].tradingCount*eList[i].rentalDayPrice*0.1)+"</td>";
+				}
+				html+="<td><input class='note' type='text' value=''></td>";
+				html+="</tr>"
+			}
+			html+="<tr class='sum-info'>\
+					<td colspan='4' class='tableSmlTitle'>합계</td>\
+					<td class='supplySum'></td>\
+					<td class='taxSum'></td>\
+					<td></td>	\
+				</tr>\
+			</table>"
+		$('.content-table').append(html);
+		if(i<10){
+			for(j=i; j<10; j++){
+				$('.sum-info').before("<tr><td></td><td></td><td></td><td></td><td></td><td></td>\
+						<td><input class='note' type='text' value=''></td></tr>")
+			}
+		}
+		
 		var supplyPrice = 0;
 		var priceTax = 0;
 		$('.suppliedValue').each(function(){
@@ -129,7 +208,7 @@
 <body>
     <div class="content-wrapper">
 	  <div class="container">
-	  익스플로어 미리보기, 페이징 필요(2020-03-24)
+	  익스플로어 미리보기 필요(2020-03-27)
 		<h1><u>&emsp;견&emsp;적&emsp;서&emsp;</u></h1>
 		<div style="float: left">
 			<h3 th:text="'날짜 : '+${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"></h3>
@@ -157,56 +236,9 @@
 				<td class="tableSmlTitle">팩스</td><td th:text="${mycompany.mycompanyFax}"></td>
 			</tr> -->
 		</table>
-		<table class="estimate-info">
-			<tr class="tableSmlTitle">
-				<th colspan="2">합계금액</th>
-				<th colspan="3" rowspan="2">금<span id="totalKor"></span>원정</th>
-				<th colspan="2" rowspan="2">(\<span id="totalNum"></span>)</th>
-			</tr>
-			<tr class="tableSmlTitle">
-				<th colspan="2">(공급가액+세액)</th>
-			</tr>
-			<tr class="tableSmlTitle">
-				<th class="num">번호</th>
-				<th class="lineItem">품목명</th>
-				<th class="num">수량</th>
-				<th class="price">단가</th>
-				<th class="price">공급가액</th>
-				<th class="price">세액</th>
-				<th class="note">비고</th>
-			</tr>
-			<tr th:each="l, i : ${eList}">
-				<td th:if="${l.estimateNo}!=null" th:text="${l.estimateNo}"></td>
-				<td th:if="${l.estimateNo}==null"></td>
-				<td th:if="${l.setCode}!=null" th:text="${l.setName}"></td>
-				<td th:if="${l.setCode}==null" th:text="${l.goodsName}"></td>
-				<td th:text="${l.tradingCount}"></td>
-				 
-				<td th:if="${l.setCode}!=null" class="priceNum" th:text="${l.setDayPrice*0.9}"></td>
-				<td th:if="${l.setCode}==null" class="priceNum" th:text="${l.rentalDayPrice*0.9}"></td>
-				<td th:if="${l.setCode}!=null" class="priceNum suppliedValue" th:text="${l.tradingCount}*${l.setDayPrice}*0.9"></td>
-				<td th:if="${l.setCode}==null" class="priceNum suppliedValue" th:text="${l.tradingCount}*${l.rentalDayPrice}*0.9"></td>
-				<td th:if="${l.setCode}!=null" class="priceNum priceTax" th:text="${l.tradingCount}*${l.setDayPrice}*0.1"></td>
-				<td th:if="${l.setCode}==null" class="priceNum priceTax" th:text="${l.tradingCount}*${l.rentalDayPrice}*0.1"></td>
-  
-				<td><input class="note" type="text" value=""></td>
-			</tr>
-			<tr th:each="num : ${#numbers.sequence(eList.size(), 10)}">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><input class="note" type="text" value=""></td>
-			</tr>
-			<tr>
-				<td colspan="4" class="tableSmlTitle">합계</td>
-				<td class="supplySum"></td>
-				<td class="taxSum"></td>
-				<td></td>	
-			</tr>
-		</table>
+		<div class="content-table">
+				
+		</div>
 <!-- 		<table style="margin-top: 20px; width: 700px;">
 			<tr>
 				<td class="tableSmlTitle" style="width: 10%">담당자</td>

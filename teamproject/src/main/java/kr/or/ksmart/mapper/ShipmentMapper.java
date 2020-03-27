@@ -9,9 +9,12 @@ import kr.or.ksmart.domain.Shipment;
 @Mapper
 public interface ShipmentMapper {
 
-	public List<Shipment> getShipmentList();
+	public List<Shipment> getShipmentList(int firstClmn, int lastClmn);
+	public int getShipmentListCnt();
 	
-	public List<Shipment> getShipmentList(boolean delivered);
+	
+	public List<Shipment> getDeliveredShipmentList(int firstClmn, int lastClmn);
+	public int getDeliveredShipmentCnt();
 	
 	public List<Shipment> ajaxShipmentList(String shipmentCode);
 	

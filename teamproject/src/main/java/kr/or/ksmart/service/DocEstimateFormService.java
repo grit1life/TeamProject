@@ -57,10 +57,12 @@ public class DocEstimateFormService {
 		return list;
 	}*/
 	
-	public List<DocEstimateForm> getEstimateForm(String estimateCode) {
+	public Map<String, Object> getEstimateForm(String estimateCode) {
 		List<DocEstimateForm> eList = docEstimateFormMapper.getEstimateForm(estimateCode);
+		int cnt = docEstimateFormMapper.getEstimateFormCnt(estimateCode);
 
 		List<DocEstimateForm> resultList = new ArrayList<DocEstimateForm>();
+
 		for(int i=0; i<eList.size(); i++) {
 			if(i==0) {
 				resultList.add(eList.get(i));
@@ -80,7 +82,16 @@ public class DocEstimateFormService {
 				resultList.add(form);
 			}
 		}
-		return resultList;
+		int page = cnt/10 + 1;
+		int remainClmn = 10 - cnt/10;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", resultList);
+		map.put("page", page);
+		map.put("remainClmn", remainClmn);
+		map.put("cnt", cnt);
+		
+		return map;
 	}
 	
 	public Mycompany getMycompany() {
