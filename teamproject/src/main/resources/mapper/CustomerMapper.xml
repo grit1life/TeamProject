@@ -16,8 +16,8 @@
 		<result property="zipCode" column="zip_code"/>
 		<result property="customerAddress" column="customer_address"/>
 		<result property="customerAddress2" column="customer_address2"/>		
-		<result property="customerComanyName" column="customer_comany_name"/>
-		<result property="customerComanyPresident" column="customer_company_president"/>
+		<result property="customerCompanyName" column="customer_company_name"/>
+		<result property="customerCompanyPresident" column="customer_company_president"/>
 		<result property="customerCompanyCall" column="customer_company_call"/>
 		<result property="customerCompanyZipCode" column="customer_company_zip_code"/>
 		<result property="customerCompanyAddress1" column="customer_company_address1"/>
@@ -72,20 +72,20 @@
  
 	 <!--개인 고객 리스트  -->
 	 <select id="getCustomerList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
-		SELECT
-				 customer_id    AS customerId
+		SELECT 
+ 				 customer_id  AS customerId
 				,customer_name 	AS customerName
 				,customer_class	AS customerClass
 				,customer_level	AS customerLevel
 				,input_date	    AS inputDate
-
-			FROM
-				customer
-		</select>
+		FROM
+		customer
+		WHERE if( customer_level = '개인', 'Y', 'N' ) = 'Y';
+				</select>
 		
 	  <!--개인 고객 상세보기  -->
 	  <select id="SelectForUpdate" parameterType="String" resultMap="customerResultMap">
-		SELECT
+	  SELECT
 			                  customer_id
 							 ,customer_pw
 							 ,customer_level 
@@ -95,16 +95,12 @@
 							 ,customer_email
 							 ,zip_code
 							 ,customer_address
-							 ,customer_address2
-							 ,input_staff_code
-							 ,input_staff_name
-							 ,input_date
-							 ,update_staff_code 
-							 ,update_staff_name
-							 ,update_date
+							 ,customer_address2							 
+							 
 		FROM   customer
 		WHERE
 		customer_id = #{customerId};
+
 	</select>
 	
 	<!--개인 고객 업데이트  -->
@@ -135,19 +131,10 @@
 	
 	
 	<!--개인사업/법인 고객 등록  -->
- 	<insert id="cInsert2" parameterType="kr.or.ksmart.domain.Customer">
+ 	<insert id="cInsert2" parameterType="kr.or.ksmart.domain.Customer">	
 	INSERT INTO customer_company  (   
-							  customer_id
-							 ,customer_pw
-							 ,customer_level 
-						     ,customer_class 	
-							 ,customer_name
-							 ,customer_call
-							 ,customer_email
-							 ,zip_code
-							 ,customer_address
-							 ,customer_address2
-							 ,customer_comany_name
+							  customer_id							
+							 ,customer_company_name
 							 ,customer_company_president
 							 ,customer_company_call
 							 ,customer_company_zip_code
@@ -160,18 +147,9 @@
 							 ,input_date
 							 
 							 ) VALUES(
-							   #{customerId}
-							 , #{customerPw}
-							 , #{customerLevel}
-							 , #{customerClass}
-							 , #{customerName}
-							 , #{customerCall}
-							 , #{customerEmail}
-							 , #{zipCode}
-							 , #{customerAddress}
-							 , #{customerAddress2}
-							 , #{customerComanyName}
-							 , #{customerComanyPresident}
+							   #{customerId}							
+							 , #{customerCompanyName}
+							 , #{customerCompanyPresident}
 							 , #{customerCompanyCall}
 							 , #{customerCompanyZipCode}
 							 , #{customerCompanyAddress1}
@@ -186,71 +164,88 @@
 	
 	
 	</insert>
- 
+	
+	
+	
 		
 		
 	 <!--개인사업/법인 고객 리스트  -->
 	 <select id="getCustomerCompanyList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
-		SELECT
-				 customer_id    AS customerId
-				,customer_company_name 	AS customerCompanyName
-				,customer_class	AS customerClass
-				,customer_level	AS customerLevel
-				,input_date	    AS inputDate
+			SELECT
+				 CP.customer_id    AS customerId
+				,CP.customer_company_name 	AS customerCompanyName
+				,C.customer_level	AS customerLevel
+				,C.customer_class	AS customerClass
+				,C.input_date	    AS inputDate
 
 			FROM
-				customer_company
+				customer_company AS CP
+				
+			JOIN
+			customer AS C
+			ON
+			CP.customer_id = C.customer_id
+			WHERE if(customer_level = '법인'  or customer_level = '개인 사업자', 'Y', 'N' ) = 'Y';	
+			
+			
+			
+						
 		</select>
 		
 		
 	<!--개인사업/법인 고객 업데이트(값 불러오기) -->
 	  <select id="SelectForUpdate2" parameterType="String" resultMap="customerResultMap">
-		SELECT
-			                  customer_id
-							 ,customer_pw
-							 ,customer_level 
-						     ,customer_class 	
-							 ,customer_name
-							 ,customer_call
-							 ,customer_email
-							 ,zip_code
-							 ,customer_address
-							 ,customer_address2
-							 ,customer_comany_name
-							 ,customer_company_president
-							 ,customer_company_call
-							 ,customer_company_zip_code
-							 ,customer_company_address1
-							 ,customer_company_address2
-							 ,customer_company_email
-							 ,customer_company_homepage
-							 ,input_staff_code
-							 ,input_staff_name
-							 ,input_date
-							 ,update_staff_code 
-							 ,update_staff_name
-							 ,update_date
-							 
-		FROM   customer_company
+			  
+	  SELECT
+		 C.customer_id
+		,C.customer_pw
+		,C.customer_level
+		,C.customer_class
+		,C.customer_name
+		,C.customer_call
+		,C.customer_email
+		,C.zip_code
+		,C.customer_address
+		,C.customer_address2
+		,C.update_staff_code
+		,C.update_staff_name
+		,C.update_date
+		,C.input_staff_code
+		,C.input_staff_name
+		,C.input_date
+		,CP.customer_id
+		,CP.customer_company_name
+		,CP.customer_company_president
+		,CP.customer_company_call
+		,CP.customer_company_zip_code
+		,CP.customer_company_address1
+		,CP.customer_company_address2
+		,CP.customer_company_email
+		,CP.customer_company_homepage
+		,CP.input_staff_code
+		,CP.input_staff_name
+		,CP.input_date
+		,CP.update_staff_code
+		,CP.update_date
+		,CP.update_staff_name							 
+		FROM
+		customer AS C
+		JOIN
+		customer_company AS CP
+		ON
+		C.customer_id = CP.customer_id		
 		WHERE
-		customer_id = #{customerId};
+		C.customer_id = #{customerId};
+
 	</select>	
 
 	<!--개인사업/법인 업데이트  -->
 	<update id="cUpdate2" parameterType="kr.or.ksmart.domain.Customer">
 		UPDATE  customer_company
 		SET
-			customer_id=#{customerId},
-			customer_pw=#{customerPw},
-			customer_name=#{customerName},
-			customer_class=#{customerClass},
-			customer_call=#{customerCall},
-			customer_email=#{customerEmail},
-			zip_code=#{zipCode},
-			customer_address=#{customerAddress},
-			customer_address2=#{customerAddress2},						
-			customer_comany_name=#{customerComanyName},
-			customer_company_president=#{customerComanyPresident},
+			customer_id=#{customerId},								
+			customer_company_name=#{customerCompanyName},
+			customer_company_president=#{customerCompanyPresident},
 			customer_company_call=#{customerCompanyCall},
 			customer_company_zip_code=#{customerCompanyZipCode},
 			customer_company_address1=#{customerCompanyAddress1},
