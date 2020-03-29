@@ -24,9 +24,9 @@
 		<result property="branchName" column="branch_name"/>
 	</resultMap>
 	
-	<select id="staffList" resultMap="StaffMap">
+	<select id="staffList" resultMap="StaffMap" parameterType="kr.or.ksmart.domain.Staff">
 		SELECT 
-			B.branch_name,SC.staff_position,S.staff_name,S.staff_birth,S.staff_tell,S.staff_email,S.staff_level
+			S.staff_code,B.branch_name,SC.staff_position,S.staff_name,S.staff_birth,S.staff_tell,S.staff_email,S.staff_level
 		FROM 
 			staff AS S
 		LEFT JOIN 
@@ -40,9 +40,35 @@
 	
 		WHERE 
 			SC.staff_to_period='9999-01-01'
-		<if test="branchCode neq null branchCode mId neq ''.toString()">
-			
+		<if test="branchCode neq null and branchCode neq ''.toString()">
+			AND
+				SC.branch_code=#{branchCode}
 		</if>
+		<if test="staffPosition neq null and staffPosition neq ''.toString()">
+			AND
+				SC.staff_position=#{staffPosition}
+		</if>
+		<if test="staffName neq null and staffName neq ''.toString()">
+			AND
+				S.staff_name=#{staffName}
+		</if>
+		<if test="staffBirth neq null and staffBirth neq ''.toString()">
+			AND
+				S.staff_birth=#{staffBirth}
+		</if>
+		<if test="staffTell neq null and staffTell neq ''.toString()">
+			AND
+				S.staff_tell=#{staffTell}
+		</if>
+		<if test="staffEmail neq null and staffEmail neq ''.toString()">
+			AND
+				S.staff_email=#{staffEmail}
+		</if>
+		<if test="staffLevel neq null and staffLevel neq ''.toString()">
+			AND
+				S.staff_level=#{staffLevel}
+		</if>
+
 	</select>
 	
 	

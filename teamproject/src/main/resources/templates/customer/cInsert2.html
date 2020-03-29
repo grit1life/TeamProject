@@ -12,227 +12,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
-<form role="form"> 
-	 <div class="content-wrapper">
-	    <section class="content-header"> 
-	       <div class="row mb-2">
-	         <div class="col-sm-6">
-	           <h1>고객 등록</h1>
-	         </div>
-	         <div class="col-sm-6">
-	           <ol class="breadcrumb float-sm-right">
-	             <li class="breadcrumb-item"><a href="#">Home</a></li>
-	           </ol>
-	         </div>
-	       </div>
-     
-		
-  	   <div class="container-fluid">   
-        <div class="card card-info">
-          <div class="card-header">
-            <h3 class="card-title">신규 고객 등록</h3>
-		        <div class="card-tools">
-				    <div style="display: inline-block;">
-				    	<button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-				    </div>
-				    <div style="display: inline-block;">
-				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
-				    </div>
-	   			</div>
-          </div>
-          
-          <div class="card-body">
-         
-          	<div class="card-body">
-                
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="customerId" class="form-control">
-                    </div>
-                  </div>
-                  
-                  <label for="inputPassword3" class="col-sm-2 col-form-label">고객 비밀 번호</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="customerPw" class="form-control">
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-						<label style="margin-bottom: 15px;">고객 권한</label>
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio1" name="customerLevel" value="1">
-                          <label for="customRadio1" class="custom-control-label">개인</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio2" name="customerLevel" value="2">
-                          <label for="customRadio2" class="custom-control-label">개인 사업자</label>
-                        </div> 
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio3" name="customerLevel" value="3">
-                          <label for="customRadio3" class="custom-control-label">법인</label>
-                        </div> 
-                                          
-                    </div>
-                  
-                                 
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 등급</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <select class="form-control" id="inputEmail3" name="customerClass">
-		                  <option>브론즈</option>
-		                  <option>실버</option>
-		                  <option>골드</option>
-		                  <option>플래티넘</option> 
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3"  id="name1" class="col-sm-2 col-form-label">고객명</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="customerName" class="form-control">
-                    </div>
-                  </div>
-                 
-                  
-                  <label for="inputEmail3" id="name2" class="col-sm-2 col-form-label">고객 연락처</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="customerCall" class="form-control">
-                    </div>
-                  </div>
-                  
-                  <label for="inputPassword3" id="name3" class="col-sm-2 col-form-label">고객 이메일</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="customerEmail" class="form-control">
-                    </div>
-                  </div>
 
-					
-
-
-                  <label id="name4">우편번호</label>
-                  <div class="input-group mb-3">
-                  <input type="text" id="sample4_postcode" name="zipCode">
-                  <div class="input-group-append">
-                   <span class="input-group-append">
-	                    <button type="button" onclick="sample4_execDaumPostcode()" class="btn btn-info btn-flat">찾기</button>
-	                  </span>
-                  </div>
-                </div>
-                
-
-                  
-                  <label for="inputPassword3" id="name5" class="col-sm-2 col-form-label">기본주소</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="sample4_roadAddress" name="customerAddress" class="form-control">
-                    </div>
-                  </div>
-                  
-                   <input type="hidden" id="sample4_jibunAddress" class="form-control">
-                   <span id="guide" style="color:#999;display:none"></span>
-					
-                   
-                   <label for="inputPassword3"  id="name6" class="col-sm-2 col-form-label">상세주소</label>
-                   <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="sample4_detailAddress" name="customerAddress2" class="form-control">
-                    </div>
-                  </div>
-                                   
-                 <div class="form-group">	
-					<input type="hidden" id="sample4_extraAddress" class="form-control">
-			  	</div>	
-				<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
-					<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-				</div>
-				
-			   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-			   <script>
-			       //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-			       function sample4_execDaumPostcode() {
-			           new daum.Postcode({
-			               oncomplete: function(data) {
-			                   // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-			                   // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-			                   // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-			                   var roadAddr = data.roadAddress; // 도로명 주소 변수
-			                   var extraRoadAddr = ''; // 참고 항목 변수
-
-			                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-			                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-			                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-			                       extraRoadAddr += data.bname;
-			                   }
-			                   // 건물명이 있고, 공동주택일 경우 추가한다.
-			                   if(data.buildingName !== '' && data.apartment === 'Y'){
-			                      extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-			                   }
-			                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-			                   if(extraRoadAddr !== ''){
-			                       extraRoadAddr = ' (' + extraRoadAddr + ')';
-			                   }
-
-			                   // 우편번호와 주소 정보를 해당 필드에 넣는다.
-			                   document.getElementById('sample4_postcode').value = data.zonecode;
-			                   document.getElementById("sample4_roadAddress").value = roadAddr;
-			                   document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-			                   
-			                   // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-			                   if(roadAddr !== ''){
-			                       document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-			                   } else {
-			                       document.getElementById("sample4_extraAddress").value = '';
-			                   }
-
-			                   var guideTextBox = document.getElementById("guide");
-			                   // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-			                   if(data.autoRoadAddress) {
-			                       var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-			                       guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-			                       guideTextBox.style.display = 'block';
-
-			                   } else if(data.autoJibunAddress) {
-			                       var expJibunAddr = data.autoJibunAddress;
-			                       guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-			                       guideTextBox.style.display = 'block';
-			                   } else {
-			                       guideTextBox.innerHTML = '';
-			                       guideTextBox.style.display = 'none';
-			                   }
-			               }
-			           }).open();
-			       }
-			   </script>
-				                  			
-						
-                </div>
-                
-                <div id="submit"  style="display: block">
-                  <button id="submit" class="btn btn-info">등록</button>
-                  <a th:href="@{/index}" class="btn btn-default float-right">취소</a>                  
-                </div>         
-         
-            <!-- /.row -->
-          </div>
-          <!-- /.card-body -->
-        </div>
-      </div>
-  
-
-   
-  
-   </section>
-  
-  
-  </div>
-</form>  
-  
   <!--고객 세부 사항 시작  -->
  
 <form th:action="@{/cInsert2}" method="post">  
@@ -456,7 +236,7 @@
 		     formObj.attr("method", "post");            
 		     formObj.submit();
 			
-			alert("등록이 완료되었습니다.  권한이 '개인사업자' 혹은 '법인'인 경우, 반드시 아래  회사정보를 입력해주시고 회사 정보의 고객 아이디란에 아까 입력했던 것과 동일한 고객아이디를 입력해주시길 바랍니다.");
+			alert("등록 성공.");
 		  
 			
 			
@@ -465,7 +245,6 @@
 		
 		
 		/*개인고객 유효성 검사 끝  */
-		
 		/*개인사업,법인고객  유효성 검사 시작  */
 			
 			$('#submit2').click(function(){
@@ -521,7 +300,7 @@
 			
 			
 			
-		/*개인사업,법인고객 유효성 검사 끝  */
+			/*개인사업,법인고객 유효성 검사 끝  */
 
 
 

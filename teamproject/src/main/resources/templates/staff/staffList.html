@@ -42,7 +42,8 @@
 	 
 	 <div class="card-body">
          <!-- left -->
-         <div class="row" id="staffSerch">
+         <form id="staffSerch">
+         <div class="row" >
            <!-- 1 -->
            <div class="col-md-6" style="max-width: 20%;">
              <div class="form-group">
@@ -50,7 +51,7 @@
 	          <select class="form-control select2bs4" style="width: 100%;" name="branchCode">
 	            <option selected="selected"></option>
 	            <th:block th:each="B:${branchSerectList}">
-	            	<option selected="selected" th:value="${B.branchCode}" th:text="${B.branchName}">본사</option>
+	            	<option th:value="${B.branchCode}" th:text="${B.branchName}">본사</option>
 	       		</th:block>
 	          </select>
              </div>
@@ -67,8 +68,8 @@
                <label>권한</label>
           <select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
             <option selected="selected"></option>
-            <option selected="selected" value="관리자">관리자</option>
-            <option selected="selected" value="직원">직원</option>
+            <option value="관리자">관리자</option>
+            <option value="직원">직원</option>
           </select>
              </div>
              <!-- /.form-group -->
@@ -83,13 +84,13 @@
            <div class="col-md-6" style="max-width: 25%;">
              <div class="form-group">
                <label>생년월일</label>
-         <input type="date" class="form-control select2bs4" name="staffBirth">
-         </div>
+	         	<input type="date" class="form-control select2bs4" name="staffBirth">
+	         </div>
              <!-- /.form-group -->
              <div class="form-group">
                <label>전화번호</label>
-         <input type="text" class="form-control select2bs4" name="staffTell">
-         </div>
+	         	<input type="text" class="form-control select2bs4" name="staffTell">
+	         </div>
              <!-- /.form-group -->
            </div>
            <!-- 4 -->
@@ -106,7 +107,9 @@
            </div>
 
            <!-- /.col -->
+        
          </div>
+         </form>
             <!-- /.row -->
       </div>
 	 </div>
@@ -114,7 +117,7 @@
 	<div class="card">
 	 <div class="card-body" style="margin-top:20px">
 	  	<table id="example2" class="table table-bordered table-hover">
-	    	<thead>
+	    	<thead id=staffListThead>
                 <tr>
                   <th>지점</th>
                   <th>직책</th>
@@ -125,7 +128,7 @@
                   <th>권한</th>
                 </tr>
 	         </thead>
-             <tbody>
+             <tbody id="staffList">
               <tr th:each="L:${staffList}">
                 <td th:text="${L.branchName}"></td>
                 <td th:text="${L.staffPosition}"></td>
@@ -147,13 +150,10 @@
   
  <script type="text/javascript">
 	$(function(){
-		$('#staffSerchBtn').click(function(){
-			console.log("staffSerchBtn");
-			
-			const insertGoods = async () => {
-				  const formData = new FormData($("form#insert-form")[0]);
+		$('#staffSerchBtn').click(function(){	
+				  const formData = new FormData($("form#staffSerch")[0]);
 
-				  await $.ajax({
+				 $.ajax({
 				    type: "post",
 				    url: "/staff/staffList",
 				    processData: false,
@@ -167,10 +167,33 @@
 				      console.log(err);
 				    },
 				    success: data => {
-				    	alert(data);
+				    	$('#staffList').remove();
+				    	console.log(data);
+				    	console.log(data[0].staffName);
+				    	
+				    	var staffHtml = '<tbody id="staffList">'
+				    		
+				    	for(var i=0; i<data.length; i++){
+				    		staffHtml += '<tr>'
+				    		staffHtml += '<td>'+data[i].branchName+'</td>'
+				    		if(data[i].staffPosition!=null){
+				    			staffHtml += '<td>'+data[i].staffPosition+'</td>'
+				    		}else{
+				    			staffHtml += '<td></td>'
+				    		}
+				    		staffHtml += '<td>'+data[i].staffName+'</td>'
+				    		staffHtml += '<td>'+data[i].staffBirth+'</td>'
+				    		staffHtml += '<td>'+data[i].staffTell+'</td>'
+				    		staffHtml += '<td>'+data[i].staffEmail+'</td>'
+				    		staffHtml += '<td>'+data[i].staffLevel+'</td>'
+				    		staffHtml += '</tr>'
+				    	}
+				    		staffHtml += '</tbody>'
+				    		console.log(staffHtml);
+				    		$('#staffListThead').after(staffHtml);
 				    }
 				  });
-				};
+				
 
 		})
 	})

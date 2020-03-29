@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<table class="table" id="sampleModalTable">
+	<tr th:each="d : ${sampleData}">
+		<td th:text="${d}"></td>
+	</tr>
+</table>

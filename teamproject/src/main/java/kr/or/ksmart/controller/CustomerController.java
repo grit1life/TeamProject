@@ -41,11 +41,11 @@ public class CustomerController {
     		  System.out.println(customer.toString());
 			  int result =customerService.cInsert(customer); 
 			  if(result>0) {
-				  return "redirect:/cList";
+				  return "/customer/cInsert";
 			  }
 		 
 		  
-		  return "redirect:/cList";
+		  return "/customer/cInsert";
 		  }	
 	
 	
@@ -105,12 +105,6 @@ public class CustomerController {
 				
 				
 	//개인사업, 거래처 고객 등록
-	@GetMapping("/cInsert2")
-	public String addCustomer2() {
-			
-			return "/customer/cInsert2";
-				
-		}
 	@PostMapping("/cInsert2")
 		public String cInsert2(@RequestParam(value="customerId", required = false) String customerId, Customer customer){
 				 
@@ -118,13 +112,13 @@ public class CustomerController {
 	    		  System.out.println(customer.toString());
 				  int result =customerService.cInsert2(customer); 
 				  if(result>0) {
-					  return "redirect:/cList2";
+					  return "/customer/cInsert";
 				  }
 			 
 			  
-			  return "redirect:/cList2";
+			  return "/customer/cInsert";
 			  }	
-		
+
 	
 	//개인 사업, 법인 고객 리스트
 	@GetMapping("/cList2")

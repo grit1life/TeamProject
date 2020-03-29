@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <form id="staffSerch">
+    <div class="row" >
+      <!-- 1 -->
+      <div class="col-md-6" style="max-width: 20%;">
+        <div class="form-group">
+          <label>지점</label>
+      <select class="form-control select2bs4" style="width: 100%;" name="branchCode">
+        <option selected="selected"></option>
+       	<option value="AS001">본사</option>
+   		
+      </select>
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <label>직책</label>
+     	   <input type="text" class="form-control select2bs4" style="width: 100%;" name="staffPosition">
+        </div>
+        <!-- /.form-group -->
+      </div>
+      <!-- 2 -->
+      <div class="col-md-6" style="max-width: 20%;">
+        <div class="form-group">
+          <label>권한</label>
+     <select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
+       <option selected="selected"></option>
+       <option value="관리자">관리자</option>
+       <option value="직원">직원</option>
+     </select>
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <label>이름</label>
+     <input type="text" class="form-control select2bs4" name="staffName">
+     </div>
+        <!-- /.form-group -->
+      </div>
+      
+      <!-- 3 -->
+      <div class="col-md-6" style="max-width: 25%;">
+        <div class="form-group">
+          <label>생년월일</label>
+    <input type="date" class="form-control select2bs4" name="staffBirth">
+    </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <label>전화번호</label>
+    <input type="text" class="form-control select2bs4" name="staffTell">
+    </div>
+        <!-- /.form-group -->
+      </div>
+      <!-- 4 -->
+      <div class="col-md-6" style="max-width: 35%;">
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" class="form-control select2bs4" name="staffEmail">
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group" style="position: absolute;bottom: 0;">
+          <button id="staffSerchBtn" type="button" class="btn btn-info">검색</button>
+        </div>
+        <!-- /.form-group -->
+      </div>
+
+      <!-- /.col -->
+   
+    </div>
+    <!-- /.row -->
+  </form>
+      
+	<table id="example2" class="table table-bordered table-hover">
+   		<thead id=staffListThead>
+        	<tr>
+                <th>지점</th>
+                <th>직책</th>
+                <th>직원 명</th>
+                <th>생년월일</th>
+                <th>전화번호</th>
+                <th>이메일</th>
+                <th>권한</th>
+                <th></th>
+        	</tr>
+        </thead>
+	</table>

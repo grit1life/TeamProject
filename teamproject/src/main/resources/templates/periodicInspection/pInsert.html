@@ -23,130 +23,187 @@
          </div>
        </div>
        
-      <!-- 검색영역 -->
-      <section class="content">
-      	<div class="container-fluid">
-                
-                
-                <div class="form-group">  
-                    <!-- 고객 검색 모달 버튼 시작-->	
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal">
-						<i class="fas fa-search">고객 검색</i>   
-					</button>
-					<!-- 고객 검색 모달 버튼 끝-->	
-					<!-- 계약서 검색 모달 버튼 시작-->	
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal2">
-						<i class="fas fa-search">계약서 검색</i>   
-					</button>
-					<!-- 계약서 검색 모달 버튼  끝-->
-				</div>
-				
-				 
-				<!-- 고객 검색 모달 영역 시작-->						
-				<div class="modal fade" id="myLargeModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-					<div class="modal-dialog modal-xl" role="document">
-						<div class="modal-content">
-							<div class="modal-header">								
-								<h4 class="modal-title" id="myModalLabel">고객 검색</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-							</div>
-							
-							<!--고객 서치폼 시작  -->
-							<div class="modal-body">
-							   <div class="row">					
-					             	 <div style="display:inline-block;">
-					                 	<select class="form-control" style="width: 130px;">                            	
-						                   		<option>고객명</option>  
-						                   		<option>고객 아이디</option> 
-						                   		<option>전화번호</option>  
-						                   		<option>이메일</option>      
-						          	    </select>        	
-					              	 </div>
-
-						              <div style="display:inline-block;">
-								          <input type="text" style="width:250px;  margin-left: 10px;" class="form-control select2bs4">
-						              </div>
-						              
-						               <div style="display:inline-block;">
-						            	  <a id="customerSearchBtn" class="btn btn-info" href="#" style="margin-left: 10px;">
-								            <i class="fas fa-search">
-								            </i>&ensp;검색
-								          </a>  
-						              </div>  
-											              
-					             </div>
-							    <!--고객 서치폼 끝  -->
-							    &ensp;
-							    <!-- 고객 검색 리스트 시작 -->
-							    <div class="row">			   
-									 <div  id="customerList" style="display:none;">
-									  	<table id="example2" class="table table-bordered table-hover">
-									    	<thead>
-								                <tr>
-								                  <th>고객 아이디</th>
-								                  <th>고객명</th>
-								                  <th>권한</th>
-								                  <th>등급</th>
-								                  <th>전화번호</th>
-								                  <th>이메일</th>
-								                  <th>우편번호</th>
-								                  <th>기본주소</th>
-								                  <th>상세주소</th>                 
-								                  <th>선택</th>
-								                </tr>
-									         </thead>
-								             <tbody>
-								              <tr>
-								                <td>
-								                	<input type="text" class="form-control" name=customerId style="border: 0" readonly="readonly" value="client01">
-								                </td>
-								                <td>
-													<input type="text" class="form-control" name=customerName style="border: 0" readonly="readonly" value="김철수">
-								                </td>
-								                <td>
-								                	<input type="text" class="form-control" name=customerLevel style="border: 0" readonly="readonly" value="개인">        
-								                </td> 
-								                <td>
-								                	<input type="text" class="form-control" name=customerClass style="border: 0" readonly="readonly" value="브론즈">              
-								                </td>
-								                <td>
-								                	<input type="text" class="form-control" name=customerCall style="border: 0" readonly="readonly" value="010-000-0001">                   
-								                </td>
-								                <td>
-								                	<input type="text" class="form-control" name=customerEmail style="border: 0" readonly="readonly" value="cus01@email.com">                   
-								                </td>
-								                <td>
-								                	<input type="text" class="form-control" name=zipCode style="border: 0" readonly="readonly" value="111-11"> 
-								                </td>
-								                <td>
-								                	<input type="text" class="form-control" name=customerAddress style="border: 0" readonly="readonly" value="서울시 구로구">
-								                </td>
-								                <td>
-								                	<input type="text" class="form-control" name=customerAddress2 style="border: 0" readonly="readonly" value="XX아파트 X동XXX호">                	
-								                </td>  
-								                	<td>
-								                	<a id="customerListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle; bottom: 0; margin-bottom: 18px; color:white;">
-								                		<i class="fas fa-check"></i>            	
-								                	</a>
-								                </td>                          
-								               
-								              </tr>
-								             </tbody>
-										</table>
-									  </div>
+    
+   
+  <!--정기점검 등록  -->
+ <form th:action="@{/pInsert}" method="post"> 
+  <section class="content">
+  	<div class="container-fluid">
+	
+	<div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">정기점검 등록</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form th:action="@{/pInsert}" method="post"> 
+                <div class="card-body">   
+                	  <!-- 고객 검색 모달 버튼 시작-->	
+	               <div class="form-group">  
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal">
+							<i class="fas fa-search">고객 검색</i>   
+						</button>										
+				   </div>
+			 <!-- 고객 검색 모달 버튼 끝-->			
+					 
+					<!-- 고객 검색 모달 영역 시작-->						
+					<div class="modal fade" id="myLargeModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						<div class="modal-dialog modal-xl" role="document">
+							<div class="modal-content">
+								<div class="modal-header">								
+									<h4 class="modal-title" id="myModalLabel">고객 검색</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 								</div>
-								  								 	
-							</div>
-							<!--고객 리스트 끝  -->	  							   												
-							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+								
+								<!--고객 서치폼 시작  -->
+								<div class="modal-body">
+								   <div class="row">					
+						             	 <div style="display:inline-block;">
+						                 	<select class="form-control" style="width: 130px;">                            	
+							                   		<option>고객명</option>  
+							                   		<option>고객 아이디</option> 
+							                   		<option>전화번호</option>  
+							                   		<option>이메일</option>      
+							          	    </select>        	
+						              	 </div>
+	
+							              <div style="display:inline-block;">
+									          <input type="text" style="width:250px;  margin-left: 10px;" class="form-control select2bs4">
+							              </div>
+							              
+							               <div style="display:inline-block;">
+							            	  <a id="customerSearchBtn" class="btn btn-info" href="#" style="margin-left: 10px;">
+									            <i class="fas fa-search">
+									            </i>&ensp;검색
+									          </a>  
+							              </div>  
+												              
+						             </div>
+								    <!--고객 서치폼 끝  -->
+								    &ensp;
+								    <!-- 고객 검색 리스트 시작 -->
+								    <div class="row">			   
+										 <div  id="customerList" style="display:none;">
+										  	<table id="example2" class="table table-bordered table-hover">
+										    	<thead>
+									                <tr>
+									                  <th>고객 아이디</th>
+									                  <th>고객명</th>
+									                  <th>권한</th>
+									                  <th>등급</th>
+									                  <th>전화번호</th>
+									                  <th>이메일</th>
+									                  <th>우편번호</th>
+									                  <th>기본주소</th>
+									                  <th>상세주소</th>                 
+									                  <th>선택</th>
+									                </tr>
+										         </thead>
+									             <tbody>
+									              <tr>
+									                <td>
+									                	<input type="text" class="form-control" name=customerId style="border: 0" readonly="readonly" value="client01">
+									                </td>
+									                <td>
+														<input type="text" class="form-control" name=customerName style="border: 0" readonly="readonly" value="김철수">
+									                </td>
+									                <td>
+									                	<input type="text" class="form-control" name=customerLevel style="border: 0" readonly="readonly" value="개인">        
+									                </td> 
+									                <td>
+									                	<input type="text" class="form-control" name=customerClass style="border: 0" readonly="readonly" value="브론즈">              
+									                </td>
+									                <td>
+									                	<input type="text" class="form-control" name=customerCall style="border: 0" readonly="readonly" value="010-000-0001">                   
+									                </td>
+									                <td>
+									                	<input type="text" class="form-control" name=customerEmail style="border: 0" readonly="readonly" value="cus01@email.com">                   
+									                </td>
+									                <td>
+									                	<input type="text" class="form-control" name=zipCode style="border: 0" readonly="readonly" value="111-11"> 
+									                </td>
+									                <td>
+									                	<input type="text" class="form-control" name=customerAddress style="border: 0" readonly="readonly" value="서울시 구로구">
+									                </td>
+									                <td>
+									                	<input type="text" class="form-control" name=customerAddress2 style="border: 0" readonly="readonly" value="XX아파트 X동XXX호">                	
+									                </td>  
+									                	<td>
+									                	<a id="customerListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle; bottom: 0; margin-bottom: 18px; color:white;">
+									                		<i class="fas fa-check"></i>            	
+									                	</a>
+									                </td>                          
+									               
+									              </tr>
+									             </tbody>
+											</table>
+										  </div>
+									</div>
+									  								 	
+								</div>
+								<!--고객 리스트 끝  -->	  							   												
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-		   <!-- 고객 검색 모달 영역 끝-->
-		   
-		   <!-- 계약서 검색 모달 영역 시작-->						
+			  	  <!-- 고객 검색 모달 영역 끝-->                                                
+                   
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="3" name="customerId" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="a" name="customerName" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="b" name="customerCall" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+                    </div>
+                  </div>
+                  
+                  
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">우편 번호</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="text" id="c" name="zipCode" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">기본 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="d" name="customerAddress" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+                    </div>
+                  </div>
+                  
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">상세 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text" id="e" name="customerAddress2" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+                    </div>
+                  </div>
+                   &ensp;
+                  
+                  <!-- 계약서 검색 모달 버튼 시작-->	
+                  <div class="form-group">  
+					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal2">
+						<i class="fas fa-search">계약서 검색</i>   
+					</button>					
+				  </div>
+				   &ensp;
+				<!-- 계약서 검색 모달 버튼  끝-->
+				<!-- 계약서 검색 모달 영역 시작-->						
 				<div class="modal fade" id="myLargeModal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 					<div class="modal-dialog modal-xl" role="document">
 						<div class="modal-content">
@@ -154,7 +211,7 @@
 								<h4 class="modal-title" id="myModalLabel">계약서 검색</h4>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 							</div>
-							
+						
 							<!--계약서 서치폼 시작  -->
 							<div class="modal-body">
 							   <div class="row">					
@@ -239,7 +296,7 @@
 								</div>
 								  								 	
 							</div>
-							<!--고객 리스트 끝  -->	  							   												
+							<!--계약서 리스트 끝  -->	  							   												
 							<div class="modal-footer">
 								<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
 							</div>
@@ -247,70 +304,6 @@
 					</div>
 				</div>
 		   <!-- 계약서 검색 모달 영역 끝-->	   	
-		   	   	
-			</div>
-			
-	  </section>
-	<!--검색 영역 끝  -->
-	
-   
-  <!--정기점검 등록  -->
- <form th:action="@{/pInsert}" method="post"> 
-  <section class="content">
-  	<div class="container-fluid">
-	
-	<div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">정기점검 등록</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form th:action="@{/pInsert}" method="post"> 
-                <div class="card-body">                                   
-                   
-                   <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="3" name="customerId" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="a" name="customerName" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="b" name="customerCall" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  
-                   <label for="inputEmail3" class="col-sm-2 col-form-label">우편 번호</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                        <input type="text" id="c" name="zipCode" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">기본 주소</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="d" name="customerAddress" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">상세 주소</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="e" name="customerAddress2" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
                   
                   <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>
                   <div class="form-group row">

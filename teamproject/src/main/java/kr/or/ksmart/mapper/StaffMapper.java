@@ -11,5 +11,7 @@ public interface StaffMapper {
 	
 	public Staff staffLogin(String staffId);
 	
+	public List<Staff> staffList(Staff staff);
+	
 	public List<Staff> staffList();
 }
