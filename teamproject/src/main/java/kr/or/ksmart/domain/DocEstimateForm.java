@@ -13,6 +13,13 @@ public class DocEstimateForm extends DocEstimate {
 	private int rentalDayPrice; //단품가격
 	private int setDayPrice; //세트가격
 	private String setGoodsCount;
+	private String staffName;
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
 	public String getSetGoodsCount() {
 		return setGoodsCount;
 	}

@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.Board;
 import kr.or.ksmart.domain.DocEstimateForm;
+import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.domain.Mycompany;
+import kr.or.ksmart.domain.PriceSet;
+import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.mapper.DocEstimateFormMapper;
 
 @Service
@@ -20,6 +23,57 @@ public class DocEstimateFormService {
 	
 	@Autowired
 	private DocEstimateFormMapper docEstimateFormMapper;
+	
+
+	/**
+	 * 직원 이름 
+	 * @return
+	 */
+	public List<Staff> getStaffNameList(){
+		List<Staff> staffList = docEstimateFormMapper.getStaffNameList();
+		return staffList;
+	}
+	
+
+	/**
+	 * 세트네임
+	 * @return
+	 */
+	public List<PriceSet> getSetNameList(){ 
+		List<PriceSet> setList = docEstimateFormMapper.getSetNameList();
+		return setList;
+	}
+	
+	public List<Goods> getGoodsNameList(){
+		List<Goods> goodsList = docEstimateFormMapper.getGoodsNameList();
+		return goodsList;
+	}
+	public Map<String, Object> getEstimateSearchList(int currentPage, DocEstimateForm docEstimateForm){
+		int cnt = docEstimateFormMapper.getEstimateSearchListCnt();
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		docEstimateForm.setFirstClmn(firstClmn);
+		docEstimateForm.setLastClmn(lastClmn);
+		List<DocEstimateForm> eList = docEstimateFormMapper.getEstimateSearchList(docEstimateForm);
+		
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("eList", eList);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
+	}
 	
 	public Map<String, Object> getEstimateList(int currentPage){
 		int cnt = docEstimateFormMapper.getEstimateListCnt();

@@ -25,6 +25,20 @@ public class DocEstimate {
 	
 	private String estimatesNote;/*비고*/
 	private String gradeName;/*등급명*/
+	private int firstClmn;
+	private int lastClmn;
+	public int getFirstClmn() {
+		return firstClmn;
+	}
+	public void setFirstClmn(int firstClmn) {
+		this.firstClmn = firstClmn;
+	}
+	public int getLastClmn() {
+		return lastClmn;
+	}
+	public void setLastClmn(int lastClmn) {
+		this.lastClmn = lastClmn;
+	}
 	public String getEstimateCode() {
 		return estimateCode;
 	}
