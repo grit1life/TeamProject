@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <form id="setSerch">
+ <div class="row" style="margin-bottom:20px">
+	<div class="col-sm-3">
+		<label class="tel">세트명</label>
+		<div style="display:inline-block;">
+			<input type="text" class="form-control select2bs4" name="customerCall">
+		</div>	
+	</div>
+	<div class="col-sm-4">
+		<label class="tel">세트 내역</label>
+		<div style="display:inline-block;">
+			<input type="text" class="form-control select2bs4" name="customerCall">
+		</div>	
+	</div>
+	<div class="col-sm-2">
+		<a id="setSerchBtn" class="btn btn-primary btn-sm" href="#" style="margin:0;position: absolute;bottom: 0;">
+			<i class="fas fa-folder"></i>&ensp;검색
+	    </a> 
+	</div>
+</div>
+</form>
+	
+<table id="example2" class="table table-bordered table-hover dataTable" aria-describedby="example2_info">
+	<thead>
+	   	<tr>
+	        <th>세트명</th>
+	        <th>세트 내역</th>
+	        <th>렌탈 가능 수량</th>
+	        <th></th>
+	   	</tr>
+	</thead>
+	<tbody>
+		 <tr>
+			<td id="setName">set_name</td>
+			<td id="setCode" style="display:none;"></td>
+			<td id="goodNames">goods_names</td>
+			<td id="rentalCanCount">rental_can_count</td>
+			<td><button id="setChoice" class="btn btn-info" type="button">선택</button></td>
+		 </tr>
+	</tbody>
+</table>

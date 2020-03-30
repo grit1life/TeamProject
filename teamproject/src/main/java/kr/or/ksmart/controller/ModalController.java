@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ksmart.domain.Branch;
+import kr.or.ksmart.domain.GoodsCount;
 import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.service.BranchService;
 import kr.or.ksmart.service.StaffService;
@@ -60,5 +61,21 @@ public class ModalController {
 
 		return "modal/staffListModal2";
 	}
+	
+	@GetMapping("/modalGoodsList")
+	public String modalGoodsList() {
+		return "modal/goodsModal";
+	}
+	
+	@PostMapping("/modalGoodsList")
+	public String modalGoodsList(GoodsCount goodsCount) {
+		return "modal/goodsModal2";
+	} 
+	
+	@GetMapping("/modalSetList")
+	public String modalSetList() {
+		return "modal/setModal";
+	}
+	
 
 }
