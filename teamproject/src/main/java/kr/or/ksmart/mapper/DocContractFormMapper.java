@@ -11,7 +11,9 @@ public interface DocContractFormMapper {
 
 	public List<DocContractForm> getContractList(int firstClmn, int lastClmn);
 	public int getContractListCnt();
-
+	
+	public List<DocContractForm> getContractSearchList(DocContractForm docContractForm);
+	public int getContractSearchListCnt(DocContractForm docContractForm);
 	
 	public List<DocContractForm> getContractForm(String contractCode);
 }

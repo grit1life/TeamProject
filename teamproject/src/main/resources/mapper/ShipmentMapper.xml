@@ -24,6 +24,10 @@
   		<result property="deliveryTel" column="delivery_tel"/>
   		<result property="deliveryAddress" column="delivery_address"/>
   		<result property="deliveryDetailAddress" column="delivery_detail_address"/>
+  		<result property="shipmentCompleteDate" column="shipment_complete_date"/>
+  		<result property="staffName" column="staff_name"/>
+  		<result property="customerCall" column="customer_call"/>
+  		<result property="setName" column="set_name"/>
   	</resultMap>
   	
   	<select id="getShipmentList" resultMap="shipmentResultMap">
@@ -67,7 +71,7 @@
 			ON
 			CC.customer_id = C.customer_id
 		WHERE
-			NOT(ISNULL(S.shipment_date))
+			(ISNULL(S.shipment_complete_date))
 		GROUP BY
 			shipment_code
 		LIMIT ${firstClmn}, ${lastClmn}
@@ -110,7 +114,7 @@
 				ON
 				CC.customer_id = C.customer_id
 			WHERE
-				NOT(ISNULL(S.shipment_date))
+				(ISNULL(S.shipment_complete_date))
 			GROUP BY
 				shipment_code
 		) AS SQ
@@ -156,7 +160,7 @@
 			ON
 			CC.customer_id = C.customer_id
 		WHERE
-			(ISNULL(S.shipment_date))
+			NOT(ISNULL(S.shipment_complete_date))
 		GROUP BY
 			shipment_code
 		LIMIT ${firstClmn}, ${lastClmn}
@@ -199,7 +203,269 @@
 				ON
 				CC.customer_id = C.customer_id
 			WHERE
-				(ISNULL(S.shipment_date))
+				NOT(ISNULL(S.shipment_complete_date))
+			GROUP BY
+				shipment_code
+		) AS SQ
+  	</select>
+  	<select id="getShipmentSearchList" resultMap="shipmentResultMap" parameterType="Shipment">
+  		SELECT 
+			*
+			, DC.rental_count
+			, G.goods_name
+			, SG.set_goods_count
+			, GFSG.goods_name AS setGoodsName
+			, C.customer_name
+			, CC.customer_company_name
+			, COUNT(1) AS count
+		FROM 
+			shipment AS S
+		INNER JOIN
+			doc_bill AS B
+			ON
+			S.bill_code = B.bill_code
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			S.contract_code = DC.contract_code 
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			DC.set_code = SG.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
+		LEFT JOIN
+			customer AS C
+			ON
+			C.customer_id = DC.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			CC.customer_id = C.customer_id
+		WHERE
+			(ISNULL(S.shipment_complete_date))
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND staff_name = #{staffName}
+			</if>
+			<if test="customerCall neq null and customerCall neq ''.toString()">
+				AND customer_call =#{customerCall}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>
+		GROUP BY
+			shipment_code
+		LIMIT ${firstClmn}, ${lastClmn}
+  	</select>
+  	<select id="getShipmentSearchListCnt" resultType="int" parameterType="Shipment">
+		SELECT
+			COUNT(SQ.CNT) AS count
+			FROM
+			(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM 
+				shipment AS S
+			INNER JOIN
+				doc_bill AS B
+				ON
+				S.bill_code = B.bill_code
+			INNER JOIN
+				doc_contract AS DC
+				ON
+				S.contract_code = DC.contract_code 
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				set_goods AS SG
+				ON
+				DC.set_code = SG.set_code
+			LEFT JOIN
+				goods AS GFSG
+				ON
+				SG.goods_code = GFSG.goods_code
+			LEFT JOIN
+				customer AS C
+				ON
+				C.customer_id = DC.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				CC.customer_id = C.customer_id
+			WHERE
+				(ISNULL(S.shipment_complete_date))
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND staff_name = #{staffName}
+			</if>
+			<if test="customerCall neq null and customerCall neq ''.toString()">
+				AND customer_call =#{customerCall}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>
+			GROUP BY
+				shipment_code
+		) AS SQ
+  	</select>
+  	<select id="getDeliveredShipmentSearchList" resultMap="shipmentResultMap" parameterType="Shipment">
+  		SELECT 
+			*
+			, DC.rental_count
+			, G.goods_name
+			, SG.set_goods_count
+			, GFSG.goods_name AS setGoodsName
+			, C.customer_name
+			, CC.customer_company_name
+			, COUNT(1) AS count
+		FROM 
+			shipment AS S
+		INNER JOIN
+			doc_bill AS B
+			ON
+			S.bill_code = B.bill_code
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			S.contract_code = DC.contract_code 
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			set_goods AS SG
+			ON
+			DC.set_code = SG.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
+		LEFT JOIN
+			customer AS C
+			ON
+			C.customer_id = DC.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			CC.customer_id = C.customer_id
+		WHERE
+			NOT(ISNULL(S.shipment_complete_date))
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND staff_name = #{staffName}
+			</if>
+			<if test="customerCall neq null and customerCall neq ''.toString()">
+				AND customer_call =#{customerCall}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>
+		GROUP BY
+			shipment_code
+		LIMIT ${firstClmn}, ${lastClmn}
+  	</select>
+  	<select id="getDeliveredShipmentSearchCnt" resultType="int" parameterType="Shipment">
+	  	SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				 COUNT(1) AS CNT
+			FROM 
+				shipment AS S
+			INNER JOIN
+				doc_bill AS B
+				ON
+				S.bill_code = B.bill_code
+			INNER JOIN
+				doc_contract AS DC
+				ON
+				S.contract_code = DC.contract_code 
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				set_goods AS SG
+				ON
+				DC.set_code = SG.set_code
+			LEFT JOIN
+				goods AS GFSG
+				ON
+				SG.goods_code = GFSG.goods_code
+			LEFT JOIN
+				customer AS C
+				ON
+				C.customer_id = DC.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				CC.customer_id = C.customer_id
+			WHERE
+				NOT(ISNULL(S.shipment_complete_date))
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND staff_name = #{staffName}
+			</if>
+			<if test="customerCall neq null and customerCall neq ''.toString()">
+				AND customer_call =#{customerCall}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>
 			GROUP BY
 				shipment_code
 		) AS SQ
@@ -246,4 +512,38 @@
 		WHERE 
 			S.shipment_code = #{shipmentCode}
   	</select>
+  	<select id="getShipmentLastCode" resultType="int">
+  		SELECT 
+  			CAST(SUBSTRING(shipment_code,9) AS DECIMAL) 
+  		FROM 
+  			shipment 
+  		ORDER BY 
+  			shipment_code DESC 
+  		LIMIT 1
+  	</select>
+  	<insert id="insertShipmentList" parameterType="Map">
+  		INSERT INTO 
+  			shipment
+  			(shipment_code
+  			, bill_code
+  			, contract_code
+  			, shipment_date
+  			, shipment_addr
+  			) 
+  		VALUES (
+  			CONCAT('shipment', LPAD(#{lastCode}, 5,0))
+  			, #{billCode}
+  			, #{contractCode}
+  			, DATE_SUB(#{rentalFromDate}, INTERVAL 10 DAY)
+  			, #{deliveryAddress}
+  			);
+  	</insert>
+  	<update id="deliveredShipmentUpdate" parameterType="String">
+  		UPDATE 
+			shipment
+		SET 
+			shipment_complete_date=NOW()
+		WHERE  
+			shipment_code=#{shipmentCode};
+  	</update>
   </mapper>

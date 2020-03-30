@@ -73,6 +73,68 @@ public class DepositService {
 		
 		return map;
 	}
+	public Map<String, Object> getDepositSearchList(int currentPage, Deposit deposit){
+		int cnt = depositMapper.getDepositSearchListCnt(deposit);
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		deposit.setFirstClmn(firstClmn);
+		deposit.setLastClmn(lastClmn);
+		List<Deposit> list = depositMapper.getDepositSearchList(deposit);
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		list = calListPayMonth(list);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
+	}
+	public Map<String, Object> getPaidDepositSearchList(int currentPage, Deposit deposit){
+		int cnt = depositMapper.getPaidDepositSearchListCnt(deposit);
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		deposit.setFirstClmn(firstClmn);
+		deposit.setLastClmn(lastClmn);
+		List<Deposit> list = depositMapper.getPaidDepositSearchList(deposit);
+		list = calListPayMonth(list);
+		
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		list = calListPayMonth(list);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
+	}
+	
+	public int updateDepositList(Map<String, Object> paramMap) {
+		int result= depositMapper.updateDepositList(paramMap);
+		return result;
+	}
+	
 	
 	/**
 	 * 	월납부 금액 계산

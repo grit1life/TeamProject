@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>index</title>
+  </th:block>
+<th:block layout:fragment="customTestScript">
+<script>
+$(function(){
+	var url = window.location.search
+	url = url.substring(url.lastIndexOf("&")+1)
+	if(url=='2tab'){
+		$('#custom-content-above-home-tab').removeClass('active').attr('aria-selected','false');
+		$('#custom-content-above-profile-tab').addClass('active').attr('aria-selected', 'true')
+		$('#custom-content-above-home').removeClass('active').removeClass('show');
+		$('#custom-content-above-profile').addClass('active').addClass('show')
+	}
+})
+$(function(){
+	$('.shipList').click(function(){
+		var shipmentCode = $(this).data('set');
+		var map = {};
+		map.shipmentCode = shipmentCode;
+		$.ajax({
+			type : 'post',
+			url : '/ajaxShipmentList',
+			async : 'true',
+			contentType : "application/json",
+			data : JSON.stringify(map),
+			success : function(data){
+				$('#modalTable').children().remove();
+				var html="";
+				for(var i=0; i<data.length; i++){
+					html += "<tr>";
+					html += "<td>"+(i+1)+"</td>";
+					if(data[i].goodsName != null){
+						html += "<td>"+data[i].goodsName+"</td>";
+					}else{
+						html += "<td>"+data[i].setGoodsName+"</td>";
+					}
+					if(data[i].setGoodsCount == null){
+						html += "<td>"+(data[i].rentalCount)+"</td>";
+					}else{
+						html += "<td>"+data[i].rentalCount+"*"+data[i].setGoodsCount +"="
+							+(Number(data[i].rentalCount)*Number(data[i].setGoodsCount))+"</td>";
+					}
+					html += "<td>" +data[i].rentalFromDate+"</td>";
+					html += "<td>" +data[i].rentalToDate+"</td>";
+					html += "<td>" +data[i].shipmentDate+"</td>";
+					html += "<td>" +data[i].deliveryTel+"</td>";
+					html += "<td>" +data[i].deliveryAddress+" "+data[i].deliveryDetailAddress+"</td>";
+					html += "</tr>";
+				}
+				$('#modalTable').append(html);
+			},
+			error : function(error){
+				console.log('error', error);
+			}
+		})
+		$('.modal').modal();
+	})
+	$('.shipComplete').click(function(){
+		var shipmentCode = $(this).parents('tr').children('.shipmentCode').text();
+		var map = {}
+		map.shipmentCode = shipmentCode;
+		var request = $.ajax({
+			  url: "/staff/deliveredShipmentUpdate",
+			  method: "POST",
+			  async : 'true',
+			  contentType : "application/json",
+			  data : JSON.stringify(map),
+			  dataType: "json"
+			});
+			request.done(function(){
+				location.href = 'rentalShipList';
+				console.log('성공')
+			})
+			request.fail(function(){
+				console.log('실패')
+			})
+	})
+})
+</script>
+</th:block>
+<th:block layout:fragment="customContents">
+  <body class="hold-transition sidebar-mini layout-fixed">
+      <div class="content-wrapper">
+  	출하완료 버튼 누르면 출하완료 목록으로 넘어가게 변경 필요</br>
+  	검색창  필요 (2020-03-26)
+        <section class="content-header"> 
+	       <div class="row mb-2">
+	         <div class="col-sm-6">
+	           <h1>출하조회</h1>
+	         </div>
+	         <div class="col-sm-6">
+	           <ol class="breadcrumb float-sm-right">
+	             <li class="breadcrumb-item"><a href="#">Home</a></li>
+	             <li class="breadcrumb-item active">Advanced Form</li>
+	           </ol>
+	         </div>
+	       </div>
+         </section>
+	  	<div class="container-fluid">
+		  <div class="card-body">
+		  <div class="card card-default">
+			 <div class="card-header">
+			   <h3 class="card-title">출하 검색</h3>
+			
+			   <div class="card-tools">
+			     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+			     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			   </div>
+			 </div>
+			 <div class="card-body">
+		         <!-- left -->
+		         <form id="depositSerch" action="depositSearchList" method="get">
+			         <div class="row" >
+			           <!-- 1 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			             <div class="form-group">
+			               <label>고객명</label>
+			               <input type="text" class="form-control select2bs4" style="width: 100%;" name="customerName">
+			             </div>
+			             <!-- /.form-group -->
+			             <div class="form-group">
+			               <label>직원</label>
+			          	   <input type="text" class="form-control select2bs4" list="staffList" style="width: 100%;" name="staffName">
+			               <datalist id="staffList">
+			               		<option th:each="l : ${staffList}" th:value="${l.staffName}"></option>
+			               </datalist>
+			             </div>
+			           </div>
+			           <!-- 2 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			              <div class="form-group">
+				               <label>전화</label>
+				          <input type="text" class="form-control select2bs4" name="customerCall">
+				          </div>
+			             <div class="form-group">
+			               <label>세트명</label>
+			               <input type="text" class="form-control select2bs4" list="setList" name="setName">
+			               <datalist id="setList">
+			               		<option th:each="l : ${setList}" th:value="${l.setName}"></option>
+			               </datalist>
+			             </div>
+			           </div>
+			           <!-- 3 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			             <!-- /.form-group -->
+			             <div class="form-group">
+			               <label>렌탈시작일</label>
+				         	<input type="date" class="form-control select2bs4" name="rentalFromDate">
+				         </div>
+			             <div class="form-group">
+			               <label>제품명</label>
+			               <input type="text" class="form-control select2bs4" list="goodsName" name="goodsName">
+			               <datalist id="goodsName">
+			               		<option th:each="l : ${goodsList}" th:value="${l.goodsName}"></option>
+			               </datalist>
+			             </div>
+			           </div>
+			           <!-- 4 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			             <!-- /.form-group -->
+			             <div class="form-group">
+			               <label>렌탈종료일</label>
+			               <input type="date" class="form-control select2bs4" name="rentalToDate">
+			             </div>
+			             <div class="form-group" style="position: absolute;bottom: 0;">
+			               <button id="SerchBtn" type="submit" class="btn btn-info">검색</button>
+			             </div>
+			             <!-- /.form-group -->
+			           </div>
+			           <!-- /.col -->
+			         </div>
+		         </form>
+		            <!-- /.row -->
+		      </div>
+			 </div>
+		        <div class="card card-defualt card-outline">
+		          <div class="card-body">
+		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+		              <li class="nav-item">
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">출하목록</a>
+		              </li>
+		              <li class="nav-item">
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">출하완료목록</a>
+		              </li>
+		            </ul>
+		            <div class="tab-content" id="custom-content-above-tabContent">
+		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+		                <!-- 미출하목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>출하일</th>
+				                  <th>전화번호</th>
+				                  <th>주소</th>
+				                  <th>출하목록</th>
+				                  <th>출하완료</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				              <tr th:each="l, i : ${list}">
+				             	<td class="shipmentCode" style="display:none" th:text="${l.shipmentCode}"></td>
+				                <td th:text="${i.count}"></td>
+				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${l.count>1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${l.count==1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${l.rentalFromDate}"></td>
+				               	<td th:text="${l.rentalToDate}"></td>
+				               	
+				               	<td th:text="${l.shipmentDate}"></td>
+				               	<td th:text="${l.deliveryTel}"></td>
+				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
+				               	<td>
+				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;출하목록</a>
+				                </td>
+				               	<td>
+				                	<a class="shipComplete btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;출하완료</a>
+				                </td>
+				              </tr>
+				             </tbody>
+						</table>
+					<!-- 페이징 -->
+					   <nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item">
+							    <th:block th:if="${currentPage>1}">
+							      <a class="page-link" th:href="@{/staff/rentalShipSearchList(page=${currentPage-1},deliveredPage=${deliveredCurrentPage},customerName=${shipment.customerName},staffName=${shipment.staffName},customerCall=${shipment.customerCall},setName=${shipment.setName},rentalFromDate=${shipment.rentalFromDate},goodsName=${shipment.goodsName},rentalToDate=${shipment.rentalToDate})}" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+								<th:block th:unless="${currentPage>1}">
+							      <a class="page-link" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+						    </li>
+							<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+						    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/rentalShipSearchList(page=${num},deliveredPage=${deliveredCurrentPage},customerName=${shipment.customerName},staffName=${shipment.staffName},customerCall=${shipment.customerCall},setName=${shipment.setName},rentalFromDate=${shipment.rentalFromDate},goodsName=${shipment.goodsName},rentalToDate=${shipment.rentalToDate})}"></a></li>
+							</th:block>
+						    <li class="page-item">
+						    	<th:block th:if="${endPage>currentPage}">
+							      <a class="page-link" th:href="@{/staff/rentalShipSearchList(page=${currentPage+1},deliveredPage=${deliveredCurrentPage},customerName=${shipment.customerName},staffName=${shipment.staffName},customerCall=${shipment.customerCall},setName=${shipment.setName},rentalFromDate=${shipment.rentalFromDate},goodsName=${shipment.goodsName},rentalToDate=${shipment.rentalToDate})}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+							    <th:block th:unless="${endPage>currentPage}">
+							      <a class="page-link" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+						    </li>
+						  </ul>
+						</nav>
+				             <!-- 페이징 끝 -->
+		              </div>
+		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+		                <!-- 입금 목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>출하일</th>
+				                  <th>전화번호</th>
+				                  <th>주소</th>
+				                  <th>출하목록</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="l, i : ${deliveredList}">
+				                <td th:text="${i.count}"></td>
+				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${l.count>1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${l.count==1}">
+					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${l.rentalFromDate}"></td>
+				               	<td th:text="${l.rentalToDate}"></td>
+				               	
+				               	<td th:text="${l.shipmentCompleteDate}"></td>
+				               	<td th:text="${l.deliveryTel}"></td>
+				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
+				               	<td>
+				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;출하목록</a>
+				                </td>
+				              </tr>
+				             </tbody>
+						</table>		              
+							 <!-- 페이징 -->
+						   </br>
+						   <nav aria-label="Page navigation example">
+							  <ul class="pagination">
+							    <li class="page-item">
+								    <th:block th:if="${paidCurrentPage>1}">
+								      <a class="page-link" th:href="@{/staff/rentalShipSearchList(page=${currentPage},deliveredPage=${deliveredCurrentPage-1},2tab,customerName=${shipment.customerName},staffName=${shipment.staffName},customerCall=${shipment.customerCall},setName=${shipment.setName},rentalFromDate=${shipment.rentalFromDate},goodsName=${shipment.goodsName},rentalToDate=${shipment.rentalToDate})}" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+									</th:block>
+									<th:block th:unless="${paidCurrentPage>1}">
+								      <a class="page-link" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+									</th:block>
+							    </li>
+								<th:block th:each="num : ${#numbers.sequence(deliveredStartPage, deliveredEndPage)}">
+							    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/rentalShipSearchList(page=${currentPage},deliveredPage=${num},2tab),customerName=${shipment.customerName},staffName=${shipment.staffName},customerCall=${shipment.customerCall},setName=${shipment.setName},rentalFromDate=${shipment.rentalFromDate},goodsName=${shipment.goodsName},rentalToDate=${shipment.rentalToDate}}"></a></li>
+								</th:block>
+							    <li class="page-item">
+							    	<th:block th:if="${deliveredEndPage>deliveredCurrentPage}">
+								      <a class="page-link" th:href="@{/staff/rentalShipSearchList(page=${currentPage},deliveredPage=${deliveredCurrentPage+1},2tab,customerName=${shipment.customerName},staffName=${shipment.staffName},customerCall=${shipment.customerCall},setName=${shipment.setName},rentalFromDate=${shipment.rentalFromDate},goodsName=${shipment.goodsName},rentalToDate=${shipment.rentalToDate})}" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </th:block>
+								    <th:block th:unless="${deliveredEndPage>deliveredCurrentPage}">
+								      <a class="page-link" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </th:block>
+							    </li>
+							  </ul>
+							</nav>
+		             <!-- 페이징 끝 -->
+		              </div>
+		            </div>
+		          </div>
+		          <!-- /.card -->
+          	<!-- 모달 -->
+	  	<div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content" style="width:1000px">
+            <div class="modal-header">
+              <h4 class="modal-title"></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
+	    	<thead>
+                <tr>
+                  <th style="width: 10px;"></th>
+                  <th>상품명</th>
+     			  <th>상품수량</th>
+                  <th>렌탈시작일</th>
+                  <th>렌탈종료일</th>
+                  <th>출하일</th>
+                  <th>전화번호</th>
+                  <th>주소</th>
+                </tr>
+	         </thead>
+             <tbody id="modalTable">
+             </tbody>
+		</table>
+            </div>
+          </div>
+        </div>
+      </div>
+      		<!--모달 끝 -->
+		        </div>
+		      </div>
+		 </div>
+      </div>
+  </body>
+    </th:block>
+</html>

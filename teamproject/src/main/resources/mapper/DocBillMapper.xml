@@ -22,6 +22,7 @@
 		<result property="total" column="total"/>
 		<result property="rentalFromDate" column="rental_from_date"/>
 		<result property="rentalToDate" column="rental_to_date"/>
+		<result property="staffName" column="staff_name"/>
 	</resultMap>
 	
 	<select id="getDocBillList" parameterType="int" resultMap="docBillResultMap">
@@ -33,6 +34,7 @@
 			,CC.customer_company_name
 			,G.goods_name
 			,PS.set_name
+			,S.staff_name
 			,COUNT(1) AS count
 			,SUM(DC.contract_total_price) AS total
 		FROM
@@ -57,6 +59,10 @@
 			price_set AS PS
 			ON
 			DC.set_code = PS.set_code
+		LEFT JOIN
+			staff AS S
+			ON
+			S.staff_code = DC.staff_code
 		GROUP BY
 			DB.bill_code
 		ORDER BY
@@ -94,6 +100,133 @@
 				DC.set_code = PS.set_code
 			GROUP BY
 				DB.bill_code
+		) AS SQ
+	</select>
+	<select id="getDocBillSearchList" parameterType="DocBill" resultMap="docBillResultMap">
+		SELECT
+			*
+			,DC.contract_total_price
+			,C.customer_name
+			,C.customer_call
+			,CC.customer_company_name
+			,G.goods_name
+			,PS.set_name
+			,S.staff_name
+			,COUNT(1) AS count
+			,SUM(DC.contract_total_price) AS total
+		FROM
+			doc_bill AS DB
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			DB.contract_code = DC.contract_code
+		INNER JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			DC.set_code = PS.set_code
+		LEFT JOIN
+			staff AS S
+			ON
+			S.staff_code = DC.staff_code
+		WHERE 
+			TRUE
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND S.staff_name = #{staffName}
+			</if>
+			<if test="customerCall neq null and customerCall neq ''.toString()">
+				AND C.customer_call =#{customerCall}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND PS.set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND G.goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>	
+		GROUP BY
+			DB.bill_code
+		ORDER BY
+			DB.bill_expected_date DESC
+		LIMIT ${firstClmn}, ${lastClmn}
+	</select>
+	<select id="getDocBillSearchListCnt" parameterType="DocBill" resultType="int">
+		SELECT 
+			COUNT(SQ.CNT)
+		FROM
+		(
+		SELECT
+			COUNT(1) AS CNT
+		FROM
+			doc_bill AS DB
+		INNER JOIN
+			doc_contract AS DC
+			ON
+			DB.contract_code = DC.contract_code
+		INNER JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			DC.set_code = PS.set_code
+		LEFT JOIN
+			staff AS S
+			ON
+			S.staff_code = DC.staff_code
+		WHERE 
+			TRUE
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND S.staff_name = #{staffName}
+			</if>
+			<if test="customerCall neq null and customerCall neq ''.toString()">
+				AND C.customer_call =#{customerCall}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND PS.set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND G.goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>	
+		GROUP BY
+			DB.bill_code
 		) AS SQ
 	</select>
 	<select id="getDocBillForm" resultMap="docBillResultMap">

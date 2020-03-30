@@ -41,8 +41,36 @@ public class DocContractForm {
 	private String customerCompanyCall;
 	private String goodsName;
 	private String setName;
+	private String staffName;
+	private String inputStaffName;
 	private int count;
 	private int total;
+	private int firstClmn;
+	private int lastClmn;
+	public int getFirstClmn() {
+		return firstClmn;
+	}
+	public void setFirstClmn(int firstClmn) {
+		this.firstClmn = firstClmn;
+	}
+	public int getLastClmn() {
+		return lastClmn;
+	}
+	public void setLastClmn(int lastClmn) {
+		this.lastClmn = lastClmn;
+	}
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+	public String getInputStaffName() {
+		return inputStaffName;
+	}
+	public void setInputStaffName(String inputStaffName) {
+		this.inputStaffName = inputStaffName;
+	}
 	
 	public String getCustomerCompanyCall() {
 		return customerCompanyCall;

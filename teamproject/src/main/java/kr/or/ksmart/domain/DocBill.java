@@ -19,15 +19,36 @@ public class DocBill {
 	private int total;
 	private String rentalFromDate;
 	private String rentalToDate;
+	private String staffName;
+	private int firstClmn;
+	private int lastClmn;
+	private String deliveryAddress;
+	private String deliveryDetailAddress;
+	private String customerName;
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+	public int getFirstClmn() {
+		return firstClmn;
+	}
+	public void setFirstClmn(int firstClmn) {
+		this.firstClmn = firstClmn;
+	}
+	public int getLastClmn() {
+		return lastClmn;
+	}
+	public void setLastClmn(int lastClmn) {
+		this.lastClmn = lastClmn;
+	}
 	public String getDeliveryTel() {
 		return deliveryTel;
 	}
 	public void setDeliveryTel(String deliveryTel) {
 		this.deliveryTel = deliveryTel;
 	}
-	private String deliveryAddress;
-	private String deliveryDetailAddress;
-	private String customerName;
 	public String getDeliveryAddress() {
 		return deliveryAddress;
 	}

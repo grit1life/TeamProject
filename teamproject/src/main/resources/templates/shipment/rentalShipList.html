@@ -62,6 +62,27 @@ $(function(){
 		})
 		$('.modal').modal();
 	})
+	
+	$('.shipComplete').click(function(){
+		var shipmentCode = $(this).parents('tr').children('.shipmentCode').text();
+		var map = {}
+		map.shipmentCode = shipmentCode;
+		var request = $.ajax({
+			  url: "/staff/deliveredShipmentUpdate",
+			  method: "POST",
+			  async : 'true',
+			  contentType : "application/json",
+			  data : JSON.stringify(map),
+			  dataType: "json"
+			});
+			request.done(function(){
+				location.href = 'rentalShipList';
+				console.log('성공')
+			})
+			request.fail(function(){
+				console.log('실패')
+			})
+	})
 })
 </script>
 </th:block>
@@ -85,6 +106,81 @@ $(function(){
          </section>
 	  	<div class="container-fluid">
 		  <div class="card-body">
+		  <div class="card card-default">
+			 <div class="card-header">
+			   <h3 class="card-title">출하 검색</h3>
+			
+			   <div class="card-tools">
+			     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+			     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			   </div>
+			 </div>
+			 <div class="card-body">
+		         <!-- left -->
+		         <form id="depositSerch" action="rentalShipSearchList" method="get">
+			         <div class="row" >
+			           <!-- 1 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			             <div class="form-group">
+			               <label>고객명</label>
+			               <input type="text" class="form-control select2bs4" style="width: 100%;" name="customerName">
+			             </div>
+			             <!-- /.form-group -->
+			             <div class="form-group">
+			               <label>직원</label>
+			          	   <input type="text" class="form-control select2bs4" list="staffList" style="width: 100%;" name="staffName">
+			               <datalist id="staffList">
+			               		<option th:each="l : ${staffList}" th:value="${l.staffName}"></option>
+			               </datalist>
+			             </div>
+			           </div>
+			           <!-- 2 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			              <div class="form-group">
+				               <label>전화</label>
+				          <input type="text" class="form-control select2bs4" name="customerCall">
+				          </div>
+			             <div class="form-group">
+			               <label>세트명</label>
+			               <input type="text" class="form-control select2bs4" list="setList" name="setName">
+			               <datalist id="setList">
+			               		<option th:each="l : ${setList}" th:value="${l.setName}"></option>
+			               </datalist>
+			             </div>
+			           </div>
+			           <!-- 3 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			             <!-- /.form-group -->
+			             <div class="form-group">
+			               <label>렌탈시작일</label>
+				         	<input type="date" class="form-control select2bs4" name="rentalFromDate">
+				         </div>
+			             <div class="form-group">
+			               <label>제품명</label>
+			               <input type="text" class="form-control select2bs4" list="goodsName" name="goodsName">
+			               <datalist id="goodsName">
+			               		<option th:each="l : ${goodsList}" th:value="${l.goodsName}"></option>
+			               </datalist>
+			             </div>
+			           </div>
+			           <!-- 4 -->
+			           <div class="col-md-6" style="max-width: 25%;">
+			             <!-- /.form-group -->
+			             <div class="form-group">
+			               <label>렌탈종료일</label>
+			               <input type="date" class="form-control select2bs4" name="rentalToDate">
+			             </div>
+			             <div class="form-group" style="position: absolute;bottom: 0;">
+			               <button id="SerchBtn" type="submit" class="btn btn-info">검색</button>
+			             </div>
+			             <!-- /.form-group -->
+			           </div>
+			           <!-- /.col -->
+			         </div>
+		         </form>
+		            <!-- /.row -->
+		      </div>
+			 </div>
 		        <div class="card card-defualt card-outline">
 		          <div class="card-body">
 		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
@@ -115,6 +211,7 @@ $(function(){
 					         </thead>
 				             <tbody>
 				             <tr th:each="l, i : ${list}">
+				             	<td class="shipmentCode" style="display:none" th:text="${l.shipmentCode}"></td>
 				                <td th:text="${i.count}"></td>
 				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
 				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
@@ -139,7 +236,7 @@ $(function(){
 				                    <i class="fas fa-trash"></i>&ensp;출하목록</a>
 				                </td>
 				               	<td>
-				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
+				                	<a class="shipComplete btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
 				                    <i class="fas fa-trash"></i>&ensp;출하완료</a>
 				                </td>
 				              </tr>
@@ -192,6 +289,7 @@ $(function(){
 				                  <th>출하일</th>
 				                  <th>전화번호</th>
 				                  <th>주소</th>
+				                  <th>출하목록</th>
 				                </tr>
 					         </thead>
 				             <tbody>
@@ -212,7 +310,7 @@ $(function(){
 				               	<td th:text="${l.rentalFromDate}"></td>
 				               	<td th:text="${l.rentalToDate}"></td>
 				               	
-				               	<td th:text="${l.shipmentDate}"></td>
+				               	<td th:text="${l.shipmentCompleteDate}"></td>
 				               	<td th:text="${l.deliveryTel}"></td>
 				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
 				               	<td>

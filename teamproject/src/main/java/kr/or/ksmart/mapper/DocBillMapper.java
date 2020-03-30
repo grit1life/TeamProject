@@ -11,6 +11,9 @@ public interface DocBillMapper {
 
 	public List<DocBill> getDocBillList(int firstClmn, int lastClmn);
 	public int getDocBillListCnt();
+
+	public List<DocBill> getDocBillSearchList(DocBill docBill);
+	public int getDocBillSearchListCnt(DocBill docBill);
 	
 	public DocBill getDocBillForm(String billCode);
 	

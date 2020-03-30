@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ksmart.domain.DocContractForm;
+import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.domain.MyCompanyDeposit;
 import kr.or.ksmart.domain.Mycompany;
+import kr.or.ksmart.domain.PriceSet;
+import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.service.DocContractFormService;
 import kr.or.ksmart.service.DocEstimateFormService;
 import kr.or.ksmart.service.MyCompanyDepositService;
@@ -35,13 +39,43 @@ public class DocContractFormController {
 		}
 		int pageNum = Integer.parseInt(page);
 		Map<String, Object> map = docContractFormService.getContractList(pageNum);
+	    List<Staff> staffList = docEstimateFormService.getStaffNameList();
+	    List<PriceSet> setList = docEstimateFormService.getSetNameList();
+	    List<Goods> goodsList = docEstimateFormService.getGoodsNameList();
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("currentPage", map.get("currentPage"));
 		model.addAttribute("startPage", map.get("startPage"));
 		model.addAttribute("endPage", map.get("endPage"));
 		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("staffList", staffList); 
+		model.addAttribute("setList", setList);
+		model.addAttribute("goodsList", goodsList);
 		
 		return "docContract/staffContractFormList";
+	}
+	@GetMapping("/staff/contractFormSearchList")
+	public String staffContractFormList(Model model, @RequestParam(value="page", required = false) String page
+												, DocContractForm docContractForm){
+		if(page==null) {
+			page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		Map<String, Object> map = docContractFormService.getContractSearchList(pageNum, docContractForm);
+	    List<Staff> staffList = docEstimateFormService.getStaffNameList();
+	    List<PriceSet> setList = docEstimateFormService.getSetNameList();
+	    List<Goods> goodsList = docEstimateFormService.getGoodsNameList();
+	    
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("staffList", staffList); 
+		model.addAttribute("setList", setList);
+		model.addAttribute("goodsList", goodsList);
+		model.addAttribute("dc", docContractForm);
+		
+		return "docContract/staffContractFormSearchList";
 	}
 	@GetMapping("/customer/contractForm")
 	public String staffContractFormList(@RequestParam (value = "contractCode") String contractCode, Model model){

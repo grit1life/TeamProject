@@ -21,6 +21,48 @@ public class Shipment {
 	private String deliveryTel;
 	private String deliveryAddress;
 	private String deliveryDetailAddress;
+	private int firstClmn;
+	private int lastClmn;
+	private String shipmentCompleteDate;
+	private String staffName;
+	private String customerCall;
+	private String setName;
+	public String getSetName() {
+		return setName;
+	}
+	public void setSetName(String setName) {
+		this.setName = setName;
+	}
+	public String getCustomerCall() {
+		return customerCall;
+	}
+	public void setCustomerCall(String customerCall) {
+		this.customerCall = customerCall;
+	}
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
+	public String getShipmentCompleteDate() {
+		return shipmentCompleteDate;
+	}
+	public void setShipmentCompleteDate(String shipmentCompleteDate) {
+		this.shipmentCompleteDate = shipmentCompleteDate;
+	}
+	public int getFirstClmn() {
+		return firstClmn;
+	}
+	public void setFirstClmn(int firstClmn) {
+		this.firstClmn = firstClmn;
+	}
+	public int getLastClmn() {
+		return lastClmn;
+	}
+	public void setLastClmn(int lastClmn) {
+		this.lastClmn = lastClmn;
+	}
 	public String getDeliveryAddress() {
 		return deliveryAddress;
 	}

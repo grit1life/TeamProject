@@ -8,8 +8,59 @@
     <title>index</title>
   </th:block>
 <th:block layout:fragment="customTestScript">
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 $(function(){
+	$('.depositBtn').click(function(){
+		var name = Number($(this).parents('tr').children('.customerName').text());
+		var payMonth = $(this).parents('tr').children('.payMonth').text();
+		payMonth = payMonth.replace(/,/gi, '')
+		var goodsName =  $(this).parents('tr').children('.goodsName').text();
+		var billCode = $(this).parents('tr').children('.billCode').text();		
+		var billPayNumber = $(this).parents('tr').children('.billPayNumber').text();
+		var rentalFromDate = $(this).parents('tr').children('.rentalFromDate').text();
+		var contractCode = $(this).parents('tr').children('.contractCode').text();
+		var deliveryAddress = $(this).parents('tr').children('.deliveryAddress').text();
+		
+		var IMP = window.IMP;
+		IMP.init('imp97526405');
+		
+		IMP.request_pay({
+			amount : payMonth,
+			buyer_name : name,
+			name : goodsName
+		}, function(response) {
+			//결제 후 호출되는 callback함수
+			if ( response.success ) { //결제 성공
+				var map = {};
+				map.billCode = billCode;
+				map.billPayNumber = billPayNumber;
+				map.rentalFromDate = rentalFromDate;
+				map.contractCode = contractCode;
+				map.deliveryAddress = deliveryAddress;
+				var request = $.ajax({
+				  url: "/staff/updateDepositList",
+				  method: "POST",
+				  async : 'true',
+				  contentType : "application/json",
+				  data : JSON.stringify(map),
+				  dataType: "json"
+				});
+				request.done(function(){
+					location.href = 'depositList';
+					console.log('성공')
+				})
+				request.fail(function(){
+					console.log('실패')
+				})
+			
+			} else {
+				alert('결제실패 : ' + response.error_msg);
+			}
+		}) 
+	})
+	
+	
 	var url = window.location.search
 	url = url.substring(url.lastIndexOf("&")+1)
 	if(url=='2tab'){
@@ -40,6 +91,82 @@ $(function(){
          </section>
 	  	<div class="container-fluid">
 		  <div class="card-body">
+		  	<div class="card card-default">
+	 <div class="card-header">
+	   <h3 class="card-title">견적서 검색</h3>
+	
+	   <div class="card-tools">
+	     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+	     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+	   </div>
+	 </div>
+	 <div class="card-body">
+         <!-- left -->
+         <form id="depositSerch" action="depositSearchList" method="get">
+		         <div class="row" >
+		           <!-- 1 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		             <div class="form-group">
+		               <label>고객명</label>
+		               <input type="text" class="form-control select2bs4" style="width: 100%;" name="customerName">
+		             </div>
+		             <!-- /.form-group -->
+		             <div class="form-group">
+		               <label>직원</label>
+		          	   <input type="text" class="form-control select2bs4" list="staffList" style="width: 100%;" name="staffName">
+		               <datalist id="staffList">
+		               		<option th:each="l : ${staffList}" th:value="${l.staffName}"></option>
+		               </datalist>
+		             </div>
+		           </div>
+		           <!-- 2 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		              <div class="form-group">
+			               <label>전화</label>
+			          <input type="text" class="form-control select2bs4" name="customerCall">
+			          </div>
+		             <div class="form-group">
+		               <label>세트명</label>
+		               <input type="text" class="form-control select2bs4" list="setList" name="setName">
+		               <datalist id="setList">
+		               		<option th:each="l : ${setList}" th:value="${l.setName}"></option>
+		               </datalist>
+		             </div>
+		           </div>
+		           <!-- 3 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		             <!-- /.form-group -->
+		             <div class="form-group">
+		               <label>렌탈시작일</label>
+			         	<input type="date" class="form-control select2bs4" name="rentalFromDate">
+			         </div>
+		             <div class="form-group">
+		               <label>제품명</label>
+		               <input type="text" class="form-control select2bs4" list="goodsName" name="goodsName">
+		               <datalist id="goodsName">
+		               		<option th:each="l : ${goodsList}" th:value="${l.goodsName}"></option>
+		               </datalist>
+		             </div>
+		           </div>
+		           <!-- 4 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		             <!-- /.form-group -->
+		             <div class="form-group">
+		               <label>렌탈종료일</label>
+		               <input type="date" class="form-control select2bs4" name="rentalToDate">
+		             </div>
+		             <div class="form-group" style="position: absolute;bottom: 0;">
+		               <button id="SerchBtn" type="submit" class="btn btn-info">검색</button>
+		             </div>
+		             <!-- /.form-group -->
+		           </div>
+		           <!-- /.col -->
+		         </div>
+	         </form>
+	            <!-- /.row -->
+	      </div>
+		 </div>
+		  
 		        <div class="card card-defualt card-outline">
 		          <div class="card-body">
 		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
@@ -66,33 +193,38 @@ $(function(){
 				                  <th>입금기한</th>
 				                  <th>입금금액(월)</th>
 				                  <th>총금액</th>
+				                  <th>담당자</th>
 				                  <th>입금</th>
 				                </tr>
 					         </thead>
 				             <tbody>
 				             <tr th:each="l, i : ${list}">
+				             	<td class="contractCode" style="display:none" th:text="${l.contractCode}"></td>
+				             	<td class="billCode" style="display:none" th:text="${l.billCode}"></td>
+				             	<td class="deliveryAddress" style="display:none" th:text="${l.deliveryAddress}+${l.deliveryDetailAddress}"></td>
 				                <td th:text="${i.count}"></td>
-				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
-				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+				                <td class='customerName' th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+				                <td class='customerName' th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
 					         	<!--    상품 or 세트, 외  몇 건 -->
 					            <th:block th:if="${l.count>1}">
-					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
-					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td class="goodsName" th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td class="goodsName" th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
 				               	</th:block>
 					            <th:block th:if="${l.count==1}">
-					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
-					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+					                <td class="goodsName" th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+					                <td class="goodsName" th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
 				               	</th:block>
 				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
-				               	<td th:text="${l.rentalFromDate}"></td>
+				               	<td class="rentalFromDate" th:text="${l.rentalFromDate}"></td>
 				               	<td th:text="${l.rentalToDate}"></td>
 				               	<td th:text="${l.deliveryTel}"></td>
-				               	<td th:text="${l.billPayNumber}"></td>
+				               	<td class="billPayNumber" th:text="${l.billPayNumber}"></td>
 				               	<td th:text="${l.billDate}"></td>
-				               	<td th:text="${#numbers.formatInteger(l.payMonth, 0,'COMMA')}"></td>
+				               	<td class="payMonth" th:text="${#numbers.formatInteger(l.payMonth, 0,'COMMA')}"></td>
 				                <td th:text="${#numbers.formatInteger(l.total, 0,'COMMA')}"></td>
+				                <td th:text="${l.staffName}"></td>
 				                <td>
-				                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
 				                    <i class="fas fa-trash"></i>&ensp;입금</a>
 				                </td>
 				              </tr>

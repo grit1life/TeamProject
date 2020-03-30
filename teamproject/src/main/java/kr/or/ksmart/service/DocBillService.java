@@ -59,6 +59,43 @@ public class DocBillService {
 		return map;
 		
 	}
+	public Map<String, Object> getDocBillSearchList(int currentPage, DocBill docBill){
+		
+		int cnt = docBillMapper.getDocBillSearchListCnt(docBill);
+		int firstClmn = (currentPage-1)*10;
+		int lastClmn = firstClmn +10;
+		docBill.setFirstClmn(firstClmn);
+		docBill.setLastClmn(lastClmn);
+		List<DocBill> list = docBillMapper.getDocBillSearchList(docBill); 
+		for(int i=0; i<list.size(); i++) {
+			String fromDate = list.get(i).getRentalFromDate();
+			String toDate = list.get(i).getRentalToDate();
+			double total = list.get(i).getTotal();
+			
+			total = calPayMonth(fromDate, toDate, total);
+			
+			list.get(i).setPayMonth((int)total);
+		}
+		
+		int startPage = currentPage - 5;
+		if(startPage<1) {
+			startPage = 1;
+		}
+		int endPage = currentPage + 5;
+		int lastPage = cnt/10 + 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("currentPage", currentPage);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("lastPage", lastPage);
+		
+		return map;
+		
+	}
 	
 	public DocBill getDocBillForm(String billCode) {
 		DocBill docBill = docBillMapper.getDocBillForm(billCode);

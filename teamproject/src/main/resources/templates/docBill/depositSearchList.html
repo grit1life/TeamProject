@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>index</title>
+  </th:block>
+<th:block layout:fragment="customTestScript">
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+$(function(){
+	$('.depositBtn').click(function(){
+		var name = Number($(this).parents('tr').children('.customerName').text());
+		var payMonth = $(this).parents('tr').children('.payMonth').text();
+		payMonth = payMonth.replace(/,/gi, '')
+		var goodsName =  $(this).parents('tr').children('.goodsName').text();
+		var billCode = $(this).parents('tr').children('.billCode').text();		
+		var billPayNumber = $(this).parents('tr').children('.billPayNumber').text();
+		
+		var IMP = window.IMP;
+		IMP.init('imp97526405');
+		
+		IMP.request_pay({
+			amount : payMonth,
+			buyer_name : name,
+			name : goodsName
+		}, function(response) {
+			//결제 후 호출되는 callback함수
+			if ( response.success ) { //결제 성공
+				var map = {};
+				map.billCode = billCode;
+				map.billPayNumber = billPayNumber;
+				var request = $.ajax({
+				  url: "/staff/updateDepositList",
+				  method: "POST",
+				  async : 'true',
+				  contentType : "application/json",
+				  data : JSON.stringify(map),
+				  dataType: "json"
+				});
+				request.done(function(){
+					location.href = 'depositList';
+					console.log('성공')
+				})
+				request.fail(function(){
+					console.log('실패')
+				})
+			
+			} else {
+				alert('결제실패 : ' + response.error_msg);
+			}
+		}) 
+	})
+	var url = window.location.search
+	url = url.substring(url.lastIndexOf("&")+1)
+	if(url=='2tab'){
+		$('#custom-content-above-home-tab').removeClass('active').attr('aria-selected','false');
+		$('#custom-content-above-profile-tab').addClass('active').attr('aria-selected', 'true')
+		$('#custom-content-above-home').removeClass('active').removeClass('show');
+		$('#custom-content-above-profile').addClass('active').addClass('show')
+	}
+})
+</script>
+</th:block>
+<th:block layout:fragment="customContents">
+  <body class="hold-transition sidebar-mini layout-fixed">
+      <div class="content-wrapper">
+      	검색, 페이징, 입금api 구현 필요(2020-03-26)
+        <section class="content-header"> 
+	       <div class="row mb-2">
+	         <div class="col-sm-6">
+	           <h1>입금조회</h1>
+	         </div>
+	         <div class="col-sm-6">
+	           <ol class="breadcrumb float-sm-right">
+	             <li class="breadcrumb-item"><a href="#">Home</a></li>
+	             <li class="breadcrumb-item active">Advanced Form</li>
+	           </ol>
+	         </div>
+	       </div>
+         </section>
+	  	<div class="container-fluid">
+		  <div class="card-body">
+		  	<div class="card card-default">
+			 <div class="card-header">
+			   <h3 class="card-title">입금 검색</h3>
+			
+			   <div class="card-tools">
+			     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+			     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			   </div>
+			 </div>
+		 <div class="card-body">
+	         <!-- left -->
+	         <form id="depositSerch" action="depositSearchList" method="get">
+		         <div class="row" >
+		           <!-- 1 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		             <div class="form-group">
+		               <label>고객명</label>
+		               <input type="text" class="form-control select2bs4" style="width: 100%;" name="customerName">
+		             </div>
+		             <!-- /.form-group -->
+		             <div class="form-group">
+		               <label>직원</label>
+		          	   <input type="text" class="form-control select2bs4" list="staffList" style="width: 100%;" name="staffName">
+		               <datalist id="staffList">
+		               		<option th:each="l : ${staffList}" th:value="${l.staffName}"></option>
+		               </datalist>
+		             </div>
+		           </div>
+		           <!-- 2 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		              <div class="form-group">
+			               <label>전화</label>
+			          <input type="text" class="form-control select2bs4" name="customerCall">
+			          </div>
+		             <div class="form-group">
+		               <label>세트명</label>
+		               <input type="text" class="form-control select2bs4" list="setList" name="setName">
+		               <datalist id="setList">
+		               		<option th:each="l : ${setList}" th:value="${l.setName}"></option>
+		               </datalist>
+		             </div>
+		           </div>
+		           <!-- 3 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		             <!-- /.form-group -->
+		             <div class="form-group">
+		               <label>렌탈시작일</label>
+			         	<input type="date" class="form-control select2bs4" name="rentalFromDate">
+			         </div>
+		             <div class="form-group">
+		               <label>제품명</label>
+		               <input type="text" class="form-control select2bs4" list="goodsName" name="goodsName">
+		               <datalist id="goodsName">
+		               		<option th:each="l : ${goodsList}" th:value="${l.goodsName}"></option>
+		               </datalist>
+		             </div>
+		           </div>
+		           <!-- 4 -->
+		           <div class="col-md-6" style="max-width: 25%;">
+		             <!-- /.form-group -->
+		             <div class="form-group">
+		               <label>렌탈종료일</label>
+		               <input type="date" class="form-control select2bs4" name="rentalToDate">
+		             </div>
+		             <div class="form-group" style="position: absolute;bottom: 0;">
+		               <button id="SerchBtn" type="submit" class="btn btn-info">검색</button>
+		             </div>
+		             <!-- /.form-group -->
+		           </div>
+		           <!-- /.col -->
+		         </div>
+	         </form>
+	            <!-- /.row -->
+	      </div>
+		 </div>
+		  
+		        <div class="card card-defualt card-outline">
+		          <div class="card-body">
+		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+		              <li class="nav-item">
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">미입금목록</a>
+		              </li>
+		              <li class="nav-item">
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">입금목록</a>
+		              </li>
+		            </ul>
+		            <div class="tab-content" id="custom-content-above-tabContent">
+		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+		                <!-- 미입금목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>전화번호</th>
+				                  <th>청구회차</th>
+				                  <th>입금기한</th>
+				                  <th>입금금액(월)</th>
+				                  <th>총금액</th>
+				                  <th>담당자</th>
+				                  <th>입금</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="l, i : ${list}">
+				             	<td class="billCode" style="display:none" th:text="${l.billCode}"></td>
+				                <td th:text="${i.count}"></td>
+				                <td class='customerName' th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
+				                <td class='customerName' th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${l.count>1}">
+					                <td class="goodsName" th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+					                <td class="goodsName" th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${l.count==1}">
+					                <td class="goodsName" th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
+					                <td class="goodsName" th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${l.rentalFromDate}"></td>
+				               	<td th:text="${l.rentalToDate}"></td>
+				               	<td th:text="${l.deliveryTel}"></td>
+				               	<td class="billPayNumber" th:text="${l.billPayNumber}"></td>
+				               	<td th:text="${l.billDate}"></td>
+				               	<td class="payMonth" th:text="${#numbers.formatInteger(l.payMonth, 0,'COMMA')}"></td>
+				                <td th:text="${#numbers.formatInteger(l.total, 0,'COMMA')}"></td>
+				                <td th:text="${l.staffName}"></td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;입금</a>
+				                </td>
+				              </tr>
+				             </tbody>
+						</table>
+						<!-- 페이징 -->
+					   <nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item">
+							    <th:block th:if="${currentPage>1}">
+							      <a class="page-link" th:href="@{/staff/depositSearchList(page=${currentPage-1},paidPage=${paidCurrentPage},customerName=${deposit.customerName},staffName=${deposit.staffName},customerCall=${deposit.customerCall},setName=${deposit.setName},rentalFromDate=${deposit.rentalFromDate},goodsName=${deposit.goodsName},rentalToDate=${deposit.rentalToDate})}" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+								<th:block th:unless="${currentPage>1}">
+							      <a class="page-link" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+								</th:block>
+						    </li>
+							<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+						    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/depositSearchList(page=${num},paidPage=${paidCurrentPage},customerName=${deposit.customerName},staffName=${deposit.staffName},customerCall=${deposit.customerCall},setName=${deposit.setName},rentalFromDate=${deposit.rentalFromDate},goodsName=${deposit.goodsName},rentalToDate=${deposit.rentalToDate})}"></a></li>
+							</th:block>
+						    <li class="page-item">
+						    	<th:block th:if="${endPage>currentPage}">
+							      <a class="page-link" th:href="@{/staff/depositSearchList(page=${currentPage+1},paidPage=${paidCurrentPage},customerName=${deposit.customerName},staffName=${deposit.staffName},customerCall=${deposit.customerCall},setName=${deposit.setName},rentalFromDate=${deposit.rentalFromDate},goodsName=${deposit.goodsName},rentalToDate=${deposit.rentalToDate})}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+							    <th:block th:unless="${endPage>currentPage}">
+							      <a class="page-link" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </th:block>
+						    </li>
+						  </ul>
+						</nav>
+				             <!-- 페이징 끝 -->
+		              </div>
+		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+		                <!-- 입금 목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>전화번호</th>
+				                  <th>청구회차</th>
+				                  <th>입금일자</th>
+				                  <th>납부금액(월)</th>
+				                  <th>총금액</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="pl, i : ${paidList}">
+				                <td th:text="${i.count}"></td>
+				                <td th:if="${pl.customerCompanyName}!=null" th:text="${pl.customerCompanyName+'(법인)'}"></td>
+				                <td th:if="${pl.customerCompanyName}==null" th:text="${pl.customerName}"></td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            <th:block th:if="${pl.count>1}">
+					                <td th:if="${pl.goodsName}!=null" th:text="${pl.goodsName+'&nbsp;외 '+(pl.count-1)+'품목'}"></td>
+					                <td th:if="${pl.goodsName}==null" th:text="${pl.setName+'&nbsp;외 '+(pl.count-1)+'품목'}"></td>
+				               	</th:block>
+					            <th:block th:if="${pl.count==1}">
+					                <td th:if="${pl.goodsName}!=null" th:text="${pl.goodsName}"></td>
+					                <td th:if="${pl.goodsName}==null" th:text="${pl.setName}"></td>
+				               	</th:block>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${pl.rentalFromDate}"></td>
+				               	<td th:text="${pl.rentalToDate}"></td>
+				               	<td th:text="${pl.deliveryTel}"></td>
+				               	<td th:text="${pl.billPayNumber}"></td>
+				               	<td th:text="${pl.billPayday}"></td>
+				               	<td th:text="${#numbers.formatInteger(pl.payMonth, 0,'COMMA')}"></td>
+				                <td th:text="${#numbers.formatInteger(pl.total, 0,'COMMA')}"></td>
+				              </tr>
+				             </tbody>
+						</table>		              
+					 <!-- 페이징 -->
+				   </br>
+				   <nav aria-label="Page navigation example">
+					  <ul class="pagination">
+					    <li class="page-item">
+						    <th:block th:if="${paidCurrentPage>1}">
+						      <a class="page-link" th:href="@{/staff/depositSearchList(page=${currentPage},paidPage=${paidCurrentPage-1},2tab,customerName=${deposit.customerName},staffName=${deposit.staffName},customerCall=${deposit.customerCall},setName=${deposit.setName},rentalFromDate=${deposit.rentalFromDate},goodsName=${deposit.goodsName},rentalToDate=${deposit.rentalToDate})}" aria-label="Previous">
+						        <span aria-hidden="true">&laquo;</span>
+						      </a>
+							</th:block>
+							<th:block th:unless="${paidCurrentPage>1}">
+						      <a class="page-link" aria-label="Previous">
+						        <span aria-hidden="true">&laquo;</span>
+						      </a>
+							</th:block>
+					    </li>
+						<th:block th:each="num : ${#numbers.sequence(paidStartPage, paidEndPage)}">
+					    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/depositSearchList(page=${currentPage},paidPage=${num},2tab,customerName=${deposit.customerName},staffName=${deposit.staffName},customerCall=${deposit.customerCall},setName=${deposit.setName},rentalFromDate=${deposit.rentalFromDate},goodsName=${deposit.goodsName},rentalToDate=${deposit.rentalToDate})}"></a></li>
+						</th:block>
+					    <li class="page-item">
+					    	<th:block th:if="${paidEndPage>paidCurrentPage}">
+						      <a class="page-link" th:href="@{/staff/depositSearchList(page=${currentPage},paidPage=${paidCurrentPage+1},2tab,customerName=${deposit.customerName},staffName=${deposit.staffName},customerCall=${deposit.customerCall},setName=${deposit.setName},rentalFromDate=${deposit.rentalFromDate},goodsName=${deposit.goodsName},rentalToDate=${deposit.rentalToDate})}" aria-label="Next">
+						        <span aria-hidden="true">&raquo;</span>
+						      </a>
+						    </th:block>
+						    <th:block th:unless="${paidEndPage>paidCurrentPage}">
+						      <a class="page-link" aria-label="Next">
+						        <span aria-hidden="true">&raquo;</span>
+						      </a>
+						    </th:block>
+					    </li>
+					  </ul>
+					</nav>
+             <!-- 페이징 끝 -->
+		              </div>
+		            </div>
+		          </div>
+		          <!-- /.card -->
+		        </div>
+		      </div>
+		 </div>
+      </div>
+  </body>
+    </th:block>
+</html>

@@ -176,7 +176,7 @@ $(function(){
 		  <ul class="pagination">
 		    <li class="page-item">
 			    <th:block th:if="${currentPage>1}">
-			      <a class="page-link" th:href="@{/staff/staffContractFormList(page=${currentPage-1})}" aria-label="Previous">
+			      <a class="page-link" th:href="@{/staff/contractFormSearchList(page=${currentPage-1},customerName=${dc.customerName},staffName=${dc.staffName},deliveryTell=${dc.deliveryTel},setName=${dc.setName},rentalFromDate=${dc.rentalFromDate},goodsName=${dc.goodsName},rentalToDate=${dc.rentalToDate})}" aria-label="Previous">
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 				</th:block>
@@ -187,11 +187,11 @@ $(function(){
 				</th:block>
 		    </li>
 			<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
-		    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/staffContractFormList(page=${num})}"></a></li>
+		    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/contractFormSearchList(page=${num}, customerName=${dc.customerName},staffName=${dc.staffName},deliveryTel=${dc.deliveryTel},setName=${dc.setName},rentalFromDate=${dc.rentalFromDate},goodsName=${dc.goodsName},rentalToDate=${dc.rentalToDate})}"></a></li>
 			</th:block>
 		    <li class="page-item">
 		    	<th:block th:if="${endPage>currentPage}">
-			      <a class="page-link" th:href="@{/staff/staffContractFormList(page=${currentPage+1})}" aria-label="Next">
+			      <a class="page-link" th:href="@{/staff/contractFormSearchList(page=${currentPage+1}, customerName=${dc.customerName},staffName=${dc.staffName},deliveryTel=${dc.deliveryTel},setName=${dc.setName},rentalFromDate=${dc.rentalFromDate},goodsName=${dc.goodsName},rentalToDate=${dc.rentalToDate})}" aria-label="Next">
 			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </th:block>

@@ -63,42 +63,28 @@ public class DocEstimateFormController {
 		return "docEstimate/staffEstimateFormList";
 	}
 	
-	@PostMapping("staff/estimateFormList")
-	public String estimateFormList(Model model, @RequestParam(value="page", required = false) String page
-			   								, @RequestParam(value="customerName") String customerName
-			   								, @RequestParam(value="staffName") String staffName
-			   								, @RequestParam(value="customerCall") String customerCall
-			   								, @RequestParam(value="setName") String setName
-			   								, @RequestParam(value="rentalFromDate") String rentalFromDate
-			   								, @RequestParam(value="rentalToDate") String rentalToDate
-			   								, @RequestParam(value="goodsName") String goodsName
-		   								) {
-		  DocEstimateForm def = new DocEstimateForm();
-		  def.setCustomerName(customerName);
-		  def.setStaffName(staffName);
-		  def.setCustomerCall(customerCall);
-		  def.setSetName(setName);
-		  def.setRentalFromDate(rentalFromDate);
-		  def.setRentalToDate(rentalToDate);
-		  def.setGoodsName(goodsName);
-		  if(page==null) { 
+	@GetMapping("staff/estimateFormSearchList")
+	public String estimateFormSearchList(Model model, @RequestParam(value="page", required = false) String page
+			   								,DocEstimateForm docEstimateForm) {
+			if(page==null) { 
 			  page = "1";
 		  } 
 		  int pageNum = Integer.parseInt(page);
-		  Map<String, Object> map = docEstimateFormService.getEstimateSearchList(pageNum, def);
+		  Map<String, Object> map = docEstimateFormService.getEstimateSearchList(pageNum, docEstimateForm);
 		  List<Staff> staffList = docEstimateFormService.getStaffNameList();
-		  List<PriceSet> setList = docEstimateFormService.getSetNameList(); List<Goods>
-		  goodsList = docEstimateFormService.getGoodsNameList();
+		  List<PriceSet> setList = docEstimateFormService.getSetNameList();
+		  List<Goods> goodsList = docEstimateFormService.getGoodsNameList();
 		  model.addAttribute("eList", map.get("eList"));
 		  model.addAttribute("currentPage", map.get("currentPage"));
 		  model.addAttribute("startPage", map.get("startPage"));
 		  model.addAttribute("endPage", map.get("endPage"));
 		  model.addAttribute("lastPage", map.get("lastPage"));
-		  model.addAttribute("staffList", staffList); model.addAttribute("setList", setList);
+		  model.addAttribute("staffList", staffList); 
+		  model.addAttribute("setList", setList);
 		  model.addAttribute("goodsList", goodsList);
-		 
+		 model.addAttribute("de", docEstimateForm);
 		
-		return "docEstimate/staffEstimateFormList";
+		return "docEstimate/staffEstimateFormSearchList";
 	}
 	
 	@GetMapping("customer/estimateFormList")

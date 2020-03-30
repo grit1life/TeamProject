@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ksmart.domain.DocBill;
@@ -41,6 +42,22 @@ public class DocBillController {
 		model.addAttribute("endPage", map.get("endPage"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		return "docBill/billList";
+	}
+	@GetMapping("/staff/billSearchList")
+	public String billSearchList(Model model, @RequestParam(value="page", required = false) String page
+									, DocBill docBill) {
+		if(page==null) {
+			page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		Map<String, Object> map = docBillService.getDocBillSearchList(pageNum, docBill);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("docBill", docBill);
+		return "docBill/billSearchList";
 	}
 	
 	@GetMapping("/staff/billForm")
