@@ -14,7 +14,7 @@ function sample6_execDaumPostcode() {
 
                 //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
+                	addr = data.roadAddress;
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
                 }
@@ -34,21 +34,22 @@ function sample6_execDaumPostcode() {
                     if(extraAddr !== ''){
                         extraAddr = ' (' + extraAddr + ')';
                     }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                    // 조합된 참고항목을 해당 필드에 넣는다.                    
                 
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
+                } 
+                console.log(addr);
+                $('#deliveryNumberM').val(data.zonecode);
+                $('#deliveryAddressM').val(addr);
+                
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                //document.getElementById('postcode').value = data.zonecode;
+               // document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                //document.getElementById("detailAddress").focus();
             }
         }).open();
-    }
+    };
 
 $(function(){
 	/*
@@ -78,7 +79,7 @@ $(function(){
 			modalHtml += data;
 			modalHtml += '</div>';
 			modalHtml += '<div class="card-footer">';
-			modalHtml += '<button type="submit" class="btn btn-info">확인</button>'
+			modalHtml += '<button id="addressBtn" type="submit" class="btn btn-info">확인</button>'
 			modalHtml += '<button type="button" style="float:right" class="btn btn-default" data-dismiss="modal">Close</button>';
 			modalHtml += '</div>';
 			modalHtml += '</div>';
@@ -102,57 +103,14 @@ $(function(){
 		  alert( "Request failed: " + textStatus );
 		}); 
 	};
-		
-	/*
-	 *modal내에서 const formData = new FormData($("form#staffSerch")[0]);을
-	 *보내고 html을 받을때 사용
-	 */
-	//검색Btn click시
-	$(document).on('click', '#staffSerchBtn', function(){
-		console.log("staffSerchBtn");
-		const formData = new FormData($("form#staffSerch")[0]);
-		$('.modalTable').remove();
-		console.log(formData.get('branchCode'));
-		__modalRquest2('/modalStaffList', '모달타이틀', formData);
+	//modal에서 확인Btn click시
+	$(document).on('click', '#addressBtn', function(){
+		console.log("addressBtn");
+		var postcode = $('#postcode');
+		var address = $('#address');
+		var detailAddress = $('#detailAddress');
+
+		$('#__addressModal').modal('hide');
 	});
-	const __modalRquest2 = function(modalUrl ,title, param){
-		
-		var request = $.ajax({
-			  url: modalUrl,
-			  method: "POST",
-			  processData: false,
-			  contentType: false,
-			  data: param,
-			  dataType: "html"
-			});
-		
-		request.done(function( data ) {
-			$('.modalTable').remove();
-			let modalHtml = data;
-			$('form#staffSerch').append(modalHtml);
-		});
-		
-		request.fail(function( jqXHR, textStatus ) {
-			  alert( "Request failed: " + textStatus );
-		});
-	};
-	/**
-	 * 		//modal에서 직원 선택시
-		$(document).on('click', '#staffChoice', function(){
-			console.log("staffChoice");
-			console.log(this);
-			var str = $(this).parents('tr');
-			console.log(str+"<-str");
-			$('#staff').remove();
-			var staffChoiceHtml = '<div id="staff">'
-				staffChoiceHtml += str.find('#branchName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffTell').text()+'<br>';
-				staffChoiceHtml += str.find('#staffEmail').text()+'<br>';
-				staffChoiceHtml += '</div>';
-			console.log(staffChoiceHtml+"<-staffChoiceHtml");
-			$('label#staffChoice').after(staffChoiceHtml);
-			$('#__staffModal').modal('hide');
-		});
-	 * **/
+
 });

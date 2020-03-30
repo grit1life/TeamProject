@@ -49,22 +49,22 @@ $(function(){
 			//modal내 법인 개인 선택시
 			$('.company').click(function(){
 				console.log('company');
-				$('#name').html('회사명');
-				$('#name').next().attr('name','conpanyName');
-				$('#tel').html('대표 전화번호');
-				$('#tel').next().attr('name','customerCompanyCall');
-				$('#email').next().attr('name','customerCompanyEmail');
-				$('#staff').css('display','block');
+				$('.name').html('회사명');
+				$('.name').next().attr('name','conpanyName');
+				$('.tel').html('대표 전화번호');
+				$('.tel').next().attr('name','customerCompanyCall');
+				$('.email').next().attr('name','customerCompanyEmail');
+				$('.staffDiv').css('display','block');
 			});
 			$('.person').click(function(){
 				console.log('person'); 
-				$('#name').html('이름')
-				$('#name').next().attr('name','customerName');
-				$('#tel').html('전화번호');
-				$('#tel').next().attr('name','customerCall');
-				$('#email').next().attr('name','customerEmail');
-				$('#staff').css('display','none');
-			})
+				$('.name').html('이름')
+				$('.name').next().attr('name','customerName');
+				$('.tel').html('전화번호');
+				$('.tel').next().attr('name','customerCall');
+				$('.email').next().attr('name','customerEmail');
+				$('.staffDiv').css('display','none');
+			});
 		});
 		 
 		request.fail(function( jqXHR, textStatus ) {
@@ -78,6 +78,17 @@ $(function(){
 	//검색Btn click시
 	$(document).on('click', '#staffSerchBtn', function(){
 		console.log("staffSerchBtn");
+		
+		if($('.company').prop('checked')){
+			var customerName = $('input[name=customerName]').val();
+			var customerCompanyCall = $('input[name=customerCompanyCall]').val();
+			var customerCompanyEmail = $('input[name=customerCompanyEmail]').val();
+		}else{
+			var customerName = $('input[name=customerName]').val();
+			var customerCall = $('input[name=customerCall]').val();
+			var customerEmail = $('input[name=customerEmail]').val();
+		}
+		
 		const formData = new FormData($("form#staffSerch")[0]);
 		$('.modalTable').remove();
 		console.log(formData.get('branchCode'));

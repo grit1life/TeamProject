@@ -27,135 +27,130 @@
       </div>
     </section>
 
-
-
   <!-- 견적서 입력 data -->
   <section class="content">
   	<div class="container-fluid">
 	 <div class="card">
 	  <div class="card-body">
+	   <form id="docContractCom">
 	  	<div class="row">
 		  	<!-- left -->
 		  	<div class="col-sm-5 invoice-col">
 		  		<label>계약자 정보</label><br>
-			  	(주)GS칼텍스<br>
-			  	대표 허세홍<br>
-			  	02-000-0000<br>
-			  	서울 강남구 논현로 508 GS타워 13층 XX 2팀, 10호실<br>
-			  	단당자 &emsp;나담당   010-000-0001<br>
-			  	등급 &emsp; &emsp;등급A<br>
+		  		<input name="customerContract" type="hidden">
+			  	<div id="customerHtml">
+				  	(주)GS칼텍스<br>
+				  	대표 허세홍<br>
+				  	02-000-0000<br>
+				  	<span id="number" style="display:none;">1111111</span><span id="address">서울 강남구 논현로 508 GS타워 13층 XX 2팀</span><span id="detailAddress">10호실</span><br>
+				  	단당자 &emsp;나담당   <span id="tel">010-000-0001</span><br>
+				</div>  	
+				등급 &emsp;<input id="customerClass" style="border:none" value="등급A"><br>
 			  	<button id="customerModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
         			<i class="fas fa-folder"></i>&ensp;고객님 검색
       			</button>
 			</div>
-			<!-- center -->
-		  	<div class="col-sm-3 invoice-col">
-		  		<label>배송지 정보</label><br>
-		  		<input type="radio" name="address">계약자 주서하고 동일<br>
-		  		<input type="radio" name="address" id="addressModal">세로 입력
-	
-			  	서울 강남구 논현로 508 GS타워 13층 XX 2팀, 10호실<br>
-			  	010-000-0001<br>
-
-			</div>
 			<!-- right -->
-		  	<div class="col-sm-3 invoice-col">
-		  		<label id="staffChoice">담당자</label>
-
-			  	<button id="staffModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
-        			<i class="fas fa-folder"></i>&ensp;담당자 검색
-      			</button>
-		  	</div>
+		  	<div class="col-sm-7 invoice-col">
+			  	<label>렌탈 기간</label><br>
+			  	<div style="display:inline-block;">
+			  		<input name="rentalFromDate" type="date" style="width:170px;" class="form-control">
+			  	</div>
+			  	&emsp;~&emsp;
+			  	<div style="display:inline-block;">
+			  		<input name="rentalToDate" type="date" style="width:170px;" class="form-control">
+			  	</div>
+			  	<input name="rentalPeriod" type="text" value="12" readonly="readonly" style="width:30px;border:none;text-align: right;">
+			  	<span id="sale">일&emsp;30%할인</span>
+			  	<br>
+		  		
+		  		<br><label>배송지 정보</label><br>
+		  		<input type="radio" name="address">계약자 주서하고 동일&emsp;
+		  		<input type="radio" name="address" id="addressModal">다른 주수로 배송<br>
+				<div id="address">
+				  111-2222   서울 강남구 논현로 508 GS타워 13층 XX 2팀&ensp;10호실
+				  <input name="deliveryNumber" type="hidden" value="111-2222">
+				  <input name="deliveryAddress" type="hidden" value="서울 강남구 논현로 508 GS타워 13층 XX 2팀">
+				  <input name="deliveryDetailAddress" type="hidden" value="10호실">
+				  <input name="deliveryTel" type="text" style="width:100%;border:none" value="010-1111-2222"><br><br>
+				
+				<div id="staff">
+			  		<label id="staffChoice">담당자</label>
+				  	<button id="staffModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
+		       			<i class="fas fa-folder"></i>&ensp;담당자 검색
+		     		</button>
+	     		</div>
+			  	<input name="inputStaffCode" type="hidden">
+				<input name="inputDate" type="hidden">
+				<input name="contractNote" type="hidden">
+			</div>
 	  	</div>
-	  	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
-	    	<thead>
-                <tr>
-                  <th style="width: 10px;"></th>
-                  <th>세트명/상품명</th>
-                  <th>단가(기본 할인후)</th>
-                  <th>갯수</th>
-                  <th>등급 할인액</th>
-                  <th>합계액</th>
-                  <th style="width:130px">삭제</th>
-                </tr>
-	         </thead>
-             <tbody>
-              <tr>
-              	<td rowspan="2">1</td>
-              	<td colspan="6">렌탈기간&ensp;2020-04-01&ensp;~&ensp;2020-05-31&emsp;60일&emsp;할인율&ensp;5%</td>
-              </tr>
-              <tr>
-                <td>세트명/상품명<input type="text" name="setCode" hidden="hidden"></td>
-                <td>10000</td>
-                <td style="width:120px;"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
-                <td>-300</td>
-                <td>49700</td>
-                <td>
-                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
-                    <i class="fas fa-trash"></i>&ensp;삭제</a>
-                </td>
-              </tr>
-              <tr>
-              	<td rowspan="2">2
-              	</td>
-              	<td colspan="6">렌탈기간&ensp;2020-04-01&ensp;~&ensp;2020-05-31</td>
-              </tr>
-              <tr>
-                <td>세트명/상품명<input type="text" name="setCode" hidden="hidden"></td>
-                <td>20000</td>
-                <td style="width:120px;"><input type="number" name="tradingCount" style="width:60px; box-sizing:border-box">개</td>
-                <td>-600</td>
-                <td>99400</td>
-                <td>
-                	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
-                    <i class="fas fa-trash"></i>&ensp;삭제</a>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                	<button type="button" class="btn btn-sm btn-info" style="padding:1px 4px 1px 4px;" data-toggle="modal" data-target="#goodsModal">
-        			<i class="fas fa-folder"></i>&ensp;상품 추가
-      				</button>
-              	</td>
-              </tr>
-              <tr style="border-top: solid #dee2e6 2px;">
-                <td colspan="4"></td>
-
-                <td>합계액</td>
-                <td><input type="text" name="tradingTotal" readonly="readonly"></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td colspan="3">
-                	<label>할인 적용 기간</label>
-                	now()~2020-03-30
-                </td>
-                <td>20% 추가할인</td>
-                <td>할인후 금액</td>
-                <td><input type="text" name="tradingTotal" readonly="readonly"></td>
-                <td>
-	                <button type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0" data-toggle="modal" data-target="#costomerModal">
-	        			<i class="fas fa-folder"></i>&ensp;적용 가능한 할인 검색
-	      			</button>
-                </td>
-              </tr>
-             </tbody>
-		</table>
-		<br><textarea name="estimatesNote" class="form-control">memo</textarea>
+		<!-- right end -->
 	  </div>
-	 </div>   	    
-	</div>
-  </section>
+	</form>
+	<form id="docContractGoods">
+  	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
+    	<thead>
+               <tr>
+                 <th>세트명/상품명</th>
+                 <th>단가(기본 할인후)</th>
+                 <th>갯수</th>
+                 <th>등급 할인액</th>
+                 <th>합계액</th>
+                 <th style="width:130px">삭제</th>
+               </tr>
+         </thead>
+            <tbody>
+             <tr>
+               <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
+               <td>10000</td>
+               <td style="width:120px;"><input type="number" name="rentalCount" style="width:60px; box-sizing:border-box">개</td>
+               <td>-300</td>
+               <td>49700</td>
+               <td>
+               	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+                   <i class="fas fa-trash"></i>&ensp;삭제</a>
+               </td>
+             </tr>
+             <tr>
+               <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
+               <td>20000</td>
+               <td style="width:120px;"><input type="number" name="rentalCount" style="width:60px; box-sizing:border-box">개</td>
+               <td>-600</td>
+               <td>99400</td>
+               <td>
+               	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+                   <i class="fas fa-trash"></i>&ensp;삭제</a>
+               </td>
+             </tr>
+             <tr>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td>
+               	<button type="button" class="btn btn-sm btn-info" style="padding:1px 4px 1px 4px;" data-toggle="modal" data-target="#goodsModal">
+       			<i class="fas fa-folder"></i>&ensp;상품 추가
+     				</button>
+             	</td>
+             </tr>
+             <tr style="border-top: solid #dee2e6 2px;">
+               <td colspan="3"></td>
+               <td>합계액</td>
+               <td><input type="text" name="tradingTotal" readonly="readonly"></td>
+               <td></td>
+             </tr>
+          </tbody>
+	</table>
+	</form>
+	<br><textarea name="estimatesNote" class="form-control">memo</textarea>
+
+	</div>   	    
+   </div>
+  </div>
+ </section>
     <!-- 견적서 입력 data end-->
-  <button type="button" id="modalCall">모달불러오기</button>
-	<br>
-	선택한 테이블 데이타 삽입 : <input type="text" id="addTableData"> 
   
   </div>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -167,52 +162,127 @@
 	//고객 검색bottun click시 list 표시
 	$('#customerSerchBtn').click(function(){
 		$('#customerList').css('display','block');
-
-		if($('.company').prop('checked')){
-			var customerName = $('input[name=customerName]').val();
-			var customerCompanyCall = $('input[name=customerCompanyCall]').val();
-			var customerCompanyEmail = $('input[name=customerCompanyEmail]').val();
-		}else{
-			var customerName = $('input[name=customerName]').val();
-			var customerCall = $('input[name=customerCall]').val();
-			var customerEmail = $('input[name=customerEmail]').val();
-		}
 	});
 	//고객을 선택시 검색창,list 비표시
 	$('#customerChoice').click(function(){
 		$('#coustomerClose').click();
 	});
 
-	
-	// modal 이용
-	// /jsModal/staffModal.js -> staffListModal작성,검색
 	$(function(){
+		//customer(개인) 선택시
+		$(document).on('click', '#customerChoice', function(){
+			console.log("customerChoice");
+			console.log(this+"<-customerChoice");
+			var ctr = $(this).parents('tr');
+			console.log(ctr+"<-ctr");
+			//입력된 계약자 정보 삭제
+			$('#customerHtml').remove();
+			
+			$('#customerContract').val(ctr.find('#customerId').text());
+			$('#customerClass').val(ctr.find('#customerClass').text());						
+			
+			var customerChoiceHtml = '<div id="customerHtml">'
+				customerChoiceHtml += ctr.find('#customerChoice').text()+'<br>';
+				customerChoiceHtml += ctr.find('#customerCall').text()+'<br>';
+				customerChoiceHtml += '<span id="number" style="display:none;">'+ ctr.find('#zipCode').text() +'</span>';
+				customerChoiceHtml += '<span id="address">'+ ctr.find('#customerAddress').text() +'</span>';
+				customerChoiceHtml += '<span id="detailAddress">'+ ctr.find('#customerAddress2').text() +'</span><br>'
+			console.log(customerChoiceHtml+"<-customerChoiceHtml");
+			$('[name="customerContract"]').after(customerChoiceHtml);
+			$('#__customerModal').modal('hide');
+		});
+		
+		//customer(company) 선택시
+		$(document).on('click', '#companyChoice', function(){
+			console.log("companyChoice");
+			console.log(this+"<-companyChoice");
+			var ctr = $(this).parents('tr');
+			console.log(ctr+"<-ctr");
+			//입력된 계약자 정보 삭제
+			$('#customerHtml').remove();
+			
+			$('#customerContract').val(ctr.find('#customerId').text());
+			$('#customerClass').val(ctr.find('#customerClass').text());						
+			
+			var customerChoiceHtml = '<div id="customerHtml">'
+				customerChoiceHtml += ctr.find('#customerCompanyName').text()+'<br>';
+				customerChoiceHtml += ctr.find('#customerCompanyCall').text()+'<br>';
+				customerChoiceHtml += '<span id="number" style="display:none;">'+ ctr.find('#customerCompanyZipCode').text() +'</span>';
+				customerChoiceHtml += '<span id="address">'+ ctr.find('#customerCompanyAddress1').text() +'</span>';
+				customerChoiceHtml += '<span id="detailAddress">'+ ctr.find('#customerCompanyAddress2').text() +'</span><br>'
+			console.log(customerChoiceHtml+"<-customerChoiceHtml");
+			$('[name="customerContract"]').after(customerChoiceHtml);
+			$('#__customerModal').modal('hide');
+		});
 
+		//렌탈 기간 입력후 기간 계산
+		$('input[name="rentalFromDate"]').on('blur',function(){
+			console.log('blur');
+			var fromStr = $('input[name="rentalFromDate"]').val();
+			var toStr = $('input[name="rentalToDate"]').val();
+			if(fromStr!="" && toStr!=""){
+				console.log(fromStr+'<-fromStr');
+				console.log(toStr+'<-toStr');
+				var fromDate = new Date(fromStr);
+				var toDate = new Date(toStr);
+				console.log(fromDate+'<-fromDate');
+				console.log(toDate+'<-toDate');
+				var period = toDate.getDate()-fromDate.getDate();
+				console.log(period+"<=period");
+				$('input[name="rentalPeriod"]').val(period);
+			}
+		});
+		
+		$('input[name="rentalToDate"]').on('blur',function(){
+			console.log('blur');
+			var fromStr = $('input[name="rentalFromDate"]').val();
+			var toStr = $('input[name="rentalToDate"]').val();
+			if(fromStr!="" && toStr!=""){
+				console.log(fromStr+'<-fromStr');
+				console.log(toStr+'<-toStr');
+				var fromDate = new Date(fromStr);
+				var toDate = new Date(toStr);
+				console.log(fromDate+'<-fromDate');
+				console.log(toDate+'<-toDate');
+				var period = toDate.getDate()-fromDate.getDate();
+				console.log(period+"<=period");
+				$('input[name="rentalPeriod"]').val(period);
+			};
+		});
+		//주소 출력
+		$(document).on('click', '#addressBtn', function(){
+			
+			$('#deliveryNumberM').val();
+			
+		});
+		
+		
+		// /jsModal/staffModal.js -> staffListModal작성,검색
 		//modal에서 직원 선택시
 		$(document).on('click', '#staffChoice', function(){
 			console.log("staffChoice");
 			console.log(this);
 			var str = $(this).parents('tr');
 			console.log(str+"<-str");
-			$('#staff').remove();
-			var staffChoiceHtml = '<div id="staff">'
-				staffChoiceHtml += str.find('#branchName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffTell').text()+'<br>';
-				staffChoiceHtml += str.find('#staffEmail').text()+'<br>';
-				staffChoiceHtml += '</div>';
+			$('#staffHtml').remove();
+			var staffChoiceHtml = '<div id="staffHtml">'
+				staffChoiceHtml += '<label>담당자&emsp;</label>';
+				staffChoiceHtml += str.find('#branchName').text()+'&emsp;';
+				staffChoiceHtml += str.find('#staffName').text()+'&emsp;';
+				staffChoiceHtml += str.find('#staffTell').text()+'&emsp;';
+				staffChoiceHtml += str.find('#staffEmail').text()+'&emsp;';
+				staffChoiceHtml += '<button id="staffModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">';
+				staffChoiceHtml += '<i class="fas fa-folder"></i>&ensp;담당자 검색';
+				staffChoiceHtml += '</button>';
 			console.log(staffChoiceHtml+"<-staffChoiceHtml");
-			$('label#staffChoice').after(staffChoiceHtml);
+			$('#address').after(staffChoiceHtml);
 			$('#__staffModal').modal('hide');
 		});
 		
 	});		
 		
 </script>  
-
-
-    
-  
+ 
 </th:block>
 </body>
 </html>
