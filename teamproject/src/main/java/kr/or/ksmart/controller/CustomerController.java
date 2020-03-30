@@ -102,6 +102,18 @@ public class CustomerController {
 			}
 			
 		}
+		
+	//개인고객 검색
+	@PostMapping("/getCustomerSearch")
+	public String getCustomerSearch(  @RequestParam(value="sk") 		String sk
+									 ,@RequestParam(value="sv1")    String sv1
+									 ,@RequestParam(value="sv2")    String sv2
+									 ,@RequestParam(value="sv3") 	String sv3
+									 ,Model model) {
+
+			model.addAttribute("cList", customerService.getGoodsSearch(sk, sv1, sv2, sv3));
+			return "/customer/cList";
+		}
 				
 				
 	//개인사업, 거래처 고객 등록
