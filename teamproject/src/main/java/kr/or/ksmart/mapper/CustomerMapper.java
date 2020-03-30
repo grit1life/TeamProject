@@ -22,6 +22,11 @@ public interface CustomerMapper {
 	public int cUpdate(Customer customer);
 	//개인고객 삭제
 	public int cDelete(String customerId, String customerName);	
+	//개인고객 검색
+	public List<Customer> getCustomerSearch(String sk
+			 ,String sv1 
+			 ,String sv2
+			 ,String sv3);
 	
 	
 	//개인사업&법인 고객 등록

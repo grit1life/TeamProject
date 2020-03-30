@@ -16,7 +16,7 @@
      <section class="content-header">
        <div class="row mb-2">
          <div class="col-sm-6">
-           <h1>A/S 비용 청구 목록</h1>
+           <h1>A/S 비용 청구 현황 목록</h1>
          </div>
          <div class="col-sm-6">
            <ol class="breadcrumb float-sm-right">
@@ -25,40 +25,71 @@
          </div>
        </div>
 	
-	
+	 <!--  검색 -->
+     <section class="content-header">  
+      <div class="container-fluid">   
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">검색창</h3>
+		        <div class="card-tools">
+				    <div style="display: inline-block;">
+				    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+				    </div>
+				    <div style="display: inline-block;">
+				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+				    </div>
+	   			</div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+	            <div class="form-group" style="padding-bottom: 15px;">	
+	            	<label>고객명</label>
+					<div style="display: inline-block;">
+						<input type="text" class="form-control">
+				    </div> 
+				    
+				    <label>금액</label>
+					<div style="display: inline-block;">
+						<input type="number" class="form-control">
+				    </div> 
+				    				    				   
+				    
+				    <label>청구일</label>
+					<div style="display: inline-block;">
+						<input type="date" class="form-control">
+				    </div> 
+				    ~
+				    <div style="display: inline-block;">
+						<input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+				    </div> 
+				<!-- sv  -->      	          		          
+				    <div style="display: inline-block;margin-left:0px;">
+				    	<button type="submit" class="btn btn-info">
+				           		검색
+				        </button>
+				    </div>		           
+				</div>
+              </div>             
+            </div>
+          </div>
+      </div>
+    </section>
+    <!--검색 end-->
 	  
   <section class="content">
   	<div class="container-fluid">
 	<div class="card">
 	 <div class="card-body" style="margin-top:20px">
-	 
-	 	<!-- 서치폼 -->
-		<!-- sk  -->
-		<div class="form-group" style="padding-bottom: 15px;">	
-			<div style="display: inline-block;">
-				<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
-			         <option selected="selected" value="청구금액">청구 금액</option>
-			        <option selected="selected" value="수리현황번호">수리 현황 번호</option>
-			        <option selected="selected" value="청구 번호">청구 번호</option>
-			    </select>
-		    </div> 
-		<!-- sv  -->      	          
-		 	<div style="display: inline-block;">
-				<input type="text" class="form-control select2bs4" name="staffEmail">		           		
-		    </div>		          
-		    <div style="display: inline-block;margin-left:0px;">
-		    	<button type="submit" class="btn btn-info">
-		           		검색
-		        </button>
-		    </div>		           
-		</div>
-	       		  
+	 	
 	  	<table id="example2" class="table table-bordered table-hover">
 	    	<thead>
                 <tr>
                   <th>청구 번호</th>
                   <th>수리 현황 번호</th> 
-                  <th>청구 금액</th>              
+                  <th>고객명</th> 
+                  <th>청구 금액</th>  
+                  <th>입금 여부</th>              
                   <th>청구일</th>
                   <th>상세보기</th>
                   <th>삭제</th>
@@ -68,7 +99,9 @@
               <tr>
            	    <td>claim_code01</td>
                 <td>repair_code</td>
+                <td>이아무개</td>
                 <td>15000</td>
+                <td>Y</td>
                 <td>0000-00-00</td>            
                 <td> 
 					<a class="btn btn-primary btn-sm" th:href="@{/rdUpdate}">

@@ -57,6 +57,15 @@ public class CustomerService {
 		return customerMapper.cDelete(customerId, customerName);
 	}
 	
+	//개인고객검색
+	
+	public List<Customer> getGoodsSearch(String sk
+			 ,String sv1 
+			 ,String sv2
+			 ,String sv3){
+		return customerMapper.getCustomerSearch(sk, sv1, sv2, sv3);
+	}
+	
 	
 	//개인 사업& 법인 고객 등록1 
 	
