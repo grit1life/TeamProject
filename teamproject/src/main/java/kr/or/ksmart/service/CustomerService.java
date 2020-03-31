@@ -1,12 +1,16 @@
 package kr.or.ksmart.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import kr.or.ksmart.domain.Customer;
+import kr.or.ksmart.domain.DocEstimateForm;
 import kr.or.ksmart.mapper.CustomerMapper;
 
 
@@ -59,12 +63,16 @@ public class CustomerService {
 	
 	//개인고객검색
 	
-	public List<Customer> getGoodsSearch(String sk
-			 ,String sv1 
-			 ,String sv2
-			 ,String sv3){
-		return customerMapper.getCustomerSearch(sk, sv1, sv2, sv3);
+	public List<Customer> getCustomerSearchList(String customerId
+			   ,String customerName
+			   ,String customerClass
+			   ,String fromDate
+			   ,String toDate
+			    ){
+		
+		return customerMapper.getCustomerSearchList(customerId, customerName, customerClass, fromDate, toDate);
 	}
+
 	
 	
 	//개인 사업& 법인 고객 등록1 
@@ -101,6 +109,19 @@ public class CustomerService {
 	public int cDelte2(String customerId, String customerName) {
 			return customerMapper.cDelete2(customerId, customerName);
 		}
+  //개인고객검색
+	
+	public List<Customer> getCustomerSearchList2(String customerId
+											    ,String customerName
+											    ,String customerClass
+											    ,String customerLevel
+											    ,String fromDate
+											    ,String toDate
+											    ){
+			
+			return customerMapper.getCustomerSearchList2(customerId, customerName, customerClass, customerLevel, fromDate, toDate);
+		}
+	
 	
 	
 	
