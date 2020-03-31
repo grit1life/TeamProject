@@ -52,13 +52,13 @@
 	                  <div class="icheck-primary d-inline">
 	                    <input  type="radio" name="r1" id="radioPrimary1"  value="a">
 	                    <label for="radioPrimary1">
-	                    	예
+	                    	Y
 	                    </label>
 	                  </div>
 	                  <div class="icheck-primary d-inline">
 	                    <input  type="radio" name="r1" id="radioPrimary2" checked="">
 	                    <label for="radioPrimary2">
-	                    	아니오
+	                    	N
 	                    </label>
 	                  </div>
 	             
@@ -129,6 +129,12 @@
 	                <div class="form-group">
 	                  <label>수리비</label>
 			           <input type="number" name="repairCost" class="form-control" readonly="readonly">
+	                </div>
+	                
+	                
+	                 <div class="form-group" id="depositDate" style="display: none;">
+	                  <label>입금완료일</label>
+			           <input type="date" name="depositDate" class="form-control">
 	                </div>
  	           						
              	 	
@@ -220,6 +226,28 @@
    
  
 </div>
+
+<script>
+	
+	$('#radioPrimary1').click(function(){
+		
+		$('#depositDate').css('display','block');
+
+
+	});
+	
+	
+	$('#radioPrimary2').click(function(){
+		
+		$('#depositDate').css('display','none');
+
+
+	});
+
+
+</script>
+
+
   
   
 
