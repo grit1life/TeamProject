@@ -83,33 +83,23 @@
 		WHERE if( customer_level = '개인', 'Y', 'N' ) = 'Y';
 	 </select>
 				
-	  <!-- 개인고객 리스트 페이징  -->		
-	  <select id="getCustomerCnt" resultType="int">
-		SELECT 
-			COUNT(*)
-		FROM
-			customer
-	  </select>
-	  
-	  <!--개인고객 검색  -->
-	  <select id="getCustomerSearch" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
-			SELECT 
-			*
-			FROM
-			customer
-			WHERE 			
-			input_date 
-			between date('2020-03-25') and date('2020-03-30')+1
-			and
-			${sv1} LIKE CONCAT('%',#{sv1},'%'); <!--고객아이디 -->
-			and
-			${sv2} LIKE CONCAT('%',#{sv2},'%'); <!--ㄱ -->
-			AND
-			${sk} LIKE CONCAT('%',#{sk},'%');
-	  </select>
 
-	
+	  <!--개인고객 검색 및 리스트 -->
+	  <select id="getCustomerSearchList" parameterType="String"  resultMap="customerResultMap">
+				SELECT
+					*
+				FROM 
+				customer 
+				WHERE 
+				customer_id = #{customerId}
+				    or input_date between  #{fromDate}  AND  #{toDate}	
+					or customer_id = #{customerId}
+					or customer_name = #{customerName}
+				    or customer_class =#{customerClass};
+			
+	  </select>
 	  
+	 
 	  <!--개인 고객 상세보기  -->
 	  <select id="SelectForUpdate" parameterType="String" resultMap="customerResultMap">
 	  SELECT
@@ -219,7 +209,25 @@
 						
 		</select>
 		
-		
+	<!--개인사업/법인 검색 및 리스트 -->
+	  <select id="getCustomerSearchList2" parameterType="String"  resultMap="customerResultMap">
+				SELECT
+					*
+				FROM 
+				customer_company AS CP
+				JOIN 
+				customer AS C
+				ON
+				CP.customer_id = C.customer_id
+				WHERE 
+				C.customer_id = #{customerId}
+					or C.input_date between  #{fromDate}  AND  #{toDate}	
+					or C.customer_id = #{customerId}
+					or C.customer_name = #{customerName}
+					or C.customer_level = #{customerLevel}
+				    or C.customer_class =#{customerClass};
+				    
+	  </select>	
 	<!--개인사업/법인 고객 업데이트(값 불러오기) -->
 	  <select id="SelectForUpdate2" parameterType="String" resultMap="customerResultMap">
 			  
