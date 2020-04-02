@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.or.ksmart.mapper.GoodsCountMapper">
+	<resultMap type="kr.or.ksmart.domain.GoodsCount" id="goodsCountMap">
+		<result property="goodsCategoryName" column="goods_category_name"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="goodsDesc" column="goods_desc"/>
+		<result property="stockCount" column="goods_count"/>
+		<result property="rentalDayPrice" column="rental_day_price"/>
+		<result property="rentalCanCount" column="rental_can_count"/>
+		
+	
+	</resultMap>
+	<select id="goodsCount" resultMap="goodsCountMap" parameterType="kr.or.ksmart.domain.GoodsCount">
+		SELECT
+			GC.goods_category_name
+			,G.goods_code
+			,G.goods_name
+			,G.goods_desc
+			,G.stock_count-COALESCE(sum(gCount.rentalGoodsCount),0)AS rental_can_count
+		FROM
+			goods AS G
+		INNER JOIN 
+			goods_category AS GC
+		ON 
+			G.goods_category_code=GC.goods_category_code
+		<if test="goodsCategoryCode neq null and goodsCategoryCode neq ''.toString()">
+			AND
+				G.goods_category_code = #{goodsCategoryCode}
+		</if>
+		<if test="goodsName neq null and goodsName neq ''.toString()">
+			AND
+				G.goods_name like '%+${goodsName}+%'
+		</if>
+		<if test="goodsDesc neq null and goodsDesc neq ''.toString()">
+			AND
+				G.goods_desc like '%+${goodsDesc}+%'
+		</if>
+		LEFT JOIN
+			(
+			SELECT
+				COALESCE(DC.goods_code,S.goods_code) AS goodsCode
+				,G.goods_name,G.stock_count
+				,DC.rental_count,COALESCE(S.set_goods_count,1)AS setGoodsCount
+				,DC.rental_count*COALESCE(S.set_goods_count,1)AS rentalGoodsCount
+			FROM
+				doc_contract AS DC
+			LEFT JOIN
+				set_goods AS S
+			ON
+				DC.set_code=S.set_code
+			LEFT JOIN
+				goods AS G
+			ON 
+				S.goods_code=G.goods_code
+			OR
+				DC.goods_code=G.goods_code
+			WHERE  
+				DC.ispay='Y'
+			AND 
+				DC.progress_status!='반납완료'
+			)AS gCount
+		ON 
+			G.goods_code=gCount.goodsCode
+		GROUP BY
+			G.goods_code
+	</select>
+	<select id="setCount" resultMap="goodsCountMap" parameterType="kr.or.ksmart.domain.GoodsCount">
+		SELECT 
+			CountList.set_code,CountList.set_name,CountList.goods_name
+			,CountList.stock_count-SUM(CountList.goods_rental_count) AS rental_can_count
+		FROM 
+			(
+				SELECT 
+					DC.contract_code,DC.set_code,PS.set_name
+					,DC.goods_code,COALESCE(S.goods_code,DC.goods_code)AS all_goods_code
+					,GC.goods_category_name,G.goods_name,G.goods_desc
+					,G.stock_count
+					,DC.rental_count,coalesce(S.set_goods_count,1)
+					,SUM(DC.rental_count*coalesce(S.set_goods_count,1))AS goods_rental_count
+					,DC.ispay,DC.progress_status
+				FROM 
+					doc_contract AS DC
+				LEFT JOIN
+					set_goods AS S
+				ON 
+					DC.set_code=S.set_code
+				LEFT JOIN 
+					price_set AS PS
+				ON 
+					DC.set_code=PS.set_code
+				LEFT JOIN 
+					goods AS G
+				ON 
+					S.goods_code=G.goods_code
+				OR
+					DC.goods_code=G.goods_code
+				LEFT JOIN
+					goods_category AS GC
+				ON 
+					G.goods_category_code=GC.goods_category_code
+				WHERE 
+					DC.ispay='Y'
+				AND 
+					DC.progress_status!='반납완료'
+				AND 
+					CONCAT(GC.goods_category_name,G.goods_name,G.goods_desc) LIKE '%카%'
+				GROUP BY 
+					COALESCE(S.goods_code,DC.goods_code)
+			)AS CountList
+	</select>
+</mapper>

@@ -13,6 +13,8 @@ import kr.or.ksmart.domain.Branch;
 import kr.or.ksmart.domain.GoodsCount;
 import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.service.BranchService;
+import kr.or.ksmart.service.GoodsCategoryService;
+import kr.or.ksmart.service.GoodsCountService;
 import kr.or.ksmart.service.StaffService;
 
 @Controller
@@ -23,6 +25,12 @@ public class ModalController {
 	
 	@Autowired
 	private BranchService branchService;
+	
+	@Autowired
+	private GoodsCountService goodsCountService;
+	
+	@Autowired
+	private GoodsCategoryService goodsCategoryService;
 	
 	@GetMapping("/customerModal")
 	public String customerModal(Model model) {
@@ -37,7 +45,7 @@ public class ModalController {
 	}
 	
 	
-	@GetMapping("/modalStaffList")
+	@GetMapping("/staffSelectModal")
 	public String modalHtml(Model model
 			, @RequestParam(value="foreachNum", required = false, defaultValue = "0") int foreachNum
 			, Staff staff ) {
@@ -49,9 +57,9 @@ public class ModalController {
 		//System.out.println(staffList.toString());
 		model.addAttribute("staffList", staffList);
 		
-		return "modal/staffListModal";
+		return "modal/staffSelectModal";
 	}
-	@PostMapping("/modalStaffList")
+	@PostMapping("/staffListModal")
 	public String modalHtml(Model model
 			, Staff staff ) {
 		//System.out.println(staff+"<-controller staff");
@@ -59,23 +67,37 @@ public class ModalController {
 		//System.out.println(staffList.toString());
 		model.addAttribute("staffList", staffList);
 
-		return "modal/staffListModal2";
+		return "modal/staffListModal";
 	}
 	
-	@GetMapping("/modalGoodsList")
-	public String modalGoodsList() {
-		return "modal/goodsModal";
+	@GetMapping("/goodsSelectModal")
+	public String goodsSelectModal(Model model) {
+		model.addAttribute("getGoodsCategoryList", goodsCategoryService.getGoodsCategoryList());
+		return "modal/goodsSelectModal";
 	}
 	
-	@PostMapping("/modalGoodsList")
-	public String modalGoodsList(GoodsCount goodsCount) {
-		return "modal/goodsModal2";
+	@PostMapping("/goodsListModal")
+	public String goodsListModal(Model model,GoodsCount goodsCount) {
+		System.out.println(goodsCount.toString()+"form로 받는 값");
+		List<GoodsCount> goodsCountList = goodsCountService.goodscount(goodsCount);
+		model.addAttribute("goodsCountList", goodsCountList);
+		return "modal/goodsListModal";
 	} 
 	
-	@GetMapping("/modalSetList")
-	public String modalSetList() {
-		return "modal/setModal";
+	@GetMapping("/setSelectModal")
+	public String setSelectModal(Model model) {
+		//Category selectBox의 값을 가지고 오기
+		model.addAttribute("getGoodsCategoryList", goodsCategoryService.getGoodsCategoryList());
+		return "modal/setSelectModal";
 	}
+	
+	@PostMapping("/setListModal")
+	public String setListModal(Model model,GoodsCount goodsCount) {
+		System.out.println(goodsCount.toString()+"form로 받는 값");
+		List<GoodsCount> setCountList = goodsCountService.setCount(goodsCount);
+		model.addAttribute("setCountList", setCountList);
+		return "modal/setListModal";
+	} 
 	
 
 }

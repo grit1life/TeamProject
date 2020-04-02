@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.or.ksmart.mapper.PriceMapper">
+	
+	<select id="period" resultType="int">
+		SELECT
+			MAX(PS.rental_from_period) AS periodMax
+		FROM
+			price_sale_basic AS PS
+		WHERE
+			PS.discount_start_day=(
+			SELECT 
+				MAX(PS.discount_start_day) AS startDay
+			FROM 
+				price_sale_basic PS
+			WHERE 
+				PS.discount_start_day &lt;= NOW()
+			);
+	</select>
+	
+	<select id="maxMinSaleApplication" parameterType="int" resultType="double">
+		SELECT 
+			PS.discount_rate
+		FROM
+			price_sale_basic PS
+		WHERE 
+			PS.discount_start_day=(
+				SELECT 
+					MAX(PS.discount_start_day) AS startDay
+				FROM 
+					price_sale_basic PS
+				WHERE 
+					PS.discount_start_day &lt;= NOW()
+			)
+		AND 
+			PS.rental_from_period=#{period};
+	</select>
+	
+	<select id="saleApplication" parameterType="String" resultType="double">
+		SELECT 
+			PS.discount_rate
+		FROM
+			price_sale_basic PS
+		WHERE 
+			PS.discount_start_day=(
+				SELECT 
+					MAX(PS.discount_start_day) AS startDay
+				FROM 
+					price_sale_basic PS
+				WHERE 
+					PS.discount_start_day &lt;= NOW()
+			)
+		AND 
+			PS.rental_from_period=(
+				SELECT
+					MAX(PS.rental_from_period)
+				FROM
+					price_sale_basic AS PS
+				WHERE 
+					PS.rental_from_period &lt;= #{period});
+	</select>
+
+</mapper>

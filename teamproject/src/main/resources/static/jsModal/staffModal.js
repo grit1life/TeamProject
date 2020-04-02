@@ -6,6 +6,10 @@ $(function(){
 	 *modal표시 
 	 * 
 	 */
+	
+	$(document).on('click', '#staffModal', function(){
+		$('#__staffModal').modal('show');
+	});
 	$('#staffModal').click(function(){	
 		__modalRquest('/modalStaffList', '모달타이틀','__staffModal');	
 	});
@@ -60,7 +64,7 @@ $(function(){
 	$(document).on('click', '#staffSerchBtn', function(){
 		console.log("staffSerchBtn");
 		const formData = new FormData($("form#staffSerch")[0]);
-		$('.modalTable').remove();
+		$('.staffModalTable').remove();
 		console.log(formData.get('branchCode'));
 		__modalRquest2('/modalStaffList', '모달타이틀', formData);
 	});

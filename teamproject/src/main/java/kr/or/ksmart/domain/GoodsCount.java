@@ -10,11 +10,11 @@ public class GoodsCount {
 	private String goodsInputDate;
 	private String goodsDesc;
 	
-	private String rental_day_price;
-	private String price_input_date;
-	private int price_input_staff_code;
+	private String rentalDayPrice;
+	private String priceInputDdate;
+	private int priceInputStaffCode;
 	
-	private String goodsCategoryName;
+	private String goodsCategoryName;//ok
 	
 	private String setCode;
 	private String setName;
@@ -22,21 +22,11 @@ public class GoodsCount {
 	private String setInputDate;
 	private int setInputStaffCode;
 	
+	private String setSerch;
+	
 	private String rentalPransCount;
 	private String rentingCount;
 	private int rentalCanCount;
-	
-	@Override
-	public String toString() {
-		return "GoodsCount [goodsCode=" + goodsCode + ", goodsCategoryCode=" + goodsCategoryCode + ", goodsName="
-				+ goodsName + ", goodsBarcode=" + goodsBarcode + ", stockCount=" + stockCount + ", goodsInputDate="
-				+ goodsInputDate + ", goodsDesc=" + goodsDesc + ", rental_day_price=" + rental_day_price
-				+ ", price_input_date=" + price_input_date + ", price_input_staff_code=" + price_input_staff_code
-				+ ", goodsCategoryName=" + goodsCategoryName + ", setCode=" + setCode + ", setName=" + setName
-				+ ", setDayPrice=" + setDayPrice + ", setInputDate=" + setInputDate + ", setInputStaffCode="
-				+ setInputStaffCode + ", rentalPransCount=" + rentalPransCount + ", rentingCount=" + rentingCount
-				+ ", rentalCanCount=" + rentalCanCount + "]";
-	}
 	public String getGoodsCode() {
 		return goodsCode;
 	}
@@ -79,23 +69,23 @@ public class GoodsCount {
 	public void setGoodsDesc(String goodsDesc) {
 		this.goodsDesc = goodsDesc;
 	}
-	public String getRental_day_price() {
-		return rental_day_price;
+	public String getRentalDayPrice() {
+		return rentalDayPrice;
 	}
-	public void setRental_day_price(String rental_day_price) {
-		this.rental_day_price = rental_day_price;
+	public void setRentalDayPrice(String rentalDayPrice) {
+		this.rentalDayPrice = rentalDayPrice;
 	}
-	public String getPrice_input_date() {
-		return price_input_date;
+	public String getPriceInputDdate() {
+		return priceInputDdate;
 	}
-	public void setPrice_input_date(String price_input_date) {
-		this.price_input_date = price_input_date;
+	public void setPriceInputDdate(String priceInputDdate) {
+		this.priceInputDdate = priceInputDdate;
 	}
-	public int getPrice_input_staff_code() {
-		return price_input_staff_code;
+	public int getPriceInputStaffCode() {
+		return priceInputStaffCode;
 	}
-	public void setPrice_input_staff_code(int price_input_staff_code) {
-		this.price_input_staff_code = price_input_staff_code;
+	public void setPriceInputStaffCode(int priceInputStaffCode) {
+		this.priceInputStaffCode = priceInputStaffCode;
 	}
 	public String getGoodsCategoryName() {
 		return goodsCategoryName;
@@ -133,6 +123,12 @@ public class GoodsCount {
 	public void setSetInputStaffCode(int setInputStaffCode) {
 		this.setInputStaffCode = setInputStaffCode;
 	}
+	public String getSetSerch() {
+		return setSerch;
+	}
+	public void setSetSerch(String setSerch) {
+		this.setSerch = setSerch;
+	}
 	public String getRentalPransCount() {
 		return rentalPransCount;
 	}
@@ -151,10 +147,18 @@ public class GoodsCount {
 	public void setRentalCanCount(int rentalCanCount) {
 		this.rentalCanCount = rentalCanCount;
 	}
-
-
-
-
+	@Override
+	public String toString() {
+		return "GoodsCount [goodsCode=" + goodsCode + ", goodsCategoryCode=" + goodsCategoryCode + ", goodsName="
+				+ goodsName + ", goodsBarcode=" + goodsBarcode + ", stockCount=" + stockCount + ", goodsInputDate="
+				+ goodsInputDate + ", goodsDesc=" + goodsDesc + ", rentalDayPrice=" + rentalDayPrice
+				+ ", priceInputDdate=" + priceInputDdate + ", priceInputStaffCode=" + priceInputStaffCode
+				+ ", goodsCategoryName=" + goodsCategoryName + ", setCode=" + setCode + ", setName=" + setName
+				+ ", setDayPrice=" + setDayPrice + ", setInputDate=" + setInputDate + ", setInputStaffCode="
+				+ setInputStaffCode + ", setSerch=" + setSerch + ", rentalPransCount=" + rentalPransCount
+				+ ", rentingCount=" + rentingCount + ", rentalCanCount=" + rentalCanCount + "]";
+	}
 	
-	
+
+
 }

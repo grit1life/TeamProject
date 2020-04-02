@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<table id="example2" class="setModalTable table table-bordered table-hover dataTable" aria-describedby="example2_info">
+	<thead>
+	   	<tr>
+	        <th>세트명</th>
+	        <th>세트 내역</th>
+	        <th>렌탈 가능 수량</th>
+	        <th></th>
+	   	</tr>
+	</thead>
+	<tbody>
+		 <tr th:each="SC:${setCountList}">
+			<td id="setName" th:text=${SC.setName}></td>
+			<td id="setCode"  th:text=${SC.setCode} style="display:none;"></td>
+			<td id="goodsName" th:text=${SC.goodsName}></td>
+			<td id="rentalCanCount" th:text=${SC.rentalCanCount}></td>
+			<td><button id="setChoice" class="btn btn-info" type="button">선택</button></td>
+		 </tr>
+	</tbody>
+</table>
