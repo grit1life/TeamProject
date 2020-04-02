@@ -29,6 +29,20 @@ $(function(){
 		console.log(customerChoiceHtml+"<-customerChoiceHtml");
 		$('[name="customerContractor"]').after(customerChoiceHtml);
 		$('#__customerModal').modal('hide');
+		
+		//배송지 선택란에서 '계약자 주소와 동일'이 선택되었을 경우, 계약자 주소를 배송지 란에 입력
+		if($('#sameAddress').prop('checked')){
+			$('#addressMessage').remove();
+			var deliveryNumberM = $('#number').text();
+			var deliveryAddressM = $('#addressContractor').text();
+			var deliveryDetailAddressM = $('#detailAddressContractor').text();
+			var deliveryTelM = $('#telContractor').text();
+			
+			$('input[name="deliveryNumber"]').val(deliveryNumberM);
+			$('input[name="deliveryAddress"]').val(deliveryAddressM);
+			$('input[name="deliveryDetailAddress"]').val(deliveryDetailAddressM);
+			$('input[name="deliveryTel"]').val(deliveryTelM);
+		}
 	});
 	
 	//customer(company) 선택시
@@ -55,41 +69,48 @@ $(function(){
 	});
 
 	//렌탈 기간 입력후 기간 계산
-	$('input[name="rentalFromDate"]').on('blur',function(){
+	$('input.rentalDate').on('blur',function(){
 		console.log('blur');
 		var fromStr = $('input[name="rentalFromDate"]').val();
 		var toStr = $('input[name="rentalToDate"]').val();
+		var fromDate;
+		var toDate;
+		if(fromStr!="")fromDate=new Date(fromStr);
+		if(toStr!="")toDate=new Date(toStr);
+		var date = new Date;
+
+		console.log(fromStr+'<-fromStr');
+		console.log(toStr+'<-toStr');
+		console.log(fromDate+'<-fromDate');
+		console.log(toDate+'<-toDate');
+		
 		if(fromStr!="" && toStr!=""){
-			console.log(fromStr+'<-fromStr');
-			console.log(toStr+'<-toStr');
-			var fromDate = new Date(fromStr);
-			var toDate = new Date(toStr);
-			console.log(fromDate+'<-fromDate');
-			console.log(toDate+'<-toDate');
-			var period = toDate.getDate()-fromDate.getDate();
+			if(fromDate<=date){
+				alert("렌탈은 네일부터 가능합니다")
+			}else if(fromDate>toDate){
+				alert("올바른 날짜를 입력하세요");
+			}
+			var period = (toDate-fromDate)/1000/60/60/24;
 			console.log(period+"<=period");
 			$('input[name="rentalPeriod"]').val(period);
-		}
-	});
-	
-	$('input[name="rentalToDate"]').on('blur',function(){
-		console.log('blur');
-		var fromStr = $('input[name="rentalFromDate"]').val();
-		var toStr = $('input[name="rentalToDate"]').val();
-		if(fromStr!="" && toStr!=""){
-			console.log(fromStr+'<-fromStr');
-			console.log(toStr+'<-toStr');
-			var fromDate = new Date(fromStr);
-			var toDate = new Date(toStr);
-			console.log(fromDate+'<-fromDate');
-			console.log(toDate+'<-toDate');
-			var period = toDate.getDate()-fromDate.getDate();
-			console.log(period+"<=period");
-			$('input[name="rentalPeriod"]').val(period);
+			
+			var request = $.ajax({
+				url : "/saleApplication",
+				type : "post",
+				data : {period:period}
+			});
+			request.done(function(rate){
+				console.log(rate);
+				$('#sale').text(rate+'%할인')
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				  alert("period error");
+			});
 		};
 	});
 	//주소 출력(modal내 입력)
 	$(document).on('click', '#addressBtn', function(){
+		$('#addressMessage').remove();
 		var deliveryNumberM = $('#deliveryNumberM').val();
 		var deliveryAddressM = $('#deliveryAddressM').val();
 		var deliveryDetailAddressM = $('#deliveryDetailAddressM').val();
@@ -103,6 +124,7 @@ $(function(){
 	//주소 출력(계약자하고 동일)
 	$(function(){
 		$('#sameAddress').click(function(){
+			$('#addressMessage').remove();
 			var deliveryNumberM = $('#number').text();
 			var deliveryAddressM = $('#addressContractor').text();
 			var deliveryDetailAddressM = $('#detailAddressContractor').text();
@@ -120,6 +142,8 @@ $(function(){
 	// /jsModal/staffModal.js -> staffListModal작성,검색
 	//modal에서 직원 선택시
 	$(document).on('click', '#staffChoice', function(){
+		$('#staffMessage').remove();
+		
 		console.log("staffChoice");
 		console.log(this);
 		var str = $(this).parents('tr');
@@ -140,20 +164,24 @@ $(function(){
 	});
 	//상품 추가
 	$(document).on('click', '#goodsChoice', function(){
-		var goodsCode = $('#goodsCode').text();
-		var goodName = $('#goodName').text();
-		var rentalDayPrice = $('#rentalDayPrice').text();
-		var rentalCanCount = $('#rentalCanCount').text();
+		var choiceTr = $(this).parents('tr');
+			
+		var goodsCode = choiceTr.find('#goodsCode').text();
+		var goodName = choiceTr.find('#goodsName').text();
+		var rentalDayPrice = choiceTr.find('#rentalDayPrice').text();
+		var rentalCanCount = choiceTr.find('#rentalCanCount').text();
+		var goodsCategoryName = choiceTr.find('#goodsCategoryName').text();
 		
 		var goodsChoiceHtml = '<tr>';
-			goodsChoiceHtml += '<td>'+goodName+'<input type="text" name="goodsCode" hidden="hidden"></td>';
-			goodsChoiceHtml += '<td>'+ rentalDayPrice +'</td>';
-			goodsChoiceHtml += '<td>'+ rentalCanCount +'</td>'
+			goodsChoiceHtml += '<td>'+ goodsCategoryName +'</td>';
+			goodsChoiceHtml += '<td>'+goodName+'<input type="text" name="goodsCode" value="'+goodsCode+'" hidden="hidden"></td>';
+			goodsChoiceHtml += '<td id="rentalDayPrice">'+ rentalDayPrice +'</td>';
+			goodsChoiceHtml += '<td id="rentalCanCount">'+ rentalCanCount +'</td>'
 			goodsChoiceHtml += '<td style="width:120px;"><input type="number" name="rentalCount" style="width:60px; box-sizing:border-box" class="checkReadonly">개</td>'
 			goodsChoiceHtml += '<td>-300</td>';
-			goodsChoiceHtml += '<td>49700</td>';
+			goodsChoiceHtml += '<td></td>';
 			goodsChoiceHtml += '<td class="checkHidden">';
-			goodsChoiceHtml += '<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">';
+			goodsChoiceHtml += '<a id="goodsDelete" class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">';
 			goodsChoiceHtml += '<i class="fas fa-trash"></i>&ensp;삭제</a>';
 			goodsChoiceHtml += '</td>';
 
@@ -161,6 +189,10 @@ $(function(){
 		$('input[name="goodsCode"]').val(goodsCode);
 		$('#__goodsModal').modal('hide');
 	});
+	$(document).on('click', '#goodsDelete', function(){
+		$(this).parents('tr').remove();
+	});
+	
 	//세트 추가
 	$(document).on('click', '#setChoice', function(){
 		console.log('setChoice');

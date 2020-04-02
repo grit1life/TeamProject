@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<table id="example2" class="goodsModalTable table table-bordered table-hover dataTable" aria-describedby="example2_info">
+	<thead>
+	   	<tr>
+	        <th>분류</th>
+	        <th>상품명</th>
+	        <th>단가</th>
+	        <th>상세 정보</th>
+	        <th>렌탈 가능 수량</th>
+	        <th></th>
+	   	</tr>
+	</thead>
+	<tbody>
+		 <tr th:each="GC:${goodsCountList}">
+			<td id="goodsCategoryName" th:text="${GC.goodsCategoryName}"></td>
+			<td id="goodsName" th:text="${GC.goodsName}"></td>
+			<td id="goodsCode" style="display:none;" th:text="${GC.goodsCode}"></td>
+			<td id="rentalDayPrice" th:text="${GC.rentalDayPrice}"></td>
+			<td id="goodsDesc" th:text="${GC.goodsDesc}"></td>
+			<td id="rentalCanCount" th:text="${GC.rentalCanCount}"></td>
+			<td><button id="goodsChoice" class="btn btn-info" type="button">선택</button></td>
+		 </tr>
+	</tbody>
+</table>

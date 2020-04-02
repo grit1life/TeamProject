@@ -39,13 +39,8 @@
 		  		<label>계약자 정보</label><br>
 		  		<input name="customerContractor" type="hidden">
 			  	<div id="customerHtml">
-				  	(주)GS칼텍스<br>
-				  	대표 허세홍<br>
-				  	02-000-0000<br>
-				  	<span id="number" style="display:none;">1111111</span><span id="addressContractor">서울 강남구 논현로 508 GS타워 13층 XX 2팀</span><span id="detailAddressContractor">10호실</span><br>
-				  	단당자 &emsp;나담당   <span id="tel">010-000-0001</span><br>
-				</div>  	
-				등급 &emsp;<input id="customerClass" style="border:none" value="등급A"><br>
+				  	<span style="color:red;">고객님을 선택하세요</span>
+				</div>  
 			  	<button id="customerModal" type="button" class="checkHidden btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
         			<i class="fas fa-folder"></i>&ensp;고객님 검색
       			</button>
@@ -54,28 +49,28 @@
 		  	<div class="col-sm-7 invoice-col">
 			  	<label>렌탈 기간</label><br>
 			  	<div style="display:inline-block;">
-			  		<input name="rentalFromDate" type="date" style="width:170px;" class="checkReadonly form-control">
+			  		<input name="rentalFromDate" type="date" style="width:170px;" class="rentalDate checkReadonly form-control">
 			  	</div>
 			  	&emsp;~&emsp;
 			  	<div style="display:inline-block;">
-			  		<input name="rentalToDate" type="date" style="width:170px;" class="checkReadonly form-control">
+			  		<input name="rentalToDate" type="date" style="width:170px;" class="rentalDate checkReadonly form-control">
 			  	</div>
 			  	<input name="rentalPeriod" type="text" value="12" readonly="readonly" style="width:30px;border:none;text-align: right;">
-			  	<span id="sale">일&emsp;30%할인</span>
+			  	<span>일&emsp;</span><span id="sale">30%할인</span>
 			  	<br>
 		  		
 		  		<br><label>배송지 정보</label><br>
 		  		<input type="radio" name="address" id=sameAddress readonly="readonly">계약자 주소하고 동일&emsp;
 		  		<input type="radio" name="address" id="addressModal" readonly="readonly">다른 주수로 배송<br>
+				<span id="addressMessage" style="color:red;">배송지을 선택하세요</span>
 				<div id="address">
-				  111-2222   서울 강남구 논현로 508 GS타워 13층 XX 2팀&ensp;10호실
-				  <input name="deliveryNumber" type="hidden" value="111-2222">
-				  <input name="deliveryAddress" type="hidden" value="서울 강남구 논현로 508 GS타워 13층 XX 2팀">
-				  <input name="deliveryDetailAddress" type="hidden" value="10호실">
-				  <input name="deliveryTel" type="readonly" style="width:100%;border:none" value="010-1111-2222"><br><br>
-				
+				  <input name="deliveryNumber" type="hidden" style="width:100%;border:none">
+				  <input name="deliveryAddress" readonly="readonly" style="width:100%;border:none">
+				  <input name="deliveryDetailAddress" readonly="readonly" style="width:100%;border:none">
+				  <input name="deliveryTel" readonly="readonly" style="width:100%;border:none"><br><br>
 				<div id="staffHtml">
 			  		<label>담당자</label>
+			  		<span id="staffMessage" style="color:red;">담당자를 선택하세요</span>
 				  	<button id="staffModal" type="button" class="checkHidden btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
 		       			<i class="fas fa-folder"></i>&ensp;담당자 검색
 		     		</button>
@@ -92,6 +87,7 @@
   	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
     	<thead>
                <tr>
+                 <th>분류</th>
                  <th>세트명/상품명</th>
                  <th>단가(기본 할인후)</th>
                  <th>렌탈 가능 재고</th>
@@ -103,6 +99,7 @@
          </thead>
             <tbody>
              <tr>
+               <td></td>
                <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
                <td>10000</td>
                <td>300개</td>
@@ -110,11 +107,12 @@
                <td>-300</td>
                <td>49700</td>
                <td class="checkHidden">
-               	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+               	<a id="goodsDelete" class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
                    <i class="fas fa-trash"></i>&ensp;삭제</a>
                </td>
              </tr>
              <tr>
+               <td></td>
                <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
                <td>20000</td>
                <td>20개</td>
@@ -122,12 +120,12 @@
                <td>-600</td>
                <td>99400</td>
                <td class="checkHidden">
-               	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+               	<a id="goodsDelete" class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
                    <i class="fas fa-trash"></i>&ensp;삭제</a>
                </td>
              </tr>
              <tr id="goodAdd" class="checkHidden">
-	             <td colspan="7" >
+	             <td colspan="8" >
 	               	<button id="setModal" type="button" class="btn btn-sm btn-info" style="padding:1px 4px 1px 4px;float:right;">
 	       				<i class="fas fa-folder"></i>&ensp;세트 추가
 	     			</button>
@@ -137,7 +135,7 @@
 	             </td>
              </tr>
              <tr style="border-top: solid #dee2e6 2px;">
-               <td colspan="4"></td>
+               <td colspan="5"></td>
                <td>합계액</td>
                <td><input type="text" name="tradingTotal" readonly="readonly"></td>
                <td class="checkHidden"></td>
@@ -159,11 +157,11 @@
   
 </div>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/jsModal/staffModal.js"></script>
+<script src="/jsModal/selectXlModal.js"></script>
 <script src="/jsModal/addressModal.js"></script>
-<script src="/jsModal/customerModal.js"></script>
+
 <script src="/jsDoc/contractModal.js"></script>
-<script src="/jsModal/goodsModal.js"></script>
+
 
 </th:block>
 </body>
