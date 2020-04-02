@@ -3,7 +3,9 @@ package kr.or.ksmart.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import kr.or.ksmart.domain.Customer;
+import kr.or.ksmart.domain.DocEstimateForm;
 
 
 
@@ -22,12 +24,15 @@ public interface CustomerMapper {
 	public int cUpdate(Customer customer);
 	//개인고객 삭제
 	public int cDelete(String customerId, String customerName);	
-	//개인고객 검색
-	public List<Customer> getCustomerSearch(String sk
-			 ,String sv1 
-			 ,String sv2
-			 ,String sv3);
-	
+	//개인고객 검색 리스트
+	public List<Customer> getCustomerSearchList(String customerId
+											   ,String customerName 
+											   ,String customerClass
+											   ,String fromDate
+											   ,String toDate
+											   );
+	//개인고객 검색 리스트 페이징
+	public int getCustomerSearchListCnt();
 	
 	//개인사업&법인 고객 등록
 	public int cInsert2(Customer customer); 
@@ -38,7 +43,15 @@ public interface CustomerMapper {
 	//개인사업&법인 업데이트(값 수정)
 	public int cUpdate2(Customer customer);
 	//개인사업&법인 삭제
-	public int cDelete2(String customerId, String customerName);	
+	public int cDelete2(String customerId, String customerName);
+	//개인고객 검색 리스트
+	public List<Customer> getCustomerSearchList2(String customerId
+												  ,String customerName 
+												  ,String customerClass
+												  ,String customerLevel
+												  ,String fromDate
+												  ,String toDate
+												   );
 	
 	
 }
