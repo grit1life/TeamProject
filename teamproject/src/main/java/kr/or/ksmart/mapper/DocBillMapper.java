@@ -17,4 +17,7 @@ public interface DocBillMapper {
 	
 	public DocBill getDocBillForm(String billCode);
 	
+	public int getBillLastCode();
+	public int getBillPayNumber(String contractCode);
+	public int insertBill(DocBill docBill);
 }

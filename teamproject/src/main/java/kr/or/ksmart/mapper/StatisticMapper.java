@@ -1,6 +1,7 @@
 package kr.or.ksmart.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,4 +19,14 @@ public interface StatisticMapper {
 	
 	public List<Outcome> getBranchOutcome();
 	
+	public List<Outcome> getAllPeriodOutCome(Map<String, Object> map);
+	public List<Outcome> getBranchNameList();
+	public List<Outcome> getBranchPeriodOutcome(Map<String, Object> map);
+	public List<Outcome> getPersnlPeriodOutcome(Map<String, Object> map);
+	
+	public List<Outcome> getAllPYearOutCome(Map<String, Object> map);
+	public List<Outcome> getBranchPYearOutcome(Map<String, Object> map);
+	public List<Outcome> getPersnlPYearOutcome(Map<String, Object> map);
+	
+	public List<Outcome> getBranchStaff();
 }

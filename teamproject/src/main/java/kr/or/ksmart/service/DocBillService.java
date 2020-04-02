@@ -2,9 +2,7 @@ package kr.or.ksmart.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.DocBill;
-import kr.or.ksmart.domain.DocContractForm;
 import kr.or.ksmart.mapper.DocBillMapper;
 
 @Service
@@ -23,6 +20,20 @@ public class DocBillService {
 
 	@Autowired
 	private DocBillMapper docBillMapper;
+	
+	public int insertBill(DocBill docBill) {
+		int result = docBillMapper.insertBill(docBill);
+		return result;
+	}
+	public int getBillPayNumber(String contractCode) {
+		int billPayNumber = docBillMapper.getBillPayNumber(contractCode);
+		return billPayNumber;
+	}
+	
+	public int getBillLastCode() {
+		int lastCode = docBillMapper.getBillLastCode();
+		return lastCode;
+	}
 	
 	public Map<String, Object> getDocBillList(int currentPage){
 		

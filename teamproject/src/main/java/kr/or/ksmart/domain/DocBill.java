@@ -6,7 +6,7 @@ public class DocBill {
 	private String billExpectedDate; //청구일자
 	private String billDate;	//입금기한
 	private String billPayday; //입금일자
-	private String billPayNumber;  //청구회차
+	private int billPayNumber;  //청구회차
 	private String contractTotalPrice;
 	private String deliveryTel;
 	private String customerCall;
@@ -67,10 +67,10 @@ public class DocBill {
 	public void setPayMonth(int payMonth) {
 		this.payMonth = payMonth;
 	}
-	public String getBillPayNumber() {
+	public int getBillPayNumber() {
 		return billPayNumber;
 	}
-	public void setBillPayNumber(String billPayNumber) {
+	public void setBillPayNumber(int billPayNumber) {
 		this.billPayNumber = billPayNumber;
 	}
 	public String getBillCode() {

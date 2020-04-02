@@ -19,6 +19,10 @@ public class DocContractFormService {
 	@Autowired
 	private DocContractFormMapper docContractFormMapper;
 	
+	public List<DocContractForm> getContractSchedulerList(){
+		List<DocContractForm> list = docContractFormMapper.getContractSchedulerList();
+		return list;
+	}
 	
 	public Map<String, Object> getContractList(int currentPage){
 		int cnt = docContractFormMapper.getContractListCnt();

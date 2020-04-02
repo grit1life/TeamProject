@@ -35,6 +35,17 @@
 		<result property="inputStaffName" column="inputStaffName"/>
 		<result property="total" column="total"/>
 	</resultMap>
+	<select id="getContractSchedulerList" resultMap="contractResultMap">
+		SELECT
+			 * 
+			 ,SUM(contract_total_price) AS total 
+		FROM 
+			doc_contract
+		WHERE 
+			NOW() BETWEEN rental_from_date AND rental_to_date
+		GROUP BY
+			contract_code
+	</select>
 	<select id="getContractList" parameterType="int" resultMap="contractResultMap">
 		SELECT 
 				*

@@ -47,6 +47,7 @@ public class DocContractForm {
 	private int total;
 	private int firstClmn;
 	private int lastClmn;
+	
 	public int getFirstClmn() {
 		return firstClmn;
 	}

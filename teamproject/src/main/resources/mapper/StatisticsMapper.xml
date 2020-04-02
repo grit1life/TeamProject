@@ -24,6 +24,20 @@
 		GROUP BY 
 			MONTH(contract_date)
 	</select>
+	<select id="getAllPeriodOutCome" resultType="Outcome" parameterType="map">
+		SELECT
+			YEAR(contract_date) AS year
+		  , MONTH(contract_date) AS month
+		  , SUM(contract_total_price) AS sum
+		FROM
+			doc_contract	
+		WHERE
+			contract_date &gt;= #{fromDate}
+			AND
+			contract_date &lt; #{toDate}
+		GROUP BY 
+			YEAR(contract_date), MONTH(contract_date)
+	</select>
 	<select id="getPersonalOutcome" resultType="Outcome">
 		SELECT
 			staff_name AS staffName
@@ -36,7 +50,7 @@
 		ON 
 			C.staff_code = S.staff_code
 		WHERE
-			YEAR(C.contract_date)>YEAR(NOW())-1
+			YEAR(C.contract_date)&gt;YEAR(NOW())-1
 		GROUP BY 
 			S.staff_code, MONTH(C.contract_date)
 		ORDER BY 
@@ -62,9 +76,179 @@
 				AND
 			SC.branch_code = B.branch_code
 		WHERE
-			YEAR(C.contract_date)>YEAR(NOW())-1
+			YEAR(C.contract_date)&gt;YEAR(NOW())-1
 		GROUP BY
 			B.branch_code, MONTH(C.contract_date)
 		ORDER BY B.branch_name, MONTH(C.contract_date) 
+	</select>
+	<select id="getBranchPeriodOutcome" resultType="Outcome">
+		SELECT
+			B.branch_name AS branchName
+		  , YEAR(C.contract_date) AS year
+		  , MONTH(C.contract_date) AS month
+		  , SUM(C.contract_total_price) AS sum
+		FROM
+			doc_contract AS C
+		INNER JOIN
+			staff AS S
+		INNER JOIN
+			staff_change AS SC
+		INNER JOIN
+			branch AS B
+		ON 
+			C.staff_code = S.staff_code
+				AND
+			S.staff_code = SC.staff_id
+				AND
+			SC.branch_code = B.branch_code
+		WHERE
+			contract_date &gt;= #{fromDate}
+			AND
+			contract_date &lt; #{toDate}
+			AND
+			branch_name IN(
+			<foreach collection="bArr" item="item" separator=", ">
+				#{item}
+			</foreach>
+			)
+		GROUP BY
+			B.branch_code, MONTH(C.contract_date)
+		ORDER BY YEAR(contract_date), MONTH(C.contract_date), B.branch_name  
+	</select>
+	<select id="getBranchNameList" resultType="Outcome">
+		SELECT 
+			branch_name AS branchName
+		FROM 
+			branch
+	</select>
+	<select id="getBranchStaff" resultType="Outcome">
+		SELECT 
+			B.branch_name AS branchName 
+			, S.staff_name AS staffName
+		FROM 
+			staff AS S
+		INNER JOIN
+			staff_change AS SC
+		INNER JOIN
+			branch AS B
+			ON
+				S.staff_code = SC.staff_id
+				AND
+				B.branch_code = SC.branch_code
+		WHERE 
+			SC.staff_to_period = "9999-01-01"
+	</select>
+	<select id="getPersnlPeriodOutcome" resultType="Outcome">
+		SELECT
+			S.staff_name AS staffName
+		  , YEAR(C.contract_date) AS year
+		  , MONTH(C.contract_date) AS month
+		  , SUM(C.contract_total_price) AS sum
+		FROM
+			doc_contract AS C
+		INNER JOIN
+			staff AS S
+		INNER JOIN
+			staff_change AS SC
+		INNER JOIN
+			branch AS B
+		ON 
+			C.staff_code = S.staff_code
+				AND
+			S.staff_code = SC.staff_id
+				AND
+			SC.branch_code = B.branch_code
+		WHERE
+			contract_date &gt;= #{fromDate}
+			AND
+			contract_date &lt; #{toDate}
+			AND
+			S.staff_name IN(
+			<foreach collection="pArr" item="item" separator=", ">
+				#{item}
+			</foreach>
+			)
+		GROUP BY
+			B.branch_code, MONTH(C.contract_date)
+		ORDER BY YEAR(contract_date), MONTH(C.contract_date), S.staff_name  
+	</select>
+	<select id="getAllPYearOutCome" resultType="Outcome">
+		SELECT
+			YEAR(contract_date) AS year
+		  , SUM(contract_total_price) AS sum
+		FROM
+			doc_contract	
+		WHERE
+			YEAR(contract_date) &gt;= #{fromYear}
+			AND
+			YEAR(contract_date) &lt;= #{toYear}
+		GROUP BY 
+			YEAR(contract_date)
+	</select>
+	<select id="getBranchPYearOutcome" resultType="Outcome">
+		SELECT
+			B.branch_name AS branchName
+		  , YEAR(C.contract_date) AS year
+		  , SUM(C.contract_total_price) AS sum
+		FROM
+			doc_contract AS C
+		INNER JOIN
+			staff AS S
+		INNER JOIN
+			staff_change AS SC
+		INNER JOIN
+			branch AS B
+		ON 
+			C.staff_code = S.staff_code
+				AND
+			S.staff_code = SC.staff_id
+				AND
+			SC.branch_code = B.branch_code
+		WHERE
+			YEAR(contract_date) &gt;= #{fromYear}
+			AND
+			YEAR(contract_date) &lt;= #{toYear}
+			AND
+			branch_name IN(
+			<foreach collection="bArr" item="item" separator=", ">
+				#{item}
+			</foreach>
+			)
+		GROUP BY
+			B.branch_code, YEAR(C.contract_date)
+		ORDER BY YEAR(contract_date), B.branch_name 
+	</select>
+	<select id="getPersnlPYearOutcome" resultType="Outcome">
+		SELECT
+			S.staff_name AS staffName
+		  , YEAR(C.contract_date) AS year
+		  , SUM(C.contract_total_price) AS sum
+		FROM
+			doc_contract AS C
+		INNER JOIN
+			staff AS S
+		INNER JOIN
+			staff_change AS SC
+		INNER JOIN
+			branch AS B
+		ON 
+			C.staff_code = S.staff_code
+				AND
+			S.staff_code = SC.staff_id
+				AND
+			SC.branch_code = B.branch_code
+		WHERE
+			YEAR(contract_date) &gt;= #{fromYear}
+			AND
+			YEAR(contract_date) &lt;= #{toYear}
+			AND
+			S.staff_name IN(
+			<foreach collection="pArr" item="item" separator=", ">
+				#{item}
+			</foreach>
+			)
+		GROUP BY
+			B.branch_code, YEAR(C.contract_date)
+		ORDER BY YEAR(contract_date), S.staff_name  
 	</select>
 </mapper>

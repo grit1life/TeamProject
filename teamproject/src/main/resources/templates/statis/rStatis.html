@@ -12,9 +12,59 @@
     <th:block layout:fragment="customContents">
       <div class="content-wrapper">
                     <!-- BAR CHART -->
-             db 연결 완료</br>
-             	차트 디자인(색) 필요(2020-03-19)
-            <div class="card card-success">
+             	연도별 월별 검색완료(2020-04-02)</br>
+             	차트 디자인(색) 필요</br>
+      	   <div  class="btn-group btn-group-toggle col-2" data-toggle="buttons">
+	           <label class="btn bg-olive" id="byYear">
+	             <input type="radio" class='changeSetup' name="options" id="rdoByYear" autocomplete="off"> 연도별
+	           </label>
+	           <label class="btn bg-olive active" id="byMonth" >
+	             <input type="radio" class='changeSetup' name="options" id="rdoByMonth" autocomplete="off" checked> 월별
+	           </label>
+	       </div>
+	       <div style="display: inline-block" class="col-1">
+	         	<input id="startYear" type="text" class="changeSetup form-control">
+	       </div>
+	       <div style="display: inline-block" id="startMonthBox" class="col-1">
+	         	<select id="startMonth" class="changeSetup form-control">
+	         		<option>월</option>
+	         		<option>1</option>
+	         		<option>2</option>
+	         		<option>3</option>
+	         		<option>4</option>
+	         		<option>5</option>
+	         		<option>6</option>
+	         		<option>7</option>
+	         		<option>8</option>
+	         		<option>9</option>
+	         		<option>10</option>
+	         		<option>11</option>
+	         		<option>12</option>
+	         	</select>
+	        </div>
+	        <div style="display: inline-block" class="col-1">
+	         	<input id="endYear" type="text" class="changeSetup form-control">
+	        </div>
+	        <div style="display: inline-block" id="endMonthBox" class="col-1">
+	         	<select id="endMonth" class="changeSetup form-control">
+	         		<option>월</option>
+	         		<option>1</option>
+	         		<option>2</option>
+	         		<option>3</option>
+	         		<option>4</option>
+	         		<option>5</option>
+	         		<option>6</option>
+	         		<option>7</option>
+	         		<option>8</option>
+	         		<option>9</option>
+	         		<option>10</option>
+	         		<option>11</option>
+	         		<option>12</option>
+	         	</select>
+	        </div>
+         <div class="card">
+           <div class="card-body">
+           	 <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">개인별 성과</h3>
 
@@ -24,6 +74,21 @@
                 </div>
               </div>
               <div class="card-body">
+              	<th:block th:each="i : ${#numbers.sequence(0, branchStaffList.size()-1)}">
+	              	<th:block th:if="${i==0}">
+		              	<div th:text="${branchStaffList[i].branchName}" style="display: inline-block; width: 50px">
+			            </div>
+		            </th:block>
+		           <th:block th:if="${i!=0 && branchStaffList[i].branchName!=branchStaffList[i-1].branchName}">
+		            	<br>
+		            	<div th:text="${branchStaffList[i].branchName}" style="display: inline-block; width: 50px ">
+			            </div>
+		            </th:block>
+		            <div style="display: inline-block; width: 80px " class="custom-control custom-checkbox">
+		                  <input class="custom-control-input pChkBox changeSetup" type="checkbox" th:id="'pCheckbox'+${i}" checked>
+		                  <label th:text="${branchStaffList[i].staffName}" th:for="'pCheckbox'+${i}" class="custom-control-label"></label>
+		            </div>
+		        </th:block >
                 <div class="chart">
                   <canvas id="privateBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
@@ -34,8 +99,13 @@
                     <!-- BAR CHART -->
             <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">지점별 성과</h3>
-
+                <div style="display: inline-block;">
+                	<h3 class="card-title">지점별 성과</h3>
+                </div>
+                <div th:each="l, i : ${branchNameList}" style="display: inline-block;" class="custom-control custom-checkbox">
+                  <input class="custom-control-input bChkBox changeSetup" type="checkbox" th:id="'checkbox'+${i.count}" checked>
+                  <label th:text="${l.branchName}" th:for="'checkbox'+${i.count}" class="custom-control-label"></label>
+                </div>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                   </button>
@@ -65,6 +135,8 @@
                 </div>
               </div>
               <!-- /.card-body -->
+			</div>
+          </div>
       	</div>
       </div>
 
@@ -72,6 +144,8 @@
 <script src="../../plugins/chart.js/Chart.min.js"></script>
 <script th:inline="javascript">
   $(function () {
+
+	  
     /* ChartJS
      * -------
      * Here we will create a few charts using ChartJS
@@ -89,6 +163,17 @@
 	var persnlData = []; //차트 크기 값
     var persnlNameData = []; //이름 배열
 	var tempArray = []; //임시 배열
+	var persnalMonthArray = [];
+	var month = pList[0].month;
+	for(var i=1; i<pList.length; i++){
+		if(month < pList[i].month){
+			month = pList[i].month;
+		}
+	}
+	for(var i=1; i<=month; i++){
+		persnalMonthArray.push(i+"월")
+	}
+	
    	for(var i=0; i<pList.length; i++){
    		var index = Number(pList[i].month) - 1;
 		tempArray[index] = pList[i].sum;
@@ -103,6 +188,8 @@
    			persnlData.push(tempArray);
    		}
    	}
+   	
+	
 	/* 지점 통계차트, 성과차트 공용 컬러 */
 	var backgroundColor = ['rgba(60,141,188,0.9)', 'rgba(210, 214, 222, 1)'];
 	var borderColor = ['rgba(60,141,188,0.8)', 'rgba(210, 214, 222, 1)'];
@@ -111,66 +198,8 @@
 	var pointHighlightFill = ['#fff', '#fff']
 	var pointHighlightStroke = ['rgba(60,141,188,1)', 'rgba(220,220,220,1)']
 	/* 지점 통계차트, 성과차트 공용 컬러 끝 */
-    var persnlDataset = [];
-    for(var i=0; i<persnlData.length; i++){
-    	persnlDataset.push({
-    		label               : persnlNameData[i],
-            backgroundColor     : backgroundColor[i%2],
-            borderColor         : borderColor[i%2],
-            pointRadius          : false,
-            pointColor          : pointColor[i%2],
-            pointStrokeColor    : pointStrokeColor[i%2],
-            pointHighlightFill  : pointHighlightFill[i%2],
-            pointHighlightStroke: pointHighlightStroke[i%2],
-            data                : persnlData[i]
-    	})
-    }
-    var areaChartData = {
-      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      datasets: persnlDataset
-    }
-
-    var areaChartOptions = {
-      maintainAspectRatio : false,
-      responsive : true,
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }],
-        yAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }]
-      }
-    }
-
-    //-------------
-    //- BAR CHART -
-    //-------------
-    var barChartCanvas = $('#privateBarChart').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var temp1 = areaChartData.datasets[1]
-    barChartData.datasets[0] = temp0
-    barChartData.datasets[1] = temp1
-
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
-    }
-
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar', 
-      data: barChartData,
-      options: barChartOptions
-    })
+	
+   	let barChart = persnlBarChart(persnlData,persnalMonthArray,persnlNameData)
     
     //지점별 차트
     /*<![CDATA[*/
@@ -179,7 +208,18 @@
 	var branchData = []; //차트 크기 값
 	var branchNameData = []; //이름 배열
 	var tempArray = []; //임시 배열
-	console.log(bList);
+
+	var branchMonthArray = [];
+	var month = bList[0].month;
+	for(var i=1; i<bList.length; i++){
+		if(month < bList[i].month){
+			month = bList[i].month;
+		}
+	}
+	for(var i=1; i<=month; i++){
+		branchMonthArray.push(i+"월")
+	}
+	
 	for(var i=0; i<bList.length; i++){
 		var index = Number(bList[i].month) - 1;
 		tempArray[index] = bList[i].sum;
@@ -195,134 +235,575 @@
 		}
 	} 
 	
-	 var branchDataset = [];
-    for(var i=0; i<branchData.length; i++){
-    	branchDataset.push({
-    		label               : branchNameData[i],
-            backgroundColor     : backgroundColor[i%2],
-            borderColor         : borderColor[i%2],
-            pointRadius          : false,
-            pointColor          : pointColor[i%2],
-            pointStrokeColor    : pointStrokeColor[i%2],
-            pointHighlightFill  : pointHighlightFill[i%2],
-            pointHighlightStroke: pointHighlightStroke[i%2],
-            data                : branchData[i]
-    	})
-    }
-    var areaChartData = {
-      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      datasets: branchDataset
-    }
+	let branchBarChart = branchChart(branchData,branchMonthArray,branchNameData) 
 
-    var areaChartOptions = {
-      maintainAspectRatio : false,
-      responsive : true,
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }],
-        yAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }]
-      }
-    }
-
-    //-------------
-    //- BAR CHART -
-    //-------------
-    var barChartCanvas = $('#branchBarChart').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var temp1 = areaChartData.datasets[1]
-    barChartData.datasets[0] = temp0
-    barChartData.datasets[1] = temp1
-
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
-    }
-
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar', 
-      data: barChartData,
-      options: barChartOptions
-    })
 
     //전체 차트
     var allData = [];
     /*<![CDATA[*/
     	var allList = /*[[${allOutcomeList}]]*/
     /*]]>*/
-   		for(var i=0; i<allList.length; i++){
-   			var idx = allList[i].month - 1;
-   			allData[idx] = allList[i].sum;
-    	}
+	for(var i=0; i<allList.length; i++){
+		var idx = allList[i].month - 1;
+		allData[idx] = allList[i].sum;
+   	}
+   	var allMonthArray = [];
+   	var allMonth = allList[0].month;
+   	for(var i=1; i<allList.length; i++){
+   		if(allMonth < allList[i].month){
+   			allMonth = allList[i].month;
+   		}
+   	}
+   	for(var i=1; i<=month; i++){
+   		allMonthArray.push(i+"월")
+   	}
     
-    areaChartData = {
-      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      datasets: [
-        {
-          label               : '전체',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : allData
-        },
-      ]
-    }
+	let allBarChart = allChart(allData, allMonthArray)
 
-    var areaChartOptions = {
-      maintainAspectRatio : false,
-      responsive : true,
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }],
-        yAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }]
-      }
-    }
+	  var toDate = new Date();
+	  $('#startYear').val(toDate.getFullYear());
+	  $('#startMonth').val('1');
+	  $('#endYear').val(toDate.getFullYear());
+	  $('#endMonth').val(toDate.getMonth()+1);
+	  $('#byYear').click(function(){
+		  $('#startMonthBox').css('display', 'none');
+		  $('#endMonthBox').css('display', 'none');
+	  })
+	  $('#byMonth').click(function(){
+		  $('#startMonthBox').css('display', 'inline-block');
+		  $('#endMonthBox').css('display', 'inline-block');
+	  })
+	  
+	  //연도별 차트
+	   $('.changeSetup').change(function(){
+		  if($('#rdoByYear').prop('checked')){
+			  /* 연도 계산 */
+			  var fromYear = $('#startYear').val();
+			  var toYear = $('#endYear').val();
 
-    //-------------
-    //- BAR CHART -
-    //-------------
-    var barChartCanvas = $('#allBarChart').get(0).getContext('2d')
-    var barChartData = jQuery.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    barChartData.datasets[0] = temp0
+			  var map = {};
+			  map.fromYear = fromYear;
+			  map.toYear = toYear;
+			  /* 연도계산 끝 */
+			  
+			  /* 선택된지점 이름 */
+			  var bArr=[];
+			  $('.bChkBox').each(function(){
+				  if($(this).prop('checked')){
+					  bArr.push($(this).next().text())
+				  }
+			  })
+			  map.bArr = bArr;
+			  /* 선택된 지점 이름 끝 */
+			  /* 선택된 개인별 이름 */
+			  var pArr=[];
+			  $('.pChkBox').each(function(){
+				  if($(this).prop('checked')){
+					  pArr.push($(this).next().text())
+				  }
+			  })
+			  map.pArr = pArr;
+			  /* 선택된 개인별 이름 끝 */
+			  $.ajax({
+					type : 'post',
+					url : '/staff/ajaxStaticYear',
+					async : 'true',
+					contentType : "application/json",
+					data : JSON.stringify(map),
+					success : function(data){
+						/* 개인별 성과 차트 */
+						var pList = data.pList;
+						var persnlData = []; //차트 크기 값
+						var persnlNameData = []; //이름 배열
+						var persnalMonthArray = [];
+						var tempArray = [];
+						
+						for(var i=0; i<pList.length; i++){
+							if(i==0){//첫인덱스
+								persnalMonthArray.push(pList[i].year+"년 ");
+							}else{
+						   		if(pList[i].year!=pList[i-1].year){
+						   			persnalMonthArray.push(pList[i].year+"년 ");
+						   		}
+							}
+					   	}
+						
+						for(var i=0; i<pList.length; i++){
+							if(persnlNameData.indexOf(pList[i].staffName)==-1){
+								persnlNameData.push(pList[i].staffName)
+							}
+						}
+						
+						for(var j=0; j<persnlNameData.length; j++){
+							for(var i=0; i<pList.length; i++){
+								if(pList[i].staffName==persnlNameData[j]){
+									tempArray.push(pList[i].sum);
+								}
+							}
+							persnlData.push(tempArray)
+							tempArray = [];
+						}	
+						
+						if(typeof(barChart)=="object"){
+							barChart.destroy();
+					    }
+						barChart = persnlBarChart(persnlData,persnalMonthArray,persnlNameData)
+						/* 개인별 성과 차트 끝 */
+						/* 지점별성과 차트 */
+						var bList = data.bList;
+						var branchData = []; //차트 크기 값
+						var branchNameData = []; //이름 배열
+						var tempArray = []; //임시 배열
 
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
-    }
+						var branchMonthArray = [];
+												
+						//월 입력
+						for(var i=0; i<bList.length; i++){
+							if(i==0){//첫인덱스
+								branchMonthArray.push(bList[i].year+"년 ");
+							}else{
+						   		if(bList[i].year!=bList[i-1].year){
+						   			branchMonthArray.push(bList[i].year+"년 ");
+						   		}
+							}
+					   	}
+						
+						for(var i=0; i<bList.length; i++){
+							if(branchNameData.indexOf(bList[i].branchName)==-1){
+								branchNameData.push(bList[i].branchName)
+							}
+						}
+						
+						for(var j=0; j<branchNameData.length; j++){
+							for(var i=0; i<bList.length; i++){
+								if(bList[i].branchName==branchNameData[j]){
+									tempArray.push(bList[i].sum);
+								}
+							}
+							branchData.push(tempArray)
+							tempArray = [];
+						}	
+						
+					    if(typeof(branchBarChart)=="object"){
+					 		branchBarChart.destroy();
+					    }//기존차트 초기화 
+					    
+						branchBarChart = branchChart(branchData,branchMonthArray,branchNameData) 
 
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar', 
-      data: barChartData,
-      options: barChartOptions
-    })
+						/* 지점별성과 차트 끝 */
+						
+						/* 전체성과 차트 */
+						var allData = [];
+				    	var allList = data.aList;
+						for(var i=0; i<allList.length; i++){
+							allData.push(allList[i].sum);
+					   	}
+					   	var allMonthArray = [];
+					  //월 입력
+						for(var i=0; i<allList.length; i++){
+							if(i==0){//첫인덱스
+								allMonthArray.push(allList[i].year+"년 ");
+							}else{
+						   		if(bList[i].year!=allList[i-1].year){
+						   			allMonthArray.push(allList[i].year+"년 ");
+						   		}
+							}
+					   	}
 
+					   	if(typeof(allBarChart)=="object"){
+					   		allBarChart.destroy();
+					    }//기존차트 초기화 
+					   	allBarChart = allChart(allData, allMonthArray) //전체성과차트 그리기
+
+					   	
+					   	/* 전체성과차트 끝 */						
+					},
+					error : function(error){
+						console.log('error', error);
+					}
+			  })
+		  }
+	  })
+	  //월별 차트
+	  $('.changeSetup').change(function(){
+		  if($('#rdoByMonth').prop('checked')){
+			  /* 연도 계산 */
+			  var fromYear = $('#startYear').val();
+			  var fromMonth = $('#startMonth').val();
+			  var fromDate = new Date(fromYear+'-'+fromMonth);
+			  fromYear = fromDate.getFullYear();
+			  fromMonth = fromDate.getMonth()+1;
+			  var fromDay = fromDate.getDate();
+			  fromDate = fromYear+'-'+fromMonth+'-'+fromDay;
+			  
+			  var toYear = $('#endYear').val();
+			  var toMonth = $('#endMonth').val();
+			  var toDate = new Date(toYear+'-'+toMonth);
+			  toDate.setMonth(toDate.getMonth()+1); //다음달
+	  		  toYear = toDate.getFullYear();
+			  toMonth = toDate.getMonth()+1;
+			  toDate = toDate.getDate();
+			  toDate = toYear+'-'+toMonth+'-'+toDate;
+
+			  var map = {};
+			  map.fromDate = fromDate;
+			  map.toDate = toDate;
+			  /* 연도계산 끝 */
+			  
+			  /* 선택된지점 이름 */
+			  var bArr=[];
+			  $('.bChkBox').each(function(){
+				  if($(this).prop('checked')){
+					  bArr.push($(this).next().text())
+				  }
+			  })
+			  map.bArr = bArr;
+			  /* 선택된 지점 이름 끝 */
+			  /* 선택된 개인별 이름 */
+			  var pArr=[];
+			  $('.pChkBox').each(function(){
+				  if($(this).prop('checked')){
+					  pArr.push($(this).next().text())
+				  }
+			  })
+			  map.pArr = pArr;
+			  /* 선택된 개인별 이름 끝 */
+			  $.ajax({
+					type : 'post',
+					url : '/staff/ajaxStatic',
+					async : 'true',
+					contentType : "application/json",
+					data : JSON.stringify(map),
+					success : function(data){
+						/* 개인별 성과 차트 */
+						var pList = data.pList;
+						var persnlData = []; //차트 크기 값
+						var persnlNameData = []; //이름 배열
+						var persnalMonthArray = [];
+						var tempArray = [];
+						
+						for(var i=0; i<pList.length; i++){
+							if(i==0){//첫인덱스
+								persnalMonthArray.push(pList[i].year+"년 "+pList[i].month+"월");
+							}else{
+								if(pList[i].month!=pList[i-1].month){
+							   		if(pList[i].year!=pList[i-1].year){
+							   			persnalMonthArray.push(pList[i].year+"년 "+pList[i].month+"월");
+							   		}else{
+							   			persnalMonthArray.push(pList[i].month+"월");
+							   		}
+								}
+							}
+					   	}
+						
+						for(var i=0; i<pList.length; i++){
+							if(persnlNameData.indexOf(pList[i].staffName)==-1){
+								persnlNameData.push(pList[i].staffName)
+							}
+						}
+						
+						for(var j=0; j<persnlNameData.length; j++){
+							for(var i=0; i<pList.length; i++){
+								if(pList[i].staffName==persnlNameData[j]){
+									tempArray.push(pList[i].sum);
+								}
+							}
+							persnlData.push(tempArray)
+							tempArray = [];
+						}	
+						
+						if(typeof(barChart)=="object"){
+							barChart.destroy();
+					    }
+						barChart = persnlBarChart(persnlData,persnalMonthArray,persnlNameData)
+						/* 개인별 성과 차트 끝 */
+						/* 지점별성과 차트 */
+						var bList = data.bList;
+						var branchData = []; //차트 크기 값
+						var branchNameData = []; //이름 배열
+						var tempArray = []; //임시 배열
+
+						var branchMonthArray = [];
+												
+						//월 입력
+						for(var i=0; i<bList.length; i++){
+							if(i==0){//첫인덱스
+								branchMonthArray.push(bList[i].year+"년 "+bList[i].month+"월");
+							}else{
+								if(bList[i].month!=bList[i-1].month){
+							   		if(bList[i].year!=bList[i-1].year){
+							   			branchMonthArray.push(bList[i].year+"년 "+bList[i].month+"월");
+							   		}else{
+							   			branchMonthArray.push(bList[i].month+"월");
+							   		}
+								}
+							}
+					   	}
+						
+						for(var i=0; i<bList.length; i++){
+							if(branchNameData.indexOf(bList[i].branchName)==-1){
+								branchNameData.push(bList[i].branchName)
+							}
+						}
+						
+						for(var j=0; j<branchNameData.length; j++){
+							for(var i=0; i<bList.length; i++){
+								if(bList[i].branchName==branchNameData[j]){
+									tempArray.push(bList[i].sum);
+								}
+							}
+							branchData.push(tempArray)
+							tempArray = [];
+						}	
+						
+					    if(typeof(branchBarChart)=="object"){
+					 		branchBarChart.destroy();
+					    }//기존차트 초기화 
+					    
+						branchBarChart = branchChart(branchData,branchMonthArray,branchNameData) 
+
+						/* 지점별성과 차트 끝 */
+						
+						/* 전체성과 차트 */
+						var allData = [];
+				    	var allList = data.aList;
+						for(var i=0; i<allList.length; i++){
+							allData.push(allList[i].sum);
+					   	}
+					   	var allMonthArray = [];
+					   	for(var i=0; i<allList.length; i++){
+							if(i==0){
+								allMonthArray.push(allList[i].year+"년 "+allList[i].month+"월");
+							}else{
+						   		if(allList[i].year!=allList[i-1].year){
+							   		allMonthArray.push(allList[i].year+"년 "+allList[i].month+"월");
+						   		}else{
+									allMonthArray.push(allList[i].month+"월");
+						   		}
+							}
+					   	}
+
+					   	if(typeof(allBarChart)=="object"){
+					   		allBarChart.destroy();
+					    }//기존차트 초기화 
+					   	allBarChart = allChart(allData, allMonthArray) //전체성과차트 그리기
+
+					   	
+					   	/* 전체성과차트 끝 */						
+					},
+					error : function(error){
+						console.log('error', error);
+					}
+			  })
+		  }
+	  })
+	  /* 개인별 차트 */
+	 function persnlBarChart(persnlData,persnalMonthArray,persnlNameData){
+	  	var persnlDataset = [];
+	    for(var i=0; i<persnlData.length; i++){
+	    	persnlDataset.push({
+	    		label               : persnlNameData[i],
+	            backgroundColor     : backgroundColor[i%2],
+	            borderColor         : borderColor[i%2],
+	            pointRadius          : false,
+	            pointColor          : pointColor[i%2],
+	            pointStrokeColor    : pointStrokeColor[i%2],
+	            pointHighlightFill  : pointHighlightFill[i%2],
+	            pointHighlightStroke: pointHighlightStroke[i%2],
+	            data                : persnlData[i]
+	    	})
+	    }
+	    var areaChartData = {
+	      labels  : persnalMonthArray,
+	      datasets: persnlDataset
+	    }
+
+	    var areaChartOptions = {
+	      maintainAspectRatio : false,
+	      responsive : true,
+	      legend: {
+	        display: false
+	      },
+	      scales: {
+	        xAxes: [{
+	          gridLines : {
+	            display : false,
+	          }
+	        }],
+	        yAxes: [{
+	          gridLines : {
+	            display : false,
+	          }
+	        }]
+	      }
+	    }
+
+	    //-------------
+	    //- BAR CHART -
+	    //-------------
+	    var barChartCanvas = $('#privateBarChart').get(0).getContext('2d')
+	    var barChartData = jQuery.extend(true, {}, areaChartData)
+	    for(var i=0; i<persnlData.length; i++){
+	    	barChartData.datasets[i] = areaChartData.datasets[i]
+	    }
+
+	    var barChartOptions = {
+	      responsive              : true,
+	      maintainAspectRatio     : false,
+	      datasetFill             : false
+	    }
+
+	    var barChart = new Chart(barChartCanvas, {
+	      type: 'bar', 
+	      data: barChartData,
+	      options: barChartOptions
+	    })
+	    
+	    return barChart;
+	  }
+	  /* 개인별 차트 끝 */
+	  /* 지점별 차트 */
+	  function branchChart(branchData,branchMonthArray,branchNameData){
+			let branchDataset = [];
+			/* var backgroundColor = ['rgba(60,141,188,0.9)', 'rgba(210, 214, 222, 1)'];
+			var borderColor = ['rgba(60,141,188,0.8)', 'rgba(210, 214, 222, 1)'];
+			var pointColor = ['#3b8bba','rgba(210, 214, 222, 1)', 'rgba(210, 214, 222, 1)'];
+			var pointStrokeColor = ['rgba(60,141,188,1)', '#c1c7d1']
+			var pointHighlightFill = ['#fff', '#fff']
+			var pointHighlightStroke = ['rgba(60,141,188,1)', 'rgba(220,220,220,1)'] */
+		 	
+		    /* if(branchDataset===undefined)
+		    	branchDataset={}
+			if (!branchDataset._meta) {
+				branchDataset._meta = {};
+			}  */
+			
+			for(var i=0; i<branchData.length; i++){
+		    	branchDataset.push({
+		    		label               : branchNameData[i],
+		            backgroundColor     : backgroundColor[i%2],
+		            borderColor         : borderColor[i%2],
+		            pointRadius          : false,
+		            pointColor          : pointColor[i%2],
+		            pointStrokeColor    : pointStrokeColor[i%2],
+		            pointHighlightFill  : pointHighlightFill[i%2],
+		            pointHighlightStroke: pointHighlightStroke[i%2],
+		            data                : branchData[i]
+		    	})
+		    }
+		    var areaChartData = {
+		      labels  : branchMonthArray,
+		      datasets: branchDataset
+		    }
+
+		    var areaChartOptions = {
+		      maintainAspectRatio : false,
+		      responsive : true,
+		      legend: {
+		        display: false
+		      },
+		      scales: {
+		        xAxes: [{
+		          gridLines : {
+		            display : false,
+		          }
+		        }],
+		        yAxes: [{
+		          gridLines : {
+		            display : false,
+		          }
+		        }]
+		      }
+		    }
+
+		    var barChartCanvas = $('#branchBarChart').get(0).getContext('2d')
+		    var barChartData = jQuery.extend(true, {}, areaChartData)
+		    for(var i=0; i<branchData.length; i++){
+		    	barChartData.datasets[i] = areaChartData.datasets[i]
+		    }
+		   /*  var temp0 = areaChartData.datasets[0]
+		    var temp1 = areaChartData.datasets[1]
+		    barChartData.datasets[0] = temp0
+		    barChartData.datasets[1] = temp1 */
+
+		    var barChartOptions = {
+		      responsive              : true,
+		      maintainAspectRatio     : false,
+		      datasetFill             : false
+		    }
+		    let branchBarChart = new Chart(barChartCanvas, {
+		      type: 'bar', 
+		      data: barChartData,
+		      options: barChartOptions
+		    })
+		    return branchBarChart
+	  } 
+	  /* 지점별 차트 끝 */
+	  
+	  /* 전체성과차트 */
+	  function allChart(allData, allMonthArray){
+
+		    areaChartData = {
+		      labels  : allMonthArray,  //달 입력
+		      datasets: [
+		        {
+		          label               : '전체',
+		          backgroundColor     : 'rgba(60,141,188,0.9)',
+		          borderColor         : 'rgba(60,141,188,0.8)',
+		          pointRadius          : false,
+		          pointColor          : '#3b8bba',
+		          pointStrokeColor    : 'rgba(60,141,188,1)',
+		          pointHighlightFill  : '#fff',
+		          pointHighlightStroke: 'rgba(60,141,188,1)',
+		          data                : allData //데이타 배열 입력
+		        },
+		      ]
+		    }
+
+		    var areaChartOptions = {
+		      maintainAspectRatio : false,
+		      responsive : true,
+		      legend: {
+		        display: false
+		      },
+		      scales: {
+		        xAxes: [{
+		          gridLines : {
+		            display : false,
+		          }
+		        }],
+		        yAxes: [{
+		          gridLines : {
+		            display : false,
+		          }
+		        }]
+		      }
+		    }
+
+		    //-------------
+		    //- BAR CHART -
+		    //-------------
+		    var barChartCanvas = $('#allBarChart').get(0).getContext('2d')
+		    var barChartData = jQuery.extend(true, {}, areaChartData)
+		    var temp0 = areaChartData.datasets[0]
+		    barChartData.datasets[0] = temp0
+
+		    var barChartOptions = {
+		      responsive              : true,
+		      maintainAspectRatio     : false,
+		      datasetFill             : false
+		    }
+
+		    var allBarChart = new Chart(barChartCanvas, {
+		      type: 'bar', 
+		      data: barChartData,
+		      options: barChartOptions
+		    })
+		    
+		    return allBarChart;
+	  }
+	  /* 전체 성과 차트 끝 */
+    
   })
 </script>
     </th:block>

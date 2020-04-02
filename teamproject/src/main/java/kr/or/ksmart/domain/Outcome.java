@@ -3,8 +3,15 @@ package kr.or.ksmart.domain;
 public class Outcome {
 	private String branchName;
 	private String staffName;
+	private String year;
 	private String month;
 	private String sum;
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
 	public String getBranchName() {
 		return branchName;
 	}

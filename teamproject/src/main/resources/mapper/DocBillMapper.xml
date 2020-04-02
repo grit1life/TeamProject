@@ -24,7 +24,43 @@
 		<result property="rentalToDate" column="rental_to_date"/>
 		<result property="staffName" column="staff_name"/>
 	</resultMap>
-	
+	<select id="getBillLastCode" resultType="int">
+		SELECT 
+			CAST(SUBSTRING(bill_code, 5) AS DECIMAL) AS billCode 
+		FROM 
+			doc_bill 
+		ORDER BY 
+			billCode DESC 
+		LIMIT 1
+	</select>
+	<select id="getBillPayNumber" resultType="int">
+		SELECT 
+			bill_pay_number
+		FROM 
+			doc_bill
+		WHERE 
+			contract_code = #{contractCode}
+		ORDER BY 
+			bill_pay_number DESC
+		LIMIT 1
+	</select>
+	<insert id="insertBill" parameterType="DocBill">
+		INSERT INTO 
+			doc_bill
+			(bill_code
+			, contract_code
+			, bill_expected_date
+			, bill_date
+			, bill_pay_number)
+		VALUES 
+			(
+			CONCAT('bill',LPAD(#{billCode}, 5, 0))
+			, #{contractCode}
+			, NOW()
+			, DATE_ADD(NOW(),INTERVAL 10 DAY)
+			, #{billPayNumber}
+			)
+	</insert>
 	<select id="getDocBillList" parameterType="int" resultMap="docBillResultMap">
 		SELECT
 			*
