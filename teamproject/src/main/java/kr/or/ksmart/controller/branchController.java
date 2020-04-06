@@ -1,5 +1,7 @@
 package kr.or.ksmart.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,17 +72,17 @@ import kr.or.ksmart.service.BranchService;
 				return "redirect:/bList";
 		}
 		//지점 삭제
-				@GetMapping("/bDelete")
-				public String bDelete(@RequestParam(value="branchCode", required = false) String branchCode							 
+		@GetMapping("/bDelete")
+		public String bDelete(@RequestParam(value="branchCode", required = false) String branchCode							 
 						             ,@RequestParam(value="branchName", required = false) String branchName	
 						             , Model model) {
 					model.addAttribute("branchCode", branchCode);
 					model.addAttribute("branchName", branchService.SelectForUpdate(branchCode).getBranchName());
 					return "/branch/bDelete";
-				}
+		}
 				
-				@PostMapping("/bDelete")
-				public String cDelete(@RequestParam(value="branchCode") String branchCode		
+		@PostMapping("/bDelete")
+		public String cDelete(@RequestParam(value="branchCode") String branchCode		
 									 ,@RequestParam(value="branchName", required = false) String branchName	
 						             ,RedirectAttributes redirectA) {
 					Branch branch = branchService.SelectForUpdate(branchCode);
@@ -95,7 +97,23 @@ import kr.or.ksmart.service.BranchService;
 						
 					}
 					
-				}
+		}
+				
+	    //지점 검색
+		@PostMapping("/branchSearchList")
+		public String getBranchSearchList(  @RequestParam(value="branchCode" ,required=false) 		                String branchCode
+														 ,@RequestParam(value="staffName" ,required=false)		    String staffName 
+														 ,@RequestParam(value="branchName" ,required=false) 		String branchName
+														 ,@RequestParam(value="branchPhone" ,required=false) 		String branchPhone
+														 ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
+														 ,@RequestParam(value="toDate" ,required=false) 			String toDate												
+														 ,Model model) {
+						
+						List<Branch> list = branchService.getBranchSearchList(branchCode, staffName, branchName, branchPhone, fromDate, toDate);				
+						model.addAttribute("BranchList", list);
+						return "/branch/bList";
+		}	
+							
 		
 	
 	}

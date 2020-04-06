@@ -15,6 +15,15 @@ public interface BranchMapper {
 	
 	public List<Branch> getBranchList();
 	
+
+	public List<Branch> getBranchSearchList(        String branchCode
+												   ,String staffName 
+												   ,String branchName
+												   ,String branchPhone
+												   ,String fromDate
+												   ,String toDate
+												   );
+	
 	public Branch SelectForUpdate(String branchCode); 
 	
 	public int bUpdate(Branch branch);

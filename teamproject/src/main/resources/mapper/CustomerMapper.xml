@@ -223,7 +223,7 @@
 				C.customer_id = #{customerId}
 					or C.input_date between  #{fromDate}  AND  #{toDate}	
 					or C.customer_id = #{customerId}
-					or C.customer_name = #{customerName}
+					or CP.customer_company_name = #{customerCompanyName}
 					or C.customer_level = #{customerLevel}
 				    or C.customer_class =#{customerClass};
 				    
