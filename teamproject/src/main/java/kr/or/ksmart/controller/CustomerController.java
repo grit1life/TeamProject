@@ -148,14 +148,14 @@ import kr.or.ksmart.service.CustomerService;
 		//개인고객 검색
 		@PostMapping("/getCustomerSearchList2")
 		public String getCustomerSearchList2( @RequestParam(value="customerId" ,required=false) 		String customerId
-											 ,@RequestParam(value="customerName" ,required=false)		String customerName 
+											 ,@RequestParam(value="customerCompanyName" ,required=false)String customerCompanyName 
 											 ,@RequestParam(value="customerClass" ,required=false) 		String customerClass
 											 ,@RequestParam(value="customerLevel" ,required=false) 		String customerLevel
 								             ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
 											 ,@RequestParam(value="toDate" ,required=false) 			String toDate												
 											 ,Model model) {
 						
-						List<Customer> list = customerService.getCustomerSearchList2(customerId, customerName, customerClass, customerLevel, fromDate, toDate);				
+						List<Customer> list = customerService.getCustomerSearchList2(customerId, customerCompanyName, customerClass, customerLevel, fromDate, toDate);				
 						model.addAttribute("CustomerCompanyList", list);
 						return "/customer/cList2";
 					}	

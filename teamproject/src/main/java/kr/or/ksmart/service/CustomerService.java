@@ -109,17 +109,17 @@ public class CustomerService {
 	public int cDelte2(String customerId, String customerName) {
 			return customerMapper.cDelete2(customerId, customerName);
 		}
-  //개인고객검색
+  //개인 사업& 법인 고객검색
 	
 	public List<Customer> getCustomerSearchList2(String customerId
-											    ,String customerName
+											    ,String customerCompanyName
 											    ,String customerClass
 											    ,String customerLevel
 											    ,String fromDate
 											    ,String toDate
 											    ){
 			
-			return customerMapper.getCustomerSearchList2(customerId, customerName, customerClass, customerLevel, fromDate, toDate);
+			return customerMapper.getCustomerSearchList2(customerId, customerCompanyName, customerClass, customerLevel, fromDate, toDate);
 		}
 	
 	

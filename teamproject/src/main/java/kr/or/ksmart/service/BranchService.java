@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.Branch;
+import kr.or.ksmart.domain.Customer;
 import kr.or.ksmart.mapper.BranchMapper;
 
 @Service
@@ -53,7 +54,27 @@ public class BranchService {
 	}
 	
 	
+   public List<Branch> getBranchSearchList( String branchCode
+										   ,String staffName 
+										   ,String branchName
+										   ,String branchPhone
+										   ,String fromDate
+										   ,String toDate
+		   
+				    					   ){
+		
+	   return branchMapper.getBranchSearchList(branchCode, staffName, branchName, branchPhone, fromDate, toDate);
+	
+   	}
+
+
+
+
+
+}
+	
+	
 	
 	
 
-}
+

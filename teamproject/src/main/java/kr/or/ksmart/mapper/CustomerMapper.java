@@ -46,7 +46,7 @@ public interface CustomerMapper {
 	public int cDelete2(String customerId, String customerName);
 	//개인고객 검색 리스트
 	public List<Customer> getCustomerSearchList2(String customerId
-												  ,String customerName 
+												  ,String customerCompanyName 
 												  ,String customerClass
 												  ,String customerLevel
 												  ,String fromDate
