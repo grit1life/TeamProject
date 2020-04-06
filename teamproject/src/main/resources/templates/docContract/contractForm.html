@@ -7,8 +7,25 @@
 	section{
 		margin-left: 40px;
 	}
+	table{
+		margin-left: 50px;
+		border-collapse: collapse;
+	}
 	th, td{
 		border: 1px solid black;
+		padding: 5px 12px;
+	}
+	.bottom{
+		margin-left: 250px;
+		margin-top: 50px;
+	}
+	.btnPrint{
+		margin-top: 30px;
+	}
+	@media print{
+		.btnPrint{
+			display:none;
+		}
 	}
 </style>
 <script src="../../plugins/jquery/jquery.min.js"></script>
@@ -61,13 +78,14 @@ $(function(){
 	function numberFormat(inputNumber) {
 	   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+	$('.btnPrint').click(function(){
+		window.print();
+	})
 })
 </script>
 </head>
 <body>
 <div class="content-wrapper">
-	계약서 db 연결 (2020-03-25)
-	디자인 수정 필요, 인쇄 구현 필요
 	<h1>렌탈 계약서</h1>
 	  <div class="container">
 		 
@@ -150,10 +168,10 @@ $(function(){
 		</br></br>
 		<p>위와 같이 본 계약이 유효하게 성립하였음을 각 당사자는 증명하면서 본 계약서 2통을 작성하여, 각각 서명(또는 기명)날인 후 “갑”과 “을”이 각각 1통씩을 보관한다.</p>
 		
-		<div>
+		<div class='bottom'>
 			계약일자 : <span class="date" th:text="${list[0].contractDate}"></span></br></br></br>
 		
-			<div>
+			<div >
 				(갑)</br>
 				주    소 : <span th:text="${mycompany.mycompanyAddr}"></span></br>
 				회 사 명 : <span th:text="${mycompany.mycompanyName}"></span></br>
@@ -174,6 +192,9 @@ $(function(){
 					연 락 처 : <span th:text="${list[0].deliveryTel}"></span>
 				</th:block>
 			</div>
+		</div>
+		<div style="text-align: center;">
+			<button class="btnPrint" onclick="estimatePrint()" type="button">인쇄하기</button>
 		</div>
 	</div>
 </div>
