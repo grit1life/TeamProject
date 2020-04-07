@@ -4,8 +4,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	body{
+		font-size: 18px;
+	}
 	section{
 		margin: 20px, 40px;
+	}
+	table{
+		border-collapse: collapse;
 	}
 	th, td{
 		border: 1px solid black;
@@ -17,6 +23,29 @@
 	}
 	h1{
 		text-align: center;
+	}
+	section{
+		margin : 40px;
+	}
+	.bottom{
+		margin-top:50px;
+		margin-left:150px;
+	}
+	.contract-content{
+		margin-top: 10px;
+		margin-left: 50px;
+	}
+	.bank-content{
+		margin-top:30px;
+		margin-left:150px;
+	}
+	.btnPrint{
+		margin-top: 30px;
+	}
+	@media print{
+		.btnPrint{
+			display:none;
+		}
 	}
 </style>
 <script src="../../plugins/jquery/jquery.min.js"></script>
@@ -36,7 +65,11 @@ $(function(){
 	
 	function dateForm(inputDate){
 		var date = new Date(inputDate);
-		return date.getFullYear()+"년 "+(date.getMonth()+1)+"월 "+date.getDate()+"일";
+		var month = date.getMonth()+1;
+		month = (month<10)?("0"+month):month;
+		var day = date.getDate();
+		day = (day<10)?("0"+day):day;
+		return date.getFullYear()+"년 "+month+"월 "+day+"일";
 	}
 	function viewKorean(num) { 
 		var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십"); 
@@ -57,12 +90,29 @@ $(function(){
 	function numberFormat(inputNumber) {
 	   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+	
+	
+	$('.btnPrint').click(function(){
+		var browser = navigator.userAgent.toLowerCase();
+          if ( -1 != browser.indexOf('chrome') ){
+                     window.print();
+          }else if ( -1 != browser.indexOf('trident') ){
+             try{
+                      var webBrowser = '<OBJECT ID="previewWeb" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+                      document.body.insertAdjacentHTML('beforeEnd', webBrowser);
+                      previewWeb.ExecWB(7, 1);
+                      previewWeb.outerHTML = "";
+             }catch (e) {
+                      alert("- 도구 > 인터넷 옵션 > 보안 탭 > 신뢰할 수 있는 사이트 선택\n   1. 사이트 버튼 클릭 > 사이트 추가\n   2. 사용자 지정 수준 클릭 > 스크립팅하기 안전하지 않은 것으로 표시된 ActiveX 컨트롤 (사용)으로 체크\n\n※ 위 설정은 프린트 기능을 사용하기 위함임");
+             }
+                    
+          }
+	})
 })
 </script>
 </head>
 <body>
 <div class="content-wrapper">
-	디자인 수정 필요(2020.03.26)
 	<h1><u>청&emsp;구&emsp;서</u></h1>
 	  <div id="container">
 		<section>  	
@@ -82,16 +132,19 @@ $(function(){
 		</section>
 		<section>
 		○ 계  약  자 </br>
-		             ․주  소 : <span th:text="${docBill.deliveryAddress}+${docBill.deliveryDetailAddress}"></span></br>
-			 <th:block th:if="${docBill.customerCompanyName!=null}">  
-			  	 ․상  호 :  <span th:text="${docBill.customerCompanyName}"></span></br>
-			  </th:block>  
-			    ․성  명 : <span th:text="${docBill.customerName}"></span>
+		     <div class="contract-content">        
+			             주  소 : <span th:text="${docBill.deliveryAddress}+${docBill.deliveryDetailAddress}"></span></br>
+				 <th:block th:if="${docBill.customerCompanyName!=null}">  
+				  		상  호 :  <span th:text="${docBill.customerCompanyName}"></span></br>
+				  </th:block>  
+				    성  명 : <span th:text="${docBill.customerName}"></span>
+			  </div>
 		</br>
 		상기물품의 월 렌탈료에 대한 대금청구서를 제출합니다.
 		</section>
 		<section>
 		○ 계좌입금내용 </br>
+		<div class="bank-content"> 
 			<table>
 				<tr>
 					<td>은  행  명</td>
@@ -105,16 +158,22 @@ $(function(){
 					<td>예  금  주</td>
 					<td><span th:text="${myComDeposit.mydepositAccountHolder}"></span></td>
 	  			</tr>
-  		</table>
+  			</table>
+  		</div>
   		</section>
 		<section>
-			201 년    월    일 </br>
+		
+		<div class="bottom"> 
+			<span class="date" th:text="${docBill.billExpectedDate}"></span> </br>
 			
 			위 청구인    주  소 :  <span th:text="${mycompany.mycompanyAddr}" ></span></br>
 			(계약자)      상  호 :  <span th:text="${mycompany.mycompanyName}"></span></br>
 		        성  명 :     <span th:text="${mycompany.mycompanyPresident}"></span>     (인)
 	  	</section>
-	  
+	  	</div>
+		<div style="text-align: center;">
+			<button class="btnPrint" onclick="estimatePrint()" type="button">인쇄하기</button>
+		</div>
 	  </div>
 </div>
 </body>

@@ -19,6 +19,38 @@
 			, NOW()
 			)
 	</insert>
+	<select id="getLastBoardNo" resultType="int">
+		SELECT 
+			board_no 
+		FROM 
+			board
+		ORDER BY 
+			board_no DESC 
+		LIMIT 1
+	</select>
+	<select id="getBoardFileNo" resultType="Integer">
+		SELECT 
+			CAST(SUBSTR(board_file_no,10) AS DECIMAL) 
+		FROM board_file
+		ORDER BY 
+			board_file_no DESC
+		LIMIT 1;
+	</select>
+	<insert id="insertFileName" parameterType="BoardFile">
+		INSERT INTO 
+			board_file
+			(
+			board_file_no,
+			board_file_url,
+			board_no
+			)
+		 VALUES 
+		 	(
+		 	CONCAT('boardfile', LPAD(#{boardFileNo}, 5, 0)),
+		 	#{boardFileUrl},
+		 	#{boardNo}
+		 	);
+	</insert>
 	
 	<select id="getBoardCnt" resultType="int">
 		SELECT 
@@ -61,6 +93,16 @@
 			board.staff_id = staff.staff_code
 		WHERE 
 			board_no = #{no}
+	</select>
+	<select id="getBoardFileList" parameterType="String" resultType="BoardFile">
+		SELECT 
+			board_file_no AS boardFileNo
+			,board_file_url AS boardFileUrl
+			,board_no AS boardNo
+		FROM 
+			board_file 
+		WHERE 
+			board_no = #{boardNo}
 	</select>
 	<update id="viewBoard" parameterType="String">
 		UPDATE board SET

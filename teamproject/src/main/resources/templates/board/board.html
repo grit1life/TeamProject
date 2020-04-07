@@ -43,6 +43,11 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
+              		<th:block th:each="l : ${bf}">
+              			<a th:text="${l.boardFileUrl}" th:with="url='/files/'+${l.boardFileUrl}" th:href="@{${url}}"></a><br>
+					</th:block>
+              </div>
+              <div class="card-footer">
                 <div th:text="${b.staffName}"></div>
               	<div th:text="${b.boardWrtDate}"></div>
               	<div th:if="${b.boardModiDate}!='0000-00-00'" th:text="${b.boardModiDate}"></div>

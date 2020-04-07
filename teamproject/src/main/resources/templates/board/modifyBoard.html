@@ -50,6 +50,9 @@
 		                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
 		                          th:text="${b.boardContent}"></textarea>
 		              </div>
+              		<th:block th:each="l : ${bf}">
+              			<a th:text="${l.boardFileUrl}" th:with="url='/files/'+${l.boardFileUrl}"th:href="@{${url}}"></a>
+					</th:block>
 		              <p>작성자</p>
 		              <button type="button" onclick="getAction()" class="btn btn-block btn-success">글 수정</button>
 		            </div>

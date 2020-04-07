@@ -40,7 +40,9 @@ public class CommuteController {
 	public String holidayRegist(Model model) {
 		String staffId = "201804_0001";  //임시값 로그인시 세션의 값을 담아주어야 한다
 		List<Holiday> hList = commuteService.getHolidayList(staffId);
+		List<Holiday> hNowList = commuteService.getHolidayListNow(staffId);
 		model.addAttribute("hList", hList);
+		model.addAttribute("hNowList", hNowList);
 		return "commute/holidayRegist";
 	}
 	@PostMapping("/staff/holidayRegist")

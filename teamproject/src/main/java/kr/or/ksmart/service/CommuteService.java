@@ -52,10 +52,17 @@ public class CommuteService {
 		List<Holiday> hList = commuteMapper.getHolidayList(staffId);
 		return hList;
 	}
+	public List<Holiday> getHolidayListNow(String staffId){
+		List<Holiday> hNowList = commuteMapper.getHolidayListNow(staffId);
+		return hNowList;
+	}
 	
 	public void insertHoliday(Holiday holiday) {
-		int no = commuteMapper.getHolidayCode();
-		holiday.setHolidayCode("holiday"+(no+1));
+		Integer no = commuteMapper.getHolidayCode();
+		if(no == null) {
+			no = 0;
+		}
+		holiday.setHolidayCode(Integer.toString(no+1));
 		commuteMapper.insertHoliday(holiday);
 	}
 	

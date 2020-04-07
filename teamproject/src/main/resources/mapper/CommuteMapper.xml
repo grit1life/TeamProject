@@ -89,7 +89,25 @@
 		ORDER BY
 			holiday_from_date ASC
 	</select>
-	<select id="getHolidayCode" resultType="int">
+	<select id="getHolidayListNow" parameterType="String" resultMap="holidayResultMap">
+		SELECT 
+			holiday_code,
+			staff_name,
+			holiday_from_date,
+			holiday_to_date,
+			holiday_sort
+		FROM
+			holiday
+		INNER JOIN
+			staff
+		ON 
+			staff.staff_code=holiday.staff_id
+		WHERE 
+			holiday_from_date > NOW() AND staff_id = #{staffId} 
+		ORDER BY
+			holiday_from_date ASC
+	</select>
+	<select id="getHolidayCode" resultType="Integer">
 		SELECT 
 			CAST(SUBSTRING(holiday_code, 8) AS DECIMAL) AS holidayCode
 		FROM 
@@ -107,7 +125,7 @@
 			, holiday_to_date
 			, holiday_sort) 
 		VALUES (
-			  #{holidayCode}
+			  CONCAT('holiday',LPAD(#{holidayCode}, 5, 0))
 			, #{staffId}
 			, #{holidayFromDate}
 			, #{holidayToDate}

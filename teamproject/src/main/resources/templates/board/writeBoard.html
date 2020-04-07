@@ -29,7 +29,7 @@
 		    </section>
 		    
 	  	<!-- form 시작 -->      
-	  	<form id="bForm" th:method="post" th:action="@{writeBoard}">
+	  	<form id="bForm" th:method="post" enctype="multipart/form-data" th:action="@{writeBoard}">
 		    <!-- Main content -->
 		    <section class="content">
 		     <div class="container-fluid">
@@ -47,8 +47,8 @@
 		              <div class="mb-3">
 		                <textarea name="boardContent" class="textarea" placeholder="내용을 입력하세요"
 		                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+						<input style="display: block" class="fileSelect" type="file" name="file" />
 		              </div>
-		              <p>작성자</p>
 		              <button type="button" onclick="getAction()" class="btn btn-block btn-success">글쓰기</button>
 		            </div>
 		          </div>
@@ -59,7 +59,7 @@
 			 </div>
 		    </section>
 		    <!-- /.content -->
-	   </form>
+		</form>
 	   <!-- form 끝 -->
  
   </div>
@@ -84,10 +84,20 @@
        		height: 450,
           	lang : 'ko-KR'
     	})
-    }
+    }    
     
+	  $(document).on('change', '.fileSelect', function(){
+		  if($('.fileSelect:last').val()!=""){
+			  var fileBtn = $(this).clone();
+			  fileBtn = fileBtn.val("");
+			  $(this).after(fileBtn)
+		  }
+	  })
     
   })
+  
+  
+  
   //폼 제출
   function getAction(){
 	if($('#bTitle').val()==""){

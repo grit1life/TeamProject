@@ -19,8 +19,6 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-    	db 연결 완료</br>
-    	휴가 리스트(삭제버튼) 레이아웃 오른쪽으로 이동 필요(2020-03-20)
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -35,10 +33,41 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+	
+        
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+      <!-- 테이블 시작 -->
+       <div class="card" style="width: 75%;">
+          <div class="card-body p-0">
+             <div class="card-body table-responsive p-0">
+               <table id="boardTable" class="table table-hover">
+                 <thead>
+	                 <tr>
+	                   <th>시작일</th>
+	                   <th>종료일</th>
+	                   <th>휴가</th>
+	                 </tr>
+                 </thead>
+                 <tbody>
+					<tr th:each="l : ${hNowList}">
+						<td th:text="${l.holidayFromDate}">
+						<td th:text="${l.holidayToDate}">
+						<td th:text="${l.holidaySort}">
+						<td>
+							<a class="btn btn-danger btn-sm" th:href="@{/staff/holidayDelete(hCode=${l.holidayCode})}">
+	                            <!-- <i class="Trash"  aria-hidden="true"></i> -->
+	                             Delete
+	                        </a> 
+						</td>
+					</tr>
+                 </tbody>
+               </table>
+             </div>
+           </div>
+		</div>
+              <!-- 테이블 끝 -->
         <div class="row">
           <div class="col-md-3" style="display: none">
             <div class="sticky-top mb-3">
@@ -76,36 +105,6 @@
             </div>
             <!-- /.card -->
           </div>
-          <!-- 테이블 시작 -->
-       <div class="card" style="width: 370px;">
-          <div class="card-body p-0">
-             <div class="card-body table-responsive p-0">
-               <table id="boardTable" class="table table-hover">
-                 <thead>
-	                 <tr>
-	                   <th>시작일</th>
-	                   <th>종료일</th>
-	                   <th>휴가</th>
-	                 </tr>
-                 </thead>
-                 <tbody>
-					<tr th:each="l : ${hList}">
-						<td th:text="${l.holidayFromDate}">
-						<td th:text="${l.holidayToDate}">
-						<td th:text="${l.holidaySort}">
-						<td>
-							<a class="btn btn-danger btn-sm" th:href="@{/staff/holidayDelete(hCode=${l.holidayCode})}">
-	                            <!-- <i class="Trash"  aria-hidden="true"></i> -->
-	                             Delete
-	                        </a> 
-						</td>
-					</tr>
-                 </tbody>
-               </table>
-             </div>
-           </div>
-		</div>
-              <!-- 테이블 끝 -->
                 <button style='display: none;' type="button" class="btn btn-default" id='modalBtn'
                 		data-toggle="modal" data-target="#modal-default">
                   Launch Default Modal
@@ -325,13 +324,21 @@
     })
     
     /* 달력 클릭 모달 출력 */
-    $('.fc-day,.fc-day-top').click(function(){
-    	$('#modalBtn').trigger('click');
-    	var sltDate = $(this).data().date;
-    	$('#hFromDate').val(sltDate);
-    	$('#hToDate').val(sltDate);
+    calendarModal()
+    
+	$('.fc-today-button,.fc-button-group').click(function(){
+		 calendarModal()
 	})
-
+	
+	/* 달력 클릭시 휴가 등록 모달 팝업*/
+	function calendarModal(){
+    	$('.fc-day,.fc-day-top').click(function(){
+        	$('#modalBtn').trigger('click');
+        	var sltDate = $(this).data().date;
+        	$('#hFromDate').val(sltDate);
+        	$('#hToDate').val(sltDate);
+    	})
+    }
   })
 </script>
 </th:block>
