@@ -20,13 +20,13 @@ $(function(){
 	}
 })
 $(function(){
-/* 	$('.shipList').click(function(){
-		var shipmentCode = $(this).data('set');
+ 	$('.shipList').click(function(){
+		var contractCode = $(this).data('set');
 		var map = {};
-		map.shipmentCode = shipmentCode;
+		map.contractCode = contractCode;
 		$.ajax({
 			type : 'post',
-			url : '/ajaxShipmentList',
+			url : '/ajaxReturnList',
 			async : 'true',
 			contentType : "application/json",
 			data : JSON.stringify(map),
@@ -82,7 +82,7 @@ $(function(){
 			request.fail(function(){
 				console.log('실패')
 			})
-	}) */
+	}) 
 })
 </script>
 </th:block>
@@ -92,7 +92,7 @@ $(function(){
         <section class="content-header"> 
 	       <div class="row mb-2">
 	         <div class="col-sm-6">
-	           <h1>출하조회</h1>
+	           <h1>반납조회</h1>
 	         </div>
 	         <div class="col-sm-6">
 	           <ol class="breadcrumb float-sm-right">
@@ -179,7 +179,7 @@ $(function(){
 		            <!-- /.row -->
 		      </div>
 			 </div>
-		        <!-- <div class="card card-defualt card-outline">
+		        <div class="card card-defualt card-outline">
 		          <div class="card-body">
 		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
 		              <li class="nav-item">
@@ -191,7 +191,6 @@ $(function(){
 		            </ul>
 		            <div class="tab-content" id="custom-content-above-tabContent">
 		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
-		                미출하목록
 		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
 					    	<thead>
 				                <tr>
@@ -200,20 +199,17 @@ $(function(){
 				                  <th>상품명(세트)</th>
 				                  <th>렌탈시작일</th>
 				                  <th>렌탈종료일</th>
-				                  <th>출하일</th>
 				                  <th>전화번호</th>
-				                  <th>주소</th>
-				                  <th>출하목록</th>
-				                  <th>출하완료</th>
+				                  <th style="width:150px">반납목록</th>
+				                  <th style="width:150px">반납완료</th>
 				                </tr>
 					         </thead>
 				             <tbody>
 				             <tr th:each="l, i : ${list}">
-				             	<td class="shipmentCode" style="display:none" th:text="${l.shipmentCode}"></td>
 				                <td th:text="${i.count}"></td>
 				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
 				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
-					   
+					         	<!--    상품 or 세트, 외  몇 건 -->
 					            <th:block th:if="${l.count>1}">
 					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
 					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
@@ -222,30 +218,26 @@ $(function(){
 					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
 					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
 				               	</th:block>
-				               	상품 or 세트, 외  몇 건 끝
-				               	<td th:text="${l.rentalFromDate}"></td>
-				               	<td th:text="${l.rentalToDate}"></td>
-				               	
-				               	<td th:text="${l.shipmentDate}"></td>
-				               	<td th:text="${l.deliveryTel}"></td>
-				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
-				               	<td>
-				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
-				                    <i class="fas fa-trash"></i>&ensp;출하목록</a>
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td th:text="${l.rentalFromDate}">
+				               	<td th:text="${l.rentalToDate}">
+				               	<td th:text="${l.deliveryTel}">
+				                <td>
+				                	<a class="shipList btn btn-success btn-sm" th:data-set="${l.contractCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;반납목록</a>
 				                </td>
 				               	<td>
-				                	<a class="shipComplete btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
-				                    <i class="fas fa-trash"></i>&ensp;출하완료</a>
+				                	<a class="shipComplete btn btn-danger btn-sm" th:data-set="${l.contractCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;반납완료</a>
 				                </td>
 				              </tr>
 				             </tbody>
 						</table>
-					페이징
-					   <nav aria-label="Page navigation example">
+				    <nav aria-label="Page navigation example">
 						  <ul class="pagination">
 						    <li class="page-item">
 							    <th:block th:if="${currentPage>1}">
-							      <a class="page-link" th:href="@{/staff/rentalShipList(page=${currentPage-1},deliveredPage=${deliveredCurrentPage})}" aria-label="Previous">
+							      <a class="page-link" th:href="@{/staff/returnList(page=${currentPage-1},deliveredPage=${deliveredCurrentPage})}" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 								</th:block>
@@ -256,11 +248,11 @@ $(function(){
 								</th:block>
 						    </li>
 							<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
-						    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/rentalShipList(page=${num},deliveredPage=${deliveredCurrentPage})}"></a></li>
+						    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/returnList(page=${num},deliveredPage=${deliveredCurrentPage})}"></a></li>
 							</th:block>
 						    <li class="page-item">
 						    	<th:block th:if="${endPage>currentPage}">
-							      <a class="page-link" th:href="@{/staff/rentalShipList(page=${currentPage+1},deliveredPage=${deliveredCurrentPage})}" aria-label="Next">
+							      <a class="page-link" th:href="@{/staff/returnList(page=${currentPage+1},deliveredPage=${deliveredCurrentPage})}" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </th:block>
@@ -272,10 +264,8 @@ $(function(){
 						    </li>
 						  </ul>
 						</nav>
-				             페이징 끝
 		              </div>
 		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-		                입금 목록
 		                 <table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
 					    	<thead>
 				                <tr>
@@ -284,10 +274,8 @@ $(function(){
 				                  <th>상품명(세트)</th>
 				                  <th>렌탈시작일</th>
 				                  <th>렌탈종료일</th>
-				                  <th>출하일</th>
 				                  <th>전화번호</th>
-				                  <th>주소</th>
-				                  <th>출하목록</th>
+				                  <th style="width:150px">반납목록</th>
 				                </tr>
 					         </thead>
 				             <tbody>
@@ -295,7 +283,7 @@ $(function(){
 				                <td th:text="${i.count}"></td>
 				                <td th:if="${l.customerCompanyName}!=null" th:text="${l.customerCompanyName+'(법인)'}"></td>
 				                <td th:if="${l.customerCompanyName}==null" th:text="${l.customerName}"></td>
-					         	   상품 or 세트, 외  몇 건
+			
 					            <th:block th:if="${l.count>1}">
 					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
 					                <td th:if="${l.goodsName}==null" th:text="${l.setName+'&nbsp;외 '+(l.count-1)+'품목'}"></td>
@@ -304,7 +292,7 @@ $(function(){
 					                <td th:if="${l.goodsName}!=null" th:text="${l.goodsName}"></td>
 					                <td th:if="${l.goodsName}==null" th:text="${l.setName}"></td>
 				               	</th:block>
-				               	상품 or 세트, 외  몇 건 끝
+				
 				               	<td th:text="${l.rentalFromDate}"></td>
 				               	<td th:text="${l.rentalToDate}"></td>
 				               	
@@ -318,28 +306,28 @@ $(function(){
 				              </tr>
 				             </tbody>
 						</table>		              
-							 페이징
+	
 						   </br>
 						   <nav aria-label="Page navigation example">
 							  <ul class="pagination">
 							    <li class="page-item">
-								    <th:block th:if="${paidCurrentPage>1}">
-								      <a class="page-link" th:href="@{/staff/rentalShipList(page=${currentPage},deliveredPage=${deliveredCurrentPage-1},2tab)}" aria-label="Previous">
+								    <th:block th:if="${deliveredCurrentPage>1}">
+								      <a class="page-link" th:href="@{/staff/returnList(page=${currentPage},deliveredPage=${deliveredCurrentPage-1},2tab)}" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 									</th:block>
-									<th:block th:unless="${paidCurrentPage>1}">
+									<th:block th:unless="${deliveredCurrentPage>1}">
 								      <a class="page-link" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
 								      </a>
 									</th:block>
 							    </li>
 								<th:block th:each="num : ${#numbers.sequence(deliveredStartPage, deliveredEndPage)}">
-							    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/rentalShipList(page=${currentPage},deliveredPage=${num},2tab)}"></a></li>
+							    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/returnList(page=${currentPage},deliveredPage=${num},2tab)}"></a></li>
 								</th:block>
 							    <li class="page-item">
 							    	<th:block th:if="${deliveredEndPage>deliveredCurrentPage}">
-								      <a class="page-link" th:href="@{/staff/rentalShipList(page=${currentPage},deliveredPage=${deliveredCurrentPage+1},2tab)}" aria-label="Next">
+								      <a class="page-link" th:href="@{/staff/returnList(page=${currentPage},deliveredPage=${deliveredCurrentPage+1},2tab)}" aria-label="Next">
 								        <span aria-hidden="true">&raquo;</span>
 								      </a>
 								    </th:block>
@@ -351,44 +339,42 @@ $(function(){
 							    </li>
 							  </ul>
 							</nav>
-		             페이징 끝
 		              </div>
 		            </div>
 		          </div>
-		          /.card
-          	모달
+         <!-- 모달 -->
 	  	<div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-          <div class="modal-content" style="width:1000px">
-            <div class="modal-header">
-              <h4 class="modal-title"></h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
-	    	<thead>
-                <tr>
-                  <th style="width: 10px;"></th>
-                  <th>상품명</th>
-     			  <th>상품수량</th>
-                  <th>렌탈시작일</th>
-                  <th>렌탈종료일</th>
-                  <th>출하일</th>
-                  <th>전화번호</th>
-                  <th>주소</th>
-                </tr>
-	         </thead>
-             <tbody id="modalTable">
-             </tbody>
-		</table>
-            </div>
-          </div>
+	        <div class="modal-dialog">
+	          <div class="modal-content" style="width:1000px">
+	            <div class="modal-header">
+	              <h4 class="modal-title"></h4>
+	              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                <span aria-hidden="true">&times;</span>
+	              </button>
+	            </div>
+	            <div class="modal-body">
+	              	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
+				    	<thead>
+			                <tr>
+			                  <th style="width: 10px;"></th>
+			                  <th>상품명</th>
+			     			  <th>상품수량</th>
+			                  <th>렌탈시작일</th>
+			                  <th>렌탈종료일</th>
+			                  <th>출하일</th>
+			                  <th>전화번호</th>
+			                  <th>주소</th>
+			                </tr>
+				         </thead>
+			             <tbody id="modalTable">
+			             </tbody>
+					  </table>
+	            </div>
+	          </div>
+	        </div>
         </div>
-      </div>
-      		모달 끝
-		        </div> -->
+      	<!--모달 끝 -->
+		        </div>
 		      </div>
 		 </div>
       </div>

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ksmart.mapper.ReturnMapper">
-	<resultMap type="DocContractForm" id="returnResultMap">
+	<resultMap type="Return" id="returnResultMap">
 		<result property="contractCode" column="contract_code"/>
 		<result property="contractNo" column="contract_no"/>
 		<result property="customerId" column="customer_id"/>
@@ -33,11 +33,142 @@
 		<result property="customerCompanyCall" column="customer_company_call"/>
 		<result property="staffName" column="staff_name"/>
 		<result property="inputStaffName" column="inputStaffName"/>
+		<result property="count" column="count"/>
+		<result property="total" column="total"/>
 	</resultMap>
 	<select id="getReturnList" resultMap="returnResultMap">
 		SELECT 
 			*
-			, GFSG.goods_name as setGoodsName
+			,COUNT(1) AS count
+			,SUM(DC.contract_total_price) AS total
+		FROM
+			doc_contract AS DC
+		LEFT JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			PS.set_code = DC.set_code
+		WHERE 
+			DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+			AND
+			DC.progress_status != '반납완료'
+		GROUP BY
+			DC.contract_code
+		ORDER BY
+			DC.rental_to_date DESC
+	</select>
+	<select id="getReturnListCnt" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM
+				doc_contract AS DC
+			LEFT JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				PS.set_code = DC.set_code
+			WHERE 
+				DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+				AND
+				DC.progress_status != '반납완료'
+			GROUP BY
+				DC.contract_code
+		) AS SQ	
+	</select>
+	<select id="getReturnCompleteList" resultMap="returnResultMap">
+		SELECT 
+			*
+			,COUNT(1) AS count
+			,SUM(DC.contract_total_price) AS total
+		FROM
+			doc_contract AS DC
+		LEFT JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			PS.set_code = DC.set_code
+		WHERE 
+			DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+			AND
+			DC.progress_status = '반납완료'
+		GROUP BY
+			DC.contract_code
+		ORDER BY
+			DC.rental_to_date DESC
+	</select>
+	<select id="getReturnCompleteListCnt" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM
+				doc_contract AS DC
+			LEFT JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				PS.set_code = DC.set_code
+			WHERE 
+				DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+				AND
+				DC.progress_status = '반납완료'
+			GROUP BY
+				DC.contract_code
+		) AS SQ	
+	</select>
+	<select id="ajaxReturnList" resultMap="returnResultMap">
+		SELECT 
+			*
 		FROM
 			doc_contract AS DC
 		LEFT JOIN
@@ -51,16 +182,8 @@
 		LEFT JOIN
 			set_goods AS SG
 			ON
-			DC.set_code = SG.set_code
-		LEFT JOIN
-			goods AS GFSG
-			ON
-			SG.goods_code = GFSG.goods_code
+			SG.set_code = DC.set_code
 		WHERE 
-			DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
-			AND
-			DC.progress_status != '반납완료'
-		ORDER BY
-			DC.rental_to_date DESC
+			DC.contract_code = #{contractCode}
 	</select>
 </mapper>

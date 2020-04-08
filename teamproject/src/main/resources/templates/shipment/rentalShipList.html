@@ -51,7 +51,6 @@ $(function(){
 					html += "<td>" +data[i].rentalToDate+"</td>";
 					html += "<td>" +data[i].shipmentDate+"</td>";
 					html += "<td>" +data[i].deliveryTel+"</td>";
-					html += "<td>" +data[i].deliveryAddress+" "+data[i].deliveryDetailAddress+"</td>";
 					html += "</tr>";
 				}
 				$('#modalTable').append(html);
@@ -377,7 +376,6 @@ $(function(){
                   <th>렌탈종료일</th>
                   <th>출하일</th>
                   <th>전화번호</th>
-                  <th>주소</th>
                 </tr>
 	         </thead>
              <tbody id="modalTable">
