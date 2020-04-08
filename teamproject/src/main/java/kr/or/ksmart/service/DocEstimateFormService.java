@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.or.ksmart.domain.Board;
 import kr.or.ksmart.domain.DocEstimateForm;
 import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.domain.Mycompany;
