@@ -24,8 +24,8 @@ public class StatisticsController {
 	
 	@GetMapping("/staff/cStatis")
 	public String cStatis(Model model) {
-		List<Grade> gradeList = statisService.getGradeForStatis();
-		model.addAttribute("gradeList", gradeList);
+		model.addAttribute("gradeForStatis", statisService.getGradeForStatis());
+		model.addAttribute("gradeList", statisService.getGradeList());
 		return "statis/cStatis";
 	}
 	@GetMapping("/staff/rStatis")
@@ -53,6 +53,8 @@ public class StatisticsController {
 	}
 	@GetMapping("/staff/cRetrunDelay")
 	public String cRetrunDelay(Model model) {
+		model.addAttribute("list", statisService.getReturnDelayList());
+		model.addAttribute("chart", statisService.getDelayChart());
 		return "statis/cRetrunDelay";
 	}
 	

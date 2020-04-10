@@ -406,7 +406,7 @@
 		WHERE 
 			DC.contract_code = #{contractCode}
 	</select>
-	<update id="returnedUpdate" parameterType="String">
+	<update id="updateReturned" parameterType="String">
 		UPDATE 
 			doc_contract 
 		SET 
@@ -414,4 +414,59 @@
 		WHERE 
 			contract_code=#{rContractCode}
 	</update>
+	<select id="getReturnedCode" parameterType="String" resultType="String">
+		SELECT
+			contract_code AS contractCode
+		FROM
+			returned
+		WHERE 
+			contract_code =#{rContractCode}
+	</select>
+	<insert id="insertReturnedDate" parameterType="String">
+		INSERT INTO 
+			returned
+			(contract_code
+			, returned_date
+			, returned_late) 
+		VALUES 
+			(#{rContractCode}
+			, DATE(NOW())
+			, 'N')
+	</insert>
+	<update id="updateReturnedDate" parameterType="String">
+		UPDATE 
+			returned
+		SET 
+			returned_date=DATE(NOW())
+		WHERE  
+			contract_code =#{rContractCode}
+	</update>
+	<insert id="insertLate">
+		INSERT INTO
+			returned
+			(
+			contract_code,
+			returned_late
+			)
+		SELECT
+			contract_code
+			, 'Y' AS returned_late
+		FROM 
+			doc_contract
+		WHERE 
+			rental_to_date &lt; NOW()
+			AND
+			progress_status != '반납완료'
+			AND
+			contract_code
+			NOT IN
+			(
+				SELECT 
+					contract_code
+				FROM
+					returned
+			)
+		GROUP BY
+			contract_code
+	</insert>
 </mapper>

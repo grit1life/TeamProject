@@ -91,8 +91,8 @@ public class ReturnController {
 	}
 	
 	@PostMapping("/returnedUpdate")
-	public @ResponseBody int returnedUpdate(@RequestParam(value = "rContractCode") String rContractCode) {
-		return returnService.returnedUpdate(rContractCode);
+	public @ResponseBody int updateReturned(@RequestParam(value = "rContractCode") String rContractCode) {
+		return returnService.updateReturned(rContractCode);
 	}
 	
 }

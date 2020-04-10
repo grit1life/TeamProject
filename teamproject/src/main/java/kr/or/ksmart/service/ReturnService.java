@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -122,7 +123,22 @@ public class ReturnService {
 		return returnMapper.ajaxReturnList(contractCode);
 	}
 	
-	public int returnedUpdate(String rContractCode) {
-		return returnMapper.returnedUpdate(rContractCode);
+	public int updateReturned(String rContractCode) {
+		if(returnMapper.getReturnedCode(rContractCode) == null) {
+			returnMapper.insertReturnedDate(rContractCode);
+		}else {
+			returnMapper.updateReturnedDate(rContractCode);
+		}
+		return returnMapper.updateReturned(rContractCode);
 	}
+	
+	
+	/**
+	 * 렌탈 반납이 늦은 상품 입력
+	 */
+	@Scheduled(cron="0 0 1 * * *")
+	public void insertLate() {
+		returnMapper.insertLate();
+	}
+	
 }

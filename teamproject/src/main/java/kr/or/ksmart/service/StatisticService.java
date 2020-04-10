@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.Grade;
 import kr.or.ksmart.domain.Outcome;
+import kr.or.ksmart.domain.ReturnDelay;
 import kr.or.ksmart.mapper.StatisticMapper;
 
 @Service
@@ -19,8 +20,10 @@ public class StatisticService {
 	private StatisticMapper statisMapper;
 	
 	public List<Grade> getGradeForStatis(){
-		List<Grade> gradeList = statisMapper.getGradeForStatis();
-		return gradeList;
+		return statisMapper.getGradeForStatis();
+	}
+	public List<Grade> getGradeList(){
+		return statisMapper.getGradeList();
 	}
 	
 	public List<Outcome> getAllOutCome(){
@@ -71,5 +74,12 @@ public class StatisticService {
 	public List<Outcome> getBranchStaff(){
 		List<Outcome> list = statisMapper.getBranchStaff();
 		return list;
+	}
+	
+	public List<ReturnDelay> getReturnDelayList(){
+		return statisMapper.getReturnDelayList();
+	}
+	public List<Map<String, Object>> getDelayChart(){
+		return statisMapper.getDelayChart();
 	}
 }

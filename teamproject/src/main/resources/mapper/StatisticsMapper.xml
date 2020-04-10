@@ -13,6 +13,33 @@
 		GROUP BY 
 			customer_class
 	</select>	
+	<select id="getGradeList" resultType="Grade">
+		SELECT 
+			C.customer_name AS customerName
+			,CC.customer_company_name AS customerCompanyName
+			,C.customer_class AS customerClass
+			,C.customer_call AS customerCall
+			,C.customer_address AS customerAddress
+			,C.customer_address2 AS customerAddress2
+			,CC.customer_company_call AS customerCompanyCall
+			,CC.customer_company_address1 AS customerCompanyAddress1
+			,CC.customer_company_address2 AS customerCompanyAddress2
+			,SUM(DC.contract_total_price) AS total
+		FROM
+			customer AS C
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			doc_contract AS DC
+			ON
+			C.customer_id = DC.customer_id
+		GROUP BY
+			C.customer_id
+		ORDER BY 
+			C.customer_class DESC
+	</select>
 	<select id="getAllOutcome" resultType="Outcome">
 		SELECT
 			MONTH(contract_date) AS month
@@ -250,5 +277,92 @@
 		GROUP BY
 			B.branch_code, YEAR(C.contract_date)
 		ORDER BY YEAR(contract_date), S.staff_name  
+	</select>
+	<resultMap type="ReturnDelay" id="returnDelayResultMap">
+		<result property="contractCode" column="contract_code"/>
+		<result property="contractNo" column="contract_no"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="setCode" column="set_code"/>
+		<result property="rentalCount" column="rental_count"/>
+		<result property="rentalFromDate" column="rental_from_date"/>
+		<result property="rentalToDate" column="rental_to_date"/>
+		<result property="rentalPeriod" column="rental_period"/>
+		<result property="saleCode" column="sale_code"/>
+		<result property="gradeName" column="grade_name"/>
+		<result property="effectivenessDate" column="effectiveness_date"/>
+		<result property="contractTotalPrice" column="contract_total_price"/>
+		<result property="contractDate" column="contract_date"/>
+		<result property="deliveryWay" column="delivery_way"/>
+		<result property="deliveryNumber" column="delivery_number"/>
+		<result property="deliveryAddress" column="delivery_address"/>
+		<result property="deliveryDetailAddress" column="delivery_detail_address"/>
+		<result property="deliveryTel" column="delivery_tel"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerCompanyName" column="customer_company_name"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="setName" column="set_name"/>
+		<result property="setGoodsCount" column="set_goods_count"/>
+		<result property="setGoodsName" column="setGoodsName"/>
+		<result property="customerCompanyPresident" column="customer_company_president"/>
+		<result property="customerCompanyCall" column="customer_company_call"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="inputStaffName" column="inputStaffName"/>
+		<result property="total" column="total"/>
+		<result property="returnedDate" column="returned_date"/>
+		<result property="returnedLate" column="returned_late"/>
+		<result property="customerCall" column="customer_call"/>
+		<result property="customerAddress" column="customer_address"/>
+		<result property="customerAddress2" column="customer_address2"/>
+		<result property="customerCompanyName" column="customer_company_name"/>
+		<result property="customerCompanyCall" column="customer_company_call"/>
+		<result property="customerCompanyAddress1" column="customer_company_address1"/>
+		<result property="customerCompanyAddress2" column="customer_company_address2"/>
+	</resultMap>
+	<select id="getReturnDelayList" resultMap="returnDelayResultMap">
+		SELECT 
+			*
+		FROM
+			returned AS R
+		INNER JOIN
+			doc_contract AS DC
+		 	ON
+			R.contract_code = DC.contract_code
+		LEFT JOIN
+			customer AS C
+			ON
+			C.customer_id = DC.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			CC.customer_id = DC.customer_id
+		WHERE
+			R.returned_date &gt; DC.rental_to_date
+			OR
+			ISNULL(R.returned_date)
+		GROUP BY
+			R.contract_code
+		ORDER BY
+			DC.rental_to_date ASC
+	</select>
+	<select id="getDelayChart" resultType="Map">
+		SELECT 
+			YEAR(DC.rental_to_date) AS year
+			,MONTH(DC.rental_to_date) AS month
+			,COUNT(1) AS cnt
+		FROM
+			returned AS R
+		INNER JOIN
+			doc_contract AS DC
+		 	ON
+			R.contract_code = DC.contract_code
+		WHERE
+			R.returned_date &gt; DC.rental_to_date
+			OR
+			ISNULL(R.returned_date)
+		GROUP BY
+			YEAR(DC.rental_to_date), MONTH(DC.rental_to_date)
+		ORDER BY
+			YEAR(DC.rental_to_date), MONTH(DC.rental_to_date)
 	</select>
 </mapper>

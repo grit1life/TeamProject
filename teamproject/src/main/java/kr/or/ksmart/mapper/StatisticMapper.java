@@ -7,11 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.ksmart.domain.Grade;
 import kr.or.ksmart.domain.Outcome;
+import kr.or.ksmart.domain.ReturnDelay;
 
 @Mapper
 public interface StatisticMapper {
 	
 	public List<Grade> getGradeForStatis();
+	public List<Grade> getGradeList();
 	
 	public List<Outcome> getAllOutcome();
 	
@@ -29,4 +31,6 @@ public interface StatisticMapper {
 	public List<Outcome> getPersnlPYearOutcome(Map<String, Object> map);
 	
 	public List<Outcome> getBranchStaff();
+	public List<ReturnDelay> getReturnDelayList();
+	public List<Map<String, Object>> getDelayChart();
 }

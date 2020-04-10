@@ -1,8 +1,10 @@
 package kr.or.ksmart.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class DocContractForm {
 
 	/* 계약서 */

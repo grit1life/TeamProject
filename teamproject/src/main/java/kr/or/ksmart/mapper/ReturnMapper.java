@@ -23,5 +23,9 @@ public interface ReturnMapper {
 	
 	public List<Return> ajaxReturnList(String contractCode);
 	
-	public int returnedUpdate(String rContractCode);
+	public String getReturnedCode(String rContractCode);
+	public int updateReturnedDate(String rContractCode);
+	public int updateReturned(String rContractCode);
+	public int insertReturnedDate(String rContractCode);
+	public int insertLate();
 }

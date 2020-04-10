@@ -22,6 +22,5 @@ public class GradeScheduler {
 			String customerId = list.get(i).getCustomerId();
 			gradeService.updateGrade(customerId);
 		}
-		gradeService.insertGradeRecord();
 	}
 }
