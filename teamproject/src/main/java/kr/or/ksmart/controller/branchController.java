@@ -1,6 +1,7 @@
 package kr.or.ksmart.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,18 +44,24 @@ import kr.or.ksmart.service.BranchService;
 				  
 				  return "redirect:/bList";
 				  }	
-		
-		//지점리스트
-		@GetMapping("/bList")
-		public String BranchList(Model model) {
-			
-			model.addAttribute("BranchList", branchService.getBranchList());
-						
-						
-		return "/branch/bList";
+		 
+		 @GetMapping("/bList")
+			public String BranchList(Model model, @RequestParam(value="page", required = false) String page) {
+				if(page==null) {
+					page = "1";
+				}
+				int pageNum = Integer.parseInt(page);
+				Map<String, Object> map =  branchService.getBranchList(pageNum);
 				
-					
-		}
+				model.addAttribute("BranchList", map.get("BranchList"));
+				model.addAttribute("currentPage", map.get("currentPage"));
+				model.addAttribute("startPage", map.get("startPage"));
+				model.addAttribute("endPage", map.get("endPage"));
+				model.addAttribute("lastPage", map.get("lastPage"));
+				
+				return "branch/bList";
+			}
+		
 		
 		//지점 업데이트
 		@GetMapping("/bUpdate")
@@ -101,17 +108,30 @@ import kr.or.ksmart.service.BranchService;
 				
 	    //지점 검색
 		@PostMapping("/branchSearchList")
-		public String getBranchSearchList(  @RequestParam(value="branchCode" ,required=false) 		                String branchCode
-														 ,@RequestParam(value="staffName" ,required=false)		    String staffName 
-														 ,@RequestParam(value="branchName" ,required=false) 		String branchName
-														 ,@RequestParam(value="branchPhone" ,required=false) 		String branchPhone
-														 ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
-														 ,@RequestParam(value="toDate" ,required=false) 			String toDate												
-														 ,Model model) {
-						
-						List<Branch> list = branchService.getBranchSearchList(branchCode, staffName, branchName, branchPhone, fromDate, toDate);				
-						model.addAttribute("BranchList", list);
-						return "/branch/bList";
+		public String getCustomerSearchList(  @RequestParam(value="branchCode" ,required=false) 		String branchCode
+				 ,@RequestParam(value="staffName" ,required=false)		String staffName 
+				 ,@RequestParam(value="branchName" ,required=false) 		String branchName
+				 ,@RequestParam(value="branchPhone" ,required=false) 		String branchPhone
+				 ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
+				 ,@RequestParam(value="toDate" ,required=false) 			String toDate													
+				 ,@RequestParam(value="page", required = false)             String page
+				 ,Model model) {
+
+				if(page==null) {
+				page = "1";
+				}
+				int pageNum = Integer.parseInt(page);
+				Map<String, Object> map = branchService.getBranchSearchList(branchCode, staffName, branchName, branchPhone, fromDate, toDate, pageNum);
+				
+				model.addAttribute("BranchList", map.get("BranchList"));
+				model.addAttribute("currentPage", map.get("currentPage"));
+				model.addAttribute("startPage", map.get("startPage"));
+				model.addAttribute("endPage", map.get("endPage"));
+				model.addAttribute("lastPage", map.get("lastPage"));
+				
+				System.out.println(map.get("startPage"));
+				return "/branch/bList";
+
 		}	
 							
 		

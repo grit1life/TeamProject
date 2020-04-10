@@ -4,6 +4,42 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="kr.or.ksmart.mapper.PeriodicInspectionMapper">
+  
+  
+  	<resultMap type="kr.or.ksmart.domain.PeriodicInspection" id="PeriodicInspectionResultMap">
+  		<result property="checkCode" column="check_code"/>
+  		<result property="branchCode" column="branch_code"/>
+  		<result property="branchName" column="branch_name"/>
+  		<result property="customerId" column="customer_id"/>
+  		<result property="customerName" column="customer_name"/>
+  		<result property="customerLevel" column="customer_level"/>
+  		<result property="customerCall" column="customer_call"/>
+  		<result property="zipCode"     column="zip_code"/>
+  		<result property="customerAddress" column="customer_address"/>
+  		<result property="customerAddress2" column="customer_address2"/>
+  		<result property="staffId" column="staff_id"/>
+  		<result property="staffName" column="staff_name"/>
+  		<result property="checkDate" column="check_date"/>
+  		<result property="productStatus" column="product_status"/>
+  		<result property="checkContents" column="check_contents"/>
+  		<result property="contractCode" column="contract_code"/>
+  		<result property="contractNo" column="contract_no"/>
+  		<result property="goodsCode" column="goods_code"/>
+  		<result property="goodsName" column="goods_name"/>
+  		<result property="inputStaffCode" column="input_staff_code"/>
+  		<result property="inputStaffName" column="input_staff_name"/>
+  		<result property="inputDate" column="input_date"/>
+  		<result property="updateStaffCode" column="update_staff_code"/>
+		<result property="updateStaffName" column="update_staff_name"/>
+		<result property="updateDate" column="update_date"/>
+  		
+  	
+  	
+  	
+  	
+  	
+  	
+  	</resultMap>
   	
   	
   	<resultMap type="kr.or.ksmart.domain.Customer" id="customerResultMap">
@@ -31,6 +67,39 @@
 		<result property="updateStaffCode" column="update_staff_code"/>
 		<result property="updateStaffName" column="update_staff_name"/>
 		<result property="updateDate" column="update_date"/>
+	</resultMap>
+	
+	<resultMap type="DocContractForm" id="contractResultMap">
+		<result property="contractCode" column="contract_code"/>
+		<result property="contractNo" column="contract_no"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="setCode" column="set_code"/>
+		<result property="rentalCount" column="rental_count"/>
+		<result property="rentalFromDate" column="rental_from_date"/>
+		<result property="rentalToDate" column="rental_to_date"/>
+		<result property="rentalPeriod" column="rental_period"/>
+		<result property="saleCode" column="sale_code"/>
+		<result property="gradeName" column="grade_name"/>
+		<result property="effectivenessDate" column="effectiveness_date"/>
+		<result property="contractTotalPrice" column="contract_total_price"/>
+		<result property="contractDate" column="contract_date"/>
+		<result property="deliveryWay" column="delivery_way"/>
+		<result property="deliveryNumber" column="delivery_number"/>
+		<result property="deliveryAddress" column="delivery_address"/>
+		<result property="deliveryDetailAddress" column="delivery_detail_address"/>
+		<result property="deliveryTel" column="delivery_tel"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerCompanyName" column="customer_company_name"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="setName" column="set_name"/>
+		<result property="setGoodsCount" column="set_goods_count"/>
+		<result property="setGoodsName" column="setGoodsName"/>
+		<result property="customerCompanyPresident" column="customer_company_president"/>
+		<result property="customerCompanyCall" column="customer_company_call"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="inputStaffName" column="inputStaffName"/>
+		<result property="total" column="total"/>
 	</resultMap>
 	
   
@@ -72,7 +141,68 @@
 												 );
 	
 	
-	</insert>  
+	</insert> 
+	
+	<!--정기 점검 현황  리스트 페이징  -->
+ 	<select id="getPeriodicInspectionCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			periodic_inspection
+			
+	</select>
+	
+	<!--정기 점검 현황  검색 리스트 페이징  -->
+ 	<select id="findTotalCount" resultType="int"> 
+ 	SELECT 
+		COUNT(*) 
+      FROM 
+      (SELECT 
+	       PI.check_code
+			,B.branch_name
+			,C.customer_name
+			,C.customer_level
+			,DC.goods_code
+			,G.goods_name
+			,PI.product_status
+			,S.staff_name
+			,PI.check_date
+		FROM
+        periodic_inspection AS PI
+		JOIN
+			doc_contract AS DC
+		ON
+			PI.contract_code = DC.contract_code
+		JOIN
+			branch AS B
+		ON
+			PI.branch_code = B.branch_code
+		JOIN
+			customer AS C
+		ON
+			DC.customer_id = C.customer_id
+		JOIN
+			staff AS S
+		ON
+			PI.staff_id = S.staff_code		
+		JOIN
+		   goods AS G
+		ON
+		   G.goods_code = DC.goods_code
+		WHERE
+			PI.check_code = #{checkCode}
+		OR  PI.check_date  BETWEEN  #{fromDate}  AND  #{toDate}
+		OR  B.branch_name = #{branchName}
+		OR  C.customer_name = #{customerName}  
+		OR  C.customer_level = #{customerLevel} 		
+		GROUP BY 
+		DC.contract_code
+		ORDER BY 
+		PI.check_date) AS CNT;
+ 	
+
+	</select>
+	 
   
   
   
@@ -113,31 +243,135 @@
 	   G.goods_code = DC.goods_code
 		
 	GROUP BY 
-		PI.check_code;
+		PI.check_code
+	ORDER by
+	    PI.check_date
+	LIMIT ${startClmn}, ${endClmn};     	
 
 	</select>
 	
 	
-	<!-- 개인 고객  모달 리스트  -->
+	<!--정기 점검 상세보기  -->
+	<select id="SelectForUpdate" parameterType="String" resultMap="PeriodicInspectionResultMap">
+	SELECT
+	  	 PI.check_code
+		,DC.contract_code
+		,DC.contract_no
+		,DC.customer_id
+		,C.customer_name
+		,C.customer_call
+		,C.zip_code
+		,C.customer_address
+		,C.customer_address2
+		,DC.goods_code
+		,G.goods_name 
+		,PI.check_date
+		,PI.check_contents
+		,PI.branch_code
+		,B.branch_code
+		,PI.staff_id
+		FROM
+		periodic_inspection AS PI
+		JOIN
+		doc_contract AS DC
+		ON
+		PI.contract_code = DC.contract_code
+		JOIN
+		customer AS C
+		ON
+		C.customer_id = DC.customer_id
+		JOIN
+		goods AS G
+		ON
+		DC.goods_code = G.goods_code
+		JOIN
+		branch AS B
+		ON
+		PI.branch_code = B.branch_code
+		WHERE
+		PI.check_code = #{checkCode}
+		GROUP BY 
+		PI.check_code
+
+
+	</select>
+	
+	
+	<!--정기점검 업데이트  -->
+	<update id="pUpdate" parameterType="kr.or.ksmart.domain.PeriodicInspection">
+		UPDATE periodic_inspection
+		SET
+			check_date=#{checkDate},
+			product_status=#{productStatus},
+			check_contents=#{checkContents},
+			branch_code=#{branchCode},
+			staff_id=#{staffId}			
+		WHERE 
+			check_code=#{checkCode};
+	
+	</update>
+	
+	<!--삭제  -->
+	<delete id="pDelete" parameterType="String">
+		DELETE FROM periodic_inspection WHERE check_code=#{checkCode};
+	</delete>
+	
+	<!--검색 -->
+	<select id="periodicInspectionSearchList" parameterType="String"  resultMap="PeriodicInspectionResultMap">
+	 SELECT 
+		*
+	 FROM
+		periodic_inspection AS PI
+	 JOIN
+		doc_contract AS DC
+	 ON
+		PI.contract_code = DC.contract_code
+	 JOIN
+		branch AS B
+	 ON
+		PI.branch_code = B.branch_code
+	 JOIN
+		customer AS C
+	 ON
+		DC.customer_id = C.customer_id
+	 JOIN
+		staff AS S
+	 ON
+		PI.staff_id = S.staff_code		
+	JOIN
+	   goods AS G
+	ON
+	   G.goods_code = DC.goods_code
+	WHERE
+	    PI.check_date  BETWEEN  #{fromDate}  AND  #{toDate}
+	OR  B.branch_name = #{branchName}
+	OR  C.customer_name = #{customerName}  
+	OR  C.customer_level = #{customerLevel}
+	LIMIT ${startClmn}, ${endClmn};   
+	
+	   
+	   
+	</select>
+	
+	
+	<!-- 개인고객 팝업창 리스트  -->
 	<select id="CustomerList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
 		SELECT 
 		 C.customer_id    AS customerId
 		,C.customer_name  AS customerName
-		,C.customer_level AS customerLevel
-		,C.customer_class AS customerClass
 		,C.customer_call  AS customerCall
-		,C.customer_email AS customerEmail
 		,C.zip_code       AS zipCode 
 		,C.customer_address AS customerAddress
 		,C.customer_address2 AS customerAddress2
 		
 		FROM
 		customer AS C
+		WHERE if( customer_level = '개인', 'Y', 'N' ) = 'Y';
 
 	</select>
 	
-   <!--개인고객 검색 모달 리스트 -->
-	<select id="CustomerSearchList" parameterType="String"  resultMap="customerResultMap">
+   <!--개인고객 팝업창 검색 리스트 -->
+	<select id="CustomerSearchList" parameterType="String"  resultMap="PeriodicInspectionResultMap">
 				SELECT
 					*
 				FROM 
@@ -151,6 +385,83 @@
 			
 	</select>
 	  
-		
+	<!-- 기업고객 팝업창 리스트  -->
+	<select id="CustomerCompanyList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
+			SELECT
+				 C.customer_id    AS customerId
+				,CP.customer_company_name 	AS customerCompanyName
+				,CP.customer_company_call AS customerCompanyCall
+				,CP.customer_company_zip_code  AS customerCompanyZipCode
+				,CP.customer_company_address1 AS customerCompanyAddress1
+				,CP.customer_company_address2 AS customerCompanyAddress2
+
+			FROM
+				customer_company AS CP
+				
+			JOIN
+			customer AS C
+			ON
+			CP.customer_id = C.customer_id
+			WHERE if(customer_level = '법인'  or customer_level = '개인 사업자', 'Y', 'N' ) = 'Y';	
+	</select>
+	
+	<!--기업고객 팝업창 검색 리스트 -->
+	<select id="CustomerCompanySearchList" parameterType="String"  resultMap="customerResultMap">
+				SELECT
+					*
+				FROM 
+				customer_company AS CP
+				JOIN 
+				customer AS C
+				ON
+				CP.customer_id = C.customer_id
+				WHERE 
+					   C.customer_id = #{customerId}	
+					or C.customer_id = #{customerId}
+					or CP.customer_company_name = #{customerCompanyName}
+				    or C.customer_class =#{customerClass}
+				    or CP.customer_company_call =#{customerCompanyCall};
+			
+	</select>
+	
+	<!--계약서 팝업창 리스트 -->
+	<select id="ContractList" parameterType="String"  resultMap="contractResultMap">
+				SELECT
+					 DC.contract_code AS contractCode
+					,DC.contract_no AS contractNo
+					,DC.customer_id AS customerId
+					,DC.goods_code AS goodsCode
+					,G.goods_name AS goodsName
+					,DC.rental_count AS rentalCount
+					,DC.rental_from_date AS rentalFromDate
+					,DC.rental_to_date AS rentalToDate
+				FROM
+					doc_contract AS DC
+				JOIN
+					goods AS G
+				ON
+				  DC.goods_code = G.goods_code;
+						
+			
+	</select>
+	<!--계약서 팝업창 검색 리스트 -->
+	<select id="ContractSearchList" parameterType="String"  resultMap="contractResultMap">
+						SELECT
+						*
+						FROM
+							doc_contract AS DC
+						JOIN
+							goods AS G
+						ON
+						  DC.goods_code = G.goods_code					  
+					    WHERE 
+							     DC.contract_code = #{contractCode}
+						    AND  DC.contract_no = #{contractNo}								  	
+							OR   DC.customer_id = #{customerId}
+						    OR   G.goods_name = #{goodsName};
+						    
+						
+			
+	</select>				
 		
   </mapper>

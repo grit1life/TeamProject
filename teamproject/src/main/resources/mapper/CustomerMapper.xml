@@ -68,8 +68,33 @@
 	
 	</insert>
  
- 
- 
+ 	<!--개인 고객 리스트 페이징  -->
+ 	<select id="getCustomerCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			customer
+			
+	</select>
+	
+	<!--개인 고객 검색 리스트 페이징  -->
+ 	<select id="findTotalCount" resultType="int">
+ 		SELECT 
+        count(*) 
+        FROM 
+        customer
+        WHERE 
+					customer_id = #{customerId}
+				    or input_date BETWEEN  #{fromDate}  AND  #{toDate}	
+					or customer_id = #{customerId}
+					or customer_name = #{customerName}
+				    or customer_class = #{customerClass}
+					ORDER BY customer_id;       
+ 	
+
+	</select>
+
+
 	 <!--개인 고객 리스트  -->
 	 <select id="getCustomerList" parameterType="String" resultType="kr.or.ksmart.domain.Customer">
 		SELECT 
@@ -80,7 +105,9 @@
 				,input_date	    AS inputDate
 		FROM
 		customer
-		WHERE if( customer_level = '개인', 'Y', 'N' ) = 'Y';
+		WHERE if( customer_level = '개인', 'Y', 'N' ) = 'Y'
+		ORDER BY customer_id
+		LIMIT ${startClmn}, ${endClmn}  
 	 </select>
 				
 
@@ -95,7 +122,9 @@
 				    or input_date between  #{fromDate}  AND  #{toDate}	
 					or customer_id = #{customerId}
 					or customer_name = #{customerName}
-				    or customer_class =#{customerClass};
+				    or customer_class =#{customerClass}
+				ORDER BY customer_id
+				LIMIT ${startClmn}, ${endClmn};      
 			
 	  </select>
 	  
@@ -115,8 +144,8 @@
 							 ,customer_address2							 
 							 
 		FROM   customer
-		WHERE
-		customer_id = #{customerId};
+		WHERE 
+		customer_id = #{customerId}
 
 	</select>
 	
@@ -181,6 +210,36 @@
 	
 	
 	</insert>
+	<!--개인 고객 리스트 페이징  -->
+ 	<select id="getCustomerCompanyCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			customer_company
+			
+	</select>
+	
+	<!--개인 고객 검색 리스트 페이징  -->
+ 	<select id="findTotalCount2" resultType="int">
+ 		SELECT 
+        	count(*) 
+        FROM 
+        	customer_company AS CP
+        JOIN 
+			customer AS C
+		ON
+			CP.customer_id = C.customer_id
+		WHERE 
+			C.customer_id = #{customerId}
+				or C.input_date between  #{fromDate}  AND  #{toDate}	
+				or C.customer_id = #{customerId}
+				or CP.customer_company_name = #{customerCompanyName}
+				or C.customer_level = #{customerLevel}
+				or C.customer_class =#{customerClass};
+      
+ 	
+
+	</select>
 	
 	
 	
@@ -202,7 +261,7 @@
 			customer AS C
 			ON
 			CP.customer_id = C.customer_id
-			WHERE if(customer_level = '법인'  or customer_level = '개인 사업자', 'Y', 'N' ) = 'Y';	
+			WHERE if(customer_level = '법인'  or customer_level = '개인 사업자', 'Y', 'N' ) = 'Y'	
 			
 			
 			
@@ -210,7 +269,7 @@
 		</select>
 		
 	<!--개인사업/법인 검색 및 리스트 -->
-	  <select id="getCustomerSearchList2" parameterType="String"  resultMap="customerResultMap">
+	<select id="getCustomerSearchList2" parameterType="String"  resultMap="customerResultMap">
 				SELECT
 					*
 				FROM 

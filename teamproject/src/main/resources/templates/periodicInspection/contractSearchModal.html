@@ -22,8 +22,8 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->	
-<!-- 개인고객 검색 및 리스트 시작 -->
- <form th:action="@{/CustomerSearchList}" method="post"> 
+<!-- 계약서 검색 및 리스트 시작 -->
+ <form th:action="@{/ContractSearchList}" method="post"> 
 	<div class="content-wrapper">	 	  
 	     <section class="content-header"> 		  
 		      <div class="container-fluid">   
@@ -31,7 +31,7 @@
 		         
 		         <!-- /.card-header -->
 		          <div class="card-header">
-		            <h3 class="card-title">개인 고객 검색</h3>
+		            <h3 class="card-title">계약서 검색</h3>
 				        <div class="card-tools">
 						    <div style="display: inline-block;">
 						    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -47,27 +47,25 @@
 		          <div class="card-body">
 		            <div class="row">	            	
 			            <div class="form-group" style="padding-bottom: 15px;">	
+			            	<div style="display: inline-block;">
+						     	<label>고객 아이디</label>					     					     		
+									<input type="text" class="form-control" name="customerId" placeholder="고객아이디">
+						    </div> 
+			            	
 							<div style="display: inline-block;">
-								<label>고객 아이디</label>
-								<input type="text" class="form-control"  name="customerId" placeholder="ID">
+								<label>계약서 코드</label>
+								<input type="text" class="form-control"  name="contractCode" placeholder="계약서 코드">
 						    </div> 
 						    
 						    
 						    <div style="display: inline-block;">
-						    	<label>고객명</label>
-									<input type="text" class="form-control" name="customerName" placeholder="고객명">	
-						    </div> 
-		
+						    	<label>계약서No</label>
+									<input type="text" class="form-control" name="contractNo" placeholder="계약서No">	
+						    </div>   
 						    
 						    <div style="display: inline-block;">
-						     	<label>등급</label>					     					     		
-									<input type="text" class="form-control" name="customerClass" placeholder="등급">
-						    </div> 
-						    
-						    
-						    <div style="display: inline-block;">
-								<label>전화번호</label>
-								<input type="text" class="form-control" name="customerCall" placeholder="전화번호">
+								<label>상품명</label>
+								<input type="text" class="form-control" name="goodsName" placeholder="상품명">
 						    </div> 
 	    	          
 						    <div style="display: inline-block; margin-left:5px;">
@@ -86,26 +84,29 @@
 							     	<table class="table table-hover">
 							         	<thead>
 							              	<tr>
-							                      <th>ID</th>
-							                      <th>고객명</th>
-							                      <th>고객 연락처</th>			                  
-							                      <th>우편 번호</th>
-							                      <th>기본주소</th>
-							                      <th>상세주소</th>
-							                      <th>확인</th>
+							                      <th>계약서 코드</th>
+								                  <th>계약서 No</th>
+								                  <th>고객 아이디</th>
+								                  <th>상품 코드</th>
+								                  <th>상품명</th>
+								                  <th>주문갯수</th>
+								                  <th>렌탈신청일자</th>
+								                  <th>렌탈종료일자</th>
+								                  <th>선택</th>
 							                  </tr>
 							             </thead>
 							              <tbody>
-							                  	<tr th:each="l : ${CustomerList}">
-							                  
-													<td th:text="${l.customerId}"></td>
-													<td th:text="${l.customerName}"></td>
-													<td th:text="${l.customerCall}"></td>									
-													<td th:text="${l.zipCode}"></td>
-													<td th:text="${l.customerAddress}"></td>
-													<td th:text="${l.customerAddress2}"></td>									
+							                  	<tr th:each="l : ${ContractList}">							                  
+													<td th:text="${l.contractCode}"></td>
+													<td th:text="${l.contractNo}"></td>
+													<td th:text="${l.customerId}"></td>									
+													<td th:text="${l.goodsCode}"></td>
+													<td th:text="${l.goodsName}"></td>
+													<td th:text="${l.rentalCount}"></td>
+													<td th:text="${l.rentalFromDate}"></td>
+													<td th:text="${l.rentalToDate}"></td>									
 													<td> 
-														<button type="button" id="customerListBtn" class="btn btn-primary btn-sm">
+														<button type="button" id="contractListBtn" class="btn btn-primary btn-sm">
 								                            <i class="fas fa-check"></i>
 								                        </button>     		
 												    </td>														
@@ -119,9 +120,9 @@
 				   </div>
 			   </div>
 		   </div>	            
-   </section>     
-</div>
-</form> 
+        </section>     
+     </div>
+ </form> 
 <!-- 개인 고객 검색 및 리스트 끝  --> 
 
 
@@ -153,27 +154,29 @@
 	
 	<script> 			
 
-	$('#customerListBtn').click(function(){	
+	$('#contractListBtn').click(function(){	
 		
 		var str = ""
-	    var customerListBtn = $(this);
-	    var tr = customerListBtn.parent().parent();
+	    var contractListBtn = $(this);
+	    var tr = contractListBtn.parent().parent();
 	    var td = tr.children();
-	    var customerId = td.eq(0).text();
-	    var customerName = td.eq(1).text();
-	    var customerCall = td.eq(2).text();
-	    var zipCode = td.eq(3).text();
-	    var customerAddress = td.eq(4).text();
-	    var customerAddress2 = td.eq(5).text();
+	    var contractCode = td.eq(0).text();
+	    var contractNo = td.eq(1).text();
+	    var customerId = td.eq(2).text();
+	    var goodsCode = td.eq(3).text();
+	    var goodsName = td.eq(4).text();
+	    var rentalCount = td.eq(5).text();
+	    var rentalFromDate = td.eq(6).text();
+	    var rentalToDate = td.eq(7).text();
 
 	
+		window.opener.document.getElementById("contractCode").value = contractCode;
+		window.opener.document.getElementById("contractNo").value = contractNo;
 		window.opener.document.getElementById("customerId").value = customerId;
-		window.opener.document.getElementById("customerName").value = customerName;
-		window.opener.document.getElementById("customerCall").value = customerCall;
-		window.opener.document.getElementById("customerName").value = customerName;
-		window.opener.document.getElementById("zipCode").value = zipCode;
-		window.opener.document.getElementById("customerAddress").value = customerAddress;
-		window.opener.document.getElementById("customerAddress2").value = customerAddress2;
+		window.opener.document.getElementById("goodsCode").value = goodsCode;
+		window.opener.document.getElementById("goodsName").value = goodsName;
+		window.opener.document.getElementById("rentalFromDate").value = rentalFromDate;
+		window.opener.document.getElementById("rentalToDate").value = rentalToDate;
 		
 		
 

@@ -23,10 +23,11 @@
            </ol>
          </div>
        </div>
-     
+     </section>
 	
   
   <!--정기점검정보  -->
+<form th:action="@{/pUpdate}" method="post">   
   <section class="content">
   	<div class="container-fluid">
 	
@@ -36,64 +37,70 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form th:action="@{/pUpdate}" method="post"> 
+         
                 <div class="card-body">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">점검번호</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text"  name="checkCode" th:value="${PeriodicInspection.checkCode}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>	
                 
                 <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                      <input type="text" id="1" name="contractCode" th:value="${PeriodicInspection.contractCode}" class="form-control" readonly="readonly">
+                      <input type="text"  name="contractCode" th:value="${PeriodicInspection.contractCode}" class="form-control" readonly="readonly">
                     </div>
                   </div>
                   
                   <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 No</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                      <input type="text" id="2" name="contractNo" th:value="${PeriodicInspection.contractNo}" class="form-control" readonly="readonly">
+                      <input type="text"  name="contractNo" th:value="${PeriodicInspection.contractNo}" class="form-control" readonly="readonly">
                     </div>
                   </div>
                   
                    <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                      <input type="text" id="3" name="customerId" th:value="${PeriodicInspection.customerId}" class="form-control" readonly="readonly">
+                      <input type="text"  name="customerId" th:value="${PeriodicInspection.customerId}" class="form-control" readonly="readonly">
                     </div>
                   </div>
                   
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명/담당자명</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                      <input type="text" id="a" name="customerName" th:value="${PeriodicInspection.customerName}" class="form-control" readonly="readonly">
+                      <input type="text"  name="customerName" th:value="${PeriodicInspection.customerName}" class="form-control" readonly="readonly">
                     </div>
                   </div>
                   
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객/담당자 연락처</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                       <input type="text" id="b" name="customerCall" th:value="${PeriodicInspection.customerCall}" class="form-control" readonly="readonly">
-                    </div>
-                  </div>
-                  
-                  
-                   <label for="inputEmail3" class="col-sm-2 col-form-label">우편 번호</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                        <input type="text" id="c" name="zipCode" th:value="${PeriodicInspection.zipCode}" class="form-control" readonly="readonly">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">기본 주소</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="d" name="customerAddress" th:value="${PeriodicInspection.customerAddress}" class="form-control" readonly="readonly">
+                       <input type="text"  name="customerCall" th:value="${PeriodicInspection.customerCall}" class="form-control" readonly="readonly">
                     </div>
                   </div>
                   
                   
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">상세 주소</label>
+                   <label for="inputEmail3" class="col-sm-2 col-form-label">고객/담당자 우편 번호</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                       <input type="text" id="e" name="customerAddress2" th:value="${PeriodicInspection.customerAddress2}"  class="form-control" readonly="readonly">
+                        <input type="text"  name="zipCode" th:value="${PeriodicInspection.zipCode}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객/담당자 기본 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text"  name="customerAddress" th:value="${PeriodicInspection.customerAddress}" class="form-control" readonly="readonly">
+                    </div>
+                  </div>
+                  
+                  
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객/담당자 상세 주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                       <input type="text"  name="customerAddress2" th:value="${PeriodicInspection.customerAddress2}"  class="form-control" readonly="readonly">
                     </div>
                   </div>
                   
@@ -110,7 +117,7 @@
                   <label for="inputEmail3" class="col-sm-2 col-form-label" >상품명</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                      <input type="text" id="6" name="goodsName" th:value="${PeriodicInspection.goodsName}" class="form-control" readonly="readonly">
+                      <input type="text" name="goodsName" th:value="${PeriodicInspection.goodsName}" class="form-control" readonly="readonly">
                     </div>
                   </div>
                   
@@ -143,15 +150,10 @@
                   
            		  
                   
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">정기점검 지점</label>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">정기점검 지점코드</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                      <select class="form-control" id="inputEmail3" name="brach_name" th:value="${PeriodicInspection.brachName}">
-                      	<option selected disabled>::선택해주세요::</option>
-		                  <option>AS001 : 본사</option>
-		                  <option>AS002 :인천점</option>
-		                  <option>AS003 :부산점</option>
-                      </select>
+                    	 <input type="text" name="branchCode" th:value="${PeriodicInspection.branchCode}" class="form-control">
                     </div>
                   </div>
                   
@@ -171,10 +173,11 @@
                   
                 </div>
                 <!-- /.card-footer -->
-              </form>
-            </div>
+            
+             </div> 
+          </div>
    </section>
-  
+ </form>  
   
   </div>
 
