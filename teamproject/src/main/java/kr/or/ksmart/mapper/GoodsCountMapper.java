@@ -9,7 +9,11 @@ import kr.or.ksmart.domain.GoodsCount;
 @Mapper
 public interface GoodsCountMapper {
 
+	public List<GoodsCount> setGoods();
+	
 	public List<GoodsCount> goodsCount(GoodsCount goodsCount);
 	
 	public List<GoodsCount> setCount(GoodsCount goodsCount);
+	
+	
 }

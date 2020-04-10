@@ -15,6 +15,11 @@ public class GoodsCountService {
 	@Autowired
 	private GoodsCountMapper goodsCountMapper;
 	
+	public List<GoodsCount> setGoods(){
+		List<GoodsCount> sgList = goodsCountMapper.setGoods();
+		return sgList;
+	}
+	
 	public List<GoodsCount> goodscount(GoodsCount goodsCount){
 		List<GoodsCount> gcList = goodsCountMapper.goodsCount(goodsCount);
 		return gcList;

@@ -37,11 +37,11 @@
 		  	<!-- left -->
 		  	<div class="col-sm-5 invoice-col">
 		  		<label>계약자 정보</label><br>
-		  		<input name="customerContractor" type="hidden">
+		  		<input name="customerId" type="hidden">
 			  	<div id="customerHtml">
 				  	<span style="color:red;">고객님을 선택하세요</span>
 				</div>  
-			  	<button id="customerModal" type="button" class="checkHidden btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
+			  	<button id="customerModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
         			<i class="fas fa-folder"></i>&ensp;고객님 검색
       			</button>
 			</div>
@@ -49,14 +49,14 @@
 		  	<div class="col-sm-7 invoice-col">
 			  	<label>렌탈 기간</label><br>
 			  	<div style="display:inline-block;">
-			  		<input name="rentalFromDate" type="date" style="width:170px;" class="rentalDate checkReadonly form-control">
+			  		<input name="rentalFromDate" type="date" style="width:170px;" class="rentalDate form-control">
 			  	</div>
 			  	&emsp;~&emsp;
 			  	<div style="display:inline-block;">
-			  		<input name="rentalToDate" type="date" style="width:170px;" class="rentalDate checkReadonly form-control">
+			  		<input name="rentalToDate" type="date" style="width:170px;" class="rentalDate form-control">
 			  	</div>
-			  	<input name="rentalPeriod" type="text" value="12" readonly="readonly" style="width:30px;border:none;text-align: right;">
-			  	<span>일&emsp;</span><span id="sale">30%할인</span>
+			  	<input name="rentalPeriod" type="text" readonly="readonly" style="width:30px;border:none;text-align: right;">
+			  	<span>일&emsp;</span><span id="sale"></span><span>%할인</span>
 			  	<br>
 		  		
 		  		<br><label>배송지 정보</label><br>
@@ -71,10 +71,11 @@
 				<div id="staffHtml">
 			  		<label>담당자</label>
 			  		<span id="staffMessage" style="color:red;">담당자를 선택하세요</span>
-				  	<button id="staffModal" type="button" class="checkHidden btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
+				  	<button id="staffModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">
 		       			<i class="fas fa-folder"></i>&ensp;담당자 검색
 		     		</button>
 	     		</div>
+	     		<input name="staffCode" type="hidden">
 			  	<input name="inputStaffCode" type="hidden">
 				<input name="inputDate" type="hidden">
 				<input name="contractNote" type="hidden">
@@ -82,49 +83,24 @@
 	  	</div>
 		<!-- right end -->
 	  </div>
-	</form>
-	<form id="docContractGoods">
+	
   	<table id="example2" class="table table-bordered table-hover"  style="margin-top: 22px;">
     	<thead>
                <tr>
-                 <th>분류</th>
-                 <th>세트명/상품명</th>
-                 <th>단가(기본 할인후)</th>
+                 <th>분류/세트명</th>
+                 <th>상품명</th>
+                 <th>단가</th>
+                 <th>장기간 렌탈 할인액</th>
                  <th>렌탈 가능 재고</th>
                  <th>갯수</th>
-                 <th>등급 할인액</th>
-                 <th>합계액</th>
-                 <th style="width:130px" class="checkHidden">삭제</th>
+                 <th>렌탈 하루 금액</th>
+                 <th style="width:130px">삭제</th>
                </tr>
          </thead>
-            <tbody>
-             <tr>
-               <td></td>
-               <td>상품명<input type="text" name="goodsCode" hidden="hidden"></td>
-               <td>10000</td>
-               <td>300개</td>
-               <td style="width:120px;"><input type="number" name="rentalCount" style="width:60px; box-sizing:border-box" class="checkReadonly">개</td>
-               <td>-300</td>
-               <td>49700</td>
-               <td class="checkHidden">
-               	<a id="goodsDelete" class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
-                   <i class="fas fa-trash"></i>&ensp;삭제</a>
-               </td>
-             </tr>
-             <tr>
-               <td></td>
-               <td>세트명<input type="text" name="setCode" hidden="hidden"></td>
-               <td>20000</td>
-               <td>20개</td>
-               <td style="width:120px;"><input type="number" name="rentalCount" style="width:60px; box-sizing:border-box" class="checkReadonly">개</td>
-               <td>-600</td>
-               <td>99400</td>
-               <td class="checkHidden">
-               	<a id="goodsDelete" class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
-                   <i class="fas fa-trash"></i>&ensp;삭제</a>
-               </td>
-             </tr>
-             <tr id="goodAdd" class="checkHidden">
+            <tbody id=contract>
+			</tbody>
+			<tfoot>
+             <tr id="goodAdd">
 	             <td colspan="8" >
 	               	<button id="setModal" type="button" class="btn btn-sm btn-info" style="padding:1px 4px 1px 4px;float:right;">
 	       				<i class="fas fa-folder"></i>&ensp;세트 추가
@@ -135,19 +111,21 @@
 	             </td>
              </tr>
              <tr style="border-top: solid #dee2e6 2px;">
-               <td colspan="5"></td>
+               <td colspan="3"></td>
+               <td>등급 할인액</td>
+               <td id="customerDiscount"></td>
                <td>합계액</td>
-               <td><input type="text" name="tradingTotal" readonly="readonly"></td>
-               <td class="checkHidden"></td>
+               <td><input type="text" name="contractTotalPrice" readonly="readonly"></td>
+               <td></td>
              </tr>
-          </tbody>
+            </tfoot>
 	</table>
 	</form>
 	<br><textarea name="estimatesNote" class="form-control">memo</textarea>
 	
 	</div>   	    
     <div class="card-footer">
-	    <button type="submit" id="contractCheck" class="btn btn-primary">입력 내용 확인</button>
+	    <button type="submit" id="contractInsert" class="btn btn-primary">입력 내용 확인</button>
 	    <button type="submit" id="contractCancel" class="btn btn-default float-right">Cancel</button>
     </div>
    </div>

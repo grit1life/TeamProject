@@ -10,11 +10,24 @@
 		<result property="goodsName" column="goods_name"/>
 		<result property="goodsDesc" column="goods_desc"/>
 		<result property="stockCount" column="goods_count"/>
+		<result property="setName" column="set_name"/>
+		<result property="setCode" column="set_code"/>
+		<result property="setDayPrice" column="set_day_price"/>
 		<result property="rentalDayPrice" column="rental_day_price"/>
 		<result property="rentalCanCount" column="rental_can_count"/>
-		
 	
 	</resultMap>
+	<select id="setGoods" resultMap="goodsCountMap">
+		SELECT 
+			SG.set_code,G.goods_name
+		FROM 
+			set_goods AS SG
+		LEFT JOIN
+			goods AS G
+		ON SG.goods_code=G.goods_code;
+	
+	</select>
+	
 	<select id="goodsCount" resultMap="goodsCountMap" parameterType="kr.or.ksmart.domain.GoodsCount">
 		SELECT
 			GC.goods_category_name
@@ -22,6 +35,7 @@
 			,G.goods_name
 			,G.goods_desc
 			,G.stock_count-COALESCE(sum(gCount.rentalGoodsCount),0)AS rental_can_count
+			,gCount.rental_day_price
 		FROM
 			goods AS G
 		INNER JOIN 
@@ -47,6 +61,7 @@
 				,G.goods_name,G.stock_count
 				,DC.rental_count,COALESCE(S.set_goods_count,1)AS setGoodsCount
 				,DC.rental_count*COALESCE(S.set_goods_count,1)AS rentalGoodsCount
+				,PG.rental_day_price
 			FROM
 				doc_contract AS DC
 			LEFT JOIN
@@ -59,6 +74,10 @@
 				S.goods_code=G.goods_code
 			OR
 				DC.goods_code=G.goods_code
+			LEFT JOIN
+				price_goods AS PG
+			ON 
+				G.goods_code=PG.goods_code	
 			WHERE  
 				DC.ispay='Y'
 			AND 
@@ -73,13 +92,16 @@
 		SELECT 
 			CountList.set_code,CountList.set_name,CountList.goods_name
 			,CountList.stock_count-SUM(CountList.goods_rental_count) AS rental_can_count
+			,CountList.set_day_price
 		FROM 
+			price_set AS PS
+		INNER JOIN 
 			(
 				SELECT 
 					DC.contract_code,DC.set_code,PS.set_name
 					,DC.goods_code,COALESCE(S.goods_code,DC.goods_code)AS all_goods_code
 					,GC.goods_category_name,G.goods_name,G.goods_desc
-					,G.stock_count
+					,PS.set_day_price,G.stock_count
 					,DC.rental_count,coalesce(S.set_goods_count,1)
 					,SUM(DC.rental_count*coalesce(S.set_goods_count,1))AS goods_rental_count
 					,DC.ispay,DC.progress_status
@@ -112,5 +134,7 @@
 				GROUP BY 
 					COALESCE(S.goods_code,DC.goods_code)
 			)AS CountList
+		on
+			CountList.set_code=PS.set_code;
 	</select>
 </mapper>
