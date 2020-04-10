@@ -14,7 +14,7 @@ public class GoodsCount {
 	private String priceInputDdate;
 	private int priceInputStaffCode;
 	
-	private String goodsCategoryName;//ok
+	private String goodsCategoryName;
 	
 	private String setCode;
 	private String setName;

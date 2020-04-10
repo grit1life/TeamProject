@@ -84,23 +84,4 @@ $(function(){
 			  alert( "Request failed: " + textStatus );
 		});
 	};
-	/**
-	 * 		//modal에서 직원 선택시
-		$(document).on('click', '#staffChoice', function(){
-			console.log("staffChoice");
-			console.log(this);
-			var str = $(this).parents('tr');
-			console.log(str+"<-str");
-			$('#staff').remove();
-			var staffChoiceHtml = '<div id="staff">'
-				staffChoiceHtml += str.find('#branchName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffName').text()+'<br>';
-				staffChoiceHtml += str.find('#staffTell').text()+'<br>';
-				staffChoiceHtml += str.find('#staffEmail').text()+'<br>';
-				staffChoiceHtml += '</div>';
-			console.log(staffChoiceHtml+"<-staffChoiceHtml");
-			$('label#staffChoice').after(staffChoiceHtml);
-			$('#__staffModal').modal('hide');
-		});
-	 * **/
 });

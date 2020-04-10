@@ -33,8 +33,16 @@ $(function(){
 	$(document).on('click', '#goodsSerchBtn', function(){
 		const formData = new FormData($("form#goodsSerch")[0]);
 		$('.goodsModalTable').remove();
+		//goods검색시 이미 선택한 goods 제외
+		var goodsArr = [];
+		var tbodyGoodsCode = $('tbody#contract').find('[name="goodsCode"]');
+		for(var i=0; i<tbodyGoodsCode.length; i++){
+			if(tbodyGoodsCode.eq(i).val()!=""){
+				goodsArr.push(tbodyGoodsCode.eq(i).val());
+			}
+		}
 		//console.log(formData.get('branchCode'));
-		__modalRquest2('/goodsListModal', formData, gModalFormName, gModalTableName);
+		__modalRquestGS('/goodsListModal', formData, gModalFormName, gModalTableName,goodsArr);
 	});
 	/**** set modal ******************************************************/
 	var setModalMakeBtn = "#setModal";
@@ -54,8 +62,16 @@ $(function(){
 	$(document).on('click', '#setSerchBtn', function(){
 		const formData = new FormData($(setModalFormName)[0]);
 		$('.setModalTable').remove();
+		//set검색시 이미 선택한 goods 제외
+		var setArr = [];
+		var tbodySetCode = $('tbody#contract').find('[name="setCode"]');
+		for(var i=0; i<tbodySetCode.length; i++){
+			if(tbodySetCode.eq(i).val()!=""){
+				setArr.push(tbodySetCode.eq(i).val());
+			}
+		}
 		//console.log(formData.get('branchCode'));
-		__modalRquest2('/setListModal', formData, setModalFormName, setModalTableName);
+		__modalRquestGS('/setListModal', formData, setModalFormName, setModalTableName);
 	});
 	/**** 직원 modal ******************************************************/
 	var sModalMakeBtn = "#staffModal";
@@ -146,5 +162,32 @@ $(function(){
 			  alert( "Request failed: " + textStatus );
 		});
 	};
+	/*
+	 * 	검색Btn click시 table만 삭제하고 세로 table 생성(goods,set)
+	 * */
+	const __modalRquestGS = function(modalUrl , param, formName, tableName,choiceList){
+		
+		var request = $.ajax({
+			  url: modalUrl,
+			  method: "POST",
+			  processData: false,
+			  contentType: false,
+			  data: {"param":param,"choiceList":choiceList},
+			  dataType: "html"
+			});
+		
+		request.done(function( data ) {
+			$(tableName).remove();
+			let modalHtml = data;
+			console.log(modalHtml);
+			console.log($(formName));
+			$(formName).append(modalHtml);
+		});
+		
+		request.fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+		});
+	};
+
 
 });

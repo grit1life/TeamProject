@@ -16,24 +16,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.or.ksmart.domain.Customer;
 import kr.or.ksmart.service.CustomerService;
 
-
-
-
-
-
 	@Controller
 	public class CustomerController {
 		
 		@Autowired
 		private CustomerService customerService;
-		
-		
-		
+
 		//개인 고객 등록
 		@GetMapping("/cInsert")
-		public String cInsert() {
-			
-			
+		public String cInsert() {		
 			return "/customer/cInsert";
 		}
 		
@@ -46,8 +37,7 @@ import kr.or.ksmart.service.CustomerService;
 				  if(result>0) {
 					  return "/customer/cInsert";
 				  }
-			 
-			  
+
 			  return "/customer/cInsert";
 			  }	
 		
