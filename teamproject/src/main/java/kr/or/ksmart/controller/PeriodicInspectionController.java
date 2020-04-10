@@ -1,6 +1,7 @@
 package kr.or.ksmart.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,15 +37,26 @@ public class PeriodicInspectionController {
 		
 		return "redirect:/pList";
 	}
-
 	
 	//리스트
 	@GetMapping("/pList")
-	public String pList(Model model) {
-		model.addAttribute("PeriodicInspectionList", periodicInspectionService.getPeriodicInspectionList());
+	public String pList(Model model, @RequestParam(value="page", required = false) String page) {
+		if(page==null) {
+			page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		Map<String, Object> map = periodicInspectionService.getPeriodicInspectionList(pageNum);
+		
+		model.addAttribute("PeriodicInspectionList", map.get("PeriodicInspectionList"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
 		
 		return "periodicInspection/pList";
-	}		
+	}
+	
+	
 	
 	
 	//상세보기 
@@ -69,22 +81,35 @@ public class PeriodicInspectionController {
 		periodicInspectionService.pDelte(checkCode);
 		return "redirect:/pList";
 	}
+	
 	//검색
 	@PostMapping("/periodicInspectionSearchList")
-	public String PeriodicInspectionSearchList(  @RequestParam(value="branchName" ,required=false) 		String branchName
-										 ,@RequestParam(value="customerName" ,required=false)		String customerName 
-										 ,@RequestParam(value="customerLevel" ,required=false) 		String customerLevel
-										 ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
-										 ,@RequestParam(value="toDate" ,required=false) 			String toDate												
-										 ,Model model) {
+	public String eriodicInspectionSearchList(@RequestParam(value="branchName" ,required=false) 		String branchName
+											 ,@RequestParam(value="customerName" ,required=false)		String customerName 
+											 ,@RequestParam(value="customerLevel" ,required=false) 		String  customerLevel
+											 ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
+											 ,@RequestParam(value="toDate" ,required=false) 			String toDate													
+											 ,@RequestParam(value="page", required = false)             String page
+											 ,Model model) {
+			
+		if(page==null) {
+			page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		Map<String, Object> map = periodicInspectionService.PeriodicInspectionSearchList(branchName, customerName, customerLevel, fromDate, toDate, pageNum);
 		
-		List<PeriodicInspection> list = periodicInspectionService.PeriodicInspectionSearchList(branchName, customerName, customerLevel, fromDate, toDate);			
-		model.addAttribute("PeriodicInspectionList", list);
+		model.addAttribute("PeriodicInspectionList", map.get("PeriodicInspectionList"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
 		
+		System.out.println(map.get("startPage"));
 		return "periodicInspection/pList";
-	}	
+		
+		}	
 	
-	
+
 	
 	
 	

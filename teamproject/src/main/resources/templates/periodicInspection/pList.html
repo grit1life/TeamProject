@@ -11,20 +11,23 @@
 
 
 <body class="hold-transition sidebar-mini layout-fixed">
-<th:block layout:fragment="customContents">
- <div class="content-wrapper">
-     <section class="content-header">
-       <div class="row mb-2">
-         <div class="col-sm-6">
-           <h1>정기점검 현황</h1>
-         </div>
-         <div class="col-sm-6">
-           <ol class="breadcrumb float-sm-right">
-             <li class="breadcrumb-item"><a href="#">Home</a></li>
-           </ol>
-         </div>
-       </div>            
-     </section>   
+						<th:block layout:fragment="customContents">
+						 <div class="content-wrapper">
+						          <section class="content-header">
+							     	<div class="container-fluid">
+							        <div class="row mb-2">
+							          <div class="col-sm-6">
+							            <h1>정기점검 현황</h1>
+							          </div>
+							          <div class="col-sm-6">
+							            <ol class="breadcrumb float-sm-right">
+							              <li class="breadcrumb-item"><a href="#">Home</a></li>
+							              <li class="breadcrumb-item active">Advanced Form</li>
+							            </ol>
+							          </div>
+							        </div>
+							      </div>							        
+							   </section> 
 
     
      <!--  검색 -->
@@ -154,6 +157,43 @@
     </div>
     
   </section>
+  <!-- 페이징 시작 -->
+  <nav aria-label="Page navigation example" style="margin-left: 600px;">
+	<ul class="pagination">
+		<li class="page-item">
+				<th:block th:if="${currentPage>1}">
+					<a class="page-link" th:href="@{/pList(page=${currentPage-1})}" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</th:block>
+				<th:block th:unless="${currentPage>1}">
+					<a class="page-link" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</th:block>
+		</li>
+		<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+			<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/pList(page=${num})}"></a></li>
+		</th:block>
+			<li class="page-item">
+		<th:block th:if="${endPage>currentPage}">
+			<a class="page-link" th:href="@{/pList(page=${currentPage+1})}" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</th:block>
+		<th:block th:unless="${endPage>currentPage}">
+			<a class="page-link" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</th:block>
+		</li>
+	</ul>
+ </nav>
+ <!-- 페이징 끝 -->			
+											
+		
+											 
+															
   </div>
  </th:block>
 

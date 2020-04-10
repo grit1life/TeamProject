@@ -12,6 +12,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
  <div class="content-wrapper">
+ 	<form role="form"> 
     <section class="content-header"> 
        <div class="row mb-2">
          <div class="col-sm-6">
@@ -21,183 +22,179 @@
              <li class="breadcrumb-item"><a href="#">Home</a></li>
            </ol>
          </div>
-       </div>
-     </section>  
-    
-  
- <!--정기점검 등록  -->
- <form role="form"> 
-  <section class="content">	
-  	<div class="container-fluid">	
-	<div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">정기점검 등록</h3>
-              </div>
-                <div class="card-body">  
-				
-				   <!-- 고객 검색 팝업창 버튼 시작-->	
-	               <div class="form-group">  
-						<button type="button" id="customerSearchList" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal">
-							<i class="fas fa-search">개인고객 검색</i>   
-						</button>										
-				   
-				   		<button type="button" id="customerCompanySearchList" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal">
-							<i class="fas fa-search">개인사업자/법인고객 검색</i>   
-						</button>	
-				   </div>
-			       <!-- 고객 검색 팝업창 버튼 끝-->
-			      
-			      
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="customerId" name="customerId" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="customerName" name="customerName" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="customerCall" name="customerCall" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  
-                   <label for="inputEmail3" class="col-sm-2 col-form-label">우편 번호</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                        <input type="text" id="zipCode" name="zipCode" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">기본 주소</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="customerAddress" name="customerAddress" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">상세 주소</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="customerAddress2" name="customerAddress2" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
-                    </div>
-                  </div>
-                                                     
-                   &emsp;
-                   <!-- 계약서 검색 팝업창 버튼 시작-->	
-	               <div class="form-group">  
-						<button type="button" id="contractSearchList" class="btn btn-success">
-							<i class="fas fa-search">계약서 검색</i>   
-						</button>										
-				   </div>
-			       <!-- 계약서 검색 팝업창 버튼 끝-->			
-
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="contractCode" name="contractCode" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 No</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="contractNo" name="contractNo" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
-                    </div>
-                  </div>
-
-                   <label for="inputEmail3" class="col-sm-2 col-form-label">상품코드</label>
-                   <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="goodsCode"  name="goodsCode" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                   <label for="inputEmail3" class="col-sm-2 col-form-label">상품명</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" id="goodsName" name="goodsName" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
-                    </div>
-                  </div>
-      
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">렌탈 시작 일자</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                       <input type="text" id="rentalFromDate" name="rentalFromDate" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
-                    </div>
-                  </div>
-                  
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">렌탈 종료 일자</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                        <input type="text" id="rentalToDate" name="rentalToDate" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
-                    </div>
-                  </div>
-                 
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">점검일</label>
-                  <div class="form-group row">
-	                  <div class="col-sm-10">	               		                   
-	                    <input type="date" name="checkDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-	                  </div>                  
-           		  </div>   
-           		  
-           		  <label for="inputEmail3" class="col-sm-2 col-form-label">제품 상태</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <select class="form-control" id="inputEmail3" name="productStatus">
-                      	<option selected disabled>::제품 상태::</option>
-		                  <option>A</option>
-		                  <option>F</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                   <label for="inputEmail3" class="col-sm-2 col-form-label">점검 내용</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="checkContents" class="form-control">
-                    </div>
-                  </div>
-                  
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">정기점검 지점코드</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="branchCode" class="form-control" style="width: 200px;">
-                    </div>
-                  </div>
-                  
-                  
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">점검 기사 아이디</label>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <input type="text" name="staffId" class="form-control" style="width: 200px;">
-                    </div>
-                  </div>			
-                </div>
-                
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  <button id="submit"  class="btn btn-info">등록</button>
-                   <a th:href="@{/index}" class="btn btn-default float-right">취소</a>
-                  
-                </div>
-                <!-- /.card-footer -->
-            </div>
-        </div>    
-   </section>
- </form>   
+       </div> 
+       
+		<!--정기점검 등록  -->	 
+	  	<div class="container-fluid">	
+		<div class="card card-info">
+	              <div class="card-header">
+	                <h3 class="card-title">정기점검 등록</h3>
+	              </div>
+	                <div class="card-body">  
+					
+					   <!-- 고객 검색 팝업창 버튼 시작-->	
+		               <div class="form-group">  
+							<button type="button" id="customerSearchList" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal">
+								<i class="fas fa-search">개인고객 검색</i>   
+							</button>										
+					   
+					   		<button type="button" id="customerCompanySearchList" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal">
+								<i class="fas fa-search">개인사업자/법인고객 검색</i>   
+							</button>	
+					   </div>
+				       <!-- 고객 검색 팝업창 버튼 끝-->
+				      
+				      
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" id="customerId" name="customerId" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" id="customerName" name="customerName" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                       <input type="text" id="customerCall" name="customerCall" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                  
+	                   <label for="inputEmail3" class="col-sm-2 col-form-label">우편 번호</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                        <input type="text" id="zipCode" name="zipCode" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">기본 주소</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                       <input type="text" id="customerAddress" name="customerAddress" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">상세 주소</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                       <input type="text" id="customerAddress2" name="customerAddress2" class="form-control" readonly="readonly" placeholder="고객을 검색해주세요.">
+	                    </div>
+	                  </div>
+	                                                     
+	                   &emsp;
+	                   <!-- 계약서 검색 팝업창 버튼 시작-->	
+		               <div class="form-group">  
+							<button type="button" id="contractSearchList" class="btn btn-success">
+								<i class="fas fa-search">계약서 검색</i>   
+							</button>										
+					   </div>
+				       <!-- 계약서 검색 팝업창 버튼 끝-->			
+	
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 코드</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" id="contractCode" name="contractCode" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">계약서 No</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" id="contractNo" name="contractNo" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
+	                    </div>
+	                  </div>
+	
+	                   <label for="inputEmail3" class="col-sm-2 col-form-label">상품코드</label>
+	                   <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" id="goodsCode"  name="goodsCode" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                   <label for="inputEmail3" class="col-sm-2 col-form-label">상품명</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" id="goodsName" name="goodsName" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
+	                    </div>
+	                  </div>
+	      
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">렌탈 시작 일자</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                       <input type="text" id="rentalFromDate" name="rentalFromDate" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
+	                    </div>
+	                  </div>
+	                  
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">렌탈 종료 일자</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                        <input type="text" id="rentalToDate" name="rentalToDate" class="form-control" readonly="readonly" placeholder="계약서를 검색해주세요.">
+	                    </div>
+	                  </div>
+	                 
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">점검일</label>
+	                  <div class="form-group row">
+		                  <div class="col-sm-10">	               		                   
+		                    <input type="date" name="checkDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+		                  </div>                  
+	           		  </div>   
+	           		  
+	           		  <label for="inputEmail3" class="col-sm-2 col-form-label">제품 상태</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <select class="form-control" id="inputEmail3" name="productStatus">
+	                      	<option selected disabled>::제품 상태::</option>
+			                  <option>A</option>
+			                  <option>F</option>
+	                      </select>
+	                    </div>
+	                  </div>
+	                  
+	                   <label for="inputEmail3" class="col-sm-2 col-form-label">점검 내용</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" name="checkContents" class="form-control">
+	                    </div>
+	                  </div>
+	                  
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">정기점검 지점코드</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" name="branchCode" class="form-control" style="width: 200px;">
+	                    </div>
+	                  </div>
+	                  
+	                  
+	                  <label for="inputEmail3" class="col-sm-2 col-form-label">점검 기사 아이디</label>
+	                  <div class="form-group row">
+	                    <div class="col-sm-10">
+	                      <input type="text" name="staffId" class="form-control" style="width: 200px;">
+	                    </div>
+	                  </div>			
+	                </div>
+	                
+	                <!-- /.card-body -->
+	                <div class="card-footer">
+	                  <button id="submit"  class="btn btn-info">등록</button>
+	                   <a th:href="@{/index}" class="btn btn-default float-right">취소</a>
+	                  
+	                </div>
+	                <!-- /.card-footer -->
+	            </div>
+	        </div>    
+	   </section>
+	 </form>   
  </div> 
  
  <script>

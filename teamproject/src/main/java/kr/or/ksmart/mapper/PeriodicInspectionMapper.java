@@ -16,6 +16,10 @@ public interface PeriodicInspectionMapper {
 	public int getPeriodicInspectionCodeMax();
 	//정기점검등록
 	public int pInsert(PeriodicInspection periodicInspection);
+	//개인고객 리스트 페이징 카운트
+	public int getPeriodicInspectionCnt();
+	//정기점검현황리스트 페이징 
+	public List<PeriodicInspection> getPeriodicInspectionList(int startClmn, int endClmn);
 	//정기점검현황리스트
 	public List<PeriodicInspection> getPeriodicInspectionList();
 	//정기점검 업데이트(값가져오기)
@@ -24,12 +28,16 @@ public interface PeriodicInspectionMapper {
 	public int pUpdate(PeriodicInspection periodicInspection);
 	//정기점검 삭제
 	public int pDelete(String checkCode);
+	//정기점검 검색 리스트 페이징 카운트
+	public int findTotalCount();
 	//정기점검 검색 리스트
 	public List<PeriodicInspection> periodicInspectionSearchList(String branchName
 												   ,String customerName 
 												   ,String customerLevel
 												   ,String fromDate
 												   ,String toDate
+												   ,int startClmn
+												   ,int endClmn
 												   );
 	
 	

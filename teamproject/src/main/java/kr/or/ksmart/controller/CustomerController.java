@@ -4,6 +4,7 @@ package kr.or.ksmart.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,15 +50,23 @@ import kr.or.ksmart.service.CustomerService;
 			 
 			  
 			  return "/customer/cInsert";
-			  }	
+		}	
 		
-		
-		//개인 고객 리스트
-		@GetMapping("/cList")
-		public String CustomerList(Model model) {
-			model.addAttribute("CustomerList", customerService.getCustomerList());
-				
-			return "/customer/cList";
+	    @GetMapping("/cList")
+		public String CustomerList(Model model, @RequestParam(value="page", required = false) String page) {
+			if(page==null) {
+				page = "1";
+			}
+			int pageNum = Integer.parseInt(page);
+			Map<String, Object> map = customerService.getCustomerList(pageNum);
+			
+			model.addAttribute("CustomerList", map.get("CustomerList"));
+			model.addAttribute("currentPage", map.get("currentPage"));
+			model.addAttribute("startPage", map.get("startPage"));
+			model.addAttribute("endPage", map.get("endPage"));
+			model.addAttribute("lastPage", map.get("lastPage"));
+			
+			return "customer/cList";
 		}
 		
 		//개인 고객 업데이트(값 불러오기)
@@ -106,18 +115,31 @@ import kr.or.ksmart.service.CustomerService;
 			
 		}
 		
-		//개인고객 검색
+		//개인고객 검색(페이징)
 		@PostMapping("/getCustomerSearchList")
-			public String getCustomerSearchList(  @RequestParam(value="customerId" ,required=false) 		String customerId
+		public String getCustomerSearchList(  @RequestParam(value="customerId" ,required=false) 		String customerId
 												 ,@RequestParam(value="customerName" ,required=false)		String customerName 
 												 ,@RequestParam(value="customerClass" ,required=false) 		String customerClass
 												 ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
-												 ,@RequestParam(value="toDate" ,required=false) 			String toDate												
+												 ,@RequestParam(value="toDate" ,required=false) 			String toDate													
+												 ,@RequestParam(value="page", required = false)             String page
 												 ,Model model) {
 				
-				List<Customer> list = customerService.getCustomerSearchList(customerId, customerName, customerClass, fromDate, toDate);				
-				model.addAttribute("CustomerList", list);
-				return "/customer/cList";
+			if(page==null) {
+				page = "1";
+			}
+			int pageNum = Integer.parseInt(page);
+			Map<String, Object> map = customerService.getCustomerSearchList(customerId, customerName, customerClass, fromDate, toDate, pageNum);
+			
+			model.addAttribute("CustomerList", map.get("CustomerList"));
+			model.addAttribute("currentPage", map.get("currentPage"));
+			model.addAttribute("startPage", map.get("startPage"));
+			model.addAttribute("endPage", map.get("endPage"));
+			model.addAttribute("lastPage", map.get("lastPage"));
+			
+			System.out.println(map.get("startPage"));
+			return "customer/cList";
+			
 			}	
 					
 				
@@ -139,10 +161,20 @@ import kr.or.ksmart.service.CustomerService;
 		
 		//개인 사업, 법인 고객 리스트
 		@GetMapping("/cList2")
-		public String CustomerCompanyList(Model model) {
-				model.addAttribute("CustomerCompanyList", customerService.getCustomerCompanyList());
-					
-				return "/customer/cList2";
+		public String CustomerCompanyList(Model model, @RequestParam(value="page", required = false) String page) {
+			if(page==null) {
+				page = "1";
+			}
+			int pageNum = Integer.parseInt(page);
+			Map<String, Object> map = customerService.getCustomerCompanyList(pageNum);
+			
+			model.addAttribute("CustomerCompanyList", map.get("CustomerCompanyList"));
+			model.addAttribute("currentPage", map.get("currentPage"));
+			model.addAttribute("startPage", map.get("startPage"));
+			model.addAttribute("endPage", map.get("endPage"));
+			model.addAttribute("lastPage", map.get("lastPage"));
+			
+			return "customer/cList2";
 			}
 		
 		//개인고객 검색
@@ -151,19 +183,32 @@ import kr.or.ksmart.service.CustomerService;
 											 ,@RequestParam(value="customerCompanyName" ,required=false)String customerCompanyName 
 											 ,@RequestParam(value="customerClass" ,required=false) 		String customerClass
 											 ,@RequestParam(value="customerLevel" ,required=false) 		String customerLevel
-								             ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
-											 ,@RequestParam(value="toDate" ,required=false) 			String toDate												
+											 ,@RequestParam(value="fromDate" ,required=false) 			String fromDate	
+											 ,@RequestParam(value="toDate" ,required=false) 			String toDate													
+											 ,@RequestParam(value="page", required = false)             String page
 											 ,Model model) {
-						
-						List<Customer> list = customerService.getCustomerSearchList2(customerId, customerCompanyName, customerClass, customerLevel, fromDate, toDate);				
-						model.addAttribute("CustomerCompanyList", list);
-						return "/customer/cList2";
-					}	
+
+		if(page==null) {
+		page = "1";
+		}
+		int pageNum = Integer.parseInt(page);
+		Map<String, Object> map = customerService.getCustomerSearchList2(customerId, customerCompanyName, customerClass, customerLevel, fromDate, toDate, pageNum);
+		
+		model.addAttribute("CustomerCompanyList", map.get("CustomerCompanyList"));
+		model.addAttribute("currentPage", map.get("currentPage"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		
+		System.out.println(map.get("startPage"));
+		return "customer/cList2";
+		
+		}	
 							
 	
 		//개인사업, 법인  고객 업데이트(값 불러오기)
-			@GetMapping("/cUpdate2")
-			public String CustomerView2(@RequestParam(value="customerId", required = false) String customerId
+		@GetMapping("/cUpdate2")
+		public String CustomerView2(@RequestParam(value="customerId", required = false) String customerId
 					, Model model) {
 				
 				model.addAttribute("Customer", customerService.SelectForUpdate2(customerId));
@@ -172,16 +217,16 @@ import kr.or.ksmart.service.CustomerService;
 			}
 			
 		//개인사업, 법인 업데이트(값 수정)
-			@PostMapping("/cUpdate2")
-			public String cUpdate2(Customer customer) {
+		@PostMapping("/cUpdate2")
+		public String cUpdate2(Customer customer) {
 						int result = customerService.cUpdate2(customer);
 						
 							return "redirect:/cList2";
 					}
 			
-			//개인사업, 법인 삭제
-					@GetMapping("/cDelete2")
-					public String cDelete2(@RequestParam(value="customerId", required = false) String customerId							 
+		//개인사업, 법인 삭제
+		@GetMapping("/cDelete2")
+		public String cDelete2(@RequestParam(value="customerId", required = false) String customerId							 
 				             ,@RequestParam(value="customerName", required = false) String customerName	
 				             , Model model) {
 						model.addAttribute("customerId", customerId);

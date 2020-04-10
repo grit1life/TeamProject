@@ -28,7 +28,7 @@
 	<form th:action="@{/cDelete}" method="post">
 		<div class="register-box">
 		  <div class="register-logo">
-		    <a href="../../index2.html"><b>Admin</b>LTE</a>
+		    <a th:href="@{/index}"><b>HOME</a>
 		  </div>
 		
 		  <div class="card">
@@ -36,7 +36,7 @@
 		
 		     
 		        <div class="input-group mb-3">         
-		          <input type="text" class="form-control" name="customerId" th:value="${customerId}">
+		          <input type="text" class="form-control" name="customerId" th:value="${customerId}" readonly="readonly">
 		          <div class="input-group-append">
 		            <div class="input-group-text">
 		              <span class="fas fa-user"></span>
@@ -44,7 +44,7 @@
 		          </div>
 		        </div>
 		        <div class="input-group mb-3">
-		          <input type="text" class="form-control" name="customerName" th:value="${customerName}">
+		          <input type="text" class="form-control" name="customerName" th:value="${customerName}" readonly="readonly">
 		          <div class="input-group-append">
 		            <div class="input-group-text">
 		               <span class="fas fa-user"></span>
@@ -52,7 +52,7 @@
 		          </div>
 		        </div>
 		        <div class="input-group mb-3">
-		          <input type="text" class="form-control" placeholder="직원코드를 입력하세요.">
+		          <input type="text" class="form-control" name="staffId" id="staffId" placeholder="직원코드를 입력하세요.">
 		          <div class="input-group-append">
 		            <div class="input-group-text">
 		              <span class="fas fa-lock"></span>
@@ -65,7 +65,7 @@
 		        <a th:href="@{/cList}" class="btn btn-block btn-primary">          
 		                                             취소
 		        </a>
-		        <button type="submit" class="btn btn-block btn-danger">
+		        <button type="submit" id="submit" class="btn btn-block btn-danger">
 		                                              삭제
 		        </button >
 		      </div>
@@ -84,5 +84,25 @@
 <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
+<script>
+ $('#submit').click(function(){
+	 var staffId = $('input[name=staffId]').val(); 
+	 
+	 if(staffId == ''){
+			alert('직원코드를 입력해주세요.');
+			return false;
+	 }else if(!confirm('삭제된 내용은 다시 복구 할 수 없습니다. 정말로 삭제 하시겠습니까?')){
+		 
+		 return false;
+	 }
+	 
+	 
+	 
+ });
+
+
+
+
+</script>
 </body>
 </html>

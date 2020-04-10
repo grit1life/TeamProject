@@ -1,6 +1,8 @@
 package kr.or.ksmart.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,14 +33,34 @@ public class PeriodicInspectionService {
 		return periodicInspectionMapper.pInsert(periodicInspection);
 	}
 	
-	// 리스트
-	public List<PeriodicInspection> getPeriodicInspectionList() {
+	//리스트(페이징 포함)
+	public Map<String, Object> getPeriodicInspectionList(int currentPage){
+			int cnt = periodicInspectionMapper.getPeriodicInspectionCnt();
+			int firstClmn = (currentPage-1)*10;
+			int lastClmn = firstClmn +10;
+			List<PeriodicInspection> pList = periodicInspectionMapper.getPeriodicInspectionList(firstClmn, lastClmn);
 			
-			
-		return periodicInspectionMapper.getPeriodicInspectionList();
-			
+			int startPage = currentPage - 5;
+			if(startPage<1) {
+				startPage = 1;
 			}
+			int endPage = currentPage + 5;
+			int lastPage = cnt/10 + 1;
+			if(endPage > lastPage) {
+				endPage = lastPage;
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("PeriodicInspectionList", pList);
+			map.put("currentPage", currentPage);
+			map.put("startPage", startPage);
+			map.put("endPage", endPage);
+			map.put("lastPage", lastPage);
+			
 
+			
+			return map;
+		}
+	
 	//상세보기	
 	public PeriodicInspection SelectForUpdate(String checkCode) {
 		
@@ -51,16 +73,41 @@ public class PeriodicInspectionService {
 		return periodicInspectionMapper.pUpdate(periodicInspection);
 	}
 	
-	//검색
-	public List<PeriodicInspection> PeriodicInspectionSearchList(String branchName
+	// 검색 리스트(페이징 포함)	
+	public Map<String, Object> PeriodicInspectionSearchList(String branchName
 				   ,String customerName
 				   ,String customerLevel
 				   ,String fromDate
-				   ,String toDate
+				   ,String toDate	
+				   ,int currentPage
 				    ){
 			
-			return periodicInspectionMapper.periodicInspectionSearchList(branchName, customerName, customerLevel, fromDate, toDate);
+			int cnt = periodicInspectionMapper.findTotalCount();
+			int firstClmn = (currentPage-1)*10;
+			int lastClmn = firstClmn +10;
+			List<PeriodicInspection> pList = periodicInspectionMapper.periodicInspectionSearchList(branchName, customerName, customerLevel, fromDate, toDate, firstClmn, lastClmn);
+			
+			int startPage = currentPage - 5;
+			if(startPage<1) {
+				startPage = 1;
+			}
+			int endPage = currentPage + 5;
+			int lastPage = cnt/10 + 1;
+			if(endPage > lastPage) {
+				endPage = lastPage;
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("PeriodicInspectionList", pList);
+			map.put("currentPage", currentPage);
+			map.put("startPage", startPage);
+			map.put("endPage", endPage);
+			map.put("lastPage", lastPage);
+
+			
+			return map;
 		}
+
+	
     // 삭제	
 	public int pDelte(String checkCode) {
 			

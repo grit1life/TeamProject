@@ -48,6 +48,30 @@
 	
 	
 	</insert>
+	<!--리스트 페이징  -->
+ 	<select id="getBranchCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			branch
+			
+	</select>
+	<!-- 검색 리스트 페이징  -->
+ 	<select id="findTotalCount" resultType="int">
+ 		SELECT 
+        count(*) 
+        FROM 
+        branch
+        WHERE 
+					input_date between  #{fromDate}  AND  #{toDate}	
+					or branch_code = #{branchCode}
+					or branch_name = #{branchName}
+					or staff_name  = #{staffName}
+				    or branch_phone =#{branchPhone};
+ 	
+
+	</select>
+	
  
 	 <!--리스트  -->
 	 <select id="getBranchList" parameterType="String" resultType="kr.or.ksmart.domain.Branch">
@@ -60,6 +84,7 @@
 		
 			FROM
 				branch
+			LIMIT ${startClmn}, ${endClmn}  	
 		</select>
 		
 	  <!--검색 -->
@@ -69,11 +94,12 @@
 				FROM 
 				branch 
 				WHERE 
-					   input_date between  #{fromDate}  AND  #{toDate}	
-					or branch_code = #{branchCode}
-					or branch_name = #{branchName}
-					or staff_name  = #{staffName}
-				    or branch_phone =#{branchPhone};
+					    input_date between  #{fromDate}  AND  #{toDate}	
+						or branch_code = #{branchCode}
+						or branch_name = #{branchName}
+						or staff_name  = #{staffName}
+					    or branch_phone =#{branchPhone}
+				LIMIT ${startClmn}, ${endClmn};
 			
 	  </select>	
 		

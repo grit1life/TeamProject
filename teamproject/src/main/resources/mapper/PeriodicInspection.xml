@@ -141,7 +141,68 @@
 												 );
 	
 	
-	</insert>  
+	</insert> 
+	
+	<!--정기 점검 현황  리스트 페이징  -->
+ 	<select id="getPeriodicInspectionCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			periodic_inspection
+			
+	</select>
+	
+	<!--정기 점검 현황  검색 리스트 페이징  -->
+ 	<select id="findTotalCount" resultType="int"> 
+ 	SELECT 
+		COUNT(*) 
+      FROM 
+      (SELECT 
+	       PI.check_code
+			,B.branch_name
+			,C.customer_name
+			,C.customer_level
+			,DC.goods_code
+			,G.goods_name
+			,PI.product_status
+			,S.staff_name
+			,PI.check_date
+		FROM
+        periodic_inspection AS PI
+		JOIN
+			doc_contract AS DC
+		ON
+			PI.contract_code = DC.contract_code
+		JOIN
+			branch AS B
+		ON
+			PI.branch_code = B.branch_code
+		JOIN
+			customer AS C
+		ON
+			DC.customer_id = C.customer_id
+		JOIN
+			staff AS S
+		ON
+			PI.staff_id = S.staff_code		
+		JOIN
+		   goods AS G
+		ON
+		   G.goods_code = DC.goods_code
+		WHERE
+			PI.check_code = #{checkCode}
+		OR  PI.check_date  BETWEEN  #{fromDate}  AND  #{toDate}
+		OR  B.branch_name = #{branchName}
+		OR  C.customer_name = #{customerName}  
+		OR  C.customer_level = #{customerLevel} 		
+		GROUP BY 
+		DC.contract_code
+		ORDER BY 
+		PI.check_date) AS CNT;
+ 	
+
+	</select>
+	 
   
   
   
@@ -184,7 +245,8 @@
 	GROUP BY 
 		PI.check_code
 	ORDER by
-	    PI.check_date;	
+	    PI.check_date
+	LIMIT ${startClmn}, ${endClmn};     	
 
 	</select>
 	
@@ -284,7 +346,8 @@
 	    PI.check_date  BETWEEN  #{fromDate}  AND  #{toDate}
 	OR  B.branch_name = #{branchName}
 	OR  C.customer_name = #{customerName}  
-	OR  C.customer_level = #{customerLevel} 
+	OR  C.customer_level = #{customerLevel}
+	LIMIT ${startClmn}, ${endClmn};   
 	
 	   
 	   
