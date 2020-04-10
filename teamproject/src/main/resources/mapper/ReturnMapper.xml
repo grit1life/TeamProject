@@ -166,9 +166,225 @@
 				DC.contract_code
 		) AS SQ	
 	</select>
+	<select id="getReturnSearchList" parameterType="ReturnSearchForm" resultMap="returnResultMap">
+		SELECT 
+			*
+			,COUNT(1) AS count
+			,SUM(DC.contract_total_price) AS total
+		FROM
+			doc_contract AS DC
+		LEFT JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			PS.set_code = DC.set_code
+		WHERE 
+			DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+			AND
+			DC.progress_status != '반납완료'
+		<if test="customerName neq null and customerName neq ''.toString()">
+			AND C.customer_name = #{customerName}
+		</if>
+		<if test="staffName neq null and staffName neq ''.toString()">
+			AND S.staff_name = #{staffName} OR SS.staff_name = #{staffName}
+		</if>
+		<if test="deliveryTel neq null and deliveryTel neq ''.toString()">
+			AND DC.dilivery.tel =#{deliveryTel}
+		</if>
+		<if test="setName neq null and setName neq ''.toString()">
+			AND PS.set_name = #{setName}
+		</if>
+		<if test="goodsName neq null and goodsName neq ''.toString()">
+			AND G.goods_name = #{goodsName}
+		</if>
+		<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+			AND DC.rental_from_date &gt;= #{rentalFromDate}
+		</if>
+		<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+			AND DC.rental_to_date &lt;= #{rentalToDate}
+		</if>	
+		GROUP BY
+			DC.contract_code
+		ORDER BY
+			DC.rental_to_date DESC
+	</select>
+	<select id="getReturnSearchListCnt" parameterType="ReturnSearchForm" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM
+				doc_contract AS DC
+			LEFT JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				PS.set_code = DC.set_code
+			WHERE 
+				DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+				AND
+				DC.progress_status != '반납완료'
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND S.staff_name = #{staffName} OR SS.staff_name = #{staffName}
+			</if>
+			<if test="deliveryTel neq null and deliveryTel neq ''.toString()">
+				AND DC.dilivery.tel =#{deliveryTel}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND PS.set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND G.goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>	
+			GROUP BY
+				DC.contract_code
+		) AS SQ	
+	</select>
+	<select id="getReturnCompleteSearchList" parameterType="ReturnSearchForm" resultMap="returnResultMap">
+		SELECT 
+			*
+			,COUNT(1) AS count
+			,SUM(DC.contract_total_price) AS total
+		FROM
+			doc_contract AS DC
+		LEFT JOIN
+			customer AS C
+			ON
+			DC.customer_id = C.customer_id
+		LEFT JOIN
+			customer_company AS CC
+			ON
+			C.customer_id = CC.customer_id
+		LEFT JOIN
+			goods AS G
+			ON
+			DC.goods_code = G.goods_code
+		LEFT JOIN
+			price_set AS PS
+			ON
+			PS.set_code = DC.set_code
+		WHERE 
+			DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+			AND
+			DC.progress_status = '반납완료'
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND S.staff_name = #{staffName} OR SS.staff_name = #{staffName}
+			</if>
+			<if test="deliveryTel neq null and deliveryTel neq ''.toString()">
+				AND DC.dilivery.tel =#{deliveryTel}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND PS.set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND G.goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>
+		GROUP BY
+			DC.contract_code
+		ORDER BY
+			DC.rental_to_date DESC
+	</select>
+	<select id="getReturnCompleteSearchListCnt" parameterType="ReturnSearchForm" resultType="int">
+		SELECT
+			COUNT(SQ.CNT)
+		FROM
+		(
+			SELECT 
+				COUNT(1) AS CNT
+			FROM
+				doc_contract AS DC
+			LEFT JOIN
+				customer AS C
+				ON
+				DC.customer_id = C.customer_id
+			LEFT JOIN
+				customer_company AS CC
+				ON
+				C.customer_id = CC.customer_id
+			LEFT JOIN
+				goods AS G
+				ON
+				DC.goods_code = G.goods_code
+			LEFT JOIN
+				price_set AS PS
+				ON
+				PS.set_code = DC.set_code
+			WHERE 
+				DC.rental_to_date&lt;DATE(CONCAT(YEAR(NOW()),'-',MONTH(NOW())+2,'-',1))
+				AND
+				DC.progress_status = '반납완료'
+			<if test="customerName neq null and customerName neq ''.toString()">
+				AND C.customer_name = #{customerName}
+			</if>
+			<if test="staffName neq null and staffName neq ''.toString()">
+				AND S.staff_name = #{staffName} OR SS.staff_name = #{staffName}
+			</if>
+			<if test="deliveryTel neq null and deliveryTel neq ''.toString()">
+				AND DC.dilivery.tel =#{deliveryTel}
+			</if>
+			<if test="setName neq null and setName neq ''.toString()">
+				AND PS.set_name = #{setName}
+			</if>
+			<if test="goodsName neq null and goodsName neq ''.toString()">
+				AND G.goods_name = #{goodsName}
+			</if>
+			<if test="rentalFromDate neq null and rentalFromDate neq ''.toString()">
+				AND DC.rental_from_date &gt;= #{rentalFromDate}
+			</if>
+			<if test="rentalToDate neq null and rentalToDate neq ''.toString()">
+				AND DC.rental_to_date &lt;= #{rentalToDate}
+			</if>
+			GROUP BY
+				DC.contract_code
+		) AS SQ	
+	</select>	
+<!--  -->
 	<select id="ajaxReturnList" resultMap="returnResultMap">
 		SELECT 
 			*
+			,GFSG.goods_name AS setGoodsName
 		FROM
 			doc_contract AS DC
 		LEFT JOIN
@@ -183,7 +399,19 @@
 			set_goods AS SG
 			ON
 			SG.set_code = DC.set_code
+		LEFT JOIN
+			goods AS GFSG
+			ON
+			SG.goods_code = GFSG.goods_code
 		WHERE 
 			DC.contract_code = #{contractCode}
 	</select>
+	<update id="returnedUpdate" parameterType="String">
+		UPDATE 
+			doc_contract 
+		SET 
+			progress_status='반납완료' 
+		WHERE 
+			contract_code=#{rContractCode}
+	</update>
 </mapper>

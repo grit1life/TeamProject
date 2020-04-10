@@ -11,7 +11,55 @@
   <body class="hold-transition sidebar-mini layout-fixed">
     <th:block layout:fragment="customContents">
       <div class="content-wrapper">
-      	고객등급 비율 DB연결, 나머지 임시 데이터 (2020-03-19)
+      	고객등급 비율 DB연결, 나머지 임시 데이터 (2020-03-19)<br>
+      	<div  class="btn-group btn-group-toggle col-2" data-toggle="buttons">
+	           <label class="btn bg-olive" id="byYear">
+	             <input type="radio" class='changeSetup' name="options" id="rdoByYear" autocomplete="off"> 연도별
+	           </label>
+	           <label class="btn bg-olive active" id="byMonth" >
+	             <input type="radio" class='changeSetup' name="options" id="rdoByMonth" autocomplete="off" checked> 월별
+	           </label>
+	       </div>
+	       <div style="display: inline-block" class="col-1">
+	         	<input id="startYear" type="text" class="changeSetup form-control">
+	       </div>
+	       <div style="display: inline-block" id="startMonthBox" class="col-1">
+	         	<select id="startMonth" class="changeSetup form-control">
+	         		<option>월</option>
+	         		<option>1</option>
+	         		<option>2</option>
+	         		<option>3</option>
+	         		<option>4</option>
+	         		<option>5</option>
+	         		<option>6</option>
+	         		<option>7</option>
+	         		<option>8</option>
+	         		<option>9</option>
+	         		<option>10</option>
+	         		<option>11</option>
+	         		<option>12</option>
+	         	</select>
+	        </div>
+	        <div style="display: inline-block" class="col-1">
+	         	<input id="endYear" type="text" class="changeSetup form-control">
+	        </div>
+	        <div style="display: inline-block" id="endMonthBox" class="col-1">
+	         	<select id="endMonth" class="changeSetup form-control">
+	         		<option>월</option>
+	         		<option>1</option>
+	         		<option>2</option>
+	         		<option>3</option>
+	         		<option>4</option>
+	         		<option>5</option>
+	         		<option>6</option>
+	         		<option>7</option>
+	         		<option>8</option>
+	         		<option>9</option>
+	         		<option>10</option>
+	         		<option>11</option>
+	         		<option>12</option>
+	         	</select>
+	        </div>
                     <!-- BAR CHART -->
             <div class="card card-success">
               <div class="card-header">
@@ -279,13 +327,13 @@
     //회원별 구분
     /*<![CDATA[*/
     	/*[# th:each="l : ${gradeList}"]*/
-    		if(String(/*[[${l.customerClass}]]*/)=="골드"){
+    		if(String(/*[[${l.customerClass}]]*/)=="골드 회원"){
     			gradeData.push(/*[[${l.gradeCnt}]]*/);
-    		}else if(String(/*[[${l.customerClass}]]*/)=="실버"){
+    		}else if(String(/*[[${l.customerClass}]]*/)=="실버 회원"){
     			gradeData.push(/*[[${l.gradeCnt}]]*/);
-    		}else if(String(/*[[${l.customerClass}]]*/)=="브론즈"){
+    		}else if(String(/*[[${l.customerClass}]]*/)=="브론즈 회원"){
     			gradeData.push(/*[[${l.gradeCnt}]]*/);
-    		}else if(String(/*[[${l.customerClass}]]*/)=="플래티넘"){
+    		}else if(String(/*[[${l.customerClass}]]*/)=="플래티넘 회원"){
     			gradeData.push(/*[[${l.gradeCnt}]]*/);
     		}
     	/*[/]*/
@@ -321,7 +369,7 @@
     var pieChart = new Chart(pieChartCanvas, {
       type: 'pie',
       data: pieData,
-      options: pieOptions      
+      options: pieOptions   
     })
   })
 </script>

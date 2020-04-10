@@ -22,15 +22,12 @@ $(function(){
 $(function(){
  	$('.shipList').click(function(){
 		var contractCode = $(this).data('set');
-		var map = {};
-		map.contractCode = contractCode;
 		$.ajax({
 			type : 'post',
 			url : '/ajaxReturnList',
-			async : 'true',
-			contentType : "application/json",
-			data : JSON.stringify(map),
+			data : {contractCode: contractCode},
 			success : function(data){
+				console.log(data);
 				$('#modalTable').children().remove();
 				var html="";
 				for(var i=0; i<data.length; i++){
@@ -49,9 +46,6 @@ $(function(){
 					}
 					html += "<td>" +data[i].rentalFromDate+"</td>";
 					html += "<td>" +data[i].rentalToDate+"</td>";
-					html += "<td>" +data[i].shipmentDate+"</td>";
-					html += "<td>" +data[i].deliveryTel+"</td>";
-					html += "<td>" +data[i].deliveryAddress+" "+data[i].deliveryDetailAddress+"</td>";
 					html += "</tr>";
 				}
 				$('#modalTable').append(html);
@@ -63,25 +57,22 @@ $(function(){
 		$('.modal').modal();
 	})
 	
-	$('.shipComplete').click(function(){
-		var shipmentCode = $(this).parents('tr').children('.shipmentCode').text();
-		var map = {}
-		map.shipmentCode = shipmentCode;
+	$('.returnComplete').click(function(){
+		var rContractCode = $(this).data('set');
+		console.log(rContractCode)
 		var request = $.ajax({
-			  url: "/staff/deliveredShipmentUpdate",
+			  url: "/returnedUpdate",
 			  method: "POST",
-			  async : 'true',
-			  contentType : "application/json",
-			  data : JSON.stringify(map),
+			  data : {rContractCode: rContractCode},
 			  dataType: "json"
 			});
 			request.done(function(){
-				location.href = 'rentalShipList';
+				location.href = 'returnList';
 				console.log('성공')
 			})
 			request.fail(function(){
 				console.log('실패')
-			})
+			}) 
 	}) 
 })
 </script>
@@ -106,7 +97,7 @@ $(function(){
 		  <div class="card-body">
 		  <div class="card card-default">
 			 <div class="card-header">
-			   <h3 class="card-title">출하 검색</h3>
+			   <h3 class="card-title">반납 검색</h3>
 			
 			   <div class="card-tools">
 			     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -115,7 +106,7 @@ $(function(){
 			 </div>
 			 <div class="card-body">
 		         <!-- left -->
-		         <form id="depositSerch" action="rentalShipSearchList" method="get">
+		         <form id="depositSerch" action="returnSearchList" method="get">
 			         <div class="row" >
 			           <!-- 1 -->
 			           <div class="col-md-6" style="max-width: 25%;">
@@ -136,7 +127,7 @@ $(function(){
 			           <div class="col-md-6" style="max-width: 25%;">
 			              <div class="form-group">
 				               <label>전화</label>
-				          <input type="text" class="form-control select2bs4" name="customerCall">
+				          <input type="text" class="form-control select2bs4" name="deliveryTel">
 				          </div>
 			             <div class="form-group">
 			               <label>세트명</label>
@@ -183,10 +174,10 @@ $(function(){
 		          <div class="card-body">
 		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
 		              <li class="nav-item">
-		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">출하목록</a>
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">반납목록</a>
 		              </li>
 		              <li class="nav-item">
-		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">출하완료목록</a>
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">반납완료목록</a>
 		              </li>
 		            </ul>
 		            <div class="tab-content" id="custom-content-above-tabContent">
@@ -200,6 +191,7 @@ $(function(){
 				                  <th>렌탈시작일</th>
 				                  <th>렌탈종료일</th>
 				                  <th>전화번호</th>
+				                  <th>주소</th>
 				                  <th style="width:150px">반납목록</th>
 				                  <th style="width:150px">반납완료</th>
 				                </tr>
@@ -222,12 +214,13 @@ $(function(){
 				               	<td th:text="${l.rentalFromDate}">
 				               	<td th:text="${l.rentalToDate}">
 				               	<td th:text="${l.deliveryTel}">
+				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
 				                <td>
 				                	<a class="shipList btn btn-success btn-sm" th:data-set="${l.contractCode}" href="#" style="padding:1px 4px 1px 4px">
 				                    <i class="fas fa-trash"></i>&ensp;반납목록</a>
 				                </td>
 				               	<td>
-				                	<a class="shipComplete btn btn-danger btn-sm" th:data-set="${l.contractCode}" href="#" style="padding:1px 4px 1px 4px">
+				                	<a class="returnComplete btn btn-danger btn-sm" th:data-set="${l.contractCode}" href="#" style="padding:1px 4px 1px 4px">
 				                    <i class="fas fa-trash"></i>&ensp;반납완료</a>
 				                </td>
 				              </tr>
@@ -275,6 +268,7 @@ $(function(){
 				                  <th>렌탈시작일</th>
 				                  <th>렌탈종료일</th>
 				                  <th>전화번호</th>
+				                  <th>주소</th>
 				                  <th style="width:150px">반납목록</th>
 				                </tr>
 					         </thead>
@@ -296,12 +290,11 @@ $(function(){
 				               	<td th:text="${l.rentalFromDate}"></td>
 				               	<td th:text="${l.rentalToDate}"></td>
 				               	
-				               	<td th:text="${l.shipmentCompleteDate}"></td>
 				               	<td th:text="${l.deliveryTel}"></td>
 				               	<td th:text="${l.deliveryAddress}+' '+${l.deliveryDetailAddress}"></td>
 				               	<td>
-				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.shipmentCode}" href="#" style="padding:1px 4px 1px 4px">
-				                    <i class="fas fa-trash"></i>&ensp;출하목록</a>
+				                	<a class="shipList btn btn-danger btn-sm" th:data-set="${l.contractCode}" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i>&ensp;반납목록</a>
 				                </td>
 				              </tr>
 				             </tbody>
@@ -361,9 +354,6 @@ $(function(){
 			     			  <th>상품수량</th>
 			                  <th>렌탈시작일</th>
 			                  <th>렌탈종료일</th>
-			                  <th>출하일</th>
-			                  <th>전화번호</th>
-			                  <th>주소</th>
 			                </tr>
 				         </thead>
 			             <tbody id="modalTable">

@@ -43,6 +43,19 @@ public class StatisticsController {
 		return "statis/rStatis";
 	}
 	
+	@GetMapping("/staff/cDisuse")
+	public String cDisuse(Model model) {
+		return "statis/cDisuse";
+	}
+	@GetMapping("/staff/cReCont")
+	public String cReCont(Model model) {
+		return "statis/cReCont";
+	}
+	@GetMapping("/staff/cRetrunDelay")
+	public String cRetrunDelay(Model model) {
+		return "statis/cRetrunDelay";
+	}
+	
 	@PostMapping("/staff/ajaxStatic")
 	public @ResponseBody Map<String, Object> getAjaxStatic(@RequestBody Map<String, Object> map) {
 		List<Outcome> aList = statisService.getAllPeriodOutCome(map);   //가져올 정보
