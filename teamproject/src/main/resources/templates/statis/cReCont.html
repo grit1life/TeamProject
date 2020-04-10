@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/default}"
+>
+  <th:block layout:fragment="customTitle">
+    <title>index</title>
+  </th:block>
+
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <th:block layout:fragment="customContents">
+      <div class="content-wrapper">
+      	고객등급 비율 DB연결, 나머지 임시 데이터 (2020-03-19)<br>
+      	<div  class="btn-group btn-group-toggle col-2" data-toggle="buttons">
+	           <label class="btn bg-olive" id="byYear">
+	             <input type="radio" class='changeSetup' name="options" id="rdoByYear" autocomplete="off"> 연도별
+	           </label>
+	           <label class="btn bg-olive active" id="byMonth" >
+	             <input type="radio" class='changeSetup' name="options" id="rdoByMonth" autocomplete="off" checked> 월별
+	           </label>
+	       </div>
+	       <div style="display: inline-block" class="col-1">
+	         	<input id="startYear" type="text" class="changeSetup form-control">
+	       </div>
+	       <div style="display: inline-block" id="startMonthBox" class="col-1">
+	         	<select id="startMonth" class="changeSetup form-control">
+	         		<option>월</option>
+	         		<option>1</option>
+	         		<option>2</option>
+	         		<option>3</option>
+	         		<option>4</option>
+	         		<option>5</option>
+	         		<option>6</option>
+	         		<option>7</option>
+	         		<option>8</option>
+	         		<option>9</option>
+	         		<option>10</option>
+	         		<option>11</option>
+	         		<option>12</option>
+	         	</select>
+	        </div>
+	        <div style="display: inline-block" class="col-1">
+	         	<input id="endYear" type="text" class="changeSetup form-control">
+	        </div>
+	        <div style="display: inline-block" id="endMonthBox" class="col-1">
+	         	<select id="endMonth" class="changeSetup form-control">
+	         		<option>월</option>
+	         		<option>1</option>
+	         		<option>2</option>
+	         		<option>3</option>
+	         		<option>4</option>
+	         		<option>5</option>
+	         		<option>6</option>
+	         		<option>7</option>
+	         		<option>8</option>
+	         		<option>9</option>
+	         		<option>10</option>
+	         		<option>11</option>
+	         		<option>12</option>
+	         	</select>
+	        </div>
+                    <!-- BAR CHART -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">재계약율</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="privateBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+                    <!-- BAR CHART -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">고장폐기율</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="branchBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+                    <!-- BAR CHART -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">렌탈반납지연율</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="allBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+                          <!-- PIE CHART -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">고객 등급 비율</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+              <!-- /.card-body -->
+            </div>
+        </div>
+      </div>
+
+<!-- ChartJS -->
+<script src="../../plugins/chart.js/Chart.min.js"></script>
+<script th:inline="javascript">
+  $(function () {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
+
+    //--------------
+    //- AREA CHART -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+	//재계약율
+    var areaChartData = {
+      labels  : ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+      datasets: [
+        {
+          label               : '재계약율',
+          backgroundColor     : 'rgba(60,141,188,0.9)',
+          borderColor         : 'rgba(60,141,188,0.8)',
+          pointRadius          : false,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : [28, 48, 40, 19, 86, 27, 90]
+        },
+      ],
+    }
+
+    var areaChartOptions = {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }],
+        yAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }]
+      }
+    }
+
+    //-------------
+    //- BAR CHART -
+    //-------------
+    var barChartCanvas = $('#privateBarChart').get(0).getContext('2d')
+    var barChartData = jQuery.extend(true, {}, areaChartData)
+    var temp0 = areaChartData.datasets[0]
+    barChartData.datasets[0] = temp0
+
+    var barChartOptions = {
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar', 
+      data: barChartData,
+      options: barChartOptions
+    })
+    
+  })
+</script>
+    </th:block>
+  </body>
+</html>
