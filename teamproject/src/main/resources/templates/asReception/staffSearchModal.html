@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Projects</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!--date range css  -->
+  <link rel="stylesheet" href="https://adminlte.io/themes/dev/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+  
+ 
+</head>
+<body class="hold-transition sidebar-mini">
+ <form th:action="@{/StaffSearchList}" method="post"> 
+	<div class="content-wrapper">	 	  
+	     <section class="content-header"> 		  
+		      <div class="container-fluid">   
+		        <div class="card card-info">
+		         
+		         <!-- /.card-header -->
+		          <div class="card-header">
+		            <h3 class="card-title">A/S기사 검색</h3>
+				        <div class="card-tools">						   
+			   			</div>
+		          </div>
+		          <!-- /.card-header -->
+		          
+		          
+		          <div class="card-body">
+		            <div class="row">	            	
+			            <div class="form-group" style="padding-bottom: 15px;">	
+			            	<div style="display: inline-block;">
+						     	&emsp;<label>지점명</label>	
+							     		<select class="form-control" name="branchName">
+							     			<option disabled="disabled">:: 선택해주세요 ::</option>
+							     			<option value="본사">본사</option>
+							     			<option value="인천점">인천점</option>
+							     			<option value="부산점">부산점</option>
+							     			<option value="전주점">전주점</option>
+							     			<option value="광주점">광주점</option>						     							     		
+							     		</select>				     					     		
+									
+						    </div> 
+			            	&emsp;
+							<div style="display: inline-block;">
+								<label>기사명</label>
+								<input type="text" class="form-control"  name="staffName" placeholder="기사명">
+						    </div> 
+						    											   
+				                
+				             &emsp;  
+				             <div style="display: inline-block;">
+				             		&emsp;	
+				             	<label>출동 가능 여부</label><br>
+				             		&emsp;	
+						         	<input  type="radio" name="r1" id="radioPrimary1">
+						            	<label for="radioPrimary1">
+						                    	Y
+						                </label>
+						             &emsp;&emsp;
+						             <input  type="radio" name="r1" id="radioPrimary2">						       
+								        <label for="radioPrimary2">
+								                N
+							         	</label>
+				             </div>
+				             
+
+	    	          		&emsp;	
+						    <div style="display: inline-block; margin-left:5px;">
+						    	<button type="submit" class="btn btn-info">
+						           		검색
+						        </button>
+						    </div>							   						   	           
+						</div>
+					</div>	
+					<!-- 검색 끝 -->
+	    		    
+				   <div class="row">
+				   		<div class="col-12">	                         			          
+							<div  class="card">					   				                                    				
+							 	<div class="card-body table-responsive p-0">
+							     	<table class="table table-hover">
+							         	<thead>
+							              	<tr>
+							                      <th>지점명</th>
+								                  <th>기사 아이디</th>
+								                  <th>기사명</th>
+								                  <th>연락처</th>
+								                  <th>이메일</th>
+								                  <th>입사일</th>
+								                  <th>출동 가능 여부</th>
+								                  <th>선택</th>
+							                  </tr>
+							             </thead>
+							              <tbody>
+							                  	<tr th:each="l : ${StaffList}">							                  
+													<td th:text="${l.branchName}"></td>
+													<td th:text="${l.staffCode}"></td>
+													<td th:text="${l.staffName}"></td>									
+													<td th:text="${l.staffTell}"></td>
+													<td th:text="${l.staffEmail}"></td>
+													<td th:text="${l.staffFromPeriod}"></td>
+													<td>Y</td>								
+													<td> 
+														<button type="button" id="StaffListBtn" class="btn btn-primary btn-sm">
+								                            <i class="fas fa-check"></i>
+								                        </button>     		
+												    </td>														
+												</tr>				                   
+							                </tbody>
+							            </table>
+							        </div>				              
+							    </div>
+						    </div>
+					   </div>
+				   </div>
+			   </div>
+		   </div>	            
+        </section>     
+     </div>
+ </form>
+
+<!-- 직원 검색 및 리스트 끝  --> 
+
+
+		<!-- jQuery -->
+	<script src="../../plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Select2 -->
+	<script src="../../plugins/select2/js/select2.full.min.js"></script>
+	<!-- Bootstrap4 Duallistbox -->
+	<script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+	<!-- InputMask -->
+	<script src="../../plugins/moment/moment.min.js"></script>
+	<script src="../../plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+	<!-- date-range-picker -->
+	<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap color picker -->
+	<script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Bootstrap Switch -->
+	<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="../../dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="../../dist/js/demo.js"></script>
+	<!-- Page script -->
+	
+	
+	<script> 			
+
+	$('#StaffListBtn').click(function(){	
+		
+		var str = ""
+	    var StaffListBtn = $(this);
+	    var tr = StaffListBtn.parent().parent();
+	    var td = tr.children();
+	    var staffCode = td.eq(1).text();
+
+
+	
+		window.opener.document.getElementById("staffCode").value = staffCode;
+		
+
+	});
+	
+	
+	
+	</script>  
+  	
+</body>
+</html>

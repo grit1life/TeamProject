@@ -3,9 +3,118 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
- <mapper namespace="kr.or.ksmart.mapper.AsMapper">
+ <mapper namespace="kr.or.ksmart.mapper.AsReceptionMapper">
+ 	<resultMap type="kr.or.ksmart.domain.Branch" id="branchResultMap">
+		<result property="branchCode" column="branch_code"/>
+		<result property="branchName" column="branch_name"/>
+		<result property="staffId" column="staff_id"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="branchPhone" column="branch_phone"/>
+		<result property="branchZipCode" column="branch_zip_code"/>
+		<result property="branchAddress1" column="branch_address1"/>
+		<result property="branchAddress2" column="branch_address2"/>
+		<result property="inputStaffCode" column="input_staff_code"/>
+		<result property="inputStaffName" column="input_staff_name"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="updateStaffCode" column="update_staff_code"/>
+		<result property="updateStaffName" column="update_staff_name"/>
+		<result property="updateDate" column="update_date"/>
+	</resultMap>
+	
+	
+	<resultMap type="kr.or.ksmart.domain.Staff" id="StaffMap">
+		<result property="staffCode" column="staff_code"/>
+		<result property="staffPw" column="staff_pw"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="staffBirth" column="staff_birth"/>
+		<result property="staffTell" column="staff_tell"/>
+		<result property="staffEmail" column="staff_email"/>
+		<result property="inputStaffId" column="input_staff_id"/>
+		<result property="inputStaffName" column="input_staff_name"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="staffLevel" column="staff_level"/>
+		<result property="staffFromPeriod" column="staff_from_period"/>
+		<result property="staffToPeriod" column="staff_to_period"/>
+		<result property="branchCode" column="branch_code"/>
+		<result property="staffPosition" column="staff_position"/>
+		<result property="branchPhone" column="branch_phone"/>
+		<result property="branchAddress;" column="branch_address;"/>
+		<result property="branchName" column="branch_name"/>
+	</resultMap>
  
- 
+
+ 	<!-- 지점 팝업창 리스트  -->
+	<select id="getBranchList" parameterType="String" resultType="kr.or.ksmart.domain.Branch">
+		SELECT 
+		   B.branch_code AS branchCode
+		  ,B.branch_name AS branchName
+		  ,B.staff_name AS  staffName
+		  ,B.branch_phone AS branchPhone
+		  ,B.branch_zip_code AS branchZipCode
+		  ,B.branch_address1 AS branchAddress1
+		  ,B.branch_address2 AS	branchAddress2
+		FROM 
+		branch AS B
+	</select>
+	
+	<!-- 지점 팝업창 검색 리스트  -->
+	<select id="getBranchSearchList" parameterType="String"  resultMap="branchResultMap">
+				SELECT
+					*
+				FROM 
+					branch 
+				WHERE 
+				    branch_name = #{branchName};
+
+	</select>
+	
+	<!-- 직원 팝업창 리스트  -->
+	<select id="getStaffList" parameterType="String" resultType="kr.or.ksmart.domain.Staff">
+					SELECT
+					 B.branch_name AS branchName
+					,S.staff_code  AS staffCode
+				  	,S.staff_name  AS staffName
+				    ,S.staff_tell   AS staffTell
+				    ,S.staff_email AS staffEmail
+				    ,SC.staff_from_period   AS staffFromPeriod
+				FROM 
+					staff AS S
+			    JOIN
+			   		staff_change AS SC
+			    ON
+					S.staff_code = SC.staff_id
+				JOIN
+					branch AS B
+				ON
+					SC.branch_code = B.branch_code
+				WHERE if(SC.staff_level = '기사', 'Y', 'N' ) = 'Y'	
+		
+	</select>
+	<!-- 직원 팝업창 검색 리스트  -->
+	<select id="getStaffSearchList" parameterType="String"  resultMap="StaffMap">
+					SELECT
+					 B.branch_name AS branchName
+					,S.staff_code  AS staffCode
+				  	,S.staff_name  AS staffName
+				    ,S.staff_tell   AS staffTell
+				    ,S.staff_email AS staffEmail
+				    ,SC.staff_from_period   AS staffFromPeriod
+				FROM 
+					staff AS S
+			    JOIN
+			   		staff_change AS SC
+			    ON
+					S.staff_code = SC.staff_id
+				JOIN
+					branch AS B
+				ON
+					SC.branch_code = B.branch_code
+				WHERE if(SC.staff_level = '기사', 'Y', 'N' ) = 'Y'	
+				   AND	 B.branch_name = #{branchName}
+				   OR  	 S.staff_name =  #{staffName}
+
+	</select>
+		
  
  
  
