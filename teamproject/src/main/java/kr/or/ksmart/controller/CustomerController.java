@@ -6,6 +6,10 @@ package kr.or.ksmart.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +17,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import kr.or.ksmart.domain.Customer;
 import kr.or.ksmart.service.CustomerService;
 
 	@Controller
 	public class CustomerController {
+		private static final Logger log = LoggerFactory.getLogger(CustomerController.class);
+		
 		
 		@Autowired
 		private CustomerService customerService;
+		
+		
 
 		//개인 고객 등록
 		@GetMapping("/cInsert")
@@ -241,5 +248,44 @@ import kr.or.ksmart.service.CustomerService;
 						}
 						
 					}
+	 //고객 로그인 
+	 @PostMapping("/customerLogin")
+	 public String login(Customer customer, HttpSession session, Model model) {
+						//입력된 아이디 비밀번호
+						log.error(customer.toString());
+						Map<String,Object> map = customerService.getCustomerLogin(customer);
+						String result 		= (String) map.get("result"); 
+						Customer loginCustomer 	= (Customer) map.get("loginCustomer");
+						
+						//로그인 실패 화면 login
+						if(!result.equals("로그인 성공")) {
+							model.addAttribute("result", result);
+							return "/staff/staffLogin";
+						}
+						session.setAttribute("SID"		, loginCustomer.getCustomerId());
+						session.setAttribute("SLEVEL"	, loginCustomer.getCustomerLevel());
+						session.setAttribute("SNAME"	, loginCustomer.getCustomerName());
+						
+						//로그인 성공 화면 index
+						return "redirect:/";
+					}
+		
+	 //로그아웃
+	 @GetMapping("/logout")
+	 public String logout(HttpSession session) {
+						session.invalidate();
+						return "redirect:/";
+		}
+					
+										
+	//마이페이지 조회(값 불러오기)
+	@GetMapping("/myView")
+	public String myView(Model model) {
+		
+			model.addAttribute("Customer", customerService.SelectForUpdate());
+		
+			return "/myPage/myView";
+	}					
+					
 		
 	}

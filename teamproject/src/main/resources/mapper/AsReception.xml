@@ -41,6 +41,141 @@
 		<result property="branchAddress;" column="branch_address;"/>
 		<result property="branchName" column="branch_name"/>
 	</resultMap>
+	
+	
+	<!--a/s접수 코드  -->
+  	<select id="getAsReceptionCodeMax" resultType="int">
+ 		SELECT 
+ 			IFNULL(MAX(CAST(SUBSTRING(reception_code,15) AS DECIMAL)), 0) as maxcol 
+		FROM as_reception
+		
+	
+ 	</select>
+  
+  
+	<!--a/s 교환 접수 등록  -->
+ 	<insert id="eInsert" parameterType="kr.or.ksmart.domain.AsExchange">
+ 	<selectKey keyProperty="receptionCode" resultType="String" order="BEFORE">
+ 			SELECT 
+ 				CONCAT('reception_code0', MAX(CAST(SUBSTRING(reception_code,15) AS DECIMAL)+1)) AS receptionCode
+			FROM as_reception
+		
+	
+    </selectKey>
+			INSERT  INTO as_reception (reception_code
+									  ,branch_code
+								      ,staff_id
+									  ,staff_id2 	
+									  ,customer_id
+									  ,contract_code
+									  ,request_reason
+									  ,working_situation
+									  ,`work`
+									  ,goods_code
+									  ,reception_date
+									  ,visit_expected_date
+															
+					                   ) VALUES( #{receptionCode}
+					                   			,#{branchCode}
+					                   			,#{staffId}
+					                   			,#{staffId2}
+					                   			,#{customerId}
+					                   			,#{contractCode}
+					                   			,#{requestReason}
+					                   			,#{workingSituation}
+					                   			,#{work}
+												,#{goodsCode}
+												,#{receptionDate}
+												,#{visitExpectedDate}					
+												);
+
+	</insert> 
+	
+	<!--교환 현황 리스트 페이징 -->
+	<select id="getAsExchangeCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			as_exchange
+			
+	</select>
+	
+	
+	<!--교환 현황 리스트  -->
+	<select id="getAsExchangeList" parameterType="String" resultType="kr.or.ksmart.domain.AsExchange">
+		 SELECT 
+			 AE.exchange_code     AS exchangeCode
+			,AR.reception_code    AS receptionCode
+			,AR.`work`            AS work
+			,AE.working_situation AS workingSituation
+			,C.customer_name      AS customerName
+			,B.branch_name        AS branchName
+			,S.staff_name         AS staffName
+			,AR.reception_date    AS receptionDate
+	
+		 FROM
+			as_reception AS AR
+		 JOIN
+			as_exchange AS AE
+		 ON
+			AR.reception_code = AE.reception_code
+		 JOIN
+			customer AS C
+		 ON
+			C.customer_id = AR.customer_id
+		 JOIN
+			branch AS B
+		 ON
+			AR.branch_code = B.branch_code
+		 JOIN
+			staff AS S
+		 ON
+			S.staff_code = AE.staff_id2
+		 LIMIT ${startClmn}, ${endClmn};  	
+	</select>
+	
+	
+	<!--수리 현황 리스트 페이징 -->
+	<select id="getAsRepairCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			as_repair
+			
+	</select>
+	
+	<!--수리 현황 리스트  -->
+	<select id="getAsRepairList" parameterType="String" resultType="kr.or.ksmart.domain.AsRepair">
+		SELECT
+			 AR.repair_code         AS repairCode
+			,AR.reception_code      AS receptionCode 
+			,AC.`work`              AS work   
+			,AC.working_situation   AS workingSituation
+			,C.customer_name        AS customerName
+			,B.branch_name          AS branchName  
+			,S.staff_name           AS staffName 
+			,AC.reception_date      AS receptionDate 
+		FROM
+			as_repair AS AR 
+		JOIN
+			as_reception AS AC
+		ON
+			AR.reception_code = AC.reception_code
+		JOIN
+			customer AS C
+		ON
+			C.customer_id = AC.customer_id
+		JOIN
+			branch AS B
+		ON
+			B.branch_code = AC.branch_code
+		JOIN
+			staff AS S
+		ON
+			S.staff_code = AC.staff_id2
+		LIMIT ${startClmn}, ${endClmn};  	
+	</select>
+	
  
 
  	<!-- 지점 팝업창 리스트  -->
@@ -87,7 +222,7 @@
 					branch AS B
 				ON
 					SC.branch_code = B.branch_code
-				WHERE if(SC.staff_level = '기사', 'Y', 'N' ) = 'Y'	
+				WHERE if(SC.staff_position = '기사', 'Y', 'N' ) = 'Y'	
 		
 	</select>
 	<!-- 직원 팝업창 검색 리스트  -->
@@ -109,7 +244,7 @@
 					branch AS B
 				ON
 					SC.branch_code = B.branch_code
-				WHERE if(SC.staff_level = '기사', 'Y', 'N' ) = 'Y'	
+				WHERE if(SC.staff_position = '기사', 'Y', 'N' ) = 'Y'	
 				   AND	 B.branch_name = #{branchName}
 				   OR  	 S.staff_name =  #{staffName}
 

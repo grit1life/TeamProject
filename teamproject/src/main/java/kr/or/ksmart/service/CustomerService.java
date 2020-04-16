@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import kr.or.ksmart.domain.Board;
 import kr.or.ksmart.domain.Customer;
 import kr.or.ksmart.domain.DocEstimateForm;
@@ -25,6 +24,33 @@ public class CustomerService {
 	
 	@Autowired
 	private CustomerMapper customerMapper;
+	
+	//고객 로그인
+	public Map<String, Object> getCustomerLogin(Customer customer) {
+		
+		String result = "";
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		
+		Customer customerCheck = customerMapper.getCustomerLogin(customer);
+		
+		if(customerCheck == null) {
+			Customer customerIdCheck = customerMapper.getCustomerById(customer.getCustomerId());
+			if(customerIdCheck == null) {
+				result = "등록된 아이디의 정보가 없습니다.";
+			}else {
+				result = "비밀번호가 일치하지 않습니다.";
+			}
+
+		}else {
+			result = "로그인 성공";
+			map.put("loginMember", customerCheck);
+		}
+		
+		map.put("result", result);
+		
+		return map;
+	}
 	
 	
 	//개인 고객 등록 
@@ -204,6 +230,13 @@ public class CustomerService {
 			
 			return map;
 		}
+	
+	//마이페이지 조회
+	
+	public Customer SelectForUpdate() {
+	
+	return customerMapper.SelectForUpdate();
+}
 	
 
 	

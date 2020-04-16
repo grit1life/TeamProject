@@ -6,7 +6,7 @@
 >
 
 <th:block layout:fragment="customTitle">
-	<title>eList.html</title>
+	<title>aList.html</title>
 </th:block>
 
 
@@ -92,78 +92,183 @@
     <!--검색 end-->
      <section class="content-header">  
       <div class="container-fluid">
-	<div class="card">
-	 <div class="card-body" style="margin-top:20px">
-
-	  	<table id="example2" class="table table-bordered table-hover">
-	    	<thead>
-                <tr>
-                  <th>접수 코드</th>
-                  <th>작업 구분</th> 
-                  <th>진행 상황</th>              
-                  <th>요청인</th>
-                  <th>A/S처리점</th>
-                  <th>A/S처리 기사</th>
-                  <th>접수일</th>
-                  <th>상세보기</th>
-                  <th>삭제</th>
-                </tr>
-	         </thead>
-             <tbody>
-              <tr>
-                <td>reception_code01</td>
-                <td>교환</td>
-                <td>진행 중</td>
-                <td>김아무개</td>
-                <td>인천점</td>
-                <td>유기사</td>
-                <td>20xx-00-00</td>            
-                <td> 
-					<a class="btn btn-primary btn-sm" th:href="@{/eUpdate}">
-	                   <i class="fas fa-folder">
-	                   </i>
-	                    	확인
-	                </a>    		
-				</td>
-				<td>							
-					<a class="btn btn-danger btn-sm" th:href="@{/eDelete}" id="btn-remove">
-                       <i class="fas fa-trash">
-                       </i>
-                            	 삭제
-                    </a>
-				</td>						
-              </tr>
-              <tr>
-                <td>reception_code01</td>
-                <td>수리</td>
-                <td>진행 중</td>
-                <td>이아무개</td>
-                <td>goods_code01</td>
-                <td>goods_code01</td>
-                <td>20xx-00-00</td>            
-                <td> 
-					<a class="btn btn-primary btn-sm" th:href="@{/rUpdate}">
-	                   <i class="fas fa-folder">
-	                   </i>
-	                    	확인
-	                </a>    		
-				</td>
-				<td>							
-					<a class="btn btn-danger btn-sm" th:href="@{/rDelete}" id="btn-remove">
-                       <i class="fas fa-trash">
-                       </i>
-                            	 삭제
-                    </a>
-				</td>						
-              </tr>
-             </tbody>
-		</table>
-	  </div>
-	 </div>
+	<div class="card card-defualt card-outline">
+		          <div class="card-body">
+		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+		              <li class="nav-item">
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">교환</a>
+		              </li>
+		              <li class="nav-item">
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">수리</a>
+		              </li>
+		            </ul>
+		            <div class="tab-content" id="custom-content-above-tabContent">
+		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+		                <!-- 교환목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th>No</th> 	
+				                  <th>접수코드</th>
+				                  <th>작업 구분</th>
+				                  <th>진행 상황</th>
+				                  <th>A/S요청인</th>
+				                  <th>A/S처리점</th>
+				                  <th>A/S처리기사</th>
+				                  <th>접수일</th>
+				                  <th>상세보기</th>
+				                  <th>삭제</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="l : ${AsExchangeList}">
+				             	<td th:text="${l.exchangeCode}"></td>
+				             	<td th:text="${l.receptionCode}"></td>
+				             	<td th:text="${l.work}"></td>
+				             	<td th:text="${l.workingSituation}"></td>
+				                <td th:text="${l.customerName}"></td>
+				                <td th:text="${l.branchName}"></td>
+							    <td th:text="${l.staffName}"></td>
+				               	<td th:text="${l.receptionDate}"></td>
+				               	<td> 
+									<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+								     	<i class="fas fa-folder">
+								        </i>
+								        View
+								    </a>    		
+								</td>				
+								<td>							
+									<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
+							         	<i class="fas fa-trash">
+							            </i>
+							            Delete
+							        </a>
+								</td>
+				              </tr>
+				             </tbody>
+						</table>
+						<!-- 페이징 시작 -->
+									<nav aria-label="Page navigation example" style="margin-left: 600px;">
+										<ul class="pagination">
+											<li class="page-item">
+											    <th:block th:if="${currentPage>1}">
+															<a class="page-link" th:href="@{/aList(page=${currentPage-1})}" aria-label="Previous">
+																	<span aria-hidden="true">&laquo;</span>
+															</a>
+															</th:block>
+														   <th:block th:unless="${currentPage>1}">
+																<a class="page-link" aria-label="Previous">
+																	 <span aria-hidden="true">&laquo;</span>
+																</a>
+															</th:block>
+											</li>
+											<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+											 	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/aList(page=${num})}"></a></li>
+											</th:block>
+											<li class="page-item">
+												<th:block th:if="${endPage>currentPage}">
+													<a class="page-link" th:href="@{/aList(page=${currentPage+1})}" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+						  						</th:block>
+												<th:block th:unless="${endPage>currentPage}">
+													<a class="page-link" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+												</th:block>
+											</li>
+										</ul>
+									</nav>
+					<!-- 페이징 끝 -->												  	
+																	
+		              </div>
+		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+		                <!-- 수리 목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th>No</th>
+				                  <th>접수코드</th>
+				                  <th>작업 구분</th>
+				                  <th>진행 상황</th>
+				                  <th>A/S요청인</th>
+				                  <th>A/S처리점</th>
+				                  <th>A/S처리기사</th>
+				                  <th>접수일</th>
+				                  <th>상세보기</th>
+				                  <th>삭제</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr th:each="l : ${AsRepairList}">
+				             	<td th:text="${l.repairCode}"></td>
+				             	<td th:text="${l.receptionCode}"></td>
+				             	<td th:text="${l.work}"></td>
+				             	<td th:text="${l.workingSituation}"></td>
+				                <td th:text="${l.customerName}"></td>
+				                <td th:text="${l.branchName}"></td>
+							    <td th:text="${l.staffName}"></td>
+				               	<td th:text="${l.receptionDate}"></td>
+				               	<td> 
+									<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+								     	<i class="fas fa-folder">
+								        </i>
+								        View
+								    </a>    		
+								</td>
+								<td>							
+									<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
+							        	 <i class="fas fa-trash">
+							        	  </i>
+							                              Delete
+							        </a>
+								</td>				
+															
+				              </tr>
+				             </tbody>
+						</table>		              
+					    <!-- 페이징 시작 -->
+									<nav aria-label="Page navigation example" style="margin-left: 600px;">
+										<ul class="pagination">
+											<li class="page-item">
+											    <th:block th:if="${currentPage>1}">
+															<a class="page-link" th:href="@{/aList(page=${currentPage-1})}" aria-label="Previous">
+																	<span aria-hidden="true">&laquo;</span>
+															</a>
+															</th:block>
+														   <th:block th:unless="${currentPage>1}">
+																<a class="page-link" aria-label="Previous">
+																	 <span aria-hidden="true">&laquo;</span>
+																</a>
+															</th:block>
+											</li>
+											<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+											 	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/aList(page=${num})}"></a></li>
+											</th:block>
+											<li class="page-item">
+												<th:block th:if="${endPage>currentPage}">
+													<a class="page-link" th:href="@{/aList(page=${currentPage+1})}" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+						  						</th:block>
+												<th:block th:unless="${endPage>currentPage}">
+													<a class="page-link" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+												</th:block>
+											</li>
+										</ul>
+									</nav>
+					   <!-- 페이징 끝 -->												  	
+		              </div>
+		            </div>
+		          </div>
+		          <!-- /.card -->
+		        </div>
       	
     </div>
     </section>
-
+ </div>
  </th:block>
 
 <!-- jQuery -->

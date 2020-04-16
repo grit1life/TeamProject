@@ -11,7 +11,35 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
 <div class="content-wrapper" style="padding:70px">
-	<div class="card card-primary" id="loginBox" style="width:400px; margin:auto;">
+	<div class="card card-primary" id="loginBox" style="width:400px; margin:left;">
+    <div class="card-header">
+      <h3 class="card-title">관리자 로그인</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form role="form">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="exampleInputEmail1">ID</label>
+        <input type="text" class="form-control" id="staffId" placeholder="ID">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="staffPw" placeholder="Password">
+      </div>
+
+    </div>
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button id="" type="button" class="btn btn-primary" style="width: 100%;">Login</button>
+      </div>
+    </form>
+  </div>
+  
+  
+  
+  <div class="card card-primary" id="loginBox" style="width:400px; margin:auto; margin-top: -339px;">
     <div class="card-header">
       <h3 class="card-title">직원 로그인</h3>
     </div>
@@ -36,7 +64,36 @@
       </div>
     </form>
   </div>
-</div>
+  
+  
+  
+  
+  <div class="card card-success" id="loginBox" style="width:400px; margin:right; margin-left: 900px; margin-top: -320px;">
+    <div class="card-header">
+      <h3 class="card-title">고객 로그인</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form role="form">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="exampleInputEmail1">ID</label>
+        <input type="text" class="form-control" id="customerId" placeholder="ID">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="customerPw" placeholder="Password">
+      </div>
+
+    </div>
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button id="CustomerloginBtn" type="button" class="btn btn-block btn-success" style="width: 100%;">Login</button>
+      </div>
+    </form>
+  </div>
+ </div> 
 <script type="text/javascript">
 	$(function(){
 		$('#loginBtn').click(function(){
@@ -56,6 +113,30 @@
 			})
 			request.fail(function( jqXHR, textStatus ) {
 				  alert("입력한 ID가 존재하지 안습니다");
+			});
+		})
+	})
+	
+	
+	
+	
+	
+	$(function(){
+		$('#CustomerloginBtn').click(function(){
+			var customerId = $('#customerId').val();
+			var customerPw = $('#customerPw').val();
+			var request = $.ajax({
+				url : "/customerLogin",
+				method : "post",
+				dataType : "json",
+				data : {customerId:customerId,customerPw:customerPw}
+			})
+			request.done(function(Map){
+				alert(Map.result);
+				
+			})
+			request.fail(function( jqXHR, textStatus ) {
+				  alert("입력한 ID가 존재하지 않습니다");
 			});
 		})
 	})

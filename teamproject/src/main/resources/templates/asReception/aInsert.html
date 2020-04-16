@@ -25,7 +25,7 @@
     </section>  
       
   <!--A/S 접수 등록  -->
- <form role="form" method="post">
+<form role="form">
   <section class="content">
   	<div class="container-fluid">
 	
@@ -191,13 +191,19 @@
 
                   <div class="form-group" id="exchangeReason" style="width: 300px;">
 	                  <label>교환 사유</label>
-	                  	 <textarea name="requestReason" class="form-control"  style="width:100%;">
-			             </textarea>
+	                  	  <select name="requestReason" class="form-control">
+	                  	  	<option disabled="disabled">:: 선택해주세요 ::</option>
+	                  	  	<option value="단순 변심">단순 변심</option>
+	                  	  	<option value="오배송">오배송</option>
+	                  	  	<option value="상품 파손 및 불량">상품 파손 및 불량</option>
+	                  	  	<option value="상품정보와 상이">상품정보와 상이</option>
+	                  	  	<option value="기타">기타</option>
+	                  	  </select>
 	               </div>
 	               
 	               <div class="form-group" id="repairReason" style="display:none;">
 	                  <label>메모</label>
-			            <input type="text"  name="requestReason" class="form-control">
+			            <input type="text"  name="requestReason" class="form-control" style="width: 300px;">
 	                </div>
                   
                   
@@ -220,7 +226,21 @@
                     <div class="col-sm-10">
                       <input type="text"  name="staffId" class="form-control">
                     </div>
-                  </div>			
+                  </div>
+                  
+                  
+                  <div class="form-group row" style="display: none;">
+		          	<input class="exchange" type="radio" name="r1" value="1" id="radioPrimary1" checked="checked">
+		             	<label for="radioPrimary1">
+		                    	작업 중
+		            	</label>
+		            <input class="exchange" type="radio" name="r1" value="2" id="radioPrimary1">
+		             	<label for="radioPrimary1">
+		                       	작업 완료
+		            	</label>	
+		          </div>
+                  
+                  			
                 </div>
                 
                 <!-- /.card-body -->
@@ -250,7 +270,8 @@
 		var formObj = $("form[role='form']"); 
 
 		$("#btn").on("click", function(){
-	        formObj.attr("action", "/eInsert");   
+	        formObj.attr("action", "/eInsert"); 
+	        formObj.attr("method", "post"); 
 	        formObj.submit();                          
 	    });
 
@@ -274,81 +295,13 @@
 		var formObj = $("form[role='form']"); 
 
 		$("#btn").on("click", function(){
-	        formObj.attr("action","/rInsert");   
+	        formObj.attr("action","/rInsert"); 
+	        formObj.attr("method", "post"); 
 	        formObj.submit();                          
 	    });
 		
 	});
 	
-	
-	$('.person').click(function(){
-		$('#id').text('고객 아이디');
-		$('#id').next().attr('name','customerId');
-		$('#name').text('고객명');
-		$('#name').next().attr('name','customerName');
-		$('#level').text('권한');
-		$('#level').next().attr('name','customerLevel');
-		$('#class').text('등급');
-		$('#class').next().attr('name','customerClass');
-		$('#call').text('전화번호');
-		$('#call').next().attr('name','customerCall');
-
-		$('#customerList').css('display','block');		
-		$('#customerCompanyList').css('display','none');
-		$('#customerPage').css('display','block');
-		$('#customerCompanyPage').css('display','none');
-		
-		$('#customerBtn').css('display','block');
-		$('#companyBtn').css('display','none');
-		
-		var formObj = $("form[role='form']"); 
-		
-		$('#customerSearchBtn').click(function(){
-			
-			 formObj.attr("action","/rInsert");   
-		        formObj.submit();
-			
-		});
-		
-		     
-	    });
-	
-	
-	
-	$('.company').click(function(){
-		$('#id').text('고객 아이디');
-		$('#id').next().attr('name','customerId');
-		$('#name').text('회사명');
-		$('#name').next().attr('name','customerCompanyName');
-		$('#level').text('권한');
-		$('#level').next().attr('name','customerLevel');
-		$('#class').text('등급');
-		$('#class').next().attr('name','customerClass');
-		$('#call').text('전화번호');
-		$('#call').next().attr('name','customerCompanyCall');
-		$('#customerList').css('display','none');
-		$('#customerCompanyList').css('display','block');
-		$('#customerPage').css('display','none');
-		$('#customerCompanyPage').css('display','block');
-		
-		
-		$('#customerBtn').css('display','none');
-		$('#companyBtn').css('display','block');
-		
-		
-		var formObj = $("form[role='form']"); 
-		
-		$('#customerCompanySearchBtn').click(function(){
-			
-			 formObj.attr("action","/rInsert");   
-		        formObj.submit();
-			
-		});
-		     
-	    });
-
-
-		
 	
 	
 	

@@ -3,9 +3,8 @@ package kr.or.ksmart.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import kr.or.ksmart.domain.Customer;
-import kr.or.ksmart.domain.DocEstimateForm;
+
 
 
 
@@ -62,6 +61,15 @@ public interface CustomerMapper {
 												  ,int startClmn
 												  ,int endClmn
 												   );
+	
+	
+	//고객 로그인
+	public Customer getCustomerLogin(Customer customer);
+	
+	public Customer getCustomerById(String customerId);
+	
+	//마이 페이지 조회
+	public Customer SelectForUpdate(); 
 	
 	
 }

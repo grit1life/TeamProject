@@ -8,12 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AsExchangeController {
 	
 	
-	@PostMapping("/eInsert")
-	public String eInsert(){
-		
-		return "/asExchange/eList";
-			
-	}
+	
 	
 	
 	
