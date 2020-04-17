@@ -54,6 +54,14 @@
 			AND
 				G.goods_desc like '%+${goodsDesc}+%'
 		</if>
+		<if test="goodsCode neq null and goodsCode neq ''.toString()">
+			
+			<foreach collection="goodsCode" item="item">
+				AND
+					G.goods_code != #{item}
+			</foreach>
+			
+		</if>
 		LEFT JOIN
 			(
 			SELECT

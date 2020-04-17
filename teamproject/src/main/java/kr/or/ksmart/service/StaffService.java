@@ -49,4 +49,12 @@ public class StaffService {
 		System.out.println("StaffService----end");
 		return result;
 	}
+	
+	public Staff staffDetails(String staffCode) {
+		return staffMapper.staffDetails(staffCode);
+	}
+	public List<Staff> staffTransferList(String staffCode) {
+		System.out.println("service");
+		return staffMapper.staffTransferList(staffCode);
+	}
 }

@@ -14,4 +14,8 @@ public interface StaffMapper {
 	public List<Staff> staffList(Staff staff);
 	
 	public List<Staff> staffList();
+	
+	public Staff staffDetails(String staffCode);
+	
+	public List<Staff> staffTransferList(String staffCode);
 }

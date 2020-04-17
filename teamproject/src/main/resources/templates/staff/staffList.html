@@ -126,6 +126,7 @@
                   <th>전화번호</th>
                   <th>이메일</th>
                   <th>권한</th>
+                  <th>상세/수정</th>
                 </tr>
 	         </thead>
              <tbody id="staffList">
@@ -137,6 +138,11 @@
                 <td th:text="${L.staffTell}"></td>
                 <td th:text="${L.staffEmail}"></td>
                 <td th:text="${L.staffLevel}"></td>
+              	<td style="text-align: center;vertical-align: middle;">
+               		<a th:href="'/admin/staffList?staffCode='+${L.staffCode}" class="btn btn-sm btn-info" style="padding:1px 4px 1px 4px;">
+               			<i class="fas fa-folder"></i>&ensp;상세/수정
+               		</a>
+              	</td>
               </tr>
              </tbody>
 		</table>

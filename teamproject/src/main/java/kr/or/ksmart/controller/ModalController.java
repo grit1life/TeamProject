@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ksmart.domain.Branch;
 import kr.or.ksmart.domain.GoodsCount;
@@ -79,6 +81,7 @@ public class ModalController {
 	@PostMapping("/goodsListModal")
 	public String goodsListModal(Model model,GoodsCount goodsCount) {
 		System.out.println(goodsCount.toString()+"form로 받는 값");
+		System.out.println(goodsCount.getGoodsCode());
 		List<GoodsCount> goodsCountList = goodsCountService.goodscount(goodsCount);
 		model.addAttribute("goodsCountList", goodsCountList);
 		return "modal/goodsListModal";
@@ -98,6 +101,17 @@ public class ModalController {
 		model.addAttribute("setCountList", setCountList);
 		return "modal/setListModal";
 	} 
+	@GetMapping("/test")
+	public String test() {
+		
+		return "modal/test";
+	}
+	@PostMapping("/test")
+	public @ResponseBody String testp(GoodsCount goodsCount) {
+		System.out.println(goodsCount.getGoodsCode());
+		System.out.println("왔다");
+		return "test";
+	}
 	
 
 }

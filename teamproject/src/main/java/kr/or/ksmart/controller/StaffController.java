@@ -74,9 +74,16 @@ public class StaffController {
 		System.out.println("ajax"+staffList.toString());
 		return staffList;
 	}
-	
+	//상세화면
 	@GetMapping("/admin/staffList")
-	public String adminStaffList(Model model) {
+	public String adminStaffList(Model model,@RequestParam(value="staffCode")String staffCode) {
+		System.out.println(staffCode);
+		Staff staffD = staffService.staffDetails(staffCode);
+		model.addAttribute("staffD", staffD);
+		
+		List<Staff> staffT = staffService.staffTransferList(staffCode);
+		System.out.println(staffT+"<-staffT");
+		model.addAttribute("staffT", staffT);
 		return "staff/adminStaffList";
 	}
 	
@@ -101,6 +108,11 @@ public class StaffController {
 	@PostMapping("/admin/staffChangeUpdateConfirmation")
 	public String staffChangeUpdateConfirmation(Model model) {
 		return "staff/staffChangeUpdateConfirmation";
+	}
+	
+	@GetMapping("/admin/staffDUpdate")
+	public String staffDUpdate() {
+		return "/staff/staffList";
 	}
 	
 

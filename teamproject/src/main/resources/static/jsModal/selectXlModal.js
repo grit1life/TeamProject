@@ -23,7 +23,7 @@ $(function(){
 	
 	//상품 검색 modal 생성
 	$(gModalMakeBtn).click(function(){	
-		__modalRquest('/goodsSelectModal', '삼품 선택',gModalId);	
+		__modalRquest('/goodsSelectModal', '상품 선택',gModalId);	
 	});
 	//한번 modal을 생성했으면 표시만 하면된다
 	$(document).on('click', gModalMakeBtn, function(){
@@ -32,13 +32,17 @@ $(function(){
 	//상품  검색Btn click시 table만 삭제하고 세로 table 생성
 	$(document).on('click', '#goodsSerchBtn', function(){
 		const formData = new FormData($("form#goodsSerch")[0]);
+		console.log(formData.get("goodsCategoryCode"));
+		console.log("↑formData");
 		$('.goodsModalTable').remove();
+
 		//goods검색시 이미 선택한 goods 제외
 		var goodsArr = [];
 		var tbodyGoodsCode = $('tbody#contract').find('[name="goodsCode"]');
 		for(var i=0; i<tbodyGoodsCode.length; i++){
 			if(tbodyGoodsCode.eq(i).val()!=""){
 				goodsArr.push(tbodyGoodsCode.eq(i).val());
+				//console.log(tbodyGoodsCode.eq(i).val()+"tbodyGoodsCode");
 			}
 		}
 		//console.log(formData.get('branchCode'));
@@ -60,9 +64,10 @@ $(function(){
 	});
 	//set  검색Btn click시 table만 삭제하고 세로 table 생성
 	$(document).on('click', '#setSerchBtn', function(){
+		//검색창에 있는 값을 가지고 오기
 		const formData = new FormData($(setModalFormName)[0]);
 		$('.setModalTable').remove();
-		//set검색시 이미 선택한 goods 제외
+		//set검색시 이미 선택한 set 제외
 		var setArr = [];
 		var tbodySetCode = $('tbody#contract').find('[name="setCode"]');
 		for(var i=0; i<tbodySetCode.length; i++){
@@ -71,8 +76,9 @@ $(function(){
 			}
 		}
 		//console.log(formData.get('branchCode'));
-		__modalRquestGS('/setListModal', formData, setModalFormName, setModalTableName);
+		__modalRquestGS('/setListModal', formData, setModalFormName, setModalTableName, setArr);
 	});
+
 	/**** 직원 modal ******************************************************/
 	var sModalMakeBtn = "#staffModal";
 	var sModalId = "__staffModal";
@@ -166,20 +172,24 @@ $(function(){
 	 * 	검색Btn click시 table만 삭제하고 세로 table 생성(goods,set)
 	 * */
 	const __modalRquestGS = function(modalUrl , param, formName, tableName,choiceList){
-		
+		console.log(choiceList);
+		console.log("choiceList");
+		param.append("goodsCode",choiceList);
+		console.log(param);
+		console.log("param");
 		var request = $.ajax({
 			  url: modalUrl,
 			  method: "POST",
 			  processData: false,
 			  contentType: false,
-			  data: {"param":param,"choiceList":choiceList},
+			  data: param,
 			  dataType: "html"
 			});
 		
 		request.done(function( data ) {
 			$(tableName).remove();
 			let modalHtml = data;
-			console.log(modalHtml);
+			//console.log(modalHtml);
 			console.log($(formName));
 			$(formName).append(modalHtml);
 		});
