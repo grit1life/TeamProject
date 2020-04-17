@@ -131,18 +131,18 @@
 							    <td th:text="${l.staffName}"></td>
 				               	<td th:text="${l.receptionDate}"></td>
 				               	<td> 
-									<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+									<a class="btn btn-primary btn-sm" th:href="@{/eUpdate(exchangeCode=${l.exchangeCode})}">
 								     	<i class="fas fa-folder">
 								        </i>
 								        View
 								    </a>    		
 								</td>				
 								<td>							
-									<a class="btn btn-danger btn-sm" th:href="@{/cDelete(customerId=${l.customerId})}" id="btn-remove">
+									<button class="btn btn-danger btn-sm"  onclick="if(!confirm('삭제된 내용은 다시 복구 할 수 없습니다. 정말로 삭제 하시겠습니까?')){return false;}">
 							         	<i class="fas fa-trash">
 							            </i>
 							            Delete
-							        </a>
+							        </button >
 								</td>
 				              </tr>
 				             </tbody>
@@ -210,7 +210,7 @@
 							    <td th:text="${l.staffName}"></td>
 				               	<td th:text="${l.receptionDate}"></td>
 				               	<td> 
-									<a class="btn btn-primary btn-sm" th:href="@{/cUpdate(customerId=${l.customerId})}">
+									<a class="btn btn-primary btn-sm" th:href="@{/rUpdate(repairCode=${l.repairCode})}">
 								     	<i class="fas fa-folder">
 								        </i>
 								        View
