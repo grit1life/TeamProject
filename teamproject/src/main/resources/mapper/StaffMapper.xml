@@ -85,12 +85,44 @@
 		ON 
 			SC.staff_id=S.staff_code
 		AND
-			S.staff_code=#{staff_id}
+			S.staff_code=#{staffId}
 		LEFT JOIN
 			branch AS B
 		ON 
 			SC.branch_code=B.branch_code
 		WHERE 
-			SC.staff_to_period='9999-01-01';
+			SC.staff_to_period &lt;= NOW();
+	</select>
+	
+	<select id="staffDetails" resultMap="StaffMap" parameterType="String">
+		SELECT
+			S.*,SC.staff_position
+		FROM
+			staff AS S
+		LEFT JOIN 
+			staff_change AS SC
+		ON 
+			S.staff_code=SC.staff_id
+		AND 
+			SC.staff_to_period='9999-01-01'
+		WHERE 
+			S.staff_code=#{staffCode};
+	</select>
+	<select id="staffTransferList" resultMap="StaffMap" parameterType="String">
+		SELECT 
+			SC.staff_from_period,SC.staff_to_period,B.branch_name,SC.staff_position,SC.staff_level
+			,S.staff_name,SC.input_date
+		FROM
+			staff_change AS SC
+		INNER JOIN
+			branch AS B
+		ON
+			SC.branch_code=B.branch_code
+		AND 
+			SC.staff_id=#{staffCode}
+		INNER JOIN 
+			staff AS S
+		ON 
+			SC.input_staff_id=S.staff_code;
 	</select>
 </mapper>

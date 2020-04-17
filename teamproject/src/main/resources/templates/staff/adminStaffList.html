@@ -16,7 +16,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>지권 상세 정보</h1>
+            <h1>직원 상세 정보</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -34,6 +34,8 @@
 
 	 
 	 <div class="card-body" style="margin-top:20px">
+	  	<h3>직원 개인 정보</h3>
+        
 	  	<table id="example2" class="table table-bordered table-hover">
 	    	<thead>
                 <tr>
@@ -43,66 +45,204 @@
                   <th>생년월일</th>
                   <th>전화번호</th>
                   <th>이메일</th>
-                  <th>현제 권한</th>
                   <th>입력 날짜</th>
                   <th>입력자</th>
                   <th>수정</th>
                 </tr>
 	         </thead>
              <tbody>
-              <tr th:each="L:${staffList}">
-                <td th:text="${L.branchName}">1</td>
-                <td th:text="${L.staffPosition}"></td>
-                <td th:text="${L.staffName}"></td>
-                <td th:text="${L.staffBirth}"></td>
-                <td th:text="${L.staffTell}"></td>
-                <td th:text="${L.staffEmail}"></td>
-                <td th:text="${L.staffLevel}"></td>
-                <td th:text="${L.staffEmail}"></td>
-                <td th:text="${L.staffLevel}"></td>
-                <td><a th:href="@{/admin/staffUpdate}" class="nav-link"></a></td>
+             
+              <tr id="staffDTr">
+              	<form action="/admin/staffDUpdate" method="post" id="staffDForm">
+	                <td th:text="${staffD.staffCode}"></td>
+	                <td><input type="text" name="staffPw" class="staffDModify" th:value="${staffD.staffPw}" readonly="readonly" style="border:none;width:120px"></td>
+	                <td><input type="text" name="staffName" class="staffDModify" th:value="${staffD.staffName}" readonly="readonly" style="border:none;width:120px"></td>
+	                <td><input type="date" name="staffBirth" class="staffDModify" th:value="${staffD.staffBirth}" readonly="readonly" style="border:none;width:160px"></td>
+	                <td><input type="text" name="staffTell" class="staffDModify" th:value="${staffD.staffTell}" readonly="readonly" style="border:none;width:120px"></td>
+	                <td><input type="text" name="staffEmail" class="staffDModify" th:value="${staffD.staffEmail}" readonly="readonly" style="border:none;width:150px"></td>
+                </form>
+                <td th:text="${staffD.inputDate}"></td>
+                <td th:text="${staffD.staffName}"></td>
+                <td>
+                	<a id="staffDModify" class="btn btn-sm bg-teal" href="#" style="padding:1px 4px 1px 4px">수정</a>
+                </td>
               </tr>
              </tbody>
 		</table>
+        
 	  </div>
+	  
+	  <div class="card-body" style="margin-top:20px">
+	  	<h3>직원 이동 이력</h3>
+	  	<table id="example2" class="table table-bordered table-hover">
+	    	<thead>
+                <tr>
+                  <th>이동일</th>
+                  <th>끝난날</th>
+                  <th>지점</th>
+                  <th>직책</th>
+                  <th>권한</th>
+                  <th>입력 날짜</th>
+                  <th>입력자</th>
+                  <th>이동</th>
+                  <th>퇴사</th>
+                </tr>
+	         </thead>
+             <tbody>
+	             <tr th:each="dataT:${staffT}" id="staffTTr">
+	                <td><input type="date" name="staffFromPeriod" class="staffTModify" th:value="${dataT.staffFromPeriod}" readonly="readonly" style="border:none;width:150px"></td>
+	                <td><input type="date" name="staffToPeriod" class="staffTModify" th:value="${dataT.staffToPeriod}" readonly="readonly" style="border:none;width:150px"></td>
+	                <td><input type="text" name="branchName" class="staffTModify" th:value="${dataT.branchName}" readonly="readonly" style="border:none;width:150px"></td>
+	                <td><input type="text" name="staffPosition" class="staffTModify" th:value="${dataT.staffPosition}" readonly="readonly" style="border:none;width:150px"></td>
+	                <td>
+	                	<select name="staffLevel"  style="border:none;">
+	                		<option selected="selected" th:value="${dataT.staffLevel}" th:text="${dataT.staffLevel}"></option>
+				            <option th:if="${dataT.staffLevel} == 관리자" value='직원' disabled  class="staffTModify">직원</option>
+				            <option th:if="${dataT.staffLevel} == 직원" value='관리자' disabled  class="staffTModify">관리자</option>
+	                	</select>
+	                	
+	                </td>
+	                <td th:text="${dataT.inputDate}"></td>
+	                <td th:text="${dataT.staffName}"></td>
+	                <td>
+	                	<a id="staffTModify" class="btn btn-sm bg-teal" href="#" style="padding:1px 4px 1px 4px">수정</a>
+	                </td>
+	                <td>
+	                	<a id="staffChangeAdd" class="btn btn-sm bg-teal" href="#" style="padding:1px 4px 1px 4px">이동/퇴사 입력</a>
+	                </td> 
+	             </tr> 
+         
+             </tbody>
+		</table>
+	  </div>
+	  <div class="card-footer">
+                 
+                 <button id="cancel" type="submit" class="btn btn-default float-right">입력 취소</button>
+      </div>
+	  
 	 </div>
       	
     </div>
 	
 	<div class="container-fluid">
+	
 	<div class="card card-default">
-	 <div class="card-body" style="margin-top:20px">
-	  	<table id="example2" class="table table-bordered table-hover">
-	    	<thead>
-                <tr>
-                  <th>지점</th>
-                  <th>직책</th>
-                  <th>권한</th>
-                  <th>이동일</th>
-                  <th>끝난날</th>
-                  <th>입력 날짜</th>
-                  <th>입력자</th>
-                  <th>수정</th>
-                </tr>
-	         </thead>
-             <tbody>
-              <tr th:each="L:${staffList}">
-                <td th:text="${L.branchName}"></td>
-                <td th:text="${L.staffPosition}"></td>
-                <td th:text="${L.staffName}"></td>
-                <td th:text="${L.staffBirth}"></td>
-                <td th:text="${L.staffTell}"></td>
-                <td th:text="${L.staffEmail}"></td>
-                <td th:text="${L.staffLevel}"></td>
-                <td><a th:href="@{/admin/staffUpdate}" class="nav-link"></a></td>
-              </tr>
-             </tbody>
-		</table>
 	  </div>
-	 </div>
 	 </div>
   </section>
   </div>
- </th:block>
+<script>
+	//수정 버튼 클릭 시
+	$(document).on('click','#staffDModify',function(){
+		returnInput();
+		$('.staffDModify').prop('readonly',false);
+		$('.staffDModify').css('border','inset');
+		$('#staffDModify').text('병경');
+		$('#staffDModify').removeClass('bg-teal');
+		$('#staffDModify').addClass('btn-primary');
+		$('#staffDModify').attr('id','staffDUpdate');
+	});
+	$(document).on('click','#staffTModify',function(){
+		returnInput();
+		$('input.staffTModify').prop('readonly',false);
+		$('input.staffTModify').css('border','inset');
+		$('#staffTModify').text('병경');
+		$('#staffTModify').removeClass('bg-teal');
+		$('#staffTModify').addClass('btn-primary');
+		$('#staffTModify').attr('id','staffTUpdate');
+		$('option.staffTModify').prop('disabled',false);
+	});
+	
+	var returnInput = function(){
+		$('.staffDModify').prop('readonly',true);
+		$('.staffDModify').css('border','none');
+		$('#staffDUpdate').text('수정');
+		$('#staffDUpdate').removeClass('btn-primary');
+		$('#staffDUpdate').addClass('bg-teal');
+		$('#staffDUpdate').attr('id','staffDModify');
+		
+		$('input.staffTModify').prop('readonly',true);
+		$('input.staffTModify').css('border','none');
+		$('#staffTUpdate').text('수정');
+		$('#staffTUpdate').removeClass('btn-primary');
+		$('#staffTUpdate').addClass('bg-teal');
+		$('#staffTUpdate').attr('id','staffTModify');
+		$('option.staffTModify').prop('disabled',false);
+		
+		$('.staffChangeAdd').remove();
+
+	}
+	
+	$(document).on('click','#staffChangeAdd',function(){
+		returnInput();
+		
+		var resignationHtml = '<tr class="staffChangeAdd" id="staffMoveTr">';
+			resignationHtml += '<td><input type="date" name="staffLevel" style="border:inset;width:150px">부터</td>'; 
+			resignationHtml += '<td></td>'; 
+			resignationHtml += '<td><input type="text" name="staffLevel" placeholder="이동처(지점)" style="border:inset;width:150px"></td>'; 
+			resignationHtml += '<td><input type="text" name="staffLevel" placeholder="직책" style="border:inset;width:150px"></td>'; 
+			resignationHtml += '<td>'; 
+			resignationHtml += '<select name="staffLevel" style="border:inset;">'; 
+			resignationHtml += '<option></option>'; 
+			resignationHtml += '<option value="직원">직원</option>'; 
+			resignationHtml += '<option value="관리자">관리자</option>'; 
+			resignationHtml += '</select>'; 
+			resignationHtml += '</td>'; 
+			resignationHtml += '<td><a id="staffMoveInsert" class="btn btn-sm btn-primary" href="#" style="padding:1px 4px 1px 4px">이동 입력</a></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '</tr>';
+			
+			resignationHtml += '<tr class="staffChangeAdd" id="staffLeaveTr">';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td><input type="date" name="staffLevel" style="border:inset;width:150px">퇴사</td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td><a id="staffLeaveInsert" class="btn btn-sm btn-primary" href="#" style="padding:1px 4px 1px 4px">퇴사 입력</a></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '<td></td>';
+			resignationHtml += '</tr>';  
+			
+			$('#staffTTr').after(resignationHtml);
+	});
+	//유효성 검사
+	var validity = function(trId,formId){
+		var trInput = $(trId).find('input');
+		var result = 0;
+		for(var i=0; i<trInput.length; i++){
+			if(trInput.eq(i).val()==""||trInput.eq(i).val()==null){
+				trInput.eq(i).css('border','red solid 1px');
+				result += 1;
+			}		
+		}
+		if(result==0){
+			$(formId).submit();
+		}else{
+			alert('값을 입력하세요');
+		}
+	};
+	
+	
+	$(document).on('click','#staffDUpdate',function(){
+		validity("#staffDTr","#staffDForm");//유효성 검사
+	});
+	$(document).on('click','#staffTUpdate',function(){
+		validity("#staffTTr");//유효성 검사
+	});
+	$(document).on('click','#staffMoveInsert',function(){
+		validity("#staffMoveTr");//유효성 검사
+	});
+	$(document).on('click','#staffLeaveInsert',function(){
+		validity("#staffLeaveTr");//유효성 검사
+	});
+	$('#cancel').click(function(){
+		window.location.reload();
+	});
+
+</script>
+</th:block>
 </body>
 </html>

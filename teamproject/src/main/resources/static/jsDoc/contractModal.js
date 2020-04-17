@@ -6,7 +6,7 @@ $('#customerSerchBtn').click(function(){
 $('#customerChoice').click(function(){
 	$('#coustomerClose').click();
 });
-//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경
+//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경하는 함수
 var pricePrint =
 	function(){
 		var rate = $('#sale').text();
@@ -146,7 +146,7 @@ $('input.rentalDate').on('blur',function(){
 		});
 	};
 });
-	//주소 출력(modal내 입력)
+//주소 출력(modal내 입력)
 $(document).on('click', '#addressBtn', function(){
 	$('#addressMessage').remove();
 	var deliveryNumberM = $('#deliveryNumberM').val();
@@ -175,8 +175,7 @@ $(function(){
 	});
 	
 });
-	
-	
+		
 // /jsModal/staffModal.js -> staffListModal작성,검색
 //modal에서 직원 선택시
 $(document).on('click', '#staffChoice', function(){
@@ -196,15 +195,14 @@ $(document).on('click', '#staffChoice', function(){
 		staffChoiceHtml += '<button id="staffModal" type="button" class="btn btn-sm btn-primary" style="padding:3px;float:right;margin:0 20px 5px 0">';
 		staffChoiceHtml += '<i class="fas fa-folder"></i>&ensp;담당자 검색';
 		staffChoiceHtml += '</button>';
-	console.log(staffChoiceHtml+"<-staffChoiceHtml");
+	//console.log(staffChoiceHtml+"<-staffChoiceHtml");
 	$('#address').after(staffChoiceHtml);
 	$('#__staffModal').modal('hide');
 });
 
 var goodsSetAdd = function(rentalDayPrice,rentalCanCount
 							,goodsCode,goodsName,goodsCategoryName
-							,setCode,setName){
-	
+							,setCode,setName){	
 	var goodsChoiceHtml = '<tr>';
 	goodsChoiceHtml += '<td>'+ goodsCategoryName + setName +'<input type="hidden" name="setCode" value="'+setCode+'"</td>';
 	goodsChoiceHtml += '<td>'+goodsName+'<input type="hidden" name="goodsCode" value="'+goodsCode+'"></td>';
@@ -218,7 +216,7 @@ var goodsSetAdd = function(rentalDayPrice,rentalCanCount
 	goodsChoiceHtml += '<i class="fas fa-trash"></i>&ensp;삭제</a>';
 	goodsChoiceHtml += '</td>';
 	
-	console.log(goodsChoiceHtml);
+	//console.log(goodsChoiceHtml);
 	$('tbody#contract').append(goodsChoiceHtml);//계약 상품 목록의 마기막에 추가
 };
 
@@ -267,7 +265,7 @@ $(document).on('click', '#goodsChoice', function(){
 	$('#__goodsModal').modal('hide');
 
 	//session에 추가 goods검색시 선택한 goods 제외
-	goodsSessionFn();
+	//goodsSessionFn();
 	//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경
 	pricePrint();
 	
