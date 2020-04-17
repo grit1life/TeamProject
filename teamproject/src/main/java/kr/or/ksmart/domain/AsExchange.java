@@ -19,6 +19,7 @@ public class AsExchange {
 	private String workingSituation;
 	private String staffId;
 	private String requestReason;
+	private String requestReason2;
 	private String work;
 	private String customerId;
 	private String customerName;

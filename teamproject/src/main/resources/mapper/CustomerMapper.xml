@@ -34,20 +34,16 @@
 	
 	
 	<!--고객 로그인  -->
-	<select id="getCustomerLogin"
-		parameterType="kr.or.ksmart.domain.Customer" 
-		resultType="kr.or.ksmart.domain.Customer">
+	<select id="CustomerLogin" resultMap="customerResultMap" parameterType="String">
 		SELECT
 			*
 		FROM
 			customer AS C
 		WHERE
 			C.customer_id = #{customerId}
-	    and C.customer_pw = #{customerPw}
 	</select>
-	
-	
-	
+
+
  	<!--개인 고객 등록  -->
  	<insert id="cInsert" parameterType="kr.or.ksmart.domain.Customer">
 	INSERT INTO customer  (   customer_id

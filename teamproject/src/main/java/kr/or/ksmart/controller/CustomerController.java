@@ -3,6 +3,7 @@ package kr.or.ksmart.controller;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.or.ksmart.domain.Customer;
 import kr.or.ksmart.service.CustomerService;
@@ -248,28 +250,18 @@ import kr.or.ksmart.service.CustomerService;
 						}
 						
 					}
-	 //고객 로그인 
-	 @PostMapping("/customerLogin")
-	 public String login(Customer customer, HttpSession session, Model model) {
-						//입력된 아이디 비밀번호
-						log.error(customer.toString());
-						Map<String,Object> map = customerService.getCustomerLogin(customer);
-						String result 		= (String) map.get("result"); 
-						Customer loginCustomer 	= (Customer) map.get("loginCustomer");
-						
-						//로그인 실패 화면 login
-						if(!result.equals("로그인 성공")) {
-							model.addAttribute("result", result);
-							return "/staff/staffLogin";
-						}
-						session.setAttribute("SID"		, loginCustomer.getCustomerId());
-						session.setAttribute("SLEVEL"	, loginCustomer.getCustomerLevel());
-						session.setAttribute("SNAME"	, loginCustomer.getCustomerName());
-						
-						//로그인 성공 화면 index
-						return "redirect:/";
-					}
-		
+			
+					
+	 //로그인				
+	  @PostMapping(value="/customerLogin", produces = "application/json")
+	  @ResponseBody
+	  public Map<String, Object> customerLogin(HttpSession session,@RequestParam(value="customerId")String customerId,@RequestParam(value="customerPw")String customerPw) {
+						String result = customerService.CustomerLogin(customerId, customerPw, session);
+						Map<String, Object> Map = new HashMap<String, Object>();
+						Map.put("result", result);
+						return Map;
+					}					
+	
 	 //로그아웃
 	 @GetMapping("/logout")
 	 public String logout(HttpSession session) {

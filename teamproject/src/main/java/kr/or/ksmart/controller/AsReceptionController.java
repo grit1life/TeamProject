@@ -31,10 +31,10 @@ public class AsReceptionController {
 		
 		
 	}
-	@PostMapping("/eInsert")
+	@PostMapping("/aInsert")
 	public String eInsert(AsExchange AsExchange) {
 		
-		AsReceptionService.eInsert(AsExchange);
+		AsReceptionService.aInsert(AsExchange);
 		
 		return "/asReception/aInsert";
 	}

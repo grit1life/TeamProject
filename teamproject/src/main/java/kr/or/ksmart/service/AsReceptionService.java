@@ -27,14 +27,14 @@ public class AsReceptionService {
 	
 	
 	//AS 교환 접수 등록
-	public int eInsert(AsExchange AsExchange) {
+	public int aInsert(AsExchange AsExchange) {
 		int max = AsReceptionMapper.getAsReceptionCodeMax()+1;
 		String tempCode = "reception_code0";
 		
 		AsExchange.setReceptionCode(tempCode+max);
 
 		
-		return AsReceptionMapper.eInsert(AsExchange);
+		return AsReceptionMapper.aInsert(AsExchange);
 	}
 	
 	

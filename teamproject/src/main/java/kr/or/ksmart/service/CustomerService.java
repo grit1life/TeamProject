@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import kr.or.ksmart.domain.Board;
 import kr.or.ksmart.domain.Customer;
 import kr.or.ksmart.domain.DocEstimateForm;
+import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.mapper.CustomerMapper;
 
 
@@ -26,30 +29,24 @@ public class CustomerService {
 	private CustomerMapper customerMapper;
 	
 	//고객 로그인
-	public Map<String, Object> getCustomerLogin(Customer customer) {
+	public String CustomerLogin(String customerId,String customerPw,HttpSession session) {
+		Customer customer = customerMapper.CustomerLogin(customerId);
+		String pw = customer.getCustomerPw();
+		String result = null;
 		
-		String result = "";
-		
-		Map<String, Object> map = new HashMap<String,Object>();
-		
-		Customer customerCheck = customerMapper.getCustomerLogin(customer);
-		
-		if(customerCheck == null) {
-			Customer customerIdCheck = customerMapper.getCustomerById(customer.getCustomerId());
-			if(customerIdCheck == null) {
-				result = "등록된 아이디의 정보가 없습니다.";
-			}else {
-				result = "비밀번호가 일치하지 않습니다.";
-			}
-
+		if(!pw.equals(customerPw)) {
+			result = "비밀번호가 일치하지 않습니다.";
 		}else {
 			result = "로그인 성공";
-			map.put("loginMember", customerCheck);
+			session.setAttribute("customerId", customerId);
+			session.setAttribute("customerPw", customer.getCustomerPw());
+			session.setAttribute("customerName", customer.getCustomerName());
+			session.setAttribute("customerLevel", customer.getCustomerLevel());
 		}
-		
-		map.put("result", result);
-		
-		return map;
+
+		return result;
+	
+	
 	}
 	
 	

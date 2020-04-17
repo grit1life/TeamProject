@@ -207,374 +207,317 @@
             </div>
             <!-- /.card -->
 
-            <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">About Me</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
 
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
           </div>
           <!-- /.col -->
-          <div class="col-md-9">
+              <div class="col-md-9">
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">내 정보</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">주문내역</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">렌탈내역</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
-                  	<form th:action="@{/cUpdate}" method="post"> 
-		                <div class="card-body">	                
-		                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 아이디</label>
+                    <!-- Post -->
+                    <div class="post">
+               			<label for="inputEmail3" class="col-sm-2 col-form-label">아이디</label>
 		                  <div class="form-group row">
 		                    <div class="col-sm-10">
-		                      <input type="text" name="customerId" th:value="${Customer.customerId}" class="form-control">
+		                      <input type="text" name="customerId" class="form-control" value="client01">
 		                    </div>
 		                  </div>
-		                  
-		                  <label for="inputPassword3" class="col-sm-2 col-form-label">고객 비밀 번호</label>
+		                <label for="inputPassword3" class="col-sm-2 col-form-label">비밀 번호</label>
 		                  <div class="form-group row">
 		                    <div class="col-sm-10">
-		                      <input type="text" name="customerPw" th:value="${Customer.customerPw}" class="form-control">
+		                      <input type="text" name="customerPw" class="form-control" value="pw001">
 		                    </div>
 		                  </div>
-		                  
-		                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 권한</label>
+		                <label for="inputPassword3" class="col-sm-2 col-form-label">권한</label>
 		                  <div class="form-group row">
 		                    <div class="col-sm-10">
-		                      <input type="text" name="customerLevel" th:value="${Customer.customerLevel}" class="form-control" readonly="readonly">
+		                      <input type="text" name="customerLevel" class="form-control" readonly="readonly" value="개인">
 		                    </div>
 		                  </div>
-		                  
-		                  
-		                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 등급</label>
+		                <label for="inputPassword3" class="col-sm-2 col-form-label">등급</label>
 		                  <div class="form-group row">
 		                    <div class="col-sm-10">
-		                      <select class="form-control"  id="inputEmail3" name="customerClass" th:value="${Customer.customerClass}">
-		                      	<option selected disabled>::선택해주세요::</option>
-				                  <option>브론즈 회원</option>
-				                  <option>실버 회원</option>
-				                  <option>골드 회원</option>
-				                  <option>플래티넘 회원</option> 
-		                      </select>
+		                      <input type="text" name="customerClass" class="form-control" readonly="readonly" value="브론즈 회원">
 		                    </div>
 		                  </div>
-		                  
-		                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객명</label>
-		                  <div class="form-group row">
-		                    <div class="col-sm-10">
-		                      <input type="text" name="customerName" th:value="${Customer.customerName}" class="form-control">
-		                    </div>
-		                  </div>
-		                 
-		                  
-		                  <label for="inputEmail3" class="col-sm-2 col-form-label">고객 연락처</label>
-		                  <div class="form-group row">
-		                    <div class="col-sm-10">
-		                      <input type="text" name="customerCall" th:value="${Customer.customerCall}" class="form-control">
-		                    </div>
-		                  </div>
-		                  
-		                  <label for="inputPassword3" class="col-sm-2 col-form-label">고객 이메일</label>
-		                  <div class="form-group row">
-		                    <div class="col-sm-10">
-		                      <input type="text" name="customerEmail" th:value="${Customer.customerEmail}" class="form-control">
-		                    </div>
-		                  </div>
-		                  
-		                  
-		                  <label>우편번호</label>
-		                  <div class="input-group mb-3">
-		                  <input type="text" id="sample4_postcode" name="zipCode" th:value="${Customer.zipCode}">
-		                  <div class="input-group-append">
-		                   <span class="input-group-append">
-			                    <button type="button" onclick="sample4_execDaumPostcode()" class="btn btn-info btn-flat">찾기</button>
-			                  </span>
-		                  </div>
-		                </div>
-		                
-		
-		                  
-		                  <label for="inputPassword3" class="col-sm-2 col-form-label">기본주소</label>
-		                  <div class="form-group row">
-		                    <div class="col-sm-10">
-		                      <input type="text" id="sample4_roadAddress" name="customerAddress" class="form-control" th:value="${Customer.customerAddress}">
-		                    </div>
-		                  </div>
-		                  
-		                   <input type="hidden" id="sample4_jibunAddress" class="form-control">
-		                   <span id="guide" style="color:#999;display:none"></span>
-							
-		                   
-		                   <label for="inputPassword3" class="col-sm-2 col-form-label">상세주소</label>
-		                   <div class="form-group row">
-		                    <div class="col-sm-10">
-		                      <input type="text" id="sample4_detailAddress" name="customerAddress2" class="form-control" th:value="${Customer.customerAddress2}">
-		                    </div>
-		                  </div>
-		                                   
-		                 <div class="form-group">	
-							<input type="hidden" id="sample4_extraAddress" class="form-control">
-					  	</div>	
-						<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
-							<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-						</div>
-						
-					   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-					   <script>
-					       //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-					       function sample4_execDaumPostcode() {
-					           new daum.Postcode({
-					               oncomplete: function(data) {
-					                   // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-		
-					                   // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-					                   // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					                   var roadAddr = data.roadAddress; // 도로명 주소 변수
-					                   var extraRoadAddr = ''; // 참고 항목 변수
-		
-					                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-					                       extraRoadAddr += data.bname;
-					                   }
-					                   // 건물명이 있고, 공동주택일 경우 추가한다.
-					                   if(data.buildingName !== '' && data.apartment === 'Y'){
-					                      extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					                   }
-					                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					                   if(extraRoadAddr !== ''){
-					                       extraRoadAddr = ' (' + extraRoadAddr + ')';
-					                   }
-		
-					                   // 우편번호와 주소 정보를 해당 필드에 넣는다.
-					                   document.getElementById('sample4_postcode').value = data.zonecode;
-					                   document.getElementById("sample4_roadAddress").value = roadAddr;
-					                   document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-					                   
-					                   // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-					                   if(roadAddr !== ''){
-					                       document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-					                   } else {
-					                       document.getElementById("sample4_extraAddress").value = '';
-					                   }
-		
-					                   var guideTextBox = document.getElementById("guide");
-					                   // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-					                   if(data.autoRoadAddress) {
-					                       var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-					                       guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-					                       guideTextBox.style.display = 'block';
-		
-					                   } else if(data.autoJibunAddress) {
-					                       var expJibunAddr = data.autoJibunAddress;
-					                       guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-					                       guideTextBox.style.display = 'block';
-					                   } else {
-					                       guideTextBox.innerHTML = '';
-					                       guideTextBox.style.display = 'none';
-					                   }
-					               }
-					           }).open();
-					       }
-					   </script>
-		                  
-		                  
-		                  
-		                </div>
-                </form>
-                <!-- /.card-body -->
-                <div class="card-footer" id="submit">
-                  <button type="submit" id="cUpdate" class="btn btn-info">수정</button>
-                  <a th:href="@{/cList}" class="btn btn-default float-right">취소</a>
-                </div>
-                <!-- /.card-footer -->
+		                  <label for="inputEmail3"  id="name1" class="col-sm-2 col-form-label">고객명</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" name="customerName" class="form-control" value="김철수"> 
+                    </div>
+                  </div>
+                 
+                  
+                  <label for="inputEmail3" id="name2" class="col-sm-2 col-form-label">고객 연락처</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" name="customerCall" class="form-control" value="010-000-0001">
+                    </div>
+                  </div>
+                  
+                  <label for="inputPassword3" id="name3" class="col-sm-2 col-form-label">고객 이메일</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" name="customerEmail" class="form-control" value="cus01@email.com">
+                    </div>
+                  </div>
 
-           	  </div>
-  			</div>  
-		 </div>
+					
+
+
+                  <label id="name4">우편번호</label>
+                  <div class="input-group mb-3">
+                  <input type="text" id="sample4_postcode" name="zipCode" value="111-11">
+                  <div class="input-group-append">
+                   <span class="input-group-append">
+	                    <button type="button" onclick="sample4_execDaumPostcode()" class="btn btn-info btn-flat">찾기</button>
+	                  </span>
+                  </div>
+                </div>
+                
+
+                  
+                  <label for="inputPassword3" id="name5" class="col-sm-2 col-form-label">기본주소</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="sample4_roadAddress" name="customerAddress" class="form-control" value="서울시 구로구">
+                    </div>
+                  </div>
+                  
+                   <input type="hidden" id="sample4_jibunAddress" class="form-control">
+                   <span id="guide" style="color:#999;display:none"></span>
+					
+                   
+                   <label for="inputPassword3"  id="name6" class="col-sm-2 col-form-label">상세주소</label>
+                   <div class="form-group row">
+                    <div class="col-sm-10">
+                      <input type="text" id="sample4_detailAddress" name="customerAddress2" class="form-control" value="OO빌라 122호">
+                    </div>
+                  </div> 
+                  
+                  
+                   <div class="form-group">	
+					<input type="hidden" id="sample4_extraAddress" class="form-control">
+				  	</div>	
+					<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+					</div>
+					
+					
+					<div id="submit"  style="display: block">
+	                  <button id="submit" class="btn btn-info">수정</button>
+	                  <a th:href="@{/index}" class="btn btn-default float-right">취소</a>                  
+	                </div>        
+                      
+                    </div>
+                    <!-- /.post -->
+                  </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="timeline">
                     <!-- The timeline -->
-                    <div class="timeline timeline-inverse">
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-danger">
-                          10 Feb. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-envelope bg-primary"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                          <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                          <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-user bg-info"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                          <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                          </h3>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-comments bg-warning"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                          <div class="timeline-body">
-                            Take me to your leader!
-                            Switzerland is small and neutral!
-                            We are more like Germany, ambitious and misunderstood!
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-success">
-                          3 Jan. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-camera bg-purple"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                          <div class="timeline-body">
-                            <img src="http://placehold.it/150x100" alt="...">
-                            <img src="http://placehold.it/150x100" alt="...">
-                            <img src="http://placehold.it/150x100" alt="...">
-                            <img src="http://placehold.it/150x100" alt="...">
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <div>
-                        <i class="far fa-clock bg-gray"></i>
-                      </div>
-                    </div>
+          			<table id="estimateTable" class="table table-bordered table-hover" style="margin-top: 22px;">
+				    	<thead>
+			                <tr>
+			                  <th style="width: 10px;"></th>
+			                  <th>고객명</th>
+			                  <th>상품명(세트)</th>
+			                  <th>렌탈시작일</th>
+			                  <th>렌탈종료일</th>
+			                  <th>전화번호</th>
+			                  <th>총금액</th>
+			                  <th>담당자</th>
+			                  <th style="width:100px">견적서</th>                
+			                </tr>
+				         </thead>
+			             <tbody>
+			              <tr>
+			                <td>1</td>
+			                
+			                <td>김철수</td>
+				            <!-- 상품 or 세트, 외  몇 건 -->
+				            
+				            
+				                <td>Xiaomi</td>
+				                
+			               	
+			               	<!-- 상품 or 세트, 외  몇 건 끝-->
+			               	<td>2020-03-13</td><td>2020-03-16</td><td>010-000-0001</td><td>800,000</td>
+			                
+			                <td>김동준</td>
+			                <td>
+			                <!-- 견적서 개수에 따른 분류(모달창)
+			                	<th:block th:if="${l.count}>1">
+				                	<a class="modalBtn btn btn-success btn-sm" th:data-set="${l.estimateCode}" href="#" style="padding:1px 4px 1px 4px">
+					                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"/>
+										</svg>&ensp;견적서
+									</a>
+								</th:block>-->
+				               	<a class="estimateBtn btn btn-success btn-sm" data-set="estimate_code09" href="#" style="padding:1px 4px 1px 4px">
+				                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"></path>
+									</svg> 견적서
+								</a>
+			                </td>              
+			              </tr>
+			              <tr>
+			                
+			                
+			                <td>2</td>
+			                
+			                <td>김철수</td>
+				            <!-- 상품 or 세트, 외  몇 건 -->
+				            
+				                
+				                <td>데스크탑 세트1&nbsp;외 5품목</td>
+			               	
+				            
+			               	<!-- 상품 or 세트, 외  몇 건 끝-->
+			               	<td>2020-03-13</td><td>2020-03-16</td><td>010-000-0001</td><td>290,000</td>
+			                
+			                <td>김시현</td>
+			                <td>
+			                <!-- 견적서 개수에 따른 분류(모달창)
+			                	<th:block th:if="${l.count}>1">
+				                	<a class="modalBtn btn btn-success btn-sm" th:data-set="${l.estimateCode}" href="#" style="padding:1px 4px 1px 4px">
+					                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"/>
+										</svg>&ensp;견적서
+									</a>
+								</th:block>-->
+				               	<a class="estimateBtn btn btn-success btn-sm" data-set="estimate_code01" href="#" style="padding:1px 4px 1px 4px">
+				                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"></path>
+									</svg> 견적서
+								</a>
+			                </td>                
+			              </tr>
+			             </tbody>
+					</table>
                   </div>
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="settings">
-                    <form class="form-horizontal">
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
-                        </div>
-                      </div>
-                    </form>
+              	  	<table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
+				    	<thead>
+			                <tr>
+			                  <th style="width: 10px;"></th>
+			                  <th>고객명</th>
+			                  <th>상품명(세트)</th>
+			                  <th>렌탈시작일</th>
+			                  <th>렌탈종료일</th>
+			                  <th>전화번호</th>
+			                  <th>총금액</th>
+			                  <th>담당자</th>
+			                  <th>입력자</th>
+			                  <th style="width:100px">계약서</th>
+			                </tr>
+				         </thead>
+			             <tbody>
+			             <tr>
+			                
+			                <td>1</td>
+			                
+			                <td>김철수</td>
+				         	<!--    상품 or 세트, 외  몇 건 -->
+				            
+				            
+				                
+				                <td>데스크탑 세트1</td>
+			               	
+			               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+			               	<td>2019-11-12</td><td>2019-12-13</td><td>000-800-0000</td><td>250,000</td>
+			                <td>김시현</td>
+			                <td>김시현</td>
+			                <td>
+				               	<a class="contractBtn btn btn-success btn-sm" data-set="contract00006" href="#" style="padding:1px 4px 1px 4px">
+				                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"></path>
+									</svg> 계약서
+								</a>
+			                </td>
+			               
+			              </tr>
+			             <tr>
+			                <td>2</td>
+			                
+			                <td>김철수</td>
+				         	<!--    상품 or 세트, 외  몇 건 -->
+				            
+				            
+				                <td>Sony</td>
+				                
+			               	
+			               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+			               	<td>2019-11-12</td><td>2020-01-15</td><td>000-700-0000</td><td>3,000,000</td>
+			                <td>김시현</td>
+			                <td>김시현</td>
+			                <td>
+				               	<a class="contractBtn btn btn-success btn-sm" data-set="contract00005" href="#" style="padding:1px 4px 1px 4px">
+				                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"></path>
+									</svg> 계약서
+								</a>
+			                </td>
+			               
+			              </tr>
+			             <tr>
+			                <td>3</td>
+			                
+			                <td>김철수</td>
+				         	<!--    상품 or 세트, 외  몇 건 -->
+				            
+				            
+				                
+				                <td>데스크탑 세트1</td>
+			               	
+			               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+			               	<td>2019-04-19</td><td>2019-11-18</td><td>000-6000-0000</td><td>150,000</td>
+			                <td>김시현</td>
+			                <td>김시현</td>
+			                <td>
+				               	<a class="contractBtn btn btn-success btn-sm" data-set="contract00003" href="#" style="padding:1px 4px 1px 4px">
+				                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"></path>
+									</svg> 계약서
+								</a>
+			                </td>
+			               
+			              </tr>
+			             <tr>               
+			                <td>3</td>
+			                
+			                <td>김철수</td>
+				         	<!--    상품 or 세트, 외  몇 건 -->
+				            
+				                
+				                <td>데스크탑 세트1&nbsp;외 2품목</td>
+			               	
+				            
+			               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+			               	<td>2019-04-19</td><td>2019-12-13</td><td>000-200-0000</td><td>1,050,000</td>
+			                <td>김시현</td>
+			                <td>김시현</td>
+			                <td>
+				               	<a class="contractBtn btn btn-success btn-sm" data-set="contract00001" href="#" style="padding:1px 4px 1px 4px">
+				                    <svg class="bi bi-folder-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M9.828 3h3.982a2 2 0 011.992 2.181l-.637 7A2 2 0 0113.174 14H2.826a2 2 0 01-1.991-1.819l-.637-7a1.99 1.99 0 01.342-1.31L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 006.172 2H2.5a1 1 0 00-1 .981l.006.139z" clip-rule="evenodd"></path>
+									</svg> 계약서
+								</a>
+			                </td>
+			                
+			              </tr>
+			             </tbody>
+					</table>		
+              			
                   </div>
                   <!-- /.tab-pane -->
                 </div>
@@ -583,9 +526,13 @@
             </div>
             <!-- /.nav-tabs-custom -->
           </div>
+          </div>
+          
+          
       </section> 
           <!-- /.col -->
         </div>
+        
         <!-- /.row -->
       </div><!-- /.container-fluid -->
 
@@ -614,5 +561,83 @@
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			   <script>
+			       //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+			       function sample4_execDaumPostcode() {
+			           new daum.Postcode({
+			               oncomplete: function(data) {
+			                   // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+			                   // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+			                   // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			                   var roadAddr = data.roadAddress; // 도로명 주소 변수
+			                   var extraRoadAddr = ''; // 참고 항목 변수
+
+			                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+			                       extraRoadAddr += data.bname;
+			                   }
+			                   // 건물명이 있고, 공동주택일 경우 추가한다.
+			                   if(data.buildingName !== '' && data.apartment === 'Y'){
+			                      extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+			                   }
+			                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			                   if(extraRoadAddr !== ''){
+			                       extraRoadAddr = ' (' + extraRoadAddr + ')';
+			                   }
+
+			                   // 우편번호와 주소 정보를 해당 필드에 넣는다.
+			                   document.getElementById('sample4_postcode').value = data.zonecode;
+			                   document.getElementById("sample4_roadAddress").value = roadAddr;
+			                   document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+			                   
+			                   // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+			                   if(roadAddr !== ''){
+			                       document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+			                   } else {
+			                       document.getElementById("sample4_extraAddress").value = '';
+			                   }
+
+			                   var guideTextBox = document.getElementById("guide");
+			                   // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+			                   if(data.autoRoadAddress) {
+			                       var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+			                       guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+			                       guideTextBox.style.display = 'block';
+
+			                   } else if(data.autoJibunAddress) {
+			                       var expJibunAddr = data.autoJibunAddress;
+			                       guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+			                       guideTextBox.style.display = 'block';
+			                   } else {
+			                       guideTextBox.innerHTML = '';
+			                       guideTextBox.style.display = 'none';
+			                   }
+			               }
+			           }).open();
+			       }
+			   </script>
+			   <script type="text/javascript">
+			 	$(function(){	
+					$('.contractBtn').click(function(){
+						
+					})
+					$('.estimateBtn').click(function(){
+						window.open("/customer/estimateForm?estimateCode="+$(this).data('set'), "",
+						"_blank width=800, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no")
+					})
+				}) 
+			</script>
+			<script type="text/javascript">
+			$(function(){
+				$('.contractBtn').click(function(){
+						window.open("/customer/contractForm?contractCode="+$(this).data('set'), "",
+						"_blank width=800, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no")
+					})
+			})
+			</script>
+				          
 </body>
 </html>

@@ -10,6 +10,7 @@ import kr.or.ksmart.domain.Customer;
 
 
 
+
 @Mapper
 public interface CustomerMapper {
 	
@@ -64,9 +65,8 @@ public interface CustomerMapper {
 	
 	
 	//고객 로그인
-	public Customer getCustomerLogin(Customer customer);
-	
-	public Customer getCustomerById(String customerId);
+	public Customer CustomerLogin(String customerId);
+
 	
 	//마이 페이지 조회
 	public Customer SelectForUpdate(); 

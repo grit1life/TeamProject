@@ -14,7 +14,7 @@ public interface AsReceptionMapper {
 	//AS접수 코드 자동증가
 	public int getAsReceptionCodeMax();
 	//AS접수 교환 등록
-	public int eInsert(AsExchange AsExchange);
+	public int aInsert(AsExchange AsExchange);
 	
 	//교환 현황 리스트 페이징 카운트
 	public int getAsExchangeCnt();
