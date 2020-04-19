@@ -13,7 +13,7 @@
 		<result property="holidaySort" column="holiday_sort"/>
 	</resultMap>
 	
-	<select id="commuteList" parameterType="Map" resultMap="commuteResultMap">
+	<select id="commuteList" parameterType="Commute" resultMap="commuteResultMap">
 		SELECT
 			  S.staff_name
 			, CH.commute_date
@@ -47,9 +47,9 @@
 			staff AS S
 		ON 
 			CH.staff_id = S.staff_code
-		WHERE CH.staff_id = "201804_0001"
+		WHERE CH.staff_id = ${staffId}
 		ORDER BY CH.commute_date DESC
-		LIMIT #{startClmn}, #{clmnCnt}
+		LIMIT ${column}, ${column+10}
 	</select>	
 	<select id="getCommuteListCnt" parameterType="String" resultType="int">
 		SELECT

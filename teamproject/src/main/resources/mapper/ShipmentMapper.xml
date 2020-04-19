@@ -74,7 +74,7 @@
 			(ISNULL(S.shipment_complete_date))
 		GROUP BY
 			shipment_code
-		LIMIT ${firstClmn}, ${lastClmn}
+		LIMIT ${column}, ${column+10}
   	</select>
   	<select id="getShipmentListCnt" resultType="int">
 		SELECT
@@ -163,7 +163,7 @@
 			NOT(ISNULL(S.shipment_complete_date))
 		GROUP BY
 			shipment_code
-		LIMIT ${firstClmn}, ${lastClmn}
+		LIMIT ${column}, ${column+10}
   	</select>
   	<select id="getDeliveredShipmentCnt" resultType="int">
 	  	SELECT
@@ -273,7 +273,7 @@
 			</if>
 		GROUP BY
 			shipment_code
-		LIMIT ${firstClmn}, ${lastClmn}
+		LIMIT ${column}, ${column+10}
   	</select>
   	<select id="getShipmentSearchListCnt" resultType="int" parameterType="Shipment">
 		SELECT
@@ -382,7 +382,7 @@
 		WHERE
 			NOT(ISNULL(S.shipment_complete_date))
 			<if test="customerName neq null and customerName neq ''.toString()">
-				AND C.customer_name = #{customerName}
+				AND C.customer_name LIKE CONCAT('%', #{customerName}, '%')
 			</if>
 			<if test="staffName neq null and staffName neq ''.toString()">
 				AND staff_name = #{staffName}
@@ -404,7 +404,7 @@
 			</if>
 		GROUP BY
 			shipment_code
-		LIMIT ${firstClmn}, ${lastClmn}
+		LIMIT ${column}, ${column+10}
   	</select>
   	<select id="getDeliveredShipmentSearchCnt" resultType="int" parameterType="Shipment">
 	  	SELECT
@@ -446,7 +446,7 @@
 			WHERE
 				NOT(ISNULL(S.shipment_complete_date))
 			<if test="customerName neq null and customerName neq ''.toString()">
-				AND C.customer_name = #{customerName}
+				AND C.customer_name LIKE CONCAT('%', #{customerName}, '%')
 			</if>
 			<if test="staffName neq null and staffName neq ''.toString()">
 				AND staff_name = #{staffName}

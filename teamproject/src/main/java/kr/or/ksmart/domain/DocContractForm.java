@@ -2,9 +2,11 @@ package kr.or.ksmart.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
 public class DocContractForm {
 
 	/* 계약서 */

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.Commute;
 import kr.or.ksmart.domain.Holiday;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.mapper.CommuteMapper;
 
 @Service
@@ -19,33 +20,20 @@ public class CommuteService {
 	@Autowired
 	private CommuteMapper commuteMapper;
 	
-	public Map<String, Object> CommuteList(String staffId, int currentPage){
-		int startClmn = (currentPage-1) * 10;
-		int clmnCnt = 10;
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("staffId", staffId);
-		paramMap.put("startClmn", startClmn);
-		paramMap.put("clmnCnt", clmnCnt);
-		List<Commute> cList = commuteMapper.commuteList(paramMap);
+	public Pagination<List<Commute>> CommuteList(String staffId, int currentPage){
+		int column = (currentPage-1) * 10;
+		System.out.println(staffId);
+		Commute commute = Commute.builder()
+				.staffId(staffId)
+				.column(column)
+				.build();
+		List<Commute> list = commuteMapper.commuteList(commute);
+		int cnt = commuteMapper.getCommuteListCnt(staffId);
 		
-		int startPage = currentPage - 5;
-		if(startPage <= 5 ) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int pageCnt = commuteMapper.getCommuteListCnt(staffId);
-		int lastPage = pageCnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("startPage", startPage);
-		resultMap.put("endPage", endPage);
-		resultMap.put("lastPage", lastPage);
-		resultMap.put("currentPage", currentPage);
-		resultMap.put("cList", cList);
+		Pagination<List<Commute>> p = new Pagination<List<Commute>>(currentPage, cnt);
+		p.setList(list);
 		
-		return resultMap;
+		return p;
 	}
 	
 	public List<Holiday> getHolidayList(String staffId){

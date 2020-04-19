@@ -10,10 +10,10 @@ import kr.or.ksmart.domain.Shipment;
 @Mapper
 public interface ShipmentMapper {
 
-	public List<Shipment> getShipmentList(int firstClmn, int lastClmn);
+	public List<Shipment> getShipmentList(int column);
 	public int getShipmentListCnt();
 	
-	public List<Shipment> getDeliveredShipmentList(int firstClmn, int lastClmn);
+	public List<Shipment> getDeliveredShipmentList(int column);
 	public int getDeliveredShipmentCnt();
 	
 	public List<Shipment> getShipmentSearchList(Shipment shipment);

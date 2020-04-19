@@ -2,9 +2,11 @@ package kr.or.ksmart.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
 public class ReturnDelay extends DocContractForm {
 	private String returnedDate;
 	private String returnedLate;

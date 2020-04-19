@@ -24,24 +24,17 @@ public class ShipmentController {
 	private ShipmentService shipmentService;
 	
 	@GetMapping("/staff/rentalShipList")
-	public String rentalShipList(Model model, @RequestParam(value = "page", required = false) String page
-								,@RequestParam(value = "deliveredPage", required = false) String deliveredPage) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Pagination<List<Shipment>> p = shipmentService.getShipmentList(pageNum);
+	public String rentalShipList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page
+								,@RequestParam(value = "deliveredPage", required = false, defaultValue = "1") int deliveredPage) {
+		
+		Pagination<List<Shipment>> p = shipmentService.getShipmentList(page);
 		model.addAttribute("list", p.getList());
 		model.addAttribute("startPage", p.getStartPage());
 		model.addAttribute("currentPage", p.getCurrentPage());
 		model.addAttribute("endPage", p.getEndPage());
 		model.addAttribute("lastPage", p.getLastPage());
 		
-		if(deliveredPage==null) {
-			deliveredPage = "1";
-		}
-		int deliveredPageNum = Integer.parseInt(deliveredPage);
-		Pagination<List<Shipment>> deliveredP = shipmentService.getDeliveredShipmentList(deliveredPageNum);
+		Pagination<List<Shipment>> deliveredP = shipmentService.getDeliveredShipmentList(deliveredPage);
 		model.addAttribute("deliveredList", deliveredP.getList());
 		model.addAttribute("deliveredStartPage", deliveredP.getStartPage());
 		model.addAttribute("deliveredCurrentPage", deliveredP.getCurrentPage());
@@ -52,25 +45,18 @@ public class ShipmentController {
 	}
 
 	@GetMapping("/staff/rentalShipSearchList")
-	public String rentalShipSearchList(Model model, @RequestParam(value = "page", required = false) String page
-								,@RequestParam(value = "deliveredPage", required = false) String deliveredPage
+	public String rentalShipSearchList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page
+								,@RequestParam(value = "deliveredPage", required = false, defaultValue = "1") int deliveredPage
 								, Shipment shipment) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Pagination<List<Shipment>> p = shipmentService.getShipmentSearchList(pageNum, shipment);
+		
+		Pagination<List<Shipment>> p = shipmentService.getShipmentSearchList(page, shipment);
 		model.addAttribute("list", p.getList());
 		model.addAttribute("startPage", p.getStartPage());
 		model.addAttribute("currentPage", p.getCurrentPage());
 		model.addAttribute("endPage", p.getEndPage());
 		model.addAttribute("lastPage", p.getLastPage());
 		
-		if(deliveredPage==null) {
-			deliveredPage = "1";
-		}
-		int deliveredPageNum = Integer.parseInt(deliveredPage);
-		Pagination<List<Shipment>> deliveredP = shipmentService.getDeliveredShipmentSearchList(deliveredPageNum, shipment);
+		Pagination<List<Shipment>> deliveredP = shipmentService.getDeliveredShipmentSearchList(deliveredPage, shipment);
 		model.addAttribute("deliveredList", deliveredP.getList());
 		model.addAttribute("deliveredStartPage", deliveredP.getStartPage());
 		model.addAttribute("deliveredCurrentPage", deliveredP.getCurrentPage());

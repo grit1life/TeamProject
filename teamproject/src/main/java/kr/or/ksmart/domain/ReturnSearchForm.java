@@ -1,8 +1,13 @@
 package kr.or.ksmart.domain;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Setter
+@Getter
+@ToString
 public class ReturnSearchForm {
 	private String customerName;
 	private String staffName;

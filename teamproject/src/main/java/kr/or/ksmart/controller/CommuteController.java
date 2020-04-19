@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ch.qos.logback.classic.Logger;
+import kr.or.ksmart.domain.Commute;
 import kr.or.ksmart.domain.Holiday;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.service.CommuteService;
 
 @Controller
@@ -28,11 +31,12 @@ public class CommuteController {
 	}
 
 	@PostMapping("/staff/commuteList")
-	public @ResponseBody Map<String, Object> geAjaxCommuteList(@RequestBody Map<String, Object> paramMap) {
+	public @ResponseBody Pagination<List<Commute>> geAjaxCommuteList(@RequestBody Map<String, Object> paramMap) {
 		String staffId = "201804_0001";  //임시값 로그인시 세션의 값을 담아주어야 한다
 
 		int currentPage = (Integer)paramMap.get("currentPage");
-		Map<String, Object> resultMap = commuteService.CommuteList(staffId, currentPage);
+		Pagination<List<Commute>> resultMap = commuteService.CommuteList(staffId, currentPage);
+		System.out.println(resultMap);
 		return resultMap;
 	}
 	

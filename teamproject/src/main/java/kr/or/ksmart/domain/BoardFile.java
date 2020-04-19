@@ -1,8 +1,12 @@
 package kr.or.ksmart.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Setter
+@Getter
+@ToString
 public class BoardFile {
 	private String boardFileNo;
 	private String boardFileUrl;
