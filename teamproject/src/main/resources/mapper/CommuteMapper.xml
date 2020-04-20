@@ -49,7 +49,7 @@
 			CH.staff_id = S.staff_code
 		WHERE CH.staff_id = #{staffId}
 		ORDER BY CH.commute_date DESC
-		LIMIT ${column}, ${column+10}
+		LIMIT #{column}, 10
 	</select>	
 	<select id="getCommuteListCnt" parameterType="String" resultType="int">
 		SELECT
