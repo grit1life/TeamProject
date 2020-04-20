@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.DocContractForm;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.mapper.DocContractFormMapper;
 
 @Service
@@ -20,59 +21,30 @@ public class DocContractFormService {
 	private DocContractFormMapper docContractFormMapper;
 	
 	public List<DocContractForm> getContractSchedulerList(){
-		List<DocContractForm> list = docContractFormMapper.getContractSchedulerList();
-		return list;
+		return docContractFormMapper.getContractSchedulerList();
 	}
 	
-	public Map<String, Object> getContractList(int currentPage){
+	public Pagination<List<DocContractForm>> getContractList(int currentPage){
 		int cnt = docContractFormMapper.getContractListCnt();
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		List<DocContractForm> list = docContractFormMapper.getContractList(firstClmn, lastClmn);
+		int column = (currentPage-1)*10;
+		List<DocContractForm> list = docContractFormMapper.getContractList(column);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
+		Pagination<List<DocContractForm>> pagination = new Pagination<List<DocContractForm>>
+								(list, currentPage, cnt);
 		
-		return map;
+		return pagination;
 	}
-	public Map<String, Object> getContractSearchList(int currentPage, DocContractForm docContractForm){
+	public Pagination<List<DocContractForm>> getContractSearchList(int currentPage, DocContractForm docContractForm){
 		int cnt = docContractFormMapper.getContractSearchListCnt(docContractForm);
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		docContractForm.setFirstClmn(firstClmn);
-		docContractForm.setLastClmn(lastClmn);
+		int column = (currentPage-1)*10;
+		docContractForm.setColumn(column);
+		
 		List<DocContractForm> list = docContractFormMapper.getContractSearchList(docContractForm);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
+		Pagination<List<DocContractForm>> pagination = new Pagination<List<DocContractForm>>
+							(list, currentPage, cnt);
 		
-		return map;
+		return pagination;
 	}
 	
 	public List<DocContractForm> getContractForm(String contractCode){

@@ -71,7 +71,7 @@
 			DB.bill_code
 		ORDER BY
 			DB.bill_expected_date DESC
-		LIMIT #{firstClmn}, #{lastClmn}
+		LIMIT #{column}, 10
 	</select>
 	<select id="getDepositListCnt" resultType="int">
 		SELECT
@@ -152,7 +152,7 @@
 			DB.bill_code
 		ORDER BY
 			DB.bill_expected_date DESC
-		LIMIT #{firstClmn}, #{lastClmn}
+		LIMIT #{column}, 10
 	</select>
 	<select id="getPaidDepositListCnt" resultType="int">
 		SELECT
@@ -258,7 +258,7 @@
 			DB.bill_code
 		ORDER BY
 			DB.bill_expected_date DESC
-		LIMIT #{firstClmn}, #{lastClmn}
+		LIMIT #{column}, 10
 	</select>
 	<select id="getDepositSearchListCnt" resultType="int" parameterType="Deposit">
 		SELECT
@@ -381,7 +381,7 @@
 			DB.bill_code
 		ORDER BY
 			DB.bill_expected_date DESC
-		LIMIT #{firstClmn}, #{lastClmn}
+		LIMIT #{column}, 10
 	</select>
 	<select id="getPaidDepositSearchListCnt" resultType="int"  parameterType="Deposit">
 		SELECT

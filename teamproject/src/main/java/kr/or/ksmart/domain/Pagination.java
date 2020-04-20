@@ -1,8 +1,5 @@
 package kr.or.ksmart.domain;
 
-import java.util.List;
-
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +12,8 @@ public class Pagination<T> {
 	private int endPage;
 	private int lastPage;
 	
-	public Pagination(int currentPage, int cnt) {
+	public Pagination(T list, int currentPage, int cnt) {
+		this.list = list;
 		this.currentPage = currentPage;
 		this.startPage = currentPage - 5;
 		if(this.startPage < 1) {

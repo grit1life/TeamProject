@@ -52,7 +52,6 @@ public class DocContractForm {
 	private String inputStaffName;
 	private int count;
 	private int total;
-	private int firstClmn;
-	private int lastClmn;
+	private int column;
 	
 }

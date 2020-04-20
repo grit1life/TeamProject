@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.or.ksmart.domain.DocEstimateForm;
 import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.domain.Mycompany;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.domain.PriceSet;
 import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.service.DocEstimateFormService;
@@ -42,20 +43,17 @@ public class DocEstimateFormController {
 	}
 	
 	@GetMapping("staff/estimateFormList")
-	public String estimateFormList(Model model, @RequestParam(value="page", required = false) String page) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = docEstimateFormService.getEstimateList(pageNum);
+	public String estimateFormList(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
+		
+		Pagination<List<DocEstimateForm>> p = docEstimateFormService.getEstimateList(page);
 		List<Staff> staffList = docEstimateFormService.getStaffNameList();
 		List<PriceSet> setList = docEstimateFormService.getSetNameList();
 		List<Goods> goodsList = docEstimateFormService.getGoodsNameList();
-		model.addAttribute("eList", map.get("eList"));
-		model.addAttribute("currentPage", map.get("currentPage"));
-		model.addAttribute("startPage", map.get("startPage"));
-		model.addAttribute("endPage", map.get("endPage"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("eList", p.getList());
+		model.addAttribute("currentPage", p.getCurrentPage());
+		model.addAttribute("startPage", p.getStartPage());
+		model.addAttribute("endPage", p.getEndPage());
+		model.addAttribute("lastPage", p.getLastPage());
 		model.addAttribute("staffList", staffList);
 		model.addAttribute("setList", setList);
 		model.addAttribute("goodsList", goodsList);
@@ -64,21 +62,18 @@ public class DocEstimateFormController {
 	}
 	
 	@GetMapping("staff/estimateFormSearchList")
-	public String estimateFormSearchList(Model model, @RequestParam(value="page", required = false) String page
+	public String estimateFormSearchList(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page
 			   								,DocEstimateForm docEstimateForm) {
-			if(page==null) { 
-			  page = "1";
-		  } 
-		  int pageNum = Integer.parseInt(page);
-		  Map<String, Object> map = docEstimateFormService.getEstimateSearchList(pageNum, docEstimateForm);
+		
+		  Pagination<List<DocEstimateForm>> p = docEstimateFormService.getEstimateSearchList(page, docEstimateForm);
 		  List<Staff> staffList = docEstimateFormService.getStaffNameList();
 		  List<PriceSet> setList = docEstimateFormService.getSetNameList();
 		  List<Goods> goodsList = docEstimateFormService.getGoodsNameList();
-		  model.addAttribute("eList", map.get("eList"));
-		  model.addAttribute("currentPage", map.get("currentPage"));
-		  model.addAttribute("startPage", map.get("startPage"));
-		  model.addAttribute("endPage", map.get("endPage"));
-		  model.addAttribute("lastPage", map.get("lastPage"));
+		  model.addAttribute("eList", p.getList());
+		  model.addAttribute("currentPage", p.getCurrentPage());
+		  model.addAttribute("startPage", p.getStartPage());
+		  model.addAttribute("endPage", p.getEndPage());
+		  model.addAttribute("lastPage", p.getLastPage());
 		  model.addAttribute("staffList", staffList); 
 		  model.addAttribute("setList", setList);
 		  model.addAttribute("goodsList", goodsList);

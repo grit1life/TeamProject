@@ -9,7 +9,7 @@ import kr.or.ksmart.domain.DocBill;
 @Mapper
 public interface DocBillMapper {
 
-	public List<DocBill> getDocBillList(int firstClmn, int lastClmn);
+	public List<DocBill> getDocBillList(int column);
 	public int getDocBillListCnt();
 
 	public List<DocBill> getDocBillSearchList(DocBill docBill);

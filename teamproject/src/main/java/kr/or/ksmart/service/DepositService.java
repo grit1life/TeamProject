@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.Deposit;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.mapper.DepositMapper;
 
 @Service
@@ -21,113 +22,51 @@ public class DepositService {
 	@Autowired
 	private DocBillService docBillService;
 	
-	public Map<String, Object> getDepositList(int currentPage){
+	public Pagination<List<Deposit>> getDepositList(int currentPage){
 		int cnt = depositMapper.getDepositListCnt();
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		List<Deposit> list = depositMapper.getDepositList(firstClmn, lastClmn);
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
+		int column = (currentPage-1)*10;
+		List<Deposit> list = depositMapper.getDepositList(column);
+		
 		list = calListPayMonth(list);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
+		Pagination<List<Deposit>> pagination = new Pagination<List<Deposit>>
+						(list, currentPage, cnt);
 		
-		return map;
+		return pagination;
 	}
-	public Map<String, Object> getPaidDepositList(int currentPage){
+	public Pagination<List<Deposit>> getPaidDepositList(int currentPage){
 		int cnt = depositMapper.getPaidDepositListCnt();
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		List<Deposit> list = depositMapper.getPaidDepositList(firstClmn, lastClmn);
+		int column = (currentPage-1)*10;
+		List<Deposit> list = depositMapper.getPaidDepositList(column);
 		list = calListPayMonth(list);
+		Pagination<List<Deposit>> pagination 
+					= new Pagination<List<Deposit>>(list, currentPage, cnt);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		list = calListPayMonth(list);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
-		
-		return map;
+		return pagination;
 	}
-	public Map<String, Object> getDepositSearchList(int currentPage, Deposit deposit){
+	public Pagination<List<Deposit>> getDepositSearchList(int currentPage, Deposit deposit){
 		int cnt = depositMapper.getDepositSearchListCnt(deposit);
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		deposit.setFirstClmn(firstClmn);
-		deposit.setLastClmn(lastClmn);
+		int column = (currentPage-1)*10;
+		deposit.setColumn(column);
 		List<Deposit> list = depositMapper.getDepositSearchList(deposit);
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
 		list = calListPayMonth(list);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
+		Pagination<List<Deposit>> pagination 
+				= new Pagination<List<Deposit>>(list, currentPage, cnt);
 		
-		return map;
+		return pagination;
 	}
-	public Map<String, Object> getPaidDepositSearchList(int currentPage, Deposit deposit){
+	public Pagination<List<Deposit>> getPaidDepositSearchList(int currentPage, Deposit deposit){
 		int cnt = depositMapper.getPaidDepositSearchListCnt(deposit);
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		deposit.setFirstClmn(firstClmn);
-		deposit.setLastClmn(lastClmn);
+		int column = (currentPage-1)*10;
+		deposit.setColumn(column);
 		List<Deposit> list = depositMapper.getPaidDepositSearchList(deposit);
 		list = calListPayMonth(list);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		list = calListPayMonth(list);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
-		
-		return map;
+		Pagination<List<Deposit>> pagination 
+				= new Pagination<List<Deposit>>(list, currentPage, cnt);
+
+		return pagination;
 	}
 	
 	public int updateDepositList(Map<String, Object> paramMap) {

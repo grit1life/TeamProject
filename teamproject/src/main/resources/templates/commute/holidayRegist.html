@@ -335,10 +335,44 @@
     	$('.fc-day,.fc-day-top').click(function(){
         	$('#modalBtn').trigger('click');
         	var sltDate = $(this).data().date;
-        	$('#hFromDate').val(sltDate);
-        	$('#hToDate').val(sltDate);
+        	var toDate = new Date()
+        	if(new Date(sltDate) >= toDate){
+	        	$('#hFromDate').val(sltDate);
+	        	$('#hToDate').val(sltDate);
+        	}else{
+        		$('#hFromDate').val(hypenDay(toDate));
+	        	$('#hToDate').val(hypenDay(toDate));
+        	}
     	})
     }
+    
+    
+    $('#hFromDate').change(function(){
+    	var dateClicked = new Date($('#hFromDate').val())
+	    var toDate = new Date()
+    	if(dateClicked<toDate){
+		    $('#hFromDate').val(hypenDay(toDate))
+    	}
+    })
+    $('#hToDate').change(function(){
+    	var fromDate = $('#hFromDate').val()
+    	var toDate = $('#hToDate').val()
+    	if(fromDate > toDate){
+    		fromDate = new Date(fromDate)
+    		$('#hToDate').val(hypenDay(fromDate))
+    	}
+    })
+    
+    function hypenDay(date){
+   	 	var year = date.getFullYear()
+	    var month = date.getMonth()+1
+	    month = month<10?'0'+month: month
+	    var date = date.getDate()
+	    date = date<10?'0'+date:date
+	    
+	   	return year+"-"+month+"-"+date
+    }
+    
   })
 </script>
 </th:block>

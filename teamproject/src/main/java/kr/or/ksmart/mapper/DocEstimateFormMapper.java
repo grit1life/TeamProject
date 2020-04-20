@@ -15,9 +15,7 @@ import kr.or.ksmart.domain.Staff;
 @Mapper
 public interface DocEstimateFormMapper {
 
-	public List<DocEstimateForm> getEstimateList();
-
-	public List<DocEstimateForm> getEstimateList(int firstClmn, int lastClmn);
+	public List<DocEstimateForm> getEstimateList(int column);
 	public int getEstimateListCnt();
 	public List<Staff> getStaffNameList();
 	public List<PriceSet> getSetNameList();

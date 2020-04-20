@@ -22,8 +22,7 @@ public class ShipmentService {
 		int column = (currentPage-1)*10;
 		List<Shipment> list = shipmentMapper.getShipmentList(column);
 		
-		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(currentPage, cnt);
-		p.setList(list);
+		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(list, currentPage, cnt);
 		
 		return p;
 	}
@@ -33,8 +32,7 @@ public class ShipmentService {
 		int column = (currentPage-1)*10;
 		List<Shipment> list = shipmentMapper.getDeliveredShipmentList(column);
 				
-		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(currentPage, cnt);
-		p.setList(list);
+		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(list, currentPage, cnt);
 		
 		return p;
 	}
@@ -45,8 +43,8 @@ public class ShipmentService {
 		shipment.setColumn(column);
 		List<Shipment> list = shipmentMapper.getShipmentSearchList(shipment);
 				
-		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(currentPage, cnt);
-		p.setList(list);
+		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(list, currentPage, cnt);
+
 		return p;
 	}
 	
@@ -56,7 +54,7 @@ public class ShipmentService {
 		shipment.setColumn(column);
 		List<Shipment> list = shipmentMapper.getDeliveredShipmentSearchList(shipment);
 				
-		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(currentPage, cnt);
+		Pagination<List<Shipment>> p = new Pagination<List<Shipment>>(list, currentPage, cnt);
 		p.setList(list);
 		
 		return p;

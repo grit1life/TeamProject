@@ -10,7 +10,7 @@ import kr.or.ksmart.domain.DocContractForm;
 public interface DocContractFormMapper {
 	public List<DocContractForm> getContractSchedulerList();
 	
-	public List<DocContractForm> getContractList(int firstClmn, int lastClmn);
+	public List<DocContractForm> getContractList(int column);
 	public int getContractListCnt();
 	
 	public List<DocContractForm> getContractSearchList(DocContractForm docContractForm);

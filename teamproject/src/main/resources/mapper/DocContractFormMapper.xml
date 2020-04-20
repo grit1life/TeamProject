@@ -87,7 +87,7 @@
 			DC.contract_code
 		ORDER BY
 			DC.contract_code DESC
-		LIMIT ${firstClmn}, ${lastClmn}
+		LIMIT ${column}, 10
 	</select>
 	<select id="getContractListCnt" resultType="int">
 		SELECT
@@ -182,7 +182,7 @@
 			DC.contract_code	
 		ORDER BY
 			DC.contract_code DESC
-		LIMIT ${firstClmn}, ${lastClmn}
+		LIMIT ${column}, 10
 	</select>
 	<select id="getContractSearchListCnt" parameterType="DocContractForm" resultType="int">
 		SELECT

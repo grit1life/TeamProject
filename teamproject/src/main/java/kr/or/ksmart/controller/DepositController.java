@@ -1,6 +1,7 @@
 package kr.or.ksmart.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ksmart.domain.Deposit;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.service.DepositService;
 import kr.or.ksmart.service.ShipmentService;
 
@@ -31,59 +33,45 @@ public class DepositController {
 	 * @return
 	 */
 	@GetMapping("/staff/depositList")
-	public String depositList(Model model, @RequestParam(value="page", required = false) String page
-							,@RequestParam(value="paidPage", required = false) String paidPage) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = depositService.getDepositList(pageNum);
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("currentPage", map.get("currentPage"));
-		model.addAttribute("startPage", map.get("startPage"));
-		model.addAttribute("endPage", map.get("endPage"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+	public String depositList(Model model
+			, @RequestParam(value="page", required = false, defaultValue = "1") int page
+			,@RequestParam(value="paidPage", required = false, defaultValue = "1") int paidPage) {
+		Pagination<List<Deposit>> pagination = depositService.getDepositList(page);
+		model.addAttribute("list", pagination.getList());
+		model.addAttribute("currentPage", pagination.getCurrentPage());
+		model.addAttribute("startPage", pagination.getStartPage());
+		model.addAttribute("endPage", pagination.getEndPage());
+		model.addAttribute("lastPage", pagination.getLastPage());
 		
-		if(paidPage==null) {
-			paidPage = "1";
-		}
-		int paidPageNum = Integer.parseInt(paidPage);
-		Map<String, Object> paidMap = depositService.getPaidDepositList(paidPageNum);
-		model.addAttribute("paidList", paidMap.get("list"));
-		model.addAttribute("paidCurrentPage", map.get("currentPage"));
-		model.addAttribute("paidStartPage", map.get("startPage"));
-		model.addAttribute("paidEndPage", map.get("endPage"));
-		model.addAttribute("paidLastPage", map.get("lastPage"));
+		Pagination<List<Deposit>> paidPagination = depositService.getPaidDepositList(paidPage);
+		model.addAttribute("paidList", paidPagination.getList());
+		model.addAttribute("paidCurrentPage", paidPagination.getCurrentPage());
+		model.addAttribute("paidStartPage", paidPagination.getStartPage());
+		model.addAttribute("paidEndPage", paidPagination.getEndPage());
+		model.addAttribute("paidLastPage", paidPagination.getLastPage());
+		
 		return "docBill/depositList";
 	}
 	
 
 	@GetMapping("/staff/depositSearchList")
-	public String depositSearchList(Model model, @RequestParam(value="page", required = false) String page
-							,@RequestParam(value="paidPage", required = false) String paidPage
-							,Deposit deposit
-								) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = depositService.getDepositSearchList(pageNum, deposit);
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("currentPage", map.get("currentPage"));
-		model.addAttribute("startPage", map.get("startPage"));
-		model.addAttribute("endPage", map.get("endPage"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+	public String depositSearchList(Model model
+			, @RequestParam(value="page", required = false, defaultValue = "1") int page
+			,@RequestParam(value="paidPage", required = false, defaultValue = "1") int paidPage
+			,Deposit deposit) {
+		Pagination<List<Deposit>> pagination = depositService.getDepositSearchList(page, deposit);
+		model.addAttribute("list", pagination.getList());
+		model.addAttribute("currentPage", pagination.getCurrentPage());
+		model.addAttribute("startPage", pagination.getStartPage());
+		model.addAttribute("endPage", pagination.getEndPage());
+		model.addAttribute("lastPage", pagination.getLastPage());
 		
-		if(paidPage==null) {
-			paidPage = "1";
-		}
-		int paidPageNum = Integer.parseInt(paidPage);
-		Map<String, Object> paidMap = depositService.getPaidDepositSearchList(paidPageNum, deposit);
-		model.addAttribute("paidList", paidMap.get("list"));
-		model.addAttribute("paidCurrentPage", map.get("currentPage"));
-		model.addAttribute("paidStartPage", map.get("startPage"));
-		model.addAttribute("paidEndPage", map.get("endPage"));
-		model.addAttribute("paidLastPage", map.get("lastPage"));
+		Pagination<List<Deposit>> paidPagination = depositService.getPaidDepositSearchList(paidPage, deposit);
+		model.addAttribute("paidList", paidPagination.getList());
+		model.addAttribute("paidCurrentPage", paidPagination.getCurrentPage());
+		model.addAttribute("paidStartPage", paidPagination.getStartPage());
+		model.addAttribute("paidEndPage", paidPagination.getEndPage());
+		model.addAttribute("paidLastPage", paidPagination.getLastPage());
 		
 		model.addAttribute("deposit", deposit);
 		return "docBill/depositSearchList";

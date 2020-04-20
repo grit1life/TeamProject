@@ -9,13 +9,13 @@ import kr.or.ksmart.domain.ReturnSearchForm;
 
 @Mapper
 public interface ReturnMapper {
-	public List<Return> getReturnList(int firstClmn, int lastClmn);
+	public List<Return> getReturnList(int column);
 	public int getReturnListCnt();
 	
 	public List<Return> getReturnSearchList(ReturnSearchForm rsf);
 	public int getReturnSearchListCnt(ReturnSearchForm rsf);
 	
-	public List<Return> getReturnCompleteList(int firstClmn, int lastClmn);
+	public List<Return> getReturnCompleteList(int column);
 	public int getReturnCompleteListCnt();
 	
 	public List<Return> getReturnCompleteSearchList(ReturnSearchForm rsf);

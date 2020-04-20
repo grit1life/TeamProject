@@ -22,4 +22,5 @@ public class DocEstimateForm extends DocEstimate {
 	private String setGoodsCount;
 	private String staffName;
 	private int count;
+	private int column;
 }

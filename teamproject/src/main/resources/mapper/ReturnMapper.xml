@@ -36,7 +36,7 @@
 		<result property="count" column="count"/>
 		<result property="total" column="total"/>
 	</resultMap>
-	<select id="getReturnList" resultMap="returnResultMap">
+	<select id="getReturnList" parameterType="int" resultMap="returnResultMap">
 		SELECT 
 			*
 			,COUNT(1) AS count
@@ -67,6 +67,7 @@
 			DC.contract_code
 		ORDER BY
 			DC.rental_to_date DESC
+		LIMIT #{column}, 10
 	</select>
 	<select id="getReturnListCnt" resultType="int">
 		SELECT
@@ -101,7 +102,7 @@
 				DC.contract_code
 		) AS SQ	
 	</select>
-	<select id="getReturnCompleteList" resultMap="returnResultMap">
+	<select id="getReturnCompleteList" parameterType="int" resultMap="returnResultMap">
 		SELECT 
 			*
 			,COUNT(1) AS count
@@ -132,6 +133,7 @@
 			DC.contract_code
 		ORDER BY
 			DC.rental_to_date DESC
+		LIMIT #{column}, 10
 	</select>
 	<select id="getReturnCompleteListCnt" resultType="int">
 		SELECT

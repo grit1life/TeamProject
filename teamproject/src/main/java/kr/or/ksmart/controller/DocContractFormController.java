@@ -14,6 +14,7 @@ import kr.or.ksmart.domain.DocContractForm;
 import kr.or.ksmart.domain.Goods;
 import kr.or.ksmart.domain.MyCompanyDeposit;
 import kr.or.ksmart.domain.Mycompany;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.domain.PriceSet;
 import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.service.DocContractFormService;
@@ -33,20 +34,19 @@ public class DocContractFormController {
 	private MyCompanyDepositService myCompanyDepositService;
 	
 	@GetMapping("/staff/contractFormList")
-	public String staffContractFormList(Model model, @RequestParam(value="page", required = false) String page){
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = docContractFormService.getContractList(pageNum);
+	public String staffContractFormList(Model model
+			, @RequestParam(value="page", required = false, defaultValue = "1") int page){
+		
+		Pagination<List<DocContractForm>> pagination
+					= docContractFormService.getContractList(page);
 	    List<Staff> staffList = docEstimateFormService.getStaffNameList();
 	    List<PriceSet> setList = docEstimateFormService.getSetNameList();
 	    List<Goods> goodsList = docEstimateFormService.getGoodsNameList();
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("currentPage", map.get("currentPage"));
-		model.addAttribute("startPage", map.get("startPage"));
-		model.addAttribute("endPage", map.get("endPage"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("list", pagination.getList());
+		model.addAttribute("currentPage", pagination.getCurrentPage());
+		model.addAttribute("startPage", pagination.getStartPage());
+		model.addAttribute("endPage", pagination.getEndPage());
+		model.addAttribute("lastPage", pagination.getLastPage());
 		model.addAttribute("staffList", staffList); 
 		model.addAttribute("setList", setList);
 		model.addAttribute("goodsList", goodsList);
@@ -54,22 +54,19 @@ public class DocContractFormController {
 		return "docContract/staffContractFormList";
 	}
 	@GetMapping("/staff/contractFormSearchList")
-	public String staffContractFormList(Model model, @RequestParam(value="page", required = false) String page
-												, DocContractForm docContractForm){
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = docContractFormService.getContractSearchList(pageNum, docContractForm);
+	public String staffContractFormList(Model model
+			, @RequestParam(value="page", required = false, defaultValue = "1") int page
+			, DocContractForm docContractForm){
+		Pagination<List<DocContractForm>> pagination = docContractFormService.getContractSearchList(page, docContractForm);
 	    List<Staff> staffList = docEstimateFormService.getStaffNameList();
 	    List<PriceSet> setList = docEstimateFormService.getSetNameList();
 	    List<Goods> goodsList = docEstimateFormService.getGoodsNameList();
 	    
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("currentPage", map.get("currentPage"));
-		model.addAttribute("startPage", map.get("startPage"));
-		model.addAttribute("endPage", map.get("endPage"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+	    model.addAttribute("list", pagination.getList());
+		model.addAttribute("currentPage", pagination.getCurrentPage());
+		model.addAttribute("startPage", pagination.getStartPage());
+		model.addAttribute("endPage", pagination.getEndPage());
+		model.addAttribute("lastPage", pagination.getLastPage());
 		model.addAttribute("staffList", staffList); 
 		model.addAttribute("setList", setList);
 		model.addAttribute("goodsList", goodsList);
@@ -84,7 +81,6 @@ public class DocContractFormController {
 		MyCompanyDeposit deposit = myCompanyDepositService.getMyCompanyDeposit();
 		model.addAttribute("list", list);
 		model.addAttribute("mycompany", mycompany);
-		System.out.println("+++++++++++++");
 		model.addAttribute("deposit", deposit);
 		return "docContract/contractForm";
 	}

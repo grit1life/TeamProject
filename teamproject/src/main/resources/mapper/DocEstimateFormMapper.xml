@@ -72,7 +72,7 @@
 			DC.estimate_code
 		ORDER BY
 			DC.estimate_code DESC
-		LIMIT ${firstClmn}, ${lastClmn}
+		LIMIT #{column}, 10
 	</select>
 	<select id="getEstimateSearchList" parameterType="DocEstimateForm" resultMap="estimateResultMap">
 		SELECT 
@@ -112,7 +112,7 @@
 		WHERE 
 			TRUE
 			<if test="customerName neq null and customerName neq ''.toString()">
-				AND C.customer_name = #{customerName}
+				AND C.customer_name LIKE CONCAT('%',#{customerName},'%')
 			</if>
 			<if test="staffName neq null and staffName neq ''.toString()">
 				AND S.staff_name = #{staffName}
@@ -136,7 +136,7 @@
 			DC.estimate_code
 		ORDER BY
 			DC.estimate_code DESC
-		LIMIT #{firstClmn}, #{lastClmn}
+		LIMIT #{column}, 10
 	</select>
 	<select id="getEstimateSearchListCnt" resultType="int">
 	
@@ -171,7 +171,7 @@
 		WHERE 
 			TRUE
 			<if test="customerName neq null and customerName neq ''.toString()">
-				AND C.customer_name = #{customerName}
+				AND C.customer_name LIKE CONCAT('%',#{customerName},'%')
 			</if>
 			<if test="staffName neq null and staffName neq ''.toString()">
 				AND staff_name = #{staffName}

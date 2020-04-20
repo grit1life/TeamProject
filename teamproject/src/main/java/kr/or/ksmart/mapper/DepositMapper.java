@@ -10,10 +10,10 @@ import kr.or.ksmart.domain.Deposit;
 @Mapper
 public interface DepositMapper {
 
-	public List<Deposit> getDepositList(int firstClmn, int lastClmn);
+	public List<Deposit> getDepositList(int column);
 	public int getDepositListCnt();
 	
-	public List<Deposit> getPaidDepositList(int firstClmn, int lastClmn);
+	public List<Deposit> getPaidDepositList(int column);
 	public int getPaidDepositListCnt();
 	
 	

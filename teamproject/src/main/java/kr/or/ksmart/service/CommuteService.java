@@ -29,8 +29,7 @@ public class CommuteService {
 		List<Commute> list = commuteMapper.commuteList(map);
 		int cnt = commuteMapper.getCommuteListCnt(staffId);
 		
-		Pagination<List<Commute>> p = new Pagination<List<Commute>>(currentPage, cnt);
-		p.setList(list);
+		Pagination<List<Commute>> p = new Pagination<List<Commute>>(list, currentPage, cnt);
 		
 		return p;
 	}

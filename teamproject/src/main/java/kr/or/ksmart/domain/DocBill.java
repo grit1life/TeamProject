@@ -32,5 +32,6 @@ public class DocBill {
 	private String deliveryAddress;
 	private String deliveryDetailAddress;
 	private String customerName;
+	private int column;
 
 }

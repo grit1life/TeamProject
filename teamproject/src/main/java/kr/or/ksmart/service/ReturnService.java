@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.domain.Return;
 import kr.or.ksmart.domain.ReturnSearchForm;
 import kr.or.ksmart.mapper.ReturnMapper;
@@ -19,105 +20,47 @@ public class ReturnService {
 	@Autowired
 	private ReturnMapper returnMapper;
 	
-	public Map<String, Object> getReturnSearchList(int currentPage, ReturnSearchForm rsf){
+	public Pagination<List<Return>> getReturnSearchList(int currentPage, ReturnSearchForm rsf){
 		int cnt = returnMapper.getReturnSearchListCnt(rsf);
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		rsf.setFirstClmn(firstClmn);
-		rsf.setLastClmn(lastClmn);
+		int column = (currentPage-1)*10;
+		rsf.setColumn(column);
 		List<Return> list = returnMapper.getReturnSearchList(rsf);
+
+		Pagination<List<Return>> pagination
+				= new Pagination<List<Return>>(list, currentPage, cnt);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
-		
-		return map;
+		return pagination;
 	}
-	public Map<String, Object> getReturnCompleteSearchList(int currentPage, ReturnSearchForm rsf){
+	public Pagination<List<Return>> getReturnCompleteSearchList(int currentPage, ReturnSearchForm rsf){
 		int cnt = returnMapper.getReturnCompleteSearchListCnt(rsf);
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		rsf.setFirstClmn(firstClmn);
-		rsf.setLastClmn(lastClmn);
+		int column = (currentPage-1)*10;
+		rsf.setColumn(column);
 		List<Return> list = returnMapper.getReturnCompleteSearchList(rsf);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
+		Pagination<List<Return>> pagination
+				= new Pagination<List<Return>>(list, currentPage, cnt);
 		
-		return map;
+		return pagination;
 	}
-	public Map<String, Object> getReturnList(int currentPage){
+	public Pagination<List<Return>> getReturnList(int currentPage){
 		int cnt = returnMapper.getReturnListCnt();
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		List<Return> list = returnMapper.getReturnList(firstClmn, lastClmn);
+		int column = (currentPage-1)*10;
+		List<Return> list = returnMapper.getReturnList(column);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
-		
-		return map;
+		Pagination<List<Return>> pagination 
+				= new Pagination<List<Return>>(list, currentPage, cnt);
+				
+		return pagination;
 	}
-	public Map<String, Object> getReturnCompleteList(int currentPage){
+	public Pagination<List<Return>> getReturnCompleteList(int currentPage){
 		int cnt = returnMapper.getReturnCompleteListCnt();
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		List<Return> list = returnMapper.getReturnCompleteList(firstClmn, lastClmn);
+		int column = (currentPage-1)*10;
+		List<Return> list = returnMapper.getReturnCompleteList(column);
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
+		Pagination<List<Return>> pagination 
+				= new Pagination<List<Return>>(list, currentPage, cnt);
 		
-		return map;
+		return pagination;
 	}
 	public List<Return> ajaxReturnList(String contractCode){
 		return returnMapper.ajaxReturnList(contractCode);

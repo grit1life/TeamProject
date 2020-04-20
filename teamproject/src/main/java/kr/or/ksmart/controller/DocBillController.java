@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.ksmart.domain.DocBill;
 import kr.or.ksmart.domain.MyCompanyDeposit;
 import kr.or.ksmart.domain.Mycompany;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.service.DocBillService;
 import kr.or.ksmart.service.DocEstimateFormService;
 import kr.or.ksmart.service.MyCompanyDepositService;
@@ -30,32 +31,28 @@ public class DocBillController {
 	private MyCompanyDepositService myCompanyDepositService;
 	
 	@GetMapping("/staff/billList")
-	public String billList(Model model, @RequestParam(value="page", required = false) String page) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = docBillService.getDocBillList(pageNum);
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("currentPage", map.get("currentPage"));
-		model.addAttribute("startPage", map.get("startPage"));
-		model.addAttribute("endPage", map.get("endPage"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+	public String billList(Model model
+			, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
+		
+		Pagination<List<DocBill>> pagination = docBillService.getDocBillList(page);
+		model.addAttribute("list", pagination.getList());
+		model.addAttribute("currentPage", pagination.getCurrentPage());
+		model.addAttribute("startPage", pagination.getStartPage());
+		model.addAttribute("endPage", pagination.getEndPage());
+		model.addAttribute("lastPage", pagination.getLastPage());
 		return "docBill/billList";
 	}
 	@GetMapping("/staff/billSearchList")
-	public String billSearchList(Model model, @RequestParam(value="page", required = false) String page
-									, DocBill docBill) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = docBillService.getDocBillSearchList(pageNum, docBill);
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("currentPage", map.get("currentPage"));
-		model.addAttribute("startPage", map.get("startPage"));
-		model.addAttribute("endPage", map.get("endPage"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+	public String billSearchList(Model model
+			, @RequestParam(value="page", required = false, defaultValue = "1") int page
+			, DocBill docBill) {
+
+		Pagination<List<DocBill>> pagination = docBillService.getDocBillSearchList(page, docBill);
+		model.addAttribute("list", pagination.getList());
+		model.addAttribute("currentPage", pagination.getCurrentPage());
+		model.addAttribute("startPage", pagination.getStartPage());
+		model.addAttribute("endPage", pagination.getEndPage());
+		model.addAttribute("lastPage", pagination.getLastPage());
 		model.addAttribute("docBill", docBill);
 		return "docBill/billSearchList";
 	}

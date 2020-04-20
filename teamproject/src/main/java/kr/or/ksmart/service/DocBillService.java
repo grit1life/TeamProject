@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ksmart.domain.DocBill;
+import kr.or.ksmart.domain.DocEstimateForm;
+import kr.or.ksmart.domain.Pagination;
 import kr.or.ksmart.mapper.DocBillMapper;
 
 @Service
@@ -22,25 +24,21 @@ public class DocBillService {
 	private DocBillMapper docBillMapper;
 	
 	public int insertBill(DocBill docBill) {
-		int result = docBillMapper.insertBill(docBill);
-		return result;
+		return docBillMapper.insertBill(docBill);
 	}
 	public int getBillPayNumber(String contractCode) {
-		int billPayNumber = docBillMapper.getBillPayNumber(contractCode);
-		return billPayNumber;
+		return docBillMapper.getBillPayNumber(contractCode);
 	}
 	
 	public int getBillLastCode() {
-		int lastCode = docBillMapper.getBillLastCode();
-		return lastCode;
+		return docBillMapper.getBillLastCode();
 	}
 	
-	public Map<String, Object> getDocBillList(int currentPage){
+	public Pagination<List<DocBill>> getDocBillList(int currentPage){
 		
 		int cnt = docBillMapper.getDocBillListCnt();
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		List<DocBill> list = docBillMapper.getDocBillList(firstClmn, lastClmn);
+		int column = (currentPage-1)*10;
+		List<DocBill> list = docBillMapper.getDocBillList(column);
 		for(int i=0; i<list.size(); i++) {
 			String fromDate = list.get(i).getRentalFromDate();
 			String toDate = list.get(i).getRentalToDate();
@@ -51,33 +49,19 @@ public class DocBillService {
 			list.get(i).setPayMonth((int)total);
 		}
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
-		
-		return map;
+		Pagination<List<DocBill>> pagination = new Pagination<List<DocBill>>
+								(list, currentPage, cnt);
+				
+		return pagination;
 		
 	}
-	public Map<String, Object> getDocBillSearchList(int currentPage, DocBill docBill){
+	public Pagination<List<DocBill>> getDocBillSearchList(int currentPage, DocBill docBill){
 		
 		int cnt = docBillMapper.getDocBillSearchListCnt(docBill);
-		int firstClmn = (currentPage-1)*10;
-		int lastClmn = firstClmn +10;
-		docBill.setFirstClmn(firstClmn);
-		docBill.setLastClmn(lastClmn);
+		int column = (currentPage-1)*10;
+		docBill.setColumn(column);
 		List<DocBill> list = docBillMapper.getDocBillSearchList(docBill); 
+		
 		for(int i=0; i<list.size(); i++) {
 			String fromDate = list.get(i).getRentalFromDate();
 			String toDate = list.get(i).getRentalToDate();
@@ -88,23 +72,10 @@ public class DocBillService {
 			list.get(i).setPayMonth((int)total);
 		}
 		
-		int startPage = currentPage - 5;
-		if(startPage<1) {
-			startPage = 1;
-		}
-		int endPage = currentPage + 5;
-		int lastPage = cnt/10 + 1;
-		if(endPage > lastPage) {
-			endPage = lastPage;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("currentPage", currentPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("lastPage", lastPage);
+		Pagination<List<DocBill>> pagination = new Pagination<List<DocBill>>
+		(list, currentPage, cnt);
 		
-		return map;
+		return pagination;
 		
 	}
 	
@@ -129,15 +100,16 @@ public class DocBillService {
 	 * @return
 	 */
 	public double calPayMonth(String fromDate, String toDate, double total) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date FirstDate = format.parse(fromDate);
 			Date SecondDate = format.parse(toDate);
-			long calDate = FirstDate.getTime() - SecondDate.getTime(); 
+			long calDate = SecondDate.getTime() - FirstDate.getTime(); 
+	
 			long calDateDays = calDate / (24*60*60*1000); 
+			System.out.println(calDateDays);
 			calDateDays = Math.abs(calDateDays);
 			int month = (int)calDateDays/30;
-			
 			total = total/month;
 			total = Math.ceil(total / 100);
 			total = total*100;

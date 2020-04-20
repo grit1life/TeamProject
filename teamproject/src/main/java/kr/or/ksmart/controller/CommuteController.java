@@ -3,6 +3,8 @@ package kr.or.ksmart.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,16 +33,16 @@ public class CommuteController {
 	}
 
 	@PostMapping("/staff/commuteList")
-	public @ResponseBody Pagination<List<Commute>> geAjaxCommuteList(@RequestParam (value = "currentPage") int currentPage) {
-		String staffId = "201804_0001";  //임시값 로그인시 세션의 값을 담아주어야 한다
+	public @ResponseBody Pagination<List<Commute>> geAjaxCommuteList(HttpSession httpSession,@RequestParam (value = "currentPage") int currentPage) {
+		String staffId = (String) httpSession.getAttribute("staffId");
 		Pagination<List<Commute>> p = commuteService.CommuteList(staffId, currentPage);
 		
 		return p;
 	}
 	
 	@GetMapping("/staff/holidayRegist")
-	public String holidayRegist(Model model) {
-		String staffId = "201804_0001";  //임시값 로그인시 세션의 값을 담아주어야 한다
+	public String holidayRegist(HttpSession httpSession, Model model) {
+		String staffId = (String) httpSession.getAttribute("staffId");
 		List<Holiday> hList = commuteService.getHolidayList(staffId);
 		List<Holiday> hNowList = commuteService.getHolidayListNow(staffId);
 		model.addAttribute("hList", hList);
@@ -48,8 +50,8 @@ public class CommuteController {
 		return "commute/holidayRegist";
 	}
 	@PostMapping("/staff/holidayRegist")
-	public String holidayRegist(Holiday holiday, RedirectAttributes redirectA) {
-		String staffId = "201804_0001";  //임시값 로그인시 세션의 값을 담아주어야 한다
+	public String holidayRegist(HttpSession httpSession, Holiday holiday, RedirectAttributes redirectA) {
+		String staffId = (String) httpSession.getAttribute("staffId");
 		holiday.setStaffId(staffId);
 		commuteService.insertHoliday(holiday);
 		return "redirect:/staff/holidayRegist";

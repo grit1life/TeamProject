@@ -16,6 +16,5 @@ public class ReturnSearchForm {
 	private String rentalFromDate;
 	private String goodsName;
 	private String rentalToDate;
-	private int firstClmn;
-	private int lastClmn;
+	private int column;
 }
