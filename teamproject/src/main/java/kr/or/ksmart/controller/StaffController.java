@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ksmart.domain.Branch;
 import kr.or.ksmart.domain.Staff;
@@ -84,6 +85,7 @@ public class StaffController {
 		List<Staff> staffT = staffService.staffTransferList(staffCode);
 		System.out.println(staffT+"<-staffT");
 		model.addAttribute("staffT", staffT);
+		
 		return "staff/adminStaffList";
 	}
 	
@@ -110,8 +112,29 @@ public class StaffController {
 		return "staff/staffChangeUpdateConfirmation";
 	}
 	
-	@GetMapping("/admin/staffDUpdate")
-	public String staffDUpdate() {
+	@PostMapping("/admin/staffDUpdate")
+	public String staffDUpdate(Staff staff, RedirectAttributes model, HttpSession session) {
+		//System.out.println("-----------controller-----------------");
+		//System.out.println(staff.toString());
+		int result = staffService.staffDUpdate(staff, session);//update		
+		model.addAttribute("staffCode", staff.getStaffCode());
+		String massege = "";
+		if(result>0)massege="정상적으로 수정 되었습니다";
+		else massege="수정할 수 없었습니다";
+		model.addAttribute("result", result);
+		return "redirect:staff/adminStaffList";	
+	}
+	@PostMapping("/admin/staffTUpdate")
+	public String staffTUpdate() {
+		
+		return "/staff/staffList";
+	}
+	@PostMapping("/admin/staffMoveAdd")
+	public String staffMoveAdd() {
+		return "/staff/staffList";
+	}
+	@PostMapping("/admin/staffLeaveUpdate")
+	public String staffLeaveUpdate() {
 		return "/staff/staffList";
 	}
 	

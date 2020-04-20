@@ -11,6 +11,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
+ <div class="alert alert-danger" role="alert">수정을 일패했습니다</div>
  <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
@@ -50,23 +51,22 @@
                   <th>수정</th>
                 </tr>
 	         </thead>
-             <tbody>
-             
-              <tr id="staffDTr">
+             <tbody>    
               	<form action="/admin/staffDUpdate" method="post" id="staffDForm">
-	                <td th:text="${staffD.staffCode}"></td>
-	                <td><input type="text" name="staffPw" class="staffDModify" th:value="${staffD.staffPw}" readonly="readonly" style="border:none;width:120px"></td>
-	                <td><input type="text" name="staffName" class="staffDModify" th:value="${staffD.staffName}" readonly="readonly" style="border:none;width:120px"></td>
-	                <td><input type="date" name="staffBirth" class="staffDModify" th:value="${staffD.staffBirth}" readonly="readonly" style="border:none;width:160px"></td>
-	                <td><input type="text" name="staffTell" class="staffDModify" th:value="${staffD.staffTell}" readonly="readonly" style="border:none;width:120px"></td>
-	                <td><input type="text" name="staffEmail" class="staffDModify" th:value="${staffD.staffEmail}" readonly="readonly" style="border:none;width:150px"></td>
+	              <tr id="staffDTr">
+		                <td><input type="text" name="staffCode" th:value="${staffD.staffCode}" readonly="readonly" style="border:none;width:120px"></td>
+		                <td><input type="text" name="staffPw" class="staffDModify" th:value="${staffD.staffPw}" readonly="readonly" style="border:none;width:120px"></td>
+		                <td><input type="text" name="staffName" class="staffDModify" th:value="${staffD.staffName}" readonly="readonly" style="border:none;width:120px"></td>
+		                <td><input type="date" name="staffBirth" class="staffDModify" th:value="${staffD.staffBirth}" readonly="readonly" style="border:none;width:160px"></td>
+		                <td><input type="text" name="staffTell" class="staffDModify" th:value="${staffD.staffTell}" readonly="readonly" style="border:none;width:120px"></td>
+		                <td><input type="text" name="staffEmail" class="staffDModify" th:value="${staffD.staffEmail}" readonly="readonly" style="border:none;width:150px"></td>
+		                <td th:text="${staffD.inputDate}"></td>
+		                <td th:text="${staffD.staffName}"></td>
+		                <td>
+		                	<a id="staffDModify" class="btn btn-sm bg-teal" href="#" style="padding:1px 4px 1px 4px">수정</a>
+		                </td>
+	              </tr>
                 </form>
-                <td th:text="${staffD.inputDate}"></td>
-                <td th:text="${staffD.staffName}"></td>
-                <td>
-                	<a id="staffDModify" class="btn btn-sm bg-teal" href="#" style="padding:1px 4px 1px 4px">수정</a>
-                </td>
-              </tr>
              </tbody>
 		</table>
         
@@ -89,7 +89,9 @@
                 </tr>
 	         </thead>
              <tbody>
+               <form action="/admin/staffTUpdate" method="post" id="staffTForm">
 	             <tr th:each="dataT:${staffT}" id="staffTTr">
+	                <input type="hidden" name="staffCode" th:value="${dataT.staffCode}">
 	                <td><input type="date" name="staffFromPeriod" class="staffTModify" th:value="${dataT.staffFromPeriod}" readonly="readonly" style="border:none;width:150px"></td>
 	                <td><input type="date" name="staffToPeriod" class="staffTModify" th:value="${dataT.staffToPeriod}" readonly="readonly" style="border:none;width:150px"></td>
 	                <td><input type="text" name="branchName" class="staffTModify" th:value="${dataT.branchName}" readonly="readonly" style="border:none;width:150px"></td>
@@ -111,7 +113,7 @@
 	                	<a id="staffChangeAdd" class="btn btn-sm bg-teal" href="#" style="padding:1px 4px 1px 4px">이동/퇴사 입력</a>
 	                </td> 
 	             </tr> 
-         
+         	   </form>
              </tbody>
 		</table>
 	  </div>
@@ -132,6 +134,7 @@
   </section>
   </div>
 <script>
+	
 	//수정 버튼 클릭 시
 	$(document).on('click','#staffDModify',function(){
 		returnInput();
@@ -176,7 +179,9 @@
 	$(document).on('click','#staffChangeAdd',function(){
 		returnInput();
 		
-		var resignationHtml = '<tr class="staffChangeAdd" id="staffMoveTr">';
+		
+		var resignationHtml =  '<form action="/admin/staffMoveAdd" method="post" id="staffMoveForm">';
+			resignationHtml += '<tr class="staffChangeAdd" id="staffMoveTr">';
 			resignationHtml += '<td><input type="date" name="staffLevel" style="border:inset;width:150px">부터</td>'; 
 			resignationHtml += '<td></td>'; 
 			resignationHtml += '<td><input type="text" name="staffLevel" placeholder="이동처(지점)" style="border:inset;width:150px"></td>'; 
@@ -193,7 +198,9 @@
 			resignationHtml += '<td></td>';
 			resignationHtml += '<td></td>';
 			resignationHtml += '</tr>';
+			resignationHtml += '</form>';
 			
+			resignationHtml += '<form action="/admin/staffLeaveUpdate" method="post" id="staffLeaveForm">'
 			resignationHtml += '<tr class="staffChangeAdd" id="staffLeaveTr">';
 			resignationHtml += '<td></td>';
 			resignationHtml += '<td><input type="date" name="staffLevel" style="border:inset;width:150px">퇴사</td>';
@@ -205,6 +212,7 @@
 			resignationHtml += '<td></td>';
 			resignationHtml += '<td></td>';
 			resignationHtml += '</tr>';  
+			resignationHtml += '</form>';
 			
 			$('#staffTTr').after(resignationHtml);
 	});
@@ -230,13 +238,13 @@
 		validity("#staffDTr","#staffDForm");//유효성 검사
 	});
 	$(document).on('click','#staffTUpdate',function(){
-		validity("#staffTTr");//유효성 검사
+		validity("#staffTTr","#staffTForm");//유효성 검사
 	});
 	$(document).on('click','#staffMoveInsert',function(){
-		validity("#staffMoveTr");//유효성 검사
+		validity("#staffMoveTr","#staffMoveForm");//유효성 검사
 	});
 	$(document).on('click','#staffLeaveInsert',function(){
-		validity("#staffLeaveTr");//유효성 검사
+		validity("#staffLeaveTr","#staffMoveForm");//유효성 검사
 	});
 	$('#cancel').click(function(){
 		window.location.reload();
