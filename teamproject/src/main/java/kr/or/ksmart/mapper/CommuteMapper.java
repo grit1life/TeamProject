@@ -11,7 +11,7 @@ import kr.or.ksmart.domain.Holiday;
 @Mapper
 public interface CommuteMapper {
 	
-	public List<Commute> commuteList(Commute commute);
+	public List<Commute> commuteList(Map map);
 	
 	public int getCommuteListCnt(String staffId);
 

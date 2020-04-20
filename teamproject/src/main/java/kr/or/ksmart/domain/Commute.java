@@ -17,6 +17,4 @@ public class Commute {
 	private String commuteLateness;
 	private String commuteEarlyleave;
 	private String holidaySort;
-	private String staffId;
-	private int column;
 }

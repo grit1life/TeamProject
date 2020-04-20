@@ -31,13 +31,11 @@ public class CommuteController {
 	}
 
 	@PostMapping("/staff/commuteList")
-	public @ResponseBody Pagination<List<Commute>> geAjaxCommuteList(@RequestBody Map<String, Object> paramMap) {
+	public @ResponseBody Pagination<List<Commute>> geAjaxCommuteList(@RequestParam (value = "currentPage") int currentPage) {
 		String staffId = "201804_0001";  //임시값 로그인시 세션의 값을 담아주어야 한다
-
-		int currentPage = (Integer)paramMap.get("currentPage");
-		Pagination<List<Commute>> resultMap = commuteService.CommuteList(staffId, currentPage);
-		System.out.println(resultMap);
-		return resultMap;
+		Pagination<List<Commute>> p = commuteService.CommuteList(staffId, currentPage);
+		
+		return p;
 	}
 	
 	@GetMapping("/staff/holidayRegist")

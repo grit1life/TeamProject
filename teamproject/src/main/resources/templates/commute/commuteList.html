@@ -72,39 +72,35 @@
 		ajaxRequest(cPage);
 		
 		function ajaxRequest(currentPage){
-			var map = {};
-			map.currentPage = currentPage;
 			var request = $.ajax({
 			  url: "/staff/commuteList",
 			  method: "POST",
-			  async : 'true',
-			  contentType : "application/json",
-			  data : JSON.stringify(map),
+			  data : {currentPage : currentPage},
 			  dataType: "json"
 			});
 			 
 			request.done(function( p ) {
-				$("#staffName").text(p.cList[0].staffName);
+				$("#staffName").text(p.list[0].staffName);
 
 				/* 테이블 근태현황 출력 */
 			  	$('tbody').children().remove();
-			  	for(var i=0; i<p.cList.length; i++){
+			  	for(var i=0; i<p.list.length; i++){
 			  		$('tbody').append('<tr>');
-					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteDate+"</td>");					
-					if(p.cList[i].commuteArrive!=null){
-						$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteArrive+"</td>");					
+					$('tbody').children('tr').eq(i).append("<td>"+p.list[i].commuteDate+"</td>");					
+					if(p.list[i].commuteArrive!=null){
+						$('tbody').children('tr').eq(i).append("<td>"+p.list[i].commuteArrive+"</td>");					
 					}else{
 						$('tbody').children('tr').eq(i).append("<td></td>");
 					}
-					if(p.cList[i].commuteLeave!=null){
-						$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteLeave+"</td>");					
+					if(p.list[i].commuteLeave!=null){
+						$('tbody').children('tr').eq(i).append("<td>"+p.list[i].commuteLeave+"</td>");					
 					}else{
 						$('tbody').children('tr').eq(i).append("<td></td>");
 					}
-					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteLateness+"</td>");
-					$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].commuteEarlyleave+"</td>");
-					if(p.cList[i].holidaySort!=null){
-						$('tbody').children('tr').eq(i).append("<td>"+p.cList[i].holidaySort+"</td>");	
+					$('tbody').children('tr').eq(i).append("<td>"+p.list[i].commuteLateness+"</td>");
+					$('tbody').children('tr').eq(i).append("<td>"+p.list[i].commuteEarlyleave+"</td>");
+					if(p.list[i].holidaySort!=null){
+						$('tbody').children('tr').eq(i).append("<td>"+p.list[i].holidaySort+"</td>");	
 					}else{
 						$('tbody').children('tr').eq(i).append("<td></td>");
 					}

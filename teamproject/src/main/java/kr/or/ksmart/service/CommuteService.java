@@ -22,12 +22,11 @@ public class CommuteService {
 	
 	public Pagination<List<Commute>> CommuteList(String staffId, int currentPage){
 		int column = (currentPage-1) * 10;
-		System.out.println(staffId);
-		Commute commute = Commute.builder()
-				.staffId(staffId)
-				.column(column)
-				.build();
-		List<Commute> list = commuteMapper.commuteList(commute);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("staffId", staffId);
+		map.put("column", column);
+		List<Commute> list = commuteMapper.commuteList(map);
 		int cnt = commuteMapper.getCommuteListCnt(staffId);
 		
 		Pagination<List<Commute>> p = new Pagination<List<Commute>>(currentPage, cnt);
