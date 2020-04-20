@@ -91,23 +91,7 @@
 												,#{visitExpectedDate}					
 												);
 												
-			INSERT  INTO as_exchange  (reception_code
-									  ,exchange_code
-								      ,goods_code
-									  ,staff_id2 	
-									  ,request_reason									
-									  ,working_situation
-									  ,goods_code
-						
-					                   ) VALUES( #{receptionCode}
-					                   			,#{exchangeCode}
-					                   			,#{goodsCode}
-					                   			,#{staffId2}
-					                   			,#{requestReason}
-					                   			,#{workingSituation}
-					                   			,#{goods_code}				
-												);									
-
+			
 	</insert>
 	
 	

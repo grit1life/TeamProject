@@ -5,46 +5,101 @@
 
 
 <mapper namespace="kr.or.ksmart.mapper.AsExchangeMapper">
-
-	<!--a/s접수 코드  -->
-  	<select id="getAsReceptionCodeMax" resultType="int">
- 		SELECT 
- 			IFNULL(MAX(CAST(SUBSTRING(check_code,7) AS DECIMAL)), 0) as maxcol 
-		FROM periodic_inspection
+		<resultMap type="kr.or.ksmart.domain.AsExchange" id="AsExchangeResultMap">
+		<result property="exchangeCode" column="exchange_code"/>
+		<result property="receptionCode" column="reception_code"/>
+		<result property="contractCode" column="contract_code"/>
+		<result property="contractNo" column="contract_no"/>
+		<result property="rentalFromDate" column="rental_from_date"/>
+		<result property="rentalToDate" column="rental_to_date"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="visitDate" column="visit_date"/>
+		<result property="visitExpectedDate" column="visit_expected_date"/>
+		<result property="staffId" column="staff_id"/>
+		<result property="staffId2" column="staff_id2"/>
+		<result property="exchangeDate" column="exchange_date"/>
+		<result property="workingSituation" column="working_situation"/>		
+		<result property="work" column="work"/>
+		<result property="customerId" column="customer_id"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerCall" column="customer_call"/>
+		<result property="zipCode" column="zip_code"/>
+		<result property="customerAddress" column="customer_address"/>
+		<result property="customerAddress2" column="customer_address2"/>
+		<result property="branchCode" column="branch_code"/>
+		<result property="branchName" column="branch_name"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="receptionDate" column="reception_date"/>
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--교환현황 상세보기  -->
+	<select id="SelectForUpdate" parameterType="String" resultMap="AsExchangeResultMap">
+		SELECT 
+		 AE.exchange_code	
+		,AR.contract_code
+		,DC.contract_no
+		,C.customer_id
+		,C.customer_name
+		,C.customer_call
+		,C.zip_code
+		,C.customer_address
+		,C.customer_address2 
+		,DC.goods_code
+		,G.goods_name
+		,DC.rental_from_date
+		,DC.rental_to_date
+		,AR.reception_date
+		,AE.visit_date
+		,AR.visit_expected_date
+		,AR.staff_id
+		,AR.staff_id2
 		
-	
- 	</select>
-  
-  
-	<!--a/s 접수 등록  -->
- 	<insert id="eInsert" parameterType="kr.or.ksmart.domain.PeriodicInspection">
- 	<selectKey keyProperty="checkCode" resultType="String" order="BEFORE">
- 			SELECT 
- 				CONCAT('check_', MAX(CAST(SUBSTRING(check_code,7) AS DECIMAL)+1)) AS checkCode
-			FROM periodic_inspection
-		
-	
-    </selectKey>
-	INSERT INTO periodic_inspection  (  check_code
-									   ,contract_code
-									   ,branch_code
-									   ,staff_id 
-									   ,check_date 	
-									   ,product_status
-									   ,check_contents
-											
-									   ) VALUES(   #{checkCode}	
-												 , #{contractCode}
-												 , #{branchCode}
-												 , #{staffId}
-												 , #{checkDate}
-												 , #{productStatus}
-												 , #{checkContents}
-												
-												 );
+		FROM
+		as_exchange AS AE
+		JOIN
+		as_reception AS AR
+		ON
+		AE.reception_code = AR.reception_code
+		JOIN
+		doc_contract AS DC
+		ON
+		DC.contract_code = AR.contract_code
+		JOIN
+		customer AS C
+		ON
+		C.customer_id = AR.customer_id
+		JOIN
+		goods AS G
+		ON
+		G.goods_code = DC.goods_code
+		GROUP BY
+		 AR.contract_code	
+			
+	</select>
 	
 	
-	</insert> 
+	<!--교환현황 업데이트  -->
+	<update id="eUpdate" parameterType="kr.or.ksmart.domain.AsExchange">
+		UPDATE as_exchange
+		SET
+			working_situation=#{workingSituation},
+			visit_date=#{visitDate},
+			exchange_date=#{exchangeDate},
+			staff_id2=#{staffId2}			
+		WHERE 
+			exchange_code=#{exchangeCode};
+	
+	</update>
 	
 	
 
