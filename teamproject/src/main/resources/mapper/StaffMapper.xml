@@ -91,7 +91,7 @@
 		ON 
 			SC.branch_code=B.branch_code
 		WHERE 
-			SC.staff_to_period &lt;= NOW();
+			SC.staff_to_period &gt;= NOW();
 	</select>
 	
 	<select id="staffDetails" resultMap="StaffMap" parameterType="String">
@@ -104,14 +104,14 @@
 		ON 
 			S.staff_code=SC.staff_id
 		AND 
-			SC.staff_to_period='9999-01-01'
+			SC.staff_to_period &gt;= NOW()
 		WHERE 
 			S.staff_code=#{staffCode};
 	</select>
 	<select id="staffTransferList" resultMap="StaffMap" parameterType="String">
 		SELECT 
 			SC.staff_from_period,SC.staff_to_period,B.branch_name,SC.staff_position,SC.staff_level
-			,S.staff_name,SC.input_date
+			,S.staff_name,SC.input_date,S.staff_code
 		FROM
 			staff_change AS SC
 		INNER JOIN
@@ -125,4 +125,20 @@
 		ON 
 			SC.input_staff_id=S.staff_code;
 	</select>
+	
+	<update id="staffDUpdate" parameterType="kr.or.ksmart.domain.Staff">
+		UPDATE 
+			staff
+		SET
+			staff_pw=#{staffPw},
+			staff_name=#{staffName},
+			staff_birth=#{staffBirth},
+			staff_tell=#{staffTell},
+			staff_email=#{staffEmail},
+			input_staff_id=#{inputStaffId},
+			input_date=NOW()
+		WHERE 
+			staff_code=#{staffCode};
+	
+	</update>
 </mapper>

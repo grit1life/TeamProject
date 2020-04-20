@@ -57,4 +57,12 @@ public class StaffService {
 		System.out.println("service");
 		return staffMapper.staffTransferList(staffCode);
 	}
+	
+	public int staffDUpdate(Staff staff,HttpSession session) {
+		String inputStaffId = (String) session.getAttribute("staffId");
+		System.out.println("--------service---------------");
+		System.out.println(inputStaffId);
+		staff.setInputStaffId(inputStaffId);
+		return staffMapper.staffDUpdate(staff);
+	}
 }
