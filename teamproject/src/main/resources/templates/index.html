@@ -1,18 +1,140 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layout/default}"
->
-  <th:block layout:fragment="customTitle">
-    <title>index</title>
-  </th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+ 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
 
-  <body class="hold-transition sidebar-mini layout-fixed">
-    <th:block layout:fragment="customContents">
-      <div class="content-wrapper">
-        index 화면입니다(2020.04.19 21:00)
-      </div>
-    </th:block>
-  </body>
+<th:block layout:fragment="customTitle">
+	<title>login_form</title>
+</th:block>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<th:block layout:fragment="customContents">
+ <div class="content-wrapper" style="padding:70px">
+ 	인덱스 화면입니다. 로그인창을 추가했어요~(2020-04-20일 오전 11:02분)
+	<div class="row" >
+	  <div class="card card-primary" id="loginBox" style="width:400px; margin:10px auto; ">
+		 <div class="card-header">
+		      <h3 class="card-title">관리자 로그인</h3>
+		 </div>
+		 <!-- /.card-header -->
+		 <!-- form start -->
+		 <form role="form">
+		    <div class="card-body">
+		      <div class="form-group">
+		        <label for="exampleInputEmail1">ID</label>
+		        <input type="text" class="form-control" value="201804_0001">
+		      </div>
+		      <div class="form-group">
+		        <label for="exampleInputPassword1">Password</label>
+		        <input type="password" class="form-control" value="pw001">
+		      </div>
+		    </div>
+	      <!-- /.card-body -->	
+		      <div class="card-footer">
+		        <button id="" type="button" class="btn btn-primary" style="width: 100%;">Login</button>
+		      </div>
+	      </form>
+	   </div>
+
+	  <div class="card card-primary" id="loginBox" style="width:400px; margin:10px auto;">
+	    <div class="card-header">
+	      <h3 class="card-title">직원 로그인</h3>
+	    </div>
+	    <!-- /.card-header -->
+	    <!-- form start -->
+	    <form role="form">
+		  <div class="card-body">
+		      <div class="form-group">
+		        <label for="exampleInputEmail1">ID</label>
+		        <input type="text" class="form-control" id="staffId" value="201903_0001">
+		      </div>
+		      <div class="form-group">
+		        <label for="exampleInputPassword1">Password</label>
+		        <input type="password" class="form-control" id="staffPw" value="ex003">
+		      </div>
+		  </div>
+	      <!-- /.card-body -->
+	      <div class="card-footer">
+	        <button id="loginBtn" type="button" class="btn btn-primary" style="width: 100%;">Login</button>
+	      </div>
+	    </form>
+	  </div>
+
+	  <div class="card card-success" id="loginBox" style="width:400px; margin:10px auto;">
+	    <div class="card-header">
+	      <h3 class="card-title">고객 로그인</h3>
+	    </div>
+	    <!-- /.card-header -->
+	    <!-- form start -->
+	    <form role="form">
+	    <div class="card-body">
+	      <div class="form-group">
+	        <label for="exampleInputEmail1">ID</label>
+	        <input type="text" class="form-control" id="customerId" placeholder="ID" value="client01">
+	      </div>
+	      <div class="form-group">
+	        <label for="exampleInputPassword1">Password</label>
+	        <input type="password" class="form-control" id="customerPw" placeholder="Password" value="pw001">
+	      </div>
+	
+	    </div>
+	      <!-- /.card-body -->
+	
+	      <div class="card-footer">
+	        <button id="CustomerloginBtn" type="button" class="btn btn-block btn-success" style="width: 100%;">Login</button>
+	      </div>
+	    </form>
+	  </div>
+     </div>
+ </div> 
+<script type="text/javascript">
+	$(function(){
+		$('#loginBtn').click(function(){
+			console.log("loginBtn");
+			var staffId = $('#staffId').val();
+			var staffPw = $('#staffPw').val();
+			console.log(staffId);
+			var request = $.ajax({
+				url : "/staffLogin",
+				method : "post",
+				dataType : "json",
+				data : {staffId:staffId,staffPw:staffPw}
+			})
+			request.done(function(loginMap){
+				if(loginMap.result=="login성공"){
+					window.location.href = "/index";
+				}else{
+					alert(loginMap.result);
+				}
+			})
+			request.fail(function( jqXHR, textStatus ) {
+				  alert("입력한 ID가 존재하지 안습니다");
+			});
+		});
+	});
+	
+	$(function(){
+		$('#CustomerloginBtn').click(function(){
+			var customerId = $('#customerId').val();
+			var customerPw = $('#customerPw').val();
+
+			var request = $.ajax({
+				url : "/customerLogin",
+				method : "post",
+				dataType : "json",
+				data : {customerId:customerId,customerPw:customerPw}
+			})
+			request.done(function(Map){
+				alert(Map.result);
+				
+			})
+			request.fail(function( jqXHR, textStatus ) {
+				  alert("입력한 ID가 존재하지 않습니다");
+			});
+		})
+	})
+</script>	
+</th:block>
+</body>
 </html>
