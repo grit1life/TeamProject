@@ -74,7 +74,7 @@
 			(ISNULL(S.shipment_complete_date))
 		GROUP BY
 			shipment_code
-		LIMIT ${column}, ${column+10}
+		LIMIT #{column}, 10
   	</select>
   	<select id="getShipmentListCnt" resultType="int">
 		SELECT
@@ -163,7 +163,7 @@
 			NOT(ISNULL(S.shipment_complete_date))
 		GROUP BY
 			shipment_code
-		LIMIT ${column}, ${column+10}
+		LIMIT ${column}, 10
   	</select>
   	<select id="getDeliveredShipmentCnt" resultType="int">
 	  	SELECT
@@ -273,7 +273,7 @@
 			</if>
 		GROUP BY
 			shipment_code
-		LIMIT ${column}, ${column+10}
+		LIMIT ${column}, 10
   	</select>
   	<select id="getShipmentSearchListCnt" resultType="int" parameterType="Shipment">
 		SELECT
@@ -404,7 +404,7 @@
 			</if>
 		GROUP BY
 			shipment_code
-		LIMIT ${column}, ${column+10}
+		LIMIT ${column}, 10
   	</select>
   	<select id="getDeliveredShipmentSearchCnt" resultType="int" parameterType="Shipment">
 	  	SELECT
