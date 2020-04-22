@@ -164,6 +164,9 @@
 				B.branch_code = SC.branch_code
 		WHERE 
 			SC.staff_to_period = "9999-01-01"
+		ORDER BY
+			FIELD(branchName, '본사') DESC,
+			branchName ASC
 	</select>
 	<select id="getPersnlPeriodOutcome" resultType="Outcome">
 		SELECT
