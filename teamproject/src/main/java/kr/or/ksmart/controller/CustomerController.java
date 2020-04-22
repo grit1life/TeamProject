@@ -277,7 +277,16 @@ import kr.or.ksmart.service.CustomerService;
 			model.addAttribute("Customer", customerService.SelectForUpdate());
 		
 			return "/myPage/myView";
-	}					
+	}	
+	
+	
+	//마이페이지 1:1문의 내역 조회
+	@GetMapping("/inquiryHistory")
+		public String inquiryHistory(Model model) {
+							
+			
+				return "/myPage/inquiryHistory";
+		}			
 					
 		
 	}

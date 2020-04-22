@@ -28,11 +28,16 @@ public class AsExchangeController {
 		// 수정
 		@PostMapping("/eUpdate")
 		public String eUpdate(AsExchange AsExchange) {
-					int result = AsExchangeService.pUpdate(AsExchange);
+					int result = AsExchangeService.eUpdate(AsExchange);
 					
 						return "redirect:/aList";
 				}
-		
+		//삭제
+		@PostMapping("/eDelete")
+		public String eDelete(@RequestParam(value="receptionCode", required = false) String receptionCode){
+			AsExchangeService.eDelte(receptionCode);
+			return "redirect:/aList";
+		}
 	}
 
 

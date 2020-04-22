@@ -25,7 +25,7 @@
     </section>  
       
   <!--A/S 접수 등록  -->
- <form role="form" method="post">
+<form th:action="@{/aInsert}" method="post">
   <section class="content">
   	<div class="container-fluid">
 	
@@ -43,13 +43,13 @@
 		                
 		                 <label style="margin-bottom: 15px;">작업 구분</label><br>
 		                  <div class="icheck-primary d-inline">
-		                    <input class="exchange" type="radio" name="r1" id="radioPrimary1" value="a">
+		                    <input class="exchange" type="radio" name="work" id="radioPrimary1" value="1">
 		                    <label for="radioPrimary1">
 		                    	교환
 		                    </label>
 		                  </div>
 		                  <div class="icheck-primary d-inline">
-		                    <input class="repair" type="radio" name="r1" id="radioPrimary2">
+		                    <input class="repair" type="radio" name="work" id="radioPrimary2" value="2">
 		                    <label for="radioPrimary2">
 		                    	수리
 		                    </label>
@@ -171,139 +171,29 @@
                   
                    <label for="inputEmail3" class="col-sm-2 col-form-label">A/S 지점 코드</label>
                    <div class="input-group mb-3" style="width: 300px;">
-                   <input type="text" class="form-control" id="9" name="branchCode" placeholder="지점을 검색해주세요.">              
-	                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal3" style="margin-left: 10px;">
-	                    	<i class="fas fa-search">검색</i> 
-	                    </button>             
+                   <input type="text" class="form-control" id="branchCode" name="branchCode">              
+	                    <button type="button" id="branchSearchList" class="btn btn-success" style="margin-left: 10px;">
+								<i class="fas fa-search"></i>   
+						</button>		           
                   </div>
+                  
+
            		             		  
            		  
            		   <label for="inputEmail3" class="col-sm-2 col-form-label">A/S 출동 기사 아이디</label>
                   <div class="input-group mb-3" style="width: 300px;">
-                  <input type="text" class="form-control" id="9" name="staffId2" placeholder="직원을 검색해주세요.">              
-	                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myLargeModal3" style="margin-left: 10px;">
-	                    	<i class="fas fa-search">검색</i> 
+                  <input type="text" class="form-control" id="staffCode" name="staffId2">              
+	                    <button type="button" class="btn btn-success" id="staffSearchList" style="margin-left: 10px;">
+	                    	<i class="fas fa-search"></i> 
 	                    </button>             
                  </div>
-           		   
-           		  
-                  
-                 <!-- 직원 검색 모달 영역 시작-->						
-					<div class="modal fade" id="myLargeModal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-						<div class="modal-dialog modal-xl" role="document">
-							<div class="modal-content">
-								<div class="modal-header">								
-									<h4 class="modal-title" id="myModalLabel">출동 기사 조회</h4>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-								</div>
-								
-								<!--직원 서치폼 시작  -->
-								<div class="modal-body">
-								   <div class="row">	
-								   		<div style="display:inline-block;">
-						                 	<select class="form-control" style="width: 130px;">                            	
-							                   		<option>::지점 선택::</option>  
-							                   		<option>본사</option> 
-							                   		<option>인천점</option>  
-							                   		<option>부산점</option>  
-							                   		<option>전주점</option>      
-							          	    </select>        	
-						              	 </div>
-								   			&ensp;	
-						             	 <div style="display:inline-block;">
-						                 	<select class="form-control" style="width: 130px;">                            	
-							                   		<option>직원명</option>  							                   		   
-							          	    </select>        	
-						              	 </div>
-						              	 
-						              	 
-	
-							              <div style="display:inline-block;">
-									          <input type="text" style="width:250px;  margin-left: 10px;" class="form-control select2bs4">
-							              </div>
-							              
-							               <div style="display:inline-block;">
-							            	  <a id="staffSearchBtn" class="btn btn-info" href="#" style="margin-left: 10px;">
-									            <i class="fas fa-search">
-									            </i>&ensp;검색
-									          </a>  
-							              </div>  
-												              
-						             </div>
-								    <!--직원 서치폼 끝  -->
-								    &ensp;
-								    <!-- 직원 검색 리스트 시작 -->
-								    <div class="row">			   
-										 <div  id="staffList">
-										  	<table id="example2" class="table table-bordered table-hover">
-										    	<thead>
-									                <tr>
-									                  <th>지점명</th>
-									                  <th>직원명</th>
-									                  <th>직원 연락처</th>
-									                  <th>직원 이메일</th>
-									                  <th>직책</th>
-									                  <th>입사일</th>	
-									                  <th>선택</th>									                  
-									                </tr>
-										         </thead>
-									             <tbody>
-									              <tr>
-									                <td>
-									                	<input type="text" class="form-control" name=branchName style="border: 0" readonly="readonly" value="인천점">
-									                </td>
-									                <td>
-														<input type="text" class="form-control" name=staffName2 style="border: 0" readonly="readonly" value="유기사">
-									                </td>
-									                <td>
-									                	<input type="text" class="form-control" name=staffTell style="border: 0" readonly="readonly" value="010-000-0000">        
-									                </td> 
-									                <td>
-									                	<input type="text" class="form-control" name=staffEmail style="border: 0" readonly="readonly" value="id002@email.com">              
-									                </td>
-									                <td>
-									                	<input type="text" class="form-control" name=staffPosition style="border: 0" readonly="readonly" value="기사">                   
-									                </td>
-									                <td>
-									                	<input type="text" class="form-control" name=staffFromPeriod style="border: 0" readonly="readonly" value="2020-01-11">                   
-									                </td>
-									                
-									                </td>  
-									                	<td>
-									                	<a id="staffListBtn" class="btn btn-sm btn-primary" style="vertical-align: middle; bottom: 0; margin-bottom: 18px; color:white;">
-									                		<i class="fas fa-check"></i>            	
-									                	</a>
-									                </td>                          
-									               
-									              </tr>
-									             </tbody>
-											</table>
-										  </div>
-									</div>
-									  								 	
-								</div>
-								<!--직원 리스트 끝  -->	  							   												
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
-								</div>
-							</div>
-						</div>
-					</div>
-			   <!-- 직원 검색 모달 영역 끝-->                              
-	                   
-
-                  <div class="form-group" id="exchangeReason">
-	                  <label>교환 사유</label>
-	                  	 <input type="text" name="requestReason" class="form-control">
-			            
-	               </div>
-	               
-	               <div class="form-group" id="repairReason" style="display:none;">
-	                  <label>메모</label>
-			            <input type="text"  name="requestReason" class="form-control">
-	                </div>
-                  
-                  
+                 
+                 
+                 <label for="inputEmail3" id="name4" class="col-sm-2 col-form-label">교환 사유</label>
+                  <div class="input-group mb-3" style="width: 300px;">
+                  	<input type="text" name="requestReason" class="form-control">       
+                  </div>
+           		              
                   <label for="inputEmail3" class="col-sm-2 col-form-label">방문예정일</label>
                   <div class="form-group row">
 	                  <div class="col-sm-10">	               		                   
@@ -321,14 +211,28 @@
                   <label for="inputEmail3" class="col-sm-2 col-form-label">접수자 아이디</label>
                   <div class="form-group row">
                     <div class="col-sm-10">
-                      <input type="text" name="staffId" class="form-control">
+                      <input type="text"  name="staffId" class="form-control">
                     </div>
-                  </div>			
+                  </div>
+                  
+                  
+                  <div class="form-group row" style="display: none;">
+		          	<input class="exchange" type="radio" name="workingSituation" value="1" id="radioPrimary1" checked="checked">
+		             	<label for="radioPrimary1">
+		                    	작업 중
+		            	</label>
+		            <input class="exchange" type="radio" name="workingSituation" value="2" id="radioPrimary1">
+		             	<label for="radioPrimary1">
+		                       	작업 완료
+		            	</label>	
+		          </div>
+                  
+                  			
                 </div>
                 
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" id="btn" class="btn btn-info">등록</button>
+                  <button type="submit" id="submit" class="btn btn-info">등록</button>
                    <a th:href="@{/index}" class="btn btn-default float-right">취소</a>
                   
                 </div>
@@ -346,18 +250,9 @@
 		$('#name2').next().attr('name','setNo');
 		$('#name3').text('교환 대상 상품 세트 코드');
 		$('#name3').next().attr('name','setCode');
+		$('#name4').text('교환 사유');
 		
-		$('#exchangeReason').css('display','block');
-		$('#repairReason').css('display','none');
-		
-		var formObj = $("form[role='form']"); 
-
-		$("#btn").on("click", function(){
-	        formObj.attr("action", "/eInsert");   
-	        formObj.submit();                          
-	    });
-
-
+	
 		
 	});
 	
@@ -369,89 +264,12 @@
 		$('#name2').text('수리 대상 상품 세트 No');
 		$('#name2').next().attr('name','setNo');
 		$('#name3').text('수리 대상 상품 세트 코드');
-		$('#name3').next().attr('name','setCode');	
-	
-		$('#exchangeReason').css('display','none');
-		$('#repairReason').css('display','block');
+		$('#name4').text('메모');
 		
-		var formObj = $("form[role='form']"); 
 
-		$("#btn").on("click", function(){
-	        formObj.attr("action","/rInsert");   
-	        formObj.submit();                          
-	    });
 		
 	});
 	
-	
-	$('.person').click(function(){
-		$('#id').text('고객 아이디');
-		$('#id').next().attr('name','customerId');
-		$('#name').text('고객명');
-		$('#name').next().attr('name','customerName');
-		$('#level').text('권한');
-		$('#level').next().attr('name','customerLevel');
-		$('#class').text('등급');
-		$('#class').next().attr('name','customerClass');
-		$('#call').text('전화번호');
-		$('#call').next().attr('name','customerCall');
-
-		$('#customerList').css('display','block');		
-		$('#customerCompanyList').css('display','none');
-		$('#customerPage').css('display','block');
-		$('#customerCompanyPage').css('display','none');
-		
-		$('#customerBtn').css('display','block');
-		$('#companyBtn').css('display','none');
-		
-		var formObj = $("form[role='form']"); 
-		
-		$('#customerSearchBtn').click(function(){
-			
-			 formObj.attr("action","/rInsert");   
-		        formObj.submit();
-			
-		});
-		
-		     
-	    });
-	
-	
-	
-	$('.company').click(function(){
-		$('#id').text('고객 아이디');
-		$('#id').next().attr('name','customerId');
-		$('#name').text('회사명');
-		$('#name').next().attr('name','customerCompanyName');
-		$('#level').text('권한');
-		$('#level').next().attr('name','customerLevel');
-		$('#class').text('등급');
-		$('#class').next().attr('name','customerClass');
-		$('#call').text('전화번호');
-		$('#call').next().attr('name','customerCompanyCall');
-		$('#customerList').css('display','none');
-		$('#customerCompanyList').css('display','block');
-		$('#customerPage').css('display','none');
-		$('#customerCompanyPage').css('display','block');
-		
-		
-		$('#customerBtn').css('display','none');
-		$('#companyBtn').css('display','block');
-		
-		
-		var formObj = $("form[role='form']"); 
-		
-		$('#customerCompanySearchBtn').click(function(){
-			
-			 formObj.attr("action","/rInsert");   
-		        formObj.submit();
-			
-		});
-		     
-	    });
-
-
-		
 	
 	
 	
@@ -462,8 +280,8 @@
 	     
 	     function popupOpen(){
 	 		var url= "/customerSearchModal";    //팝업창 페이지 URL
-	 		var winWidth = 700;
-	 	    var winHeight = 600;
+	 		var winWidth = 977;
+	 	    var winHeight = 510;
 	 	    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
 	 		window.open(url,"",popupOption);
 	 	}
@@ -478,8 +296,8 @@
 		  
 		  function popupOpen(){
 				var url= "/customerCompanySearchModal";    
-				var winWidth = 700;
-			    var winHeight = 600;
+				var winWidth = 977;
+		 	    var winHeight = 510;
 			    var popupOption= "width="+winWidth+", height="+winHeight;    
 				window.open(url,"",popupOption);
 			}
@@ -497,8 +315,25 @@
 		  
 		  function popupOpen(){
 				var url= "/contractSearchModal";    
-				var winWidth = 700;
+				var winWidth = 965;
 			    var winHeight = 600;
+			    var popupOption= "width="+winWidth+", height="+winHeight;    
+				window.open(url,"",popupOption);
+			}
+			
+		
+		
+	  
+	  });
+	 
+	  $('#branchSearchList').click(function(event){ 
+		  console.log('click');
+		  popupOpen();	
+		  
+		  function popupOpen(){
+				var url= "/branchSearchModal";    
+				var winWidth = 952;
+			    var winHeight = 599;
 			    var popupOption= "width="+winWidth+", height="+winHeight;    
 				window.open(url,"",popupOption);
 			}
@@ -509,26 +344,113 @@
 	  });
 	  
 	  
-	
-	
-	$('#staffSearchBtn').click(function(){
-		$('#staffList').css('display','block');
+	  $('#staffSearchList').click(function(event){ 
+		  console.log('click');
+		  popupOpen();	
+		  
+		  function popupOpen(){
+				var url= "/staffSearchModal";    
+				var winWidth = 952;
+			    var winHeight = 599;
+			    var popupOption= "width="+winWidth+", height="+winHeight;    
+				window.open(url,"",popupOption);
+			}
+			
 		
-	});
-	
-	
-	
-	
-	
-	$('#staffListBtn').click(function(){	
-
-		var staffName = $('input[name=staffName2]').val();
 		
-		   $('#9').val(staffName);
-		    
-	});
-	
-	
+	  
+	  });
+	  	
+	  /*유효성 검사 시작  */
+		
+		$('#submit').click(function(){
+		
+			var customerId = $('input[name=customerId]').val();
+			var customerName = $('input[name=customerName]').val();
+			var customerCall = $('input[name=customerCall]').val();
+			var zipCode = $('input[name=zipCode]').val();
+			var customerAddress = $('input[name=customerAddress]').val();
+			var customerAddress2 = $('input[name=customerAddress2]').val();
+			var contractCode = $('input[name=contractCode]').val();
+			var contractNo = $('input[name=contractNo]').val();
+			var goodsCode = $('input[name=goodsCode]').val();
+			var goodsName = $('input[name=goodsName]').val();
+			var rentalFromDate = $('input[name=rentalFromDate]').val();
+			var rentalToDate = $('input[name=rentalToDate]').val();
+			var branchCode = $('input[name=branchCode]').val();
+			var staffId2 = $('input[name=staffId2]').val();
+			var requestReason = $('input[name=requestReason]').val();
+			var visitExpectedDate = $('input[name=visitExpectedDate]').val();
+			var receptionDate = $('input[name=receptionDate]').val();
+			var staffId = $('input[name=staffId]').val();
+			
+			
+			if($(':radio[name=work]:checked').length < 1){
+				alert('작업구분을 선택해주세요.');
+				return false;
+			}else if(customerId == ''){
+				alert('고객 아이디를 입력해주세요.');
+				return false;
+			}else if(customerName == ''){
+				alert('고객명을 입력해주세요.');
+				return false;
+			}else if(customerCall == ''){
+				alert('고객 연락처를 입력해주세요.');
+				return false;
+			}else if(zipCode == ''){
+				alert('우편번호를 입력해주세요.');
+				return false;
+			}else if(customerAddress == ''){
+				alert('기본주소를 입력해주세요.');
+				return false;
+			}else if(customerAddress2 == ''){
+				alert('상세주소를 입력해주세요.');
+				return false;
+			}else if(contractCode == ''){
+				alert('계약서 코드를 입력해주세요.');
+				return false;
+			}else if(contractNo == ''){
+				alert('계약서 No를 입력해주세요.');
+				return false;
+			}else if(goodsCode == ''){
+				alert('상품코드를 입력해주세요.');
+				return false;
+			}else if(goodsName == ''){
+				alert('상품명을 입력해주세요.');
+				return false;
+			}else if(rentalFromDate == ''){
+				alert('렌탈 시작일을 입력해주세요.');
+				return false;
+			}else if(rentalToDate == ''){
+				alert('렌탈 종료일을 입력해주세요.');
+				return false;
+			}else if(branchCode == ''){
+				alert('A/S지점 코드를 입력해주세요.');
+				return false;
+			}else if(staffId2 == ''){
+				alert('A/S 출동 기사 아이디를 입력해주세요.');
+				return false;
+			}else if(requestReason == ''){
+				alert('교환사유 혹은 메모를 입력해주세요.');
+				return false;
+			}else if(visitExpectedDate == ''){
+				alert('방문예정일을 입력해주세요');
+				return false;
+			}else if(receptionDate == ''){
+				alert('접수일을 입력해주세요.');
+				return false;
+			}else if(staffId == ''){
+				alert('접수자 아이디를 입력해주세요.');
+				return false;
+			}
+			
+		     
+			
+			alert("접수가 완료되었습니다.");
+		  
+			
+			
+		});
 
 
 </script>  

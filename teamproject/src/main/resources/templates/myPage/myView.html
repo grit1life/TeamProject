@@ -13,10 +13,12 @@
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="https://www.myomee.com/img/my/icoMyRentInfoSet4.png">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -206,6 +208,51 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+              <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">나의 활동내역</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+               	 <i class="fas fa-comment"></i> 1:1문의 내역          
+							<span class="num">
+							0&nbsp;
+			               	 	<a id="inquiryHistory">             	 	
+			               	 		<i class="fas fa-angle-right"></i>
+			               	 	</a>
+							</span>								
+                <hr>
+
+                <i class="far fa-file-alt"></i> 이용후기 내역
+
+               	 <span class="num">
+               	 0&nbsp;
+               	 	<a id="inquiryHistory">             	 	
+               	 		<i class="fas fa-angle-right"></i>
+               	 	</a>
+               	 </span>
+
+                <hr>
+
+                <i class="fas fa-question-circle"></i> 상품 Q&A 내역
+
+              	 <span class="num">
+              	 0&nbsp;
+              	 <i class="fas fa-angle-right"></i>
+              	 </span>			
+               
+                <hr>
+
+               	<i class="fas fa-bell"></i></i> 재입고 알림
+
+                <span class="num">
+                0&nbsp;
+                <i class="fas fa-angle-right"></i>
+                </span>
+              </div>
+              <!-- /.card-body -->
+            </div>
 
 
           </div>
@@ -214,7 +261,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">내 정보</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">나의 정보</a></li>
                   <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">주문내역</a></li>
                   <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">렌탈내역</a></li>
                 </ul>
@@ -278,7 +325,7 @@
                   <input type="text" id="sample4_postcode" name="zipCode" value="111-11">
                   <div class="input-group-append">
                    <span class="input-group-append">
-	                    <button type="button" onclick="sample4_execDaumPostcode()" class="btn btn-info btn-flat">찾기</button>
+	                    <button type="button" onclick="sample4_execDaumPostcode()" class="btn btn-primary btn-flat">찾기</button>
 	                  </span>
                   </div>
                 </div>
@@ -313,7 +360,7 @@
 					
 					
 					<div id="submit"  style="display: block">
-	                  <button id="submit" class="btn btn-info">수정</button>
+	                  <button id="submit" class="btn btn-primary">수정</button>
 	                  <a th:href="@{/index}" class="btn btn-default float-right">취소</a>                  
 	                </div>        
                       
@@ -637,6 +684,20 @@
 						"_blank width=800, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no")
 					})
 			})
+			
+			 $('#inquiryHistory').click(function(event){  //버튼을 클릭 했을시 popupOpen 함수 출력 
+			     console.log('click');
+			     popupOpen();	//Popup Open 함수
+			     
+			     function popupOpen(){
+			 		var url= "/inquiryHistory";    //팝업창 페이지 URL
+			 		var winWidth = 977;
+			 	    var winHeight = 510;
+			 	    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
+			 		window.open(url,"",popupOption);
+			 	}
+			
+			 });
 			</script>
 				          
 </body>
