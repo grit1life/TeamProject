@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Projects</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!--date range css  -->
+  <link rel="stylesheet" href="https://adminlte.io/themes/dev/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="https://www.myomee.com/img/my/noimgAcv.png">
+  
+ 
+</head>
+
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->	
+ <form>  	  
+	     <section class="content-header"> 		  
+		      <div class="container-fluid">   
+		        <div>		         
+		         <!-- /.card-header -->
+		          <div class="card-header">
+		          <h1>
+		          	<strong>
+		            1:1문의 내역
+				    </strong>  				    
+				  </h1> 
+				  <div style="font-size: 12px; text-align: right;"> 
+				 	 마이페이지 > 나의 활동내역> 1:1문의 내역
+				  </div>
+		          </div>
+		          <!-- /.card-header -->
+		          
+		          &emsp;
+		          <div>
+					<button type="button" class="btn btn-secondary btn-flat" style="float: right;" data-toggle="modal" data-target="#myModal">1:1문의 등록</button>
+				     &emsp;
+				  </div>
+		          &emsp;
+		           <table class="table">
+					<thead>
+						<tr>
+							<th>유형</th>
+							<th>제목</th>
+							<th>답변상태</th>
+							<th>문의일자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div style="text-align: center; margin-left: 300px; margin-top: 100px;">
+									<p>문의 내역이 없습니다.</p>
+									<img src="https://www.myomee.com/img/my/noimgAcv.png">
+								</div>
+							</td>
+						</tr>
+				    </tbody>
+				</table>
+		          
+			   </div>
+		   </div>	            
+   </section>     
+
+</form> 
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        	<div></div>
+          <h4 class="modal-title">1:1문의 등록</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body">
+        	
+                  <div class="form-group row">
+                  	<label class="col-sm-2 col-form-label">문의유형</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" style="width: 200px;">
+		                  <option>상품/주문/계약 </option>
+		                  <option>배송/교환/회수</option>
+		                  <option>결제/취소/환불</option>
+		                  <option>A/S/정비비</option> 
+		                  <option>기타</option> 
+                      </select>
+                    </div>
+                  </div>						
+                <hr>
+                
+                <div class="form-group row">
+                	<label class="col-sm-2 col-form-label">문의제목</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                <hr>  
+                 <div class="form-group row">
+                	<label class="col-sm-2 col-form-label" style="text-align: center;">문의내용</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" style = "resize : none; height:300px; ">
+                      </textarea>
+                    </div>                    
+                  </div>
+                <hr> 
+                
+                 <div class="form-group row">
+                	<label class="col-sm-2 col-form-label">문의자명</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" style="width: 200px;">
+                      &emsp;
+                    </div>
+                    
+                    <label class="col-sm-2 col-form-label">이메일</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" style="width: 200px;">
+                     &emsp;
+                    </div>
+                    
+                    <label class="col-sm-2 col-form-label">휴대폰</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" style="width: 200px;">
+                    </div>
+                  </div>
+
+                  	
+                  		<ul class="bullet type b" style="margin-left: 40px;">
+                  			<li style="list-style: none;">
+	                  			<input type="checkbox">
+	                  			SMS 답변 알림신청
+                  			</li >
+                  		</ul>
+                  	
+                  		
+                  		<ul class="bullet type b" style="margin-left: 40px;">
+							<li style="list-style: none;">답변 등록 시 이메일로 전송해드리며 SMS 알림을 신청하시면 답변 등록여부를 문자로 알려드립니다.</li>
+						</ul>
+                
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">등록</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+		<!-- jQuery -->
+	<script src="../../plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Select2 -->
+	<script src="../../plugins/select2/js/select2.full.min.js"></script>
+	<!-- Bootstrap4 Duallistbox -->
+	<script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+	<!-- InputMask -->
+	<script src="../../plugins/moment/moment.min.js"></script>
+	<script src="../../plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+	<!-- date-range-picker -->
+	<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap color picker -->
+	<script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Bootstrap Switch -->
+	<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="../../dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="../../dist/js/demo.js"></script>
+	<!-- Page script -->
+	
+	
+	<script> 			
+
+	$('#customerListBtn').click(function(){	
+		 var customerListBtn = $(this);
+		 var tr = customerListBtn.parent().parent();
+		 var td = tr.children();
+		 var tdArray = new Array();// 배열선언
+
+		     td.each(function(i){
+	
+		         tdArray.push(td.eq(i).text());
+	
+		     });			
+	   
+   	    var customerId = td.eq(0).text();
+	    var customerName = td.eq(1).text();
+	    var customerCall = td.eq(2).text();
+	    var zipCode = td.eq(3).text();
+	    var customerAddress = td.eq(4).text();
+	    var customerAddress2 = td.eq(5).text();
+	  
+
+	
+		window.opener.document.getElementById("customerId").value =  customerId
+		window.opener.document.getElementById("customerName").value = customerName;
+		window.opener.document.getElementById("customerCall").value = customerCall;
+		window.opener.document.getElementById("zipCode").value = zipCode;
+		window.opener.document.getElementById("customerAddress").value = customerAddress;
+		window.opener.document.getElementById("customerAddress2").value = customerAddress2;
+		
+		
+
+		
+		 
+		 
+		    
+	});
+	
+	
+	$(document).ready(function(){
+	    $("#Btn").click(function(){
+	        $("#myModal").modal();
+	    });
+	});
+	
+	</script>
+
+
+	
+	
+	
+</script>  
+  	
+</body>
+</html>

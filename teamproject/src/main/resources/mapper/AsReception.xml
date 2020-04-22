@@ -109,34 +109,31 @@
 	<!--교환 현황 리스트  -->
 	<select id="getAsExchangeList" parameterType="String" resultType="kr.or.ksmart.domain.AsExchange">
 		 SELECT 
-			 AE.exchange_code     AS exchangeCode
-			,AR.reception_code    AS receptionCode
-			,AR.`work`            AS work
-			,AE.working_situation AS workingSituation
-			,C.customer_name      AS customerName
-			,B.branch_name        AS branchName
-			,S.staff_name         AS staffName
-			,AR.reception_date    AS receptionDate
-	
-		 FROM
+			 AR.reception_code     AS receptionCode
+			,AR.`work`             AS work
+			,AR.working_situation  AS workingSituation
+			,C.customer_name       AS customerName
+			,B.branch_name         AS branchName
+			,S.staff_name          AS staffName
+			,AR.reception_date     AS receptionDate			
+		FROM
 			as_reception AS AR
-		 JOIN
-			as_exchange AS AE
-		 ON
-			AR.reception_code = AE.reception_code
-		 JOIN
+		JOIN
 			customer AS C
-		 ON
+		ON
 			C.customer_id = AR.customer_id
-		 JOIN
+		JOIN
 			branch AS B
-		 ON
-			AR.branch_code = B.branch_code
-		 JOIN
+		ON
+			B.branch_code = AR.branch_code
+		JOIN
 			staff AS S
-		 ON
-			S.staff_code = AE.staff_id2
-		 LIMIT ${startClmn}, ${endClmn};  	
+		ON
+			S.staff_code = AR.staff_id2
+		WHERE if( AR.`work` = '교환', 'Y', 'N' ) = 'Y'
+		LIMIT ${startClmn}, ${endClmn};  	
+		 
+		
 	</select>
 	
 	
@@ -151,33 +148,29 @@
 	
 	<!--수리 현황 리스트  -->
 	<select id="getAsRepairList" parameterType="String" resultType="kr.or.ksmart.domain.AsRepair">
-		SELECT
-			 AR.repair_code         AS repairCode
-			,AR.reception_code      AS receptionCode 
-			,AC.`work`              AS work   
-			,AC.working_situation   AS workingSituation
-			,C.customer_name        AS customerName
-			,B.branch_name          AS branchName  
-			,S.staff_name           AS staffName 
-			,AC.reception_date      AS receptionDate 
+		 SELECT 
+			 AR.reception_code     AS receptionCode
+			,AR.`work`             AS work
+			,AR.working_situation  AS workingSituation
+			,C.customer_name       AS customerName
+			,B.branch_name         AS branchName
+			,S.staff_name          AS staffName
+			,AR.reception_date     AS receptionDate			
 		FROM
-			as_repair AS AR 
-		JOIN
-			as_reception AS AC
-		ON
-			AR.reception_code = AC.reception_code
+			as_reception AS AR
 		JOIN
 			customer AS C
 		ON
-			C.customer_id = AC.customer_id
+			C.customer_id = AR.customer_id
 		JOIN
 			branch AS B
 		ON
-			B.branch_code = AC.branch_code
+			B.branch_code = AR.branch_code
 		JOIN
 			staff AS S
 		ON
-			S.staff_code = AC.staff_id2
+			S.staff_code = AR.staff_id2
+		WHERE if( AR.`work` = '수리', 'Y', 'N' ) = 'Y'	
 		LIMIT ${startClmn}, ${endClmn};  	
 	</select>
 	

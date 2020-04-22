@@ -28,9 +28,13 @@ public class AsExchangeService {
 		}
 		
 		//값 수정
-		public int pUpdate(AsExchange AsExchange) {
+		public int eUpdate(AsExchange AsExchange) {
 			
 			return AsExchangeMapper.eUpdate(AsExchange);
 		}
-
+		// 삭제	
+		public int eDelte(String receptionCode) {
+				
+			return AsExchangeMapper.eDelete(receptionCode);
+		}
 }

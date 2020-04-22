@@ -96,8 +96,7 @@
 							                  </tr>
 							             </thead>
 							              <tbody>
-							                  	<tr th:each="l : ${CustomerList}">
-							                  
+							                  	<tr th:each="l : ${CustomerList}">							                  
 													<td th:text="${l.customerId}"></td>
 													<td th:text="${l.customerName}"></td>
 													<td th:text="${l.customerCall}"></td>									
@@ -154,23 +153,29 @@
 	<script> 			
 
 	$('#customerListBtn').click(function(){	
-		
-		var str = ""
-	    var customerListBtn = $(this);
-	    var tr = customerListBtn.parent().parent();
-	    var td = tr.children();
-	    var customerId = td.eq(0).text();
+		 var customerListBtn = $(this);
+		 var tr = customerListBtn.parent().parent();
+		 var td = tr.children();
+		 var tdArray = new Array();// 배열선언
+
+		     td.each(function(i){
+	
+		         tdArray.push(td.eq(i).text());
+	
+		     });			
+	   
+   	    var customerId = td.eq(0).text();
 	    var customerName = td.eq(1).text();
 	    var customerCall = td.eq(2).text();
 	    var zipCode = td.eq(3).text();
 	    var customerAddress = td.eq(4).text();
 	    var customerAddress2 = td.eq(5).text();
+	  
 
 	
-		window.opener.document.getElementById("customerId").value = customerId;
+		window.opener.document.getElementById("customerId").value =  customerId
 		window.opener.document.getElementById("customerName").value = customerName;
 		window.opener.document.getElementById("customerCall").value = customerCall;
-		window.opener.document.getElementById("customerName").value = customerName;
 		window.opener.document.getElementById("zipCode").value = zipCode;
 		window.opener.document.getElementById("customerAddress").value = customerAddress;
 		window.opener.document.getElementById("customerAddress2").value = customerAddress2;

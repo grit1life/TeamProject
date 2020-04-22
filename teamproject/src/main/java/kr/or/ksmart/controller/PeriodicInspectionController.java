@@ -131,7 +131,7 @@ public class PeriodicInspectionController {
 	
 	//개인 고객 팝업창  리스트
 	@GetMapping("/customerSearchModal")
-	public String customerSearchModalList() {	
+	public String customerSearchModalList() {
 		
 		return "periodicInspection/customerSearchModal";
 	}

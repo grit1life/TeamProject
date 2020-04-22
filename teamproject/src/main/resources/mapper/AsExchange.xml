@@ -14,6 +14,7 @@
 		<result property="rentalToDate" column="rental_to_date"/>
 		<result property="goodsCode" column="goods_code"/>
 		<result property="goodsName" column="goods_name"/>
+		<result property="requestReason" column="request_reason"/>
 		<result property="visitDate" column="visit_date"/>
 		<result property="visitExpectedDate" column="visit_expected_date"/>
 		<result property="staffId" column="staff_id"/>
@@ -36,9 +37,7 @@
 	
 	
 	
-	
-	
-	
+
 	
 	
 	
@@ -90,19 +89,24 @@
 	
 	<!--교환현황 업데이트  -->
 	<update id="eUpdate" parameterType="kr.or.ksmart.domain.AsExchange">
-		UPDATE as_exchange
+		update
+		    as_reception AS AR, as_exchange AS AE
 		SET
-			working_situation=#{workingSituation},
-			visit_date=#{visitDate},
-			exchange_date=#{exchangeDate},
-			staff_id2=#{staffId2}			
-		WHERE 
-			exchange_code=#{exchangeCode};
-	
+		   AR.working_situation=#{workingSituation},
+		   AE.working_situation=#{workingSituation},
+		   AE.visit_date=#{visitDate},
+		   AE.exchange_date=#{exchangeDate},
+		   AE.staff_id2=#{staffId2}							
+		where
+		     AR.reception_code = AE.reception_code;
+			     
 	</update>
 	
 	
-
+	<!--삭제  -->
+	<delete id="eDelete" parameterType="String">
+		DELETE FROM as_reception WHERE reception_code=#{receptionCode};
+	</delete>
 
 
 
