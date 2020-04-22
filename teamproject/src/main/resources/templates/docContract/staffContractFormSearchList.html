@@ -52,65 +52,9 @@ $(function(){
 			 <div class="card-body">
 		         <!-- left -->
 		         <form id="contractSerch" action="contractFormSearchList" method="get">
-			         <div class="row" >
-			           <!-- 1 -->
-			           <div class="col-md-6" style="max-width: 25%;">
-			             <div class="form-group">
-			               <label>고객명</label>
-			               <input type="text" class="form-control select2bs4" style="width: 100%;" name="customerName">
-			             </div>
-			             <!-- /.form-group -->
-			             <div class="form-group">
-			               <label>직원</label>
-			          	   <input type="text" class="form-control select2bs4" list="staffList" style="width: 100%;" name="staffName">
-			               <datalist id="staffList">
-			               		<option th:each="l : ${staffList}" th:value="${l.staffName}"></option>
-			               </datalist>
-			             </div>
-			           </div>
-			           <!-- 2 -->
-			           <div class="col-md-6" style="max-width: 25%;">
-			              <div class="form-group">
-				               <label>전화</label>
-				          <input type="text" class="form-control select2bs4" name="deliveryTel">
-				          </div>
-			             <div class="form-group">
-			               <label>세트명</label>
-			               <input type="text" class="form-control select2bs4" list="setList" name="setName">
-			               <datalist id="setList">
-			               		<option th:each="l : ${setList}" th:value="${l.setName}"></option>
-			               </datalist>
-			             </div>
-			           </div>
-			           <!-- 3 -->
-			           <div class="col-md-6" style="max-width: 25%;">
-			             <!-- /.form-group -->
-			             <div class="form-group">
-			               <label>렌탈시작일</label>
-				         	<input type="date" class="form-control select2bs4" name="rentalFromDate">
-				         </div>
-			             <div class="form-group">
-			               <label>제품명</label>
-			               <input type="text" class="form-control select2bs4" list="goodsName" name="goodsName">
-			               <datalist id="goodsName">
-			               		<option th:each="l : ${goodsList}" th:value="${l.goodsName}"></option>
-			               </datalist>
-			             </div>
-			           </div>
-			           <!-- 4 -->
-			           <div class="col-md-6" style="max-width: 25%;">
-			             <!-- /.form-group -->
-			             <div class="form-group">
-			               <label>렌탈종료일</label>
-			               <input type="date" class="form-control select2bs4" name="rentalToDate">
-			             </div>
-			             <div class="form-group" style="position: absolute;bottom: 0;">
-			               <button id="SerchBtn" type="submit" class="btn btn-info">검색</button>
-			             </div>
-			             <!-- /.form-group -->
-			           </div>
-			           <!-- /.col -->
-			         </div>
+			         
+			         <div th:replace="fragments/searchDiv"></div>
+			         
 		         </form>
 		            <!-- /.row -->
 		      </div>
