@@ -1,5 +1,7 @@
 package kr.or.ksmart.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +40,37 @@ public class AsExchangeController {
 			AsExchangeService.eDelte(receptionCode);
 			return "redirect:/aList";
 		}
+		
+		
+		//검색
+		@PostMapping("/AsExchangeSearchList")
+		public String AsExchangeSearchList(       @RequestParam(value="work" ,required=false) 					String work
+												 ,@RequestParam(value="workingSituation" ,required=false) 		String workingSituation
+												 ,@RequestParam(value="branchName" ,required=false)		        String branchName
+												 ,@RequestParam(value="customerName" ,required=false) 		    String customerName
+												 ,@RequestParam(value="staffName" ,required=false) 			    String staffName
+												 ,@RequestParam(value="toDate" ,required=false) 			    String toDate													
+												 ,@RequestParam(value="fromDate", required = false)             String fromDate
+												 ,@RequestParam(value="page", required = false)                 String page
+												 ,Model model) {
+				
+			if(page==null) {
+				page = "1";
+			}
+			int pageNum = Integer.parseInt(page);
+			Map<String, Object> map = AsExchangeService.AsExchangeSearchList(work,workingSituation, customerName, branchName, staffName, fromDate, toDate, pageNum);
+			
+			model.addAttribute("AsExchangeList", map.get("AsExchangeList"));
+			model.addAttribute("currentPage", map.get("currentPage"));
+			model.addAttribute("startPage", map.get("startPage"));
+			model.addAttribute("endPage", map.get("endPage"));
+			model.addAttribute("lastPage", map.get("lastPage"));
+			
+			System.out.println(map.get("startPage"));
+			return "asReception/aList";
+			
+			}	
+		
 	}
 
 

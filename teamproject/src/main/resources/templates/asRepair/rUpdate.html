@@ -71,64 +71,61 @@
   			  <div class="col-md-6" style="max-width: 25%;"> 
 	                <div class="form-group">
 	                  <label>계약서 코드</label>
-	                    <input type="text" id="1" name="contractCode" class="form-control" readonly="readonly">
+	                    <input type="text" id="1" name="contractCode" th:value="${AsRepair.contractCode}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>고객 아이디</label>
-			            <input type="text" id="3" name="customerId" class="form-control" readonly="readonly">
+			            <input type="text" id="3" name="customerId" th:value="${AsRepair.customerId}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>연락처</label>
-			            <input type="text" id="b" name="customerCall" class="form-control" readonly="readonly">
+			            <input type="text" id="b" name="customerCall" th:value="${AsRepair.customerCall}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>기본 주소</label>
-			            <input type="text" id="d" name="customerAddress" class="form-control" readonly="readonly">
+			            <input type="text" id="d" name="customerAddress" th:value="${AsRepair.customerAddress}" class="form-control" readonly="readonly">
 	                </div>
 	                
-	                <div class="form-group">
-	                  <label>고객 이메일</label>
-			            <input type="text" id="f" name="customerEmail" class="form-control" readonly="readonly">
-	                </div>
 	                
+	                 <!-- /.form-group -->
 	                <div class="form-group">
-	                  <label id="name3">수리 대상 상품 세트 코드</label>
-			            <input type="text" id="5" name="setCode" class="form-control" readonly="readonly">
-	                </div>
+	                  <label id="name1">수리 대상 상품 코드</label>
+			           <input type="text" id="4"  name="goodsCode" th:value="${AsRepair.goodsCode}" class="form-control" readonly="readonly">
+		           </div>
 	                
 	                <div class="form-group">
 	                  <label>렌탈 시작 일자</label>
-			            <input type="text" id="7" name="rentalFromDate" class="form-control" readonly="readonly">
+			            <input type="text" id="7" name="rentalFromDate" th:value="${AsRepair.rentalFromDate}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                 <div class="form-group">
 	                  <label>접수일</label>
-			            <input type="text" name="receptionDate" class="form-control" readonly="readonly">
+			            <input type="text" name="receptionDate"  th:value="${AsRepair.receptionDate}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>방문 예정일</label>
-			            <input type="text" name="visitExpectedDate" class="form-control" readonly="readonly">
+			            <input type="text" name="visitExpectedDate"  th:value="${AsRepair.visitExpectedDate}" class="form-control" readonly="readonly">
 	                </div>
 	                
 					<div id="repairType" class="form-group" style="display:none;">
-						<label style="margin-bottom: 15px;">A/S 비용 발생 여부</label>
+						<label>A/S 비용 발생 여부</label>
                         <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio" checked="">
+                          <input class="custom-control-input" type="radio" id="customRadio1" th:value="${AsRepair.repairType}" name="repairType" checked="" value="1">
                           <label for="customRadio1" class="custom-control-label">무상</label>
                         </div>
                         <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio">
+                          <input class="custom-control-input" type="radio" id="customRadio2" name="repairType" th:value="${AsRepair.repairType}">
                           <label for="customRadio2" class="custom-control-label">유상</label>
                         </div>                       
                     </div>
-   
+   				&emsp;
              	 	<div class="form-group">
 	                  <label>A/S 처리 기사명</label>
-			            <input type="text" name="staffId" class="form-control">
+			            <input type="text" name="staffId2" th:value="${AsRepair.staffId2}" class="form-control">
 	                </div>
 	                <!-- /.form-group -->
 	              </div>
@@ -138,61 +135,57 @@
 	              <div class="col-md-6" style="max-width: 40%;">
 	               	<div class="form-group">
 	                  <label>계약서 No</label>
-			           <input type="text" id="2" name="contractNo" class="form-control" readonly="readonly">
+			           <input type="text" id="2" name="contractNo" th:value="${AsRepair.contractNo}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                
 	                 <div class="form-group">
 	                  <label>고객명</label>
-			            <input type="text" id="a" name="customerName" class="form-control" readonly="readonly">
+			            <input type="text" id="a" name="customerName" th:value="${AsRepair.customerName}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                 <div class="form-group">
 	                  <label>우편번호</label>
-			            <input type="text" id="c" name="zipCode" class="form-control" readonly="readonly">
+			            <input type="text" id="c" name="zipCode" th:value="${AsRepair.zipCode}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>상세 주소</label>
-			            <input type="text" id="e" name="customerAddress" class="form-control" readonly="readonly">
+			            <input type="text" id="e" name="customerAddress" th:value="${AsRepair.customerAddress}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                
 	                <!-- /.form-group -->
 	                <div class="form-group">
-	                  <label id="name1">수리 대상 상품 코드</label>
-			           <input type="text" id="4"  name="goodsCode" class="form-control" readonly="readonly">
+	                  <label id="name1">수리 대상 상품명</label>
+			           <input type="text" id="4"  name="goodsName"  th:value="${AsRepair.goodsName}" class="form-control" readonly="readonly">
 		           </div>
-		           
-		           <div class="form-group">
-	                  <label id="name2">수리 대상 상품 세트 No</label>
-			           <input type="text" id="6" name="setNo" class="form-control" readonly="readonly">
-		           </div>
+		          
 		           
 		            <div class="form-group">
 	                  <label>렌탈 종료 일자</label>
-			            <input type="text" id="8" name="rentalToDate" class="form-control" readonly="readonly">
+			            <input type="text" id="8" name="rentalToDate"  th:value="${AsRepair.rentalToDate}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                 <div class="form-group">
 	                  <label>접수자 아이디</label>
-			            <input type="text" name="staffId" class="form-control" readonly="readonly">
+			            <input type="text" name="staffId" class="form-control" th:value="${AsRepair.staffId}" readonly="readonly">
 	                </div>
 	                   
 	                
 	                <div class="form-group">
 	                  <label>방문일</label>
-			            <input type="date" name="visitDate" class="form-control">
+			            <input type="date" name="visitDate" th:value="${AsRepair.visitDate}" class="form-control">
 	                </div>
 	                
 	               <div id="repairContents" class="form-group" style="display:none;">
 	                  <label>처리 결과</label>
-			            <input type="text" name="repairContents" class="form-control">
+			            <input type="text" name="repairContents" th:value="${AsRepair.repairContents}" class="form-control">
 	                </div>
- 	           		
- 	           		<div id="exchangeDate" class="form-group" style="display:none;">
+					&emsp;
+ 	           		<div id="exchangeDate" class="form-group" style="display:none; margin-top: 10px">
 	                  <label>수리 완료일</label>
-			            <input id="exchangeDate" type="date" name="exchangeDate" class="form-control">
+			            <input id="exchangeDate" type="date" name="repairCompletionDate" th:value="${AsRepair.repairCompletionDate}" class="form-control">
 	                </div>
 	                
 	                
@@ -213,60 +206,6 @@
    
    
    
-   <!--수리 비용 청구 등록 시작  -->
-  	<section class="content-header">  
-  	   <div class="container-fluid" id="repairCost" style="display:none;">   
-        <div class="card card-info">
-          <div class="card-header">
-            <h3 class="card-title">A/S 수리 비용 청구</h3>
-		        <div class="card-tools">
-				    <div style="display: inline-block;">
-				    	<button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-				    </div>
-				    <div style="display: inline-block;">
-				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
-				    </div>
-	   			</div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <!-- left -->
-          <form action="/test" method="post" id="form">    
-            <div class="row">
-            	<div class="col-md-6" style="max-width: 25%;"> 
-	                <div class="form-group">
-	                  <label>수리 현황 번호</label>
-	                    <input type="text" name="receptionCode" class="form-control" readonly="readonly">
-	                </div>  
-	            </div> 
-	            
-	            <div class="col-md-6" style="max-width: 25%;"> 
-	            	<div class="form-group">
-	                  <label>수리비 금액</label>
-	                    <input type="number" name="repairCost" class="form-control">
-	                </div>          
-	            </div>  
-	            <div class="col-md-6" style="max-width: 25%;"> 
-	            	<div class="form-group">
-	                  <label>청구일</label>
-	                    <input type="date" name="repairCostDate" class="form-control">
-	                </div> 
-	            </div> 
-     
-                  
-                  <div class="col-md-6" style="max-width: 10%;">
-	              	<button type="submit" class="btn btn-sm btn-primary" style="position: absolute;bottom: 0;margin-bottom: 18px;color:white;">확인</button>
-	              </div>   
-       
-            </div> 
-           
-          </form>
-          
-          </div>
-        </div>
-      </div>
-   </section>
-   <!--수리 비용 청구 끝시작  -->
    
    
    
@@ -281,6 +220,23 @@
   
   
   <script>
+  $('#customRadio2').click(function(event){ 
+	  console.log('click');
+	  popupOpen();	
+	  
+	  function popupOpen(){
+			var url= "/repairFeeBillingAndDeposit";    
+			var winWidth = 977;
+	 	    var winHeight = 510;
+		    var popupOption= "width="+winWidth+", height="+winHeight;    
+			window.open(url,"",popupOption);
+		}
+		
+	
+	
+  
+  });
+  
   $('.Complete').click(function(){
 	  
 	$('#exchangeDate').css('display','block');

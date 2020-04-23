@@ -6,6 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AsRepairFeeBillingAndDepositController {
 	
+	
+	@GetMapping("/repairFeeBillingAndDeposit")
+	public String repairFeeBillingAndDeposit(){
+		
+		return "/asRepair/repairFeeBillingAndDeposit";
+		
+		
+		
+	}
+	
 	@GetMapping("/rdList")
 	public String rbList(){
 		

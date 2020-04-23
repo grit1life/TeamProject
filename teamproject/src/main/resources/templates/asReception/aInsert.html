@@ -208,19 +208,20 @@
 	                </div>
 	              </div>
             	  <!--작업 구분 끝  --> 
-            	  <div class="col-sm-7 invoice-col">
-            	  	<label for="inputEmail3" class="col-sm-2 col-form-label">A/S 지점 코드</label>
-                   <div class="input-group mb-3" style="width: 300px;">
-                   <input type="text" class="form-control" id="branchCode" name="branchCode">              
-	                    <button type="button" id="branchSearchList" class="btn btn-success" style="margin-left: 10px;">
-								<i class="fas fa-search"></i>   
-						</button>		           
-                  </div>
+            	  	<div  style="border: 1px solid #D3D3D3; border-radius: 10px; te">
+            	  	<section class="content-header"> 
+				  		<label for="inputEmail3" class="col-sm-2 col-form-label">A/S 지점 코드</label>
+		                   <div class="input-group mb-3" style="width: 300px;">
+		                  	 <input type="text" class="form-control" id="branchCode" name="branchCode">              
+			                    <button type="button" id="branchSearchList" class="btn btn-success" style="margin-left: 10px;">
+										<i class="fas fa-search"></i>   
+								</button>		           
+                    	   </div>
                   
 
            		             		  
            		  
-           		   <label for="inputEmail3" class="col-sm-2 col-form-label">A/S 기사 아이디</label>
+           		   <label for="inputEmail3" class="col-sm-2 col-form-label">A/S기사 아이디</label>
                   <div class="input-group mb-3" style="width: 300px;">
                   <input type="text" class="form-control" id="staffCode" name="staffId2">              
 	                    <button type="button" class="btn btn-success" id="staffSearchList" style="margin-left: 10px;">
@@ -253,7 +254,7 @@
                  
                  <label for="inputEmail3" id="name4" class="col-sm-2 col-form-label">교환 사유</label>
                   <div class="input-group mb-3" style="width: 650px;">
-                  	<textarea name="requestReason" class="form-control" style="width: 400px; height:100px; resize:none;" >   
+                  	<textarea name="requestReason" class="form-control" style="width: 200px; height:100px; resize:none;" >   
                   	</textarea>    
                   </div>
 
@@ -268,12 +269,16 @@
 		            	</label>	
 		          </div>
 
-	  			  </div>
-	  			  
 	  			  <div class="card-footer">
 	                  <button type="submit" id="submit" class="btn btn-info">등록</button>
 	                   <a th:href="@{/index}" class="btn btn-default float-right">취소</a>                 
      			 </div>
+     			    </section>
+					</div>
+            	  	
+	  			  </div>
+	  			  
+            	  	
             	
 		<!-- right end -->
 	  </div>

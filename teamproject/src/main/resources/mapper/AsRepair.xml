@@ -4,10 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="kr.or.ksmart.mapper.AsExchangeMapper">
-		<resultMap type="kr.or.ksmart.domain.AsExchange" id="AsExchangeResultMap">
-		<result property="exchangeCode" column="exchange_code"/>
-		<result property="receptionCode" column="reception_code"/>
+<mapper namespace="kr.or.ksmart.mapper.AsRepairMapper">
+		<resultMap type="kr.or.ksmart.domain.AsRepair" id="AsRepairResultMap">
+		<result property="repairCode" column="repair_code"/>
+		<result property="repairType" column="repair_type"/>
+		<result property="repairCost" column="repair_cost"/>
+		<result property="billingDate" column="billing_date"/>
+		<result property="repairCompletionDate" column="repair_completion_date"/>
+		<result property="repairContents" column="repair_contents"/>
 		<result property="contractCode" column="contract_code"/>
 		<result property="contractNo" column="contract_no"/>
 		<result property="rentalFromDate" column="rental_from_date"/>
@@ -41,54 +45,59 @@
 	
 	
 	
-	<!--교환현황 상세보기  -->
-	<select id="SelectForUpdate" parameterType="String" resultMap="AsExchangeResultMap">
-		SELECT 
-		 AE.exchange_code	
-		,AR.contract_code
+	<!--수리현황 상세보기  -->
+	<select id="SelectForUpdate" parameterType="String" resultMap="AsRepairResultMap">
+	SELECT
+		 DC.contract_code
 		,DC.contract_no
 		,C.customer_id
 		,C.customer_name
 		,C.customer_call
 		,C.zip_code
 		,C.customer_address
-		,C.customer_address2 
-		,DC.goods_code
+		,C.customer_address2
+		,G.goods_code
 		,G.goods_name
 		,DC.rental_from_date
 		,DC.rental_to_date
 		,AR.reception_date
-		,AE.visit_date
-		,AR.visit_expected_date
 		,AR.staff_id
-		,AR.staff_id2
-		
-		FROM
-		as_exchange AS AE
-		JOIN
+		,AR.visit_expected_date
+		,RE.visit_date
+		,S.staff_name
+		,RE.repair_type
+		,RE.repair_contents
+		,RE.repair_completion_date
+	from
+		as_repair AS RE
+	JOIN
 		as_reception AS AR
-		ON
-		AE.reception_code = AR.reception_code
-		JOIN
+	ON
+		AR.reception_code = RE.reception_code
+	JOIN
 		doc_contract AS DC
-		ON
+	ON
 		DC.contract_code = AR.contract_code
-		JOIN
+	JOIN
 		customer AS C
-		ON
-		C.customer_id = AR.customer_id
-		JOIN
+	ON
+		DC.customer_id = C.customer_id
+	JOIN
 		goods AS G
-		ON
-		G.goods_code = DC.goods_code
-		GROUP BY
-		 AR.contract_code	
+	ON
+		G.goods_code = AR.goods_code
+	JOIN
+		staff AS S
+	ON
+		S.staff_code = AR.staff_id2
+	GROUP BY 
+		DC.contract_code
 			
-	</select>
+	</select> 
 	
 	
 	<!--교환현황 업데이트  -->
-	<update id="eUpdate" parameterType="kr.or.ksmart.domain.AsExchange">
+	<!-- <update id="eUpdate" parameterType="kr.or.ksmart.domain.AsExchange">
 		update
 		    as_reception AS AR, as_exchange AS AE
 		SET
@@ -100,16 +109,16 @@
 		where
 		     AR.reception_code = AE.reception_code;
 			     
-	</update>
+	</update> -->
 	
 	
 	<!--삭제  -->
-	<delete id="eDelete" parameterType="String">
+	<!-- <delete id="eDelete" parameterType="String">
 		DELETE FROM as_reception WHERE reception_code=#{receptionCode};
-	</delete>
+	</delete> -->
 	
 	<!--검색 리스트 페이징  -->
- 	<select id="findTotalCount" resultType="int"> 
+ 	<!-- <select id="findTotalCount" resultType="int"> 
  	SELECT 
 		COUNT(*) 
       FROM 
@@ -143,10 +152,10 @@
 		 	  OR  AR.reception_code BETWEEN  #{fromDate}  AND  #{toDate}  ) AS CNT;
  	
 
-	</select>
+	</select> -->
 	
 	<!--검색 -->
-	<select id="AsExchangeSearchList" parameterType="String"  resultMap="AsExchangeResultMap">
+	<!-- <select id="AsExchangeSearchList" parameterType="String"  resultMap="AsExchangeResultMap">
 	 	 SELECT 
 			 AR.reception_code     
 			,AR.`work`             
@@ -177,7 +186,7 @@
 		 	  OR  AR.reception_code BETWEEN  #{fromDate}  AND  #{toDate}
 		      LIMIT ${startClmn}, ${endClmn};     	
 	</select>
-
+ -->
 
 
 

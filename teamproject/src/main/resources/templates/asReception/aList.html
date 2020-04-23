@@ -26,26 +26,41 @@
        </div>
      </section>  
      
-
-     <section class="content-header">  
-      <div class="container-fluid">
-	<div class="card card-defualt card-outline">
-		          <div class="card-body">
-		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
-		              <li class="nav-item">
-		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">교환</a>
-		              </li>
-		              <li class="nav-item">
-		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">수리</a>
-		              </li>
-		            </ul>
-		            <div class="tab-content" id="custom-content-above-tabContent">		            	
-		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
-		              			&emsp;
-		              			<div class="form-group" style="padding-bottom: 15px; margin-left: 180px;">	
-									<div style="display: inline-block;">
-										<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
-									        <option>진행 상황</option>
+     <form th:action="@{/AsExchangeSearchList}" method="post">
+	     <section class="content-header">  
+	      <div class="container-fluid">   
+	        <div class="card card-default">
+	         
+	         <!-- /.card-header -->
+	          <div class="card-header">
+	            <h3 class="card-title">검색창</h3>
+			        <div class="card-tools">
+					    <div style="display: inline-block;">
+					    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+					    </div>
+					    <div style="display: inline-block;">
+					    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
+					    </div>
+		   			</div>
+	          </div>
+	          <!-- /.card-header -->
+	          
+	          
+	          <div class="card-body">
+	            <div class="row">
+		            <div class="form-group" style="padding-bottom: 15px;">
+		            				<div style="display: inline-block;">
+										<select class="form-control select2bs4" style="width: 100%;" name="work">
+									        <option disabled="disabled">작업 구분</option>
+									        <option value="교환">교환</option>
+									        <option value="수리">수리</option>
+									    </select>
+								    </div> 
+				    	
+		            
+		            				<div style="display: inline-block;">
+										<select class="form-control select2bs4" style="width: 100%;" name="workingSituation">
+									        <option disabled="disabled">진행 상황</option>
 									        <option value="작업중">작업중</option>
 									        <option value="작업완료">작업완료</option>
 									    </select>
@@ -61,26 +76,49 @@
 										<input type="text" name="branchName" class="form-control select2bs4" placeholder="A/S처리점">		
 								    </div>
 								    
-								    <div style="display: inline-block;">
-										<input type="text" name="customerName" class="form-control select2bs4" placeholder="A/S처리기사">		
+								    <div style="display: inline-block;">								    
+										<input type="text" name="staffName" class="form-control select2bs4" placeholder="A/S처리기사">		
 								    </div>
 								    
 								    <div style="display: inline-block;">
-										<input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+								    	<label>접수일</label>
+										<input type="date" name="fromDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
 								    </div> 
   					
      	          					~	
 								 	<div style="display: inline-block;">
-										<input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+										<input type="date" name="toDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
 								    </div> 	          
 								    
 								    <div style="display: inline-block;">
 								    	<button type="submit" class="btn btn-info">
 								           		검색
 								        </button>
-								    </div>		           
-								</div>  
-		                
+								    </div>			            		           
+					</div>
+	              </div>             
+	            </div>
+	          </div>
+	      </div>
+	    </section>
+	 </form>
+
+     <section class="content-header">  
+      <div class="container-fluid">
+	<div class="card card-defualt card-outline">
+		          <div class="card-body">
+		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+		              <li class="nav-item">
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">교환</a>
+		              </li>
+		              <li class="nav-item">
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">수리</a>
+		              </li>
+		            </ul>
+		            <div class="tab-content" id="custom-content-above-tabContent">	
+		            		            	
+		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+		              			
 		                <!-- 교환목록 -->
 		                 <table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
 					    	<thead>
@@ -160,47 +198,10 @@
 					<!-- 페이징 끝 -->												  	
 																	
 		              </div>
+		              
 		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-		               		&emsp;
-		              			<div class="form-group" style="padding-bottom: 15px; margin-left: 180px;">	
-									<div style="display: inline-block;">
-										<select class="form-control select2bs4" style="width: 100%;" name="staffLevel">
-									        <option>진행 상황</option>
-									        <option value="작업중">작업중</option>
-									        <option value="작업완료">작업완료</option>
-									    </select>
-								    </div> 
-				    	
-								    
-								    <div style="display: inline-block;">
-										<input type="text" name="customerName" class="form-control select2bs4" placeholder="A/S요청인">		
-								    </div> 
-								    
-								    
-								    <div style="display: inline-block;">
-										<input type="text" name="branchName" class="form-control select2bs4" placeholder="A/S처리점">		
-								    </div>
-								    
-								    <div style="display: inline-block;">
-										<input type="text" name="customerName" class="form-control select2bs4" placeholder="A/S처리기사">		
-								    </div>
-								    
-								    <div style="display: inline-block;">
-										<input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-								    </div> 
-  					
-     	          					~	
-								 	<div style="display: inline-block;">
-										<input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-								   			
-								   
-								    </div> 	          
-								    <div style="display: inline-block;">
-								    	<button type="submit" class="btn btn-info">
-								           		검색
-								        </button>
-								    </div>		           
-								</div> 
+		               		      
+							
 		               
 		                <!-- 수리 목록 -->
 		                 <table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
