@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<br>
+	<h5 th:text="${getDiscountStartDay+'부터 적용 할인'}"></h5>
+	<input type="hidden" th:value="${getDiscountStartDay}" id="getDiscountStartDay">
+	<span th:text="${getInputDate}+' '+${getInputStaffName}+' 입력'"></span>
+	<div>
+		<a id="updateBtn" class="delete btn btn-info btn-sm" href="#" style="padding:1px 4px 1px 4px;margin-bottom: 5px">
+	    	<img src="../images/update.png"/>&ensp;수정
+	    </a>    
+    	<a id="deleteBtn" class="delete btn btn-danger btn-sm" th:href="${'/admin/discountDelete?discountStartDay='+getDiscountStartDay}" style="padding:1px 4px 1px 4px;float: right;margin-bottom: 5px">
+	    	<i class="fas fa-trash"></i>&ensp;삭제
+	    </a>         
+	</div>
+	<table id="example2" class="disStartTable table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>렌탈 기간(일)</th>
+				<th>할인율</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="DDL:${disDetailsList}">
+				<td th:text="${DDL.rentalFromPeriod}+'일 이상 렌탈'"></td>
+				<td th:text="${DDL.discountRate}+'% 힐인'"></td>
+			</tr>
+		</tbody>
+	</table>

@@ -4,6 +4,60 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.or.ksmart.mapper.PriceMapper">
+	<resultMap type="PriceSale" id="discountMap">
+		<result property="rentalFromPeriod" column="rental_from_period"/>
+		<result property="discountRate" column="discount_rate"/>
+		<result property="discountStartDay" column="discount_start_day"/>
+		<result property="inputStaffCode" column="input_staff_code"/>
+		<result property="inputDate" column="input_date"/>
+		<result property="inputStaffName" column="staff_name"/>
+	</resultMap>
+	
+	<resultMap type="PriceGoods" id="priceGoodsMap">
+		<result property="goodsCategoryName" column="goods_category_name"/>
+		<result property="goodsCategoryCode" column="goods_category_code"/>
+		<result property="goodsCode" column="goods_code"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="goodsDesc" column="goods_desc"/>
+		<result property="rentalDayPrice" column="rental_day_price"/>
+	</resultMap>
+	
+	<!-- 장기 렌탈 할인 신기 등록 -->
+	<insert id="discountInsert" parameterType="java.util.List">
+		INSERT INTO price_sale_basic
+			(rental_from_period, discount_rate, discount_start_day, input_staff_code, input_date)
+		VALUES
+		<foreach collection="list" item="item" separator=","> 
+		    (
+		      #{item.rentalFromPeriod}, #{item.discountRate},
+		      #{item.discountStartDay}, #{item.inputStaffCode},
+		      NOW()
+		    )
+	    </foreach>
+	</insert>
+	
+	
+	<!-- 장기 렌탈 할인 시작날 목록 -->
+	<select id="discountStartDay" resultType="String">
+		SELECT discount_start_day AS discountStartDay
+		FROM price_sale_basic
+		GROUP BY discount_start_day
+		ORDER BY discount_start_day DESC
+	</select>
+	
+	<!-- 장기 렌탈 할인 상세 정보-->
+	<select id="disDetailsList" parameterType="String" resultMap="discountMap">
+		SELECT PS.*,S.staff_name
+			FROM 
+				price_sale_basic AS PS
+			LEFT join
+				staff AS S
+			ON 
+				PS.input_staff_code=S.staff_code
+			WHERE 
+				discount_start_day=#{discountStartDay};		
+
+	</select>
 	
 	<select id="period" resultType="int">
 		SELECT
@@ -61,6 +115,46 @@
 					price_sale_basic AS PS
 				WHERE 
 					PS.rental_from_period &lt;= #{period});
+	</select>
+	
+	<delete id="discountDelete" parameterType="String">
+		DELETE FROM price_sale_basic WHERE discount_start_day=#{discountStartDay};
+	</delete>
+	
+	<select id="goodsPriceList" parameterType="PriceGoods" resultMap="priceGoodsMap">
+		SELECT 
+			GC.goods_category_name,G.goods_code,G.goods_name,G.goods_desc,PG.rental_day_price
+		FROM
+			goods AS G
+		LEFT JOIN
+			price_goods AS PG
+		ON 
+			PG.goods_code=G.goods_code
+		INNER JOIN
+			goods_category AS GC
+		ON 
+			G.goods_category_code=GC.goods_category_code
+			
+		<if test="goodsCategoryCode neq null and goodsCategoryCode neq ''.toString()">
+			AND 
+				GC.goods_category_code=#{goodsCategoryCode}
+		</if>
+		<if test="goodsCode neq null and goodsCode neq ''.toString()">
+			AND 
+				G.goods_code=#{goodsCode}
+		</if>
+		<if test="goodsName neq null and goodsName neq ''.toString()">
+			AND
+				G.goods_name like '%${goodsName}%'
+		</if>
+		<if test="goodsDesc neq null and goodsDesc neq ''.toString()">
+			AND 
+				G.goods_desc LIKE '%${goodsDesc}%'
+		</if>
+		<if test="rentalDayPriceExistence neq null and rentalDayPriceExistence neq ''.toString()">
+			WHERE
+				PG.rental_day_price IS NULL
+		</if>	
 	</select>
 
 </mapper>

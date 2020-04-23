@@ -27,84 +27,192 @@
          </div>
        </div>  
     </section>
-  
 
   <section class="content">
   	<div class="container-fluid">
-	 <div class="card card-info">
-  	  <div class="card-header">
-        <h3 class="card-title">기본 할인 등록</h3>
-      </div>	
-		
-		
-		 
-		 <div class="card-body">
-			<div style="margin-bottom: 20px;">
-				<label>적용 시작 날&emsp;</label>
-				<div style="display:inline-block;">
-					<input name="rentalFromPeriod" type="date" class="form-control" style="padding-right:0px;">
-				</div>
-		  	</div>	
-		  	<table id="example2" class="table table-bordered table-hover">
-		    	<thead>
-		  			<tr class="trAddSale">
-		  				<th style="text-align:center;">렌탈 최소 일수</th>
-		  				<th style="text-align:center;">할인율</th>
-		  				<th></th>
-		  				<th></th>
-		  				<th></th>
-		  			</tr>
-		         </thead>
-	             <tbody>
-		             <tr class="trAddSale">
-		  				<td>
-		  					<div style="display:inline-block;">
-		  						<input name="rentalFromPeriod" value="1" type="number" class="form-control" style="padding-right:0px;">
-		  					</div>
-		  					<div style="display:inline-block;">
-		  						일 ~
-		  					</div>
-		  				</td>
-		  				<td>
-		  					<div style="display:inline-block;">
-		  						<input name="discountRate" type="number" class="form-control" style="padding-right:0px;">
-		  					</div>
-		  					<div style="display:inline-block;">
-		  						% 할인
-		  					</div>
-		  				</td>
-		  				<td style="text-align: center;vertical-align: middle;">
-	                		<button type="button" class="addSale btn btn-sm btn-info" style="padding:1px 4px 1px 4px;">
-	        					<i class="fas fa-folder"></i>&ensp;추가
-		      				</button>
-		              	</td>
-		  				<td style="text-align: center;vertical-align: middle;">
-		  					<a class="delete btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
-	                    		<i class="fas fa-trash"></i>&ensp;삭제</a>
-	                    </td>
-	                    <td style="vertical-align: middle;">
-	                    	&ensp;<div class="btn-group-vertical" style="text-align: center;vertical-align: middle;">
-		                        <button type="button" class="up btn btn-default" style="padding: 0 3px 0 3px;margin:0;font-size: 11px;">▲</button>
-		                        <button type="button" class="down btn btn-default" style="padding: 0 3px 0 3px;margin:0;font-size: 11px;">▼</button>
-	                        </div>
-	                    </td>
-		  			</tr>
-	             </tbody>
-			</table>
-		  </div>
-
-		  <!-- /.card-body -->  
-        <div class="card-footer">
-           <button type="submit" class="btn btn-info">입력 내용 확인</button>
-           <button type="submit" class="btn btn-default float-right">Cancel</button>
-        </div>
-	 </div>   	    
+		<div class="row" >
+		<div class="col-md-8">
+		 <div class="card card-info">
+	  	  <div class="card-header">
+	        <h3 class="card-title">장기 렌탈 할인 등록</h3>
+	      </div>	
+			 <div class="card-body">
+				<div style="margin-bottom: 20px;">
+					<label>적용 시작 날&emsp;</label>
+					<div style="display:inline-block;">
+						<input name="discountStartDay" type="date" class="form-control" style="padding-right:0px;">
+					</div>
+			  	</div>	
+			  	
+			  	<table id="example2" class="table table-bordered table-hover">
+			    	<thead>
+			  			<tr class="trAddSale">
+			  				<th style="text-align:center;">렌탈 최소 일수</th>
+			  				<th style="text-align:center;">할인율</th>
+			  				<th></th>
+			  				<th></th>
+			  				<th></th>
+			  			</tr>
+			         </thead>
+		             <tbody id="disInsertTbody">
+			             <tr class="trAddSale">
+			  				<td>
+			  					<div style="display:inline-block;">
+			  						<input name="rentalFromPeriod" value="1" type="number" class="form-control" style="padding-right:0px;">
+			  					</div>
+			  					<div style="display:inline-block;">
+			  						일 ~
+			  					</div>
+			  				</td>
+			  				<td>
+			  					<div style="display:inline-block;">
+			  						<input name="discountRate" type="number" class="form-control" style="padding-right:0px;">
+			  					</div>
+			  					<div style="display:inline-block;">
+			  						% 할인
+			  					</div>
+			  				</td>
+			  				<td style="text-align: center;vertical-align: middle;">
+		                		<button type="button" class="addSale btn btn-sm btn-info" style="padding:1px 4px 1px 4px;">
+		        					<i class="fas fa-folder"></i>&ensp;추가
+			      				</button>
+			              	</td>
+			  				<td style="text-align: center;vertical-align: middle;">
+			  					<a class="delete btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+		                    		<i class="fas fa-trash"></i>&ensp;삭제</a>
+		                    </td>
+		                    <td style="vertical-align: middle;">
+		                    	&ensp;<div class="btn-group-vertical" style="text-align: center;vertical-align: middle;">
+			                        <button type="button" class="up btn btn-default" style="padding: 0 3px 0 3px;margin:0;font-size: 11px;">▲</button>
+			                        <button type="button" class="down btn btn-default" style="padding: 0 3px 0 3px;margin:0;font-size: 11px;">▼</button>
+		                        </div>
+		                    </td>
+			  			</tr>
+		             </tbody>
+				</table>
+			  </div>
+	
+			  <!-- /.card-body -->  
+	        <div class="card-footer">
+	           <button type="submit" id="disInsertBtn" class="btn btn-info">등록</button>
+	           <button type="submit" class="btn btn-default float-right">Cancel</button>
+	        </div>
+		 </div>   	    
+		</div>   
+		 <div class="col-md-4">
+			 <div class="card card-info">
+			  	<div class="card-header">
+			      <h3 class="card-title">장기 렌탈 할인 리스트</h3>
+			    </div>	
+				<div class="card-body">
+					
+				  	<table id="example2" class="disStartTable table table-bordered table-hover">
+				    	<thead>
+				  			<tr class="trAddSale">
+				  				<th>적용 시작 날짜</th>
+				  				<th>상세</th>
+				  			</tr>
+				         </thead>
+			            <tbody>
+				             <tr class="trAddSale" th:each="disStart:${discountStartDayList}">
+				  				<td id="disStartTd" th:text="${disStart}"></td>	
+				  				<td style="text-align: center;vertical-align: middle;">
+			                		<button type="button" id="detailsBtn" class="btn btn-primary btn-sm" style="padding:1px 4px 1px 4px;">
+			        					<i class="fas fa-folder"></i>&ensp;상세
+				      				</button>
+				              	</td>
+				  			</tr>
+			            </tbody>
+					</table>
+				  </div>
+			 </div>   	    
+		 </div>
+		</div>
 	</div>
   </section>
-    <!-- 견적서 입력 data end-->
-  </div>
+ </div>
+
   
 <script>
+	//할인 등록
+	$('#disInsertBtn').click(function(){
+		console.log('disInsertBtn');
+		var periodList = [];
+		var rateList = [];
+		var listObj = {};
+		var discountStartDay = $('[name="discountStartDay"]').val();
+		
+		var rentalFromPeriod = $('#disInsertTbody').find('[name="rentalFromPeriod"]');
+		var discountRate = $('#disInsertTbody').find('[name="discountRate"]');
+
+		for(var i=0; i<rentalFromPeriod.size(); i++){
+			periodList.push(rentalFromPeriod.eq(i).val());
+			rateList.push(discountRate.eq(i).val());
+		}
+		listObj.periodList = periodList;
+		listObj.rateList = rateList;
+		listObj.discountStartDay = discountStartDay;
+		
+		var param = JSON.stringify(listObj);
+		$.ajax({
+		    type: "post",
+		    url: "/admin/disInsert",
+		    contentType: 'application/json',
+		    data: param,
+		    dataType: "html",
+		    error: err => {
+		      
+		      console.log(err);
+		    },
+		    success: data => {
+		    console.log(data);
+		 
+		    }
+		  });
+		});
+	
+	//선택한 과거의 할인 상세정보 표시
+	$(document).on('click', '#detailsBtn', function(){
+		var disStartText = $(this).parents('tr').find('#disStartTd').text();
+		console.log(disStartText+"<-disStartText");
+		$.ajax({
+		    type: "get",
+		    url: "/staff/disDetailsList",
+		    data: {"disStart":disStartText},
+		    dataType: "html",
+		    error: err => {
+		      renderMsgModal(
+		        "오류 메시지",
+		        "서버 에러가 발생했습니다. 관리자에게 문의 바랍니다."
+		      );
+		      console.log(err);
+		    },
+		    success: data => {
+		    	$('.disStartTable').after(data);
+		    }
+		  });
+	});
+	$(document).on('click', '#updateBtn', function(){
+	});
+	$(document).on('click', '#deleteBtn', function(){
+		$('#getDiscountStartDay').val();
+		$.ajax({
+		    type: "get",
+		    url: "/admin/discountDelete",
+		    data: {"disStart":disStartText},
+		    dataType: "html",
+		    error: err => {
+		      renderMsgModal(
+		        "오류 메시지",
+		        "서버 에러가 발생했습니다. 관리자에게 문의 바랍니다."
+		      );
+		      console.log(err);
+		    },
+		    success: data => {
+		    	$('.disStartTable').after(data);
+		    }
+		  });
+	});
 
 	$(document).on('click', '.addSale', function(){
 	    var clone = $(this).parents('.trAddSale').clone();
@@ -126,10 +234,6 @@
 	    console.log(up);
 	    up.insertBefore(up.prev());
 	});
-
-
-
-
 </script>
   
 </th:block>
