@@ -1,10 +1,18 @@
 package kr.or.ksmart.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import kr.or.ksmart.domain.RepairFeeBillingAndDeposit;
+import kr.or.ksmart.service.RepairFeeBillingAndDepositService;
 
 @Controller
 public class AsRepairFeeBillingAndDepositController {
+	
+	
+	@Autowired
+	private RepairFeeBillingAndDepositService RepairFeeBillingAndDepositService;
 	
 	
 	@GetMapping("/repairFeeBillingAndDeposit")
@@ -15,6 +23,15 @@ public class AsRepairFeeBillingAndDepositController {
 		
 		
 	}
+	
+	@PostMapping("/rdInsert")
+	public String rdInsert(RepairFeeBillingAndDeposit RepairFeeBillingAndDeposit) {
+		
+		RepairFeeBillingAndDepositService.rdInsert(RepairFeeBillingAndDeposit);
+		
+		return "/asRepair/repairFeeBillingAndDeposit";
+	}
+		
 	
 	@GetMapping("/rdList")
 	public String rbList(){

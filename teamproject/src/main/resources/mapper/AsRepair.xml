@@ -48,7 +48,8 @@
 	<!--수리현황 상세보기  -->
 	<select id="SelectForUpdate" parameterType="String" resultMap="AsRepairResultMap">
 	SELECT
-		 DC.contract_code
+		 RE.repair_code
+		,DC.contract_code
 		,DC.contract_no
 		,C.customer_id
 		,C.customer_name
@@ -96,26 +97,26 @@
 	</select> 
 	
 	
-	<!--교환현황 업데이트  -->
-	<!-- <update id="eUpdate" parameterType="kr.or.ksmart.domain.AsExchange">
+	<!--수리현황 업데이트  -->
+	<update id="rUpdate" parameterType="kr.or.ksmart.domain.AsRepair">
 		update
-		    as_reception AS AR, as_exchange AS AE
+		    as_reception AS AR, as_repair AS RE
 		SET
 		   AR.working_situation=#{workingSituation},
-		   AE.working_situation=#{workingSituation},
-		   AE.visit_date=#{visitDate},
-		   AE.exchange_date=#{exchangeDate},
-		   AE.staff_id2=#{staffId2}							
+		   RE.working_situation=#{workingSituation},
+		   RE.visit_date=#{visitDate},
+		   RE.repair_completion_date=#{repairCompletionDate},
+		   RE.staff_id2=#{staffId2}							
 		where
-		     AR.reception_code = AE.reception_code;
+		     AR.reception_code = RE.reception_code;
 			     
-	</update> -->
+	</update>
 	
 	
 	<!--삭제  -->
-	<!-- <delete id="eDelete" parameterType="String">
+	<delete id="rDelete" parameterType="String">
 		DELETE FROM as_reception WHERE reception_code=#{receptionCode};
-	</delete> -->
+	</delete> 
 	
 	<!--검색 리스트 페이징  -->
  	<!-- <select id="findTotalCount" resultType="int"> 

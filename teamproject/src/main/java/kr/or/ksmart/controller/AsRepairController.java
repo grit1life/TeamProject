@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.ksmart.domain.AsExchange;
+import kr.or.ksmart.domain.AsRepair;
 import kr.or.ksmart.service.AsRepairService;
 
 @Controller
@@ -34,5 +37,20 @@ public class AsRepairController {
 		
 		return "/asRepair/rUpdate";
 	}
-
+	// 수정
+	@PostMapping("/rUpdate")
+	public String rUpdate(AsRepair AsRepair) {
+						int result = AsRepairService.rUpdate(AsRepair);
+						
+							return "redirect:/aList";
+					}
+	//삭제
+	@PostMapping("/rDelete")
+	public String rDelete(@RequestParam(value="receptionCode", required = false) String receptionCode){
+				AsRepairService.rDelte(receptionCode);
+				return "redirect:/aList";
+			}
+	
+	//수리비 청구 등록
+	
 }

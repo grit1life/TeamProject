@@ -1,270 +1,296 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>index</title>
-<style>
-	.container{
-	 	padding: 30px; 
-	 	width:700px; 
-	 }
-	h1{
-		text-align: center;
-		margin-bottom: 50px
-	}
-	table{
-		border-collapse: collapse;
-	}
-	h3{
-		font-weight : normal;
-		font-size: 15px;
-	}
-	th,td{
-		padding: 10px;
-		border: 1px solid black;
-	}
-	input{
-		border:none;
-		width:80px;
-		font-size: 15px;
-	}
-	.company-info{
-		float: right;	
-	}
-	.estimate-info{
-		margin-top: 50px;
-		clear: both;
-		margin-bottom: 50px;
-	}
-	.num{
-		width:50px;
-	}
-	.lineItem{
-		width: 100px
-	}
-	.price{
-		width: 80px;
-	}
-	.note{
-		width: 140px;
-		
-	}
-	.btnPrint{
-		margin-top: 20px;
-	}
-	/* 견적시 밑줄 */
-	u {
-	   text-decoration : none;
-	   border-bottom : 4px double black;
-	   padding-bottom : 5px;
-	}
-	@media print{
-		.btnPrint{
-			display:none;
-		}
-	}
-	.tableSmlTitle{
-		background-color: #E6E6E6;
-	}
-	/* 인쇄시 색 출력 */
-	.tableSmlTitle{ 
-		-webkit-print-color-adjust:exact; 
-	}
+<html class="translated-ltr" style="height: auto;"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 |  송장</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css"></head>
+<body class="sidebar-mini sidebar-collapse" style="height: auto;">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    
 
-</style>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" style="min-height: 3075.81px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></h1>
+          </div>
+         
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+	
+	<form th:action="@{/rdInsert}" method="post" name="frm">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="callout callout-info">
+              <h5>
+              	
+              	A/S 수리비 청구 등록
+              </h5>
+            </div>
+            
+             <div class="form-group" style="height:70px; display: none" >	                
+	                 <label style="margin-bottom: 15px;">입금 여부</label><br>
+	                  <div class="icheck-primary d-inline">
+	                    <input  type="radio" name="WhetherToDeposit" id="radioPrimary1">
+	                    <label for="radioPrimary1">
+	                    	Y
+	                    </label>
+	                  </div>
+	                  <div class="icheck-primary d-inline">
+	                    <input  type="radio"  name="WhetherToDeposit" id="radioPrimary2" checked="checked">
+	                    <label for="radioPrimary2">
+	                    	N
+	                    </label>
+	                  </div>
+	             
+                </div>
+
+
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <i class="fas fa-globe"></i>
+                    <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">한국스마트렌탈 </font>
+                                    
+                    </font>
+                    <small class="float-right">
+                    <div style="vertical-align: inherit;">
+                    
+                    
+                    </div>
+                    </small>
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                <address>
+                    <strong>
+
+                    	<font style="vertical-align: inherit;">
+                    	<font style="vertical-align: inherit;">From</font>
+                    	</font></strong><br>                   	
+                    	<font style="vertical-align: inherit;">
+	                    	<font style="vertical-align: inherit;">
+	          				       회 사 명 : 한국스마트렌탈
+	          				</font>
+                        </font><br>
+                          <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                  		 대 표 자 : 이길동
+                  	    </font>
+                  	    </font><br> 
+                  	    <font style="vertical-align: inherit;">
+                  	    <font style="vertical-align: inherit;">
+                  		   주 소 : 전북 전주시 금암동
+                 		</font>
+                 		<br>
+                 		</font>                    
+                  	    <font style="vertical-align: inherit;">
+                  	    <font style="vertical-align: inherit;">
+                  		  연 락 처 : 000)000-0000
+                 		</font>
+                 		</font>
+                 		
+                 		</address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">               
+                  <address>
+                   <strong>
+
+                    	<font style="vertical-align: inherit;">
+                    	<font style="vertical-align: inherit;">To</font>
+                    	</font></strong><br>    
+                   	<input style="border:none" id="customerName" placeholder="고객명">                   
+                    <br>
+                    <input style="border:none" id="zipCode" placeholder="우편번호">
+                    <br>
+                    	 <input style="border:none" id="customerAddress" placeholder="기본주소">
+                    <br>
+                    <input style="border:none" id="customerAddress2" placeholder="상세주소">
+                    <br>
+                 
+                  	<input style="border:none"  id="customerCall" placeholder="연락처">
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  <br>                  
+                  <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">청구일 :</font></font></b><font style="vertical-align: inherit;"><input name="claimDate" type="date" style="border:none"></font><br>
+                  <b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">입금 계좌 : </font></font></b><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 12-123-1234,국민은행,한국스마트렌탈
+                </font></font></div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>수리현황No</th>
+                      <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">계약서코드</font></font></th>
+                      <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상품명</font></font></th>
+                      <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비고</font></font></th>
+                      <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수리비</font></font></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td><input style="border:none" id="repairCode"></td>
+                      <td><input style="border:none" name="contractCode" id="contractCode"></td>
+                      <td><input style="border:none" id="goodsName"></td>
+                      <td><input style="border:none" id="contractCode"></td>
+                      <td><input type="number" name="cost" onKeyPress="Chking();" onKeyUp="Chking();" style="border:none"  placeholder="수리비를 입력하세요"></td>
+                    </tr>
+                    
+                   
+                    
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-6">
+                  <p class="lead"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">결제 수단 :</font></font></p>
+                  <img src="../../dist/img/credit/visa.png" alt="비자">
+                  <img src="../../dist/img/credit/mastercard.png" alt="마스터 카드">
+                  <img src="../../dist/img/credit/american-express.png" alt="아메리칸 익스프레스">
+                  <img src="../../dist/img/credit/paypal2.png" alt="페이팔">
+
+                  <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                   
+                  </font></font></p>
+                </div>
+                <!-- /.col -->
+                <div class="col-6">
+
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody>
+                     
+                      
+                      <tr>
+                        <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">합계:</font></font></th>
+                        <td><input type="number" style="border:none" name="repairCost"></td>
+                      </tr>
+                    </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  <button id="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 지불 제출
+                  </font></font>
+                  </button>                 
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    </form>
+    <!-- /.content -->
+  </div>
+ 
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  <div class="p-3 control-sidebar-content"><h5>Customize AdminLTE</h5><hr class="mb-2"><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>No Navbar border</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Body small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Navbar small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Footer small text</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav flat style</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav legacy style</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav compact</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Sidebar nav child indent</span></div><div class="mb-1"><input type="checkbox" value="1" class="mr-1"><span>Main Sidebar disable hover/focus auto expand</span></div><div class="mb-4"><input type="checkbox" value="1" class="mr-1"><span>Brand small text</span></div><h6>Navbar Variants</h6><div class="d-flex"><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-secondary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-cyan elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-light elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-white elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div></div><h6>Accent Color Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-fuchsia elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-maroon elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lime elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-olive elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div><h6>Dark Sidebar Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-fuchsia elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-maroon elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lime elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-olive elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div><h6>Light Sidebar Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-navy elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-fuchsia elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-maroon elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-lime elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-olive elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div></div><h6>Brand Logo Variants</h6><div class="d-flex"></div><div class="d-flex flex-wrap mb-3"><div class="bg-primary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-secondary elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-info elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-success elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-indigo elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-purple elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-pink elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-teal elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-cyan elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray-dark elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-gray elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-light elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-warning elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-white elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><div class="bg-orange elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div><a href="javascript:void(0)">clear</a></div></div></aside>
+  <!-- /.control-sidebar -->
+<div id="sidebar-overlay"></div></div>
+<!-- ./wrapper -->
+
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" th:inline="javascript">
-	$(function(){
-		/*<![CDATA[*/
-		var eList = /*[[ ${eList} ]]*/;
-		var page = /*[[ ${page} ]]*/;
-		var remainClmn = /*[[ ${remainClmn} ]]*/;
-		/*]]*/
-		console.log(eList);
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png" width="20" height="20" alt="Google 번역"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">원본 텍스트</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">번역 제안하기</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div>
+  <script type="text/javascript">
+ 
+	document.getElementById("customerName").value = opener.document.getElementById("customerName").value;
+	document.getElementById("zipCode").value = opener.document.getElementById("zipCode").value;
+	document.getElementById("customerAddress").value = opener.document.getElementById("customerAddress").value;
+	document.getElementById("customerAddress2").value = opener.document.getElementById("customerAddress2").value;
+	document.getElementById("customerCall").value = opener.document.getElementById("customerCall").value;
+	document.getElementById("contractCode").value = opener.document.getElementById("contractCode").value;
+	document.getElementById("goodsName").value = opener.document.getElementById("goodsName").value;
+	document.getElementById("repairCode").value = opener.document.getElementById("repairCode").value;
 
-		var html = "";
-		html += "<table class='estimate-info'>	\
-					<tr class='tableSmlTitle'>\
-						<th colspan='2'>합계금액</th>\
-						<th colspan='3' rowspan='2'>금<span id='totalKor'></span>원정</th>\
-						<th colspan='2' rowspan='2'>(\\<span id='totalNum'></span>)</th>\
-					</tr>\
-					<tr class='tableSmlTitle'>\
-						<th colspan='2'>(공급가액+세액)</th>\
-					</tr>"
-		html+="<tr class='tableSmlTitle'>\
-			<th class='num'>번호</th>\
-			<th class='lineItem'>품목명</th>\
-			<th class='num'>수량</th>\
-			<th class='price'>단가</th>\
-			<th class='price'>공급가액</th>\
-			<th class='price'>세액</th>\
-			<th class='note'>비고</th>\
-		</tr>"
-		var i=0
-		for(i; i<eList.length; i++){
-			if(i%10==0 && i!=0){
-				html+="</table>";
-				html+="<table class='estimate-info' style='page-break-before:always'>"
-				html+="<tr class='tableSmlTitle'>\
-						<th class='num'>번호</th>\
-						<th class='lineItem'>품목명</th>\
-						<th class='num'>수량</th>\
-						<th class='price'>단가</th>\
-						<th class='price'>공급가액</th>\
-						<th class='price'>세액</th>\
-						<th class='note'>비고</th>\
-					</tr>"
+	  function Chking() {
+	        var f = eval("document.frm");
+	        if(f.cost.value) {
+	            f.repairCost.value = parseInt(f.cost.value) + 0;
+	        } else {
+	            return false;
+	        }
+	    }
+	  
+	  
+	  
+	  $('#submit').click(function(){
+
+			var claimDate = $('input[name=claimDate]').val();
+			var repairCost = $('input[name=repairCost]').val();
+			
+			
+			 if(claimDate == ''){
+				alert('청구날짜를 입력해주세요.');
+				return false;
+			}else if(repairCost == ''){
+				alert('수리비를 입력해주세요.');
+				return false;
 			}
-				html += "<tr>"
-				if(eList[i].estimateNo!=null){
-					html += "<td>"+eList[i].estimateNo+"</td>";
-				}else{
-					html += "<td></td>";
-				}
-				if(eList[i].setCode!=null){
-					html += "<td>"+eList[i].setName+"</td>";
-					html += "<td>"+eList[i].tradingCount+"</td>"
-					html += "<td class='priceNum'>"+eList[i].setDayPrice*0.9+"</td>";
-					html += "<td class='priceNum suppliedValue'>"+(eList[i].tradingCount*eList[i].setDayPrice*0.9)+"</td>";
-					html += "<td class='priceNum priceTax'>"+(eList[i].tradingCount*eList[i].setDayPrice*0.1)+"</td>";
-				}else{
-					html += "<td>"+eList[i].goodsName+"</td>";
-					html += "<td>"+eList[i].tradingCount +"</td>"
-					html += "<td class='priceNum'>"+eList[i].rentalDayPrice*0.9+"</td>";
-					html += "<td class='priceNum suppliedValue'>"+(eList[i].tradingCount*eList[i].rentalDayPrice*0.9)+"</td>";
-					html += "<td class='priceNum priceTax'>"+(eList[i].tradingCount*eList[i].rentalDayPrice*0.1)+"</td>";
-				}
-				html+="<td><input class='note' type='text' value=''></td>";
-				html+="</tr>"
-			}
-			html+="<tr class='sum-info'>\
-					<td colspan='4' class='tableSmlTitle'>합계</td>\
-					<td class='supplySum'></td>\
-					<td class='taxSum'></td>\
-					<td></td>	\
-				</tr>\
-			</table>"
-		$('.content-table').append(html);
-		if(i<10){
-			for(j=i; j<10; j++){
-				$('.sum-info').before("<tr><td></td><td></td><td></td><td></td><td></td><td></td>\
-						<td><input class='note' type='text' value=''></td></tr>")
-			}
-		}
-		
-		var supplyPrice = 0;
-		var priceTax = 0;
-		$('.suppliedValue').each(function(){
-			supplyPrice += Number($(this).text());
-			$('.supplySum').text(supplyPrice);
-		})
-		$('.priceTax').each(function(){
-			priceTax += Number($(this).text());
-			$('.taxSum').text(priceTax);
-		})
-		var supplySum = Number($('.supplySum').text());
-		var taxSum = Number($('.taxSum').text());
-		$('#totalNum').text(numberFormat(supplySum+taxSum)) //총금액
-		$('#totalKor').text(viewKorean(String(supplySum+taxSum))) //한글 총금액
-		
-		$('.supplySum').text(numberFormat(supplySum));
-		$('.taxSum').text(numberFormat(taxSum));
-		$('.priceNum').each(function(){
-			if($(this).text()!=0){
-				var priceNum = Math.floor($(this).text());
-				priceNum = numberFormat(priceNum);
-				$(this).text(priceNum);
-			}else{
-				$(this).text('');
-			}
-		})
-		
-		$('.btnPrint').click(function(){
-			var browser = navigator.userAgent.toLowerCase();
-	          if ( -1 != browser.indexOf('chrome') ){
-	                     window.print();
-	          }else if ( -1 != browser.indexOf('trident') ){
-                 try{
-                          var webBrowser = '<OBJECT ID="previewWeb" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
-                          document.body.insertAdjacentHTML('beforeEnd', webBrowser);
-                          previewWeb.ExecWB(7, 1);
-                          previewWeb.outerHTML = "";
-                 }catch (e) {
-                          alert("- 도구 > 인터넷 옵션 > 보안 탭 > 신뢰할 수 있는 사이트 선택\n   1. 사이트 버튼 클릭 > 사이트 추가\n   2. 사용자 지정 수준 클릭 > 스크립팅하기 안전하지 않은 것으로 표시된 ActiveX 컨트롤 (사용)으로 체크\n\n※ 위 설정은 프린트 기능을 사용하기 위함임");
-                 }
-	                    
-	          }
-		})
-		
-		function numberFormat(inputNumber) {
-		   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-		function viewKorean(num) { 
-			var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십"); 
-			var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천"); 
-			var result = "";
-			for(i=0; i<num.length; i++) { 
-				str = ""; 
-				han = hanA[num.charAt(num.length-(i+1))]; 
-				if(han != "") str += han+danA[i]; 
-				if(i == 4) str += "만"; 
-				if(i == 8) str += "억"; 
-				if(i == 12) str += "조"; 
-				result = str + result; 
-			} 
-			return result ; 
-		}
-	})
+			
+		     
+			
+			alert("접수가 완료되었습니다.");
+		  
+			
+			
+		});
+
+
 </script>
-</head>
-<body>
-    <div class="content-wrapper">
-	  <div class="container">
-		<h1><u>&emsp;견&emsp;적&emsp;서&emsp;</u></h1>
-		<div style="float: left">
-			<h3 th:text="'날짜 : '+${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"></h3>
-			<h3 th:if="${eList[0].customerCompanyName}!=null" th:text="${eList[0].customerCompanyName}+'고객님 귀하'"></h3>
-			<h3 th:if="${eList[0].customerCompanyName}==null" th:text="${eList[0].customerName}+' 고객님 귀하'"></h3>
-			<h3 th:text="'렌탈시작일 : ' +${eList[0].rentalFromDate}"></h3>
-			<h3 th:text="'렌탈종료일 : ' +${eList[0].rentalToDate}"></h3>
-			<h3>아래와 같이 견적합니다</h3>
-		</div>
-		<table class="company-info">
-			<tr>
-				<td rowspan="5" class="tableSmlTitle">공</br>급</br>자</td>
-				<td class="tableSmlTitle">등록번호</td><td th:text="${mycompany.mycompanyNumber}"></td>
-			</tr>
-			<tr>
-				<td class="tableSmlTitle">상호</td><td th:text="${mycompany.mycompanyName}"></td>
-			</tr>
-			<tr>
-				<td class="tableSmlTitle">사업장 주소</td><td th:text="${mycompany.mycompanyAddr}"></td>
-			</tr>
-			<tr>
-				<td class="tableSmlTitle">전화번호</td><td th:text="${mycompany.mycompanyTel}"></td>
-			</tr>
-			<!-- <tr>
-				<td class="tableSmlTitle">팩스</td><td th:text="${mycompany.mycompanyFax}"></td>
-			</tr> -->
-		</table>
-		<div class="content-table">
-				
-		</div>
-<!-- 		<table style="margin-top: 20px; width: 700px;">
-			<tr>
-				<td class="tableSmlTitle" style="width: 10%">담당자</td>
-				<td></td>
-				<td class="tableSmlTitle" style="width: 10%">연락처</td>
-				<td></td>
-				<td class="tableSmlTitle" style="width: 15%">결제방법</td>
-				<td></td>
-			</tr>
-		</table> -->
-		<div style="text-align: center;">
-			<button class="btnPrint" onclick="estimatePrint()" type="button">인쇄하기</button>
-		</div>
-	</div>
-	    </div>
-  </body>
-</html>
+
+<div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body></html>

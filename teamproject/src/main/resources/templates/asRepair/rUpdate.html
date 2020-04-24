@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -50,17 +50,21 @@
                 <div class="form-group" style="height:70px;">	                
 	                 <label style="margin-bottom: 15px;">진행 상황</label><br>
 	                  <div class="icheck-primary d-inline">
-	                    <input class="InProgress" type="radio" name="r1" id="radioPrimary1" checked="" value="a">
+	                    <input class="InProgress" type="radio" name="workingSituation" id="radioPrimary1" checked="" value="작업중">
 	                    <label for="radioPrimary1">
-	                    	수리 중
+	                    	작업 중
 	                    </label>
 	                  </div>
 	                  <div class="icheck-primary d-inline">
-	                    <input class="Complete" type="radio" name="r1" id="radioPrimary2">
+	                    <input class="Complete" type="radio" name="workingSituation" id="radioPrimary2" value="작업완료">
 	                    <label for="radioPrimary2">
-	                    	수리 완료
+	                 			   작업 완료
 	                    </label>
 	                  </div>
+	             
+                </div>
+                <div class="form-group" style="height:70px; display: none;">	                
+	                  <input type="text" id="repairCode" name="repairCode" th:value="${AsRepair.repairCode}" class="form-control" readonly="readonly">
 	             
                 </div>
               </div>
@@ -71,34 +75,34 @@
   			  <div class="col-md-6" style="max-width: 25%;"> 
 	                <div class="form-group">
 	                  <label>계약서 코드</label>
-	                    <input type="text" id="1" name="contractCode" th:value="${AsRepair.contractCode}" class="form-control" readonly="readonly">
+	                    <input type="text" id="contractCode" name="contractCode" th:value="${AsRepair.contractCode}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>고객 아이디</label>
-			            <input type="text" id="3" name="customerId" th:value="${AsRepair.customerId}" class="form-control" readonly="readonly">
+			            <input type="text" id="customerId" name="customerId" th:value="${AsRepair.customerId}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>연락처</label>
-			            <input type="text" id="b" name="customerCall" th:value="${AsRepair.customerCall}" class="form-control" readonly="readonly">
+			            <input type="text" id="customerCall" name="customerCall" th:value="${AsRepair.customerCall}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>기본 주소</label>
-			            <input type="text" id="d" name="customerAddress" th:value="${AsRepair.customerAddress}" class="form-control" readonly="readonly">
+			            <input type="text" id="customerAddress" name="customerAddress" th:value="${AsRepair.customerAddress}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                
 	                 <!-- /.form-group -->
 	                <div class="form-group">
 	                  <label id="name1">수리 대상 상품 코드</label>
-			           <input type="text" id="4"  name="goodsCode" th:value="${AsRepair.goodsCode}" class="form-control" readonly="readonly">
+			           <input type="text" id="goodsCode"  name="goodsCode" th:value="${AsRepair.goodsCode}" class="form-control" readonly="readonly">
 		           </div>
 	                
 	                <div class="form-group">
 	                  <label>렌탈 시작 일자</label>
-			            <input type="text" id="7" name="rentalFromDate" th:value="${AsRepair.rentalFromDate}" class="form-control" readonly="readonly">
+			            <input type="text" id="rentalFromDate" name="rentalFromDate" th:value="${AsRepair.rentalFromDate}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                 <div class="form-group">
@@ -125,7 +129,7 @@
    				&emsp;
              	 	<div class="form-group">
 	                  <label>A/S 처리 기사명</label>
-			            <input type="text" name="staffId2" th:value="${AsRepair.staffId2}" class="form-control">
+			            <input type="text" name="staffName" th:value="${AsRepair.staffName}" class="form-control">
 	                </div>
 	                <!-- /.form-group -->
 	              </div>
@@ -141,24 +145,24 @@
 	                
 	                 <div class="form-group">
 	                  <label>고객명</label>
-			            <input type="text" id="a" name="customerName" th:value="${AsRepair.customerName}" class="form-control" readonly="readonly">
+			            <input type="text" id="customerName" name="customerName" th:value="${AsRepair.customerName}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                 <div class="form-group">
 	                  <label>우편번호</label>
-			            <input type="text" id="c" name="zipCode" th:value="${AsRepair.zipCode}" class="form-control" readonly="readonly">
+			            <input type="text" id="zipCode" name="zipCode" th:value="${AsRepair.zipCode}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                <div class="form-group">
 	                  <label>상세 주소</label>
-			            <input type="text" id="e" name="customerAddress" th:value="${AsRepair.customerAddress}" class="form-control" readonly="readonly">
+			            <input type="text" id="customerAddress2" name="customerAddress2" th:value="${AsRepair.customerAddress2}" class="form-control" readonly="readonly">
 	                </div>
 	                
 	                
 	                <!-- /.form-group -->
 	                <div class="form-group">
 	                  <label id="name1">수리 대상 상품명</label>
-			           <input type="text" id="4"  name="goodsName"  th:value="${AsRepair.goodsName}" class="form-control" readonly="readonly">
+			           <input type="text" id="goodsName"  name="goodsName"  th:value="${AsRepair.goodsName}" class="form-control" readonly="readonly">
 		           </div>
 		          
 		           
@@ -180,12 +184,12 @@
 	                
 	               <div id="repairContents" class="form-group" style="display:none;">
 	                  <label>처리 결과</label>
-			            <input type="text" name="repairContents" th:value="${AsRepair.repairContents}" class="form-control">
+			            <input type="text" id="repairContents" name="repairContents" th:value="${AsRepair.repairContents}" class="form-control">
 	                </div>
 					&emsp;
- 	           		<div id="exchangeDate" class="form-group" style="display:none; margin-top: 10px">
+ 	           		<div id="repairCompletionDate" class="form-group" style="display:none; margin-top: 10px">
 	                  <label>수리 완료일</label>
-			            <input id="exchangeDate" type="date" name="repairCompletionDate" th:value="${AsRepair.repairCompletionDate}" class="form-control">
+			            <input id="repairCompletionDate" type="date" name="repairCompletionDate" th:value="${AsRepair.repairCompletionDate}" class="form-control">
 	                </div>
 	                
 	                
@@ -221,7 +225,7 @@
   
   <script>
   $('#customRadio2').click(function(event){ 
-	  console.log('click');
+
 	  popupOpen();	
 	  
 	  function popupOpen(){
@@ -230,16 +234,22 @@
 	 	    var winHeight = 510;
 		    var popupOption= "width="+winWidth+", height="+winHeight;    
 			window.open(url,"",popupOption);
-		}
+			
 		
-	
-	
+		
+
+		
+		
+		
+	  }
+	  
+	 
   
   });
   
   $('.Complete').click(function(){
 	  
-	$('#exchangeDate').css('display','block');
+	$('#repairCompletionDate').css('display','block');
 	$('#repairType').css('display','block');
 	$('#repairContents').css('display','block');
 		
@@ -247,34 +257,24 @@
 	
   $('.InProgress').click(function(){
 	  
-	$('#exchangeDate').css('display','none');
+	$('#repairCompletionDate').css('display','none');
 	$('#repairType').css('display','none');
 	$('#repairContents').css('display','none');
 	$('#repairCost').css('display','none');
 	
 	
 		
-	})
-   $('#customRadio1').click(function(){		  
-		
-		$('#repairCost').css('display','none');
-  
-	    }) 	
-	
-	
-  $('#customRadio2').click(function(){		  
-		
-		$('#repairCost').css('display','block');
-  
-	    }) 
-	  
-  
+	});
 
   
   
   
   
+
+
+  
   </script>
+  
   
 	
 </th:block>
