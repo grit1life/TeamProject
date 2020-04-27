@@ -22,6 +22,30 @@
 		<result property="rentalDayPrice" column="rental_day_price"/>
 	</resultMap>
 	
+	<!-- 상품 단가 유무 확인 -->
+	<select id="goodsPriceExistence" parameterType="PriceGoods" resultType="String">
+		SELECT rental_day_price
+			FROM price_goods
+			WHERE goods_code=#{goodsCode};		
+	</select>
+	
+	<!-- 상품 단가 등록 -->
+	<insert id="goodsPriceInsert" parameterType="PriceGoods">
+		INSERT INTO price_goods
+			(goods_code, rental_day_price, input_date, input_staff_code)
+			VALUES (#{goodsCode}, #{rentalDayPrice}, NOW(), #{inputStaffCode});		
+	</insert>
+	
+	<!-- 상품 단가 수정 -->
+	<update id="goodsPriceUpdate" parameterType="PriceGoods">
+		UPDATE price_goods
+		SET
+			rental_day_price=#{rentalDayPrice},
+			input_date=NOW(),
+			input_staff_code=#{inputStaffCode}
+		WHERE goods_code=#{goodsCode};
+	</update>
+	
 	<!-- 장기 렌탈 할인 신기 등록 -->
 	<insert id="discountInsert" parameterType="java.util.List">
 		INSERT INTO price_sale_basic

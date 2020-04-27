@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.ksmart.domain.Branch;
+import kr.or.ksmart.domain.CompanyModal;
+import kr.or.ksmart.domain.CustomerModal;
 import kr.or.ksmart.domain.GoodsCount;
 import kr.or.ksmart.domain.Staff;
 import kr.or.ksmart.service.BranchService;
+import kr.or.ksmart.service.DocContractService;
 import kr.or.ksmart.service.GoodsCategoryService;
 import kr.or.ksmart.service.GoodsCountService;
 import kr.or.ksmart.service.StaffService;
@@ -34,19 +37,60 @@ public class ModalController {
 	@Autowired
 	private GoodsCategoryService goodsCategoryService;
 	
-	@GetMapping("/customerModal")
-	public String customerModal(Model model) {
-		
-		return "modal/customerModal";
-	}
+	@Autowired
+	private DocContractService docContractService;
 
+	/*************************************
+	 * 고객 검색 modal
+	 * 
+	 *************************************/
+	@GetMapping("/staff/customerLevelModal")
+	public String customerLevelModal() {
+		return "modal/customerLevelModal";
+	}
+	@GetMapping("/staff/customerSelectModal")
+	public String customerSelectModal(Model model) {
+		List<CustomerModal> customerList = docContractService.customerModalList();
+		model.addAttribute("customerList", customerList);
+		return "modal/customerSelectModal";
+	}
+	@PostMapping("/staff/customerListModal")
+	public String customerListModal(@ModelAttribute CustomerModal customerModal,Model model) {
+		System.out.println(customerModal+"<-customerModal");
+		List<CustomerModal> customerList = docContractService.customerModalList(customerModal);
+		model.addAttribute("customerList", customerList);
+		return "modal/customerListModal";
+	}
+	
+	@GetMapping("/staff/companySelectModal")
+	public String companyModalList(Model model) {
+		System.out.println("********************@GetMapping(\"/staff/companySelectModal\")*******************************");
+		List<CompanyModal> companyList = docContractService.companyModalList();
+		System.out.println(companyList+"<-companyList");
+		model.addAttribute("companyList", companyList);
+		return "modal/companySelectModal";
+	}
+	@PostMapping("/staff/companyListModal")
+	public String companyModalList(@ModelAttribute CompanyModal companyModal,Model model) {
+		System.out.println("********************@PostMapping(\"/staff/companySelectModal\")*******************************");
+		System.out.println(companyModal+"<-companyModal");
+		List<CompanyModal> companyList = docContractService.companyModalList(companyModal);
+		model.addAttribute("companyList", companyList);
+		return "modal/companyListModal";
+	}
+	/*************************************
+	 * 배송지 주소 입력 modal
+	 * 
+	 *************************************/
 	@GetMapping("/addressModal")
 	public String addressModal(Model model) {
 		
 		return "modal/addressModal";
 	}
-	
-	
+	/*************************************
+	 * 담당자 검색 modal
+	 * 
+	 *************************************/
 	@GetMapping("/staffSelectModal")
 	public String modalHtml(Model model
 			, @RequestParam(value="foreachNum", required = false, defaultValue = "0") int foreachNum
@@ -71,10 +115,15 @@ public class ModalController {
 
 		return "modal/staffListModal";
 	}
-	
+	/*************************************
+	 * 상품 검색 modal
+	 * 
+	 *************************************/
 	@GetMapping("/goodsSelectModal")
 	public String goodsSelectModal(Model model) {
 		model.addAttribute("getGoodsCategoryList", goodsCategoryService.getGoodsCategoryList());
+		List<GoodsCount> goodsCountList = goodsCountService.goodscount();
+		model.addAttribute("goodsCountList", goodsCountList);
 		return "modal/goodsSelectModal";
 	}
 	
@@ -86,7 +135,10 @@ public class ModalController {
 		model.addAttribute("goodsCountList", goodsCountList);
 		return "modal/goodsListModal";
 	} 
-	
+	/*************************************
+	 * 세트 검색 modal
+	 * 
+	 *************************************/
 	@GetMapping("/setSelectModal")
 	public String setSelectModal(Model model) {
 		//Category selectBox의 값을 가지고 오기
@@ -101,17 +153,4 @@ public class ModalController {
 		model.addAttribute("setCountList", setCountList);
 		return "modal/setListModal";
 	} 
-	@GetMapping("/test")
-	public String test() {
-		
-		return "modal/test";
-	}
-	@PostMapping("/test")
-	public @ResponseBody String testp(GoodsCount goodsCount) {
-		System.out.println(goodsCount.getGoodsCode());
-		System.out.println("왔다");
-		return "test";
-	}
-	
-
 }

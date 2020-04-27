@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-        <table id="example2" class="staffModalTable table table-bordered table-hover">
+	<table id="example2" class="staffModalTable table table-bordered table-hover">
    		<thead>
         	<tr>
                 <th>지점</th>
@@ -22,6 +22,7 @@
            <td id="staffTell" th:text="${L.staffTell}"></td>
            <td id="staffEmail" th:text="${L.staffEmail}"></td>
            <td id="staffLevel" th:text="${L.staffLevel}"></td>
+           <td id="staffCode" th:text="${L.staffCode}" style="display:none;"></td>
            <td><button id="staffChoice" class="btn btn-info" type="button">선택</button></td>
          </tr>
         </tbody>

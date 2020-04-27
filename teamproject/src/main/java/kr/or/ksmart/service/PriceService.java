@@ -22,6 +22,21 @@ public class PriceService {
 	@Autowired
 	private PriceMapper priceMapper;
 	
+	public int goodsPriceInsert(PriceGoods priceGoods,HttpSession session) {
+		
+		String staffId = (String)session.getAttribute("staffId");
+		priceGoods.setInputStaffCode(staffId);
+		
+		String goodsPrice  = priceMapper.goodsPriceExistence(priceGoods);
+		
+		if(goodsPrice==null) {
+			priceMapper.goodsPriceInsert(priceGoods);
+		}else {
+			priceMapper.goodsPriceUpdate(priceGoods);
+		}	
+		return 0;
+	}
+	
 	public int discountInsert(Map<String, Object> discountInsertMap,HttpSession session){
 		System.out.println(discountInsertMap+"<-param/service");
 		String periodListS = discountInsertMap.get("periodList").toString();

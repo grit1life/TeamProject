@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <form id="customerSerch">
+	 <div class="row" style="margin-bottom:20px">	
+	   <div class="col-sm-2" style="margin-right:10px">
+		   <label style="width:50px; margin-bottom:20px">아이디</label>
+		   <div style="display:inline-block;">
+		     <input name="customerId" type="text" class="form-control select2bs4">
+		   </div>
+		</div>
+		<div class="col-sm-2" style="margin-right:10px">
+		   <label class="name" style="width:50px; margin-bottom:20px">이름</label>
+		   <div style="display:inline-block;">
+		  	 <input name="customerName" type="text" class="form-control select2bs4">
+		   </div>
+	   </div>
+	   <div class="col-sm-2 invoice-col">
+		   <label class="tel" style="width:100px; margin-bottom:20px">전화번호</label>
+		   <div style="display:inline-block;">
+		   	<input type="text" class="form-control select2bs4" name="customerCall">
+		   </div>
+		</div>
+		<div class="col-sm-5 invoice-col">
+		   <label class="email" style="width:100px; margin-bottom:20px">이메일</label><br>
+		   <div style="display:inline-block;">
+		   	<input type="text" class="form-control select2bs4" name="customerEmail">
+		   </div>
+		   <div style="display:inline-block;">
+		   	  <a id="customerSerchBtn" class="btn btn-primary btn-sm" href="#">
+			      검색
+		      </a> 
+		   </div>
+	   </div>
+	</div>
+</form>
+      
+	<table id="example2" class="customerModalTable table table-bordered table-hover">
+   		<thead>
+        	<tr>
+                <th>아이디</th>
+                <th class="name">이름</th>
+                <th class="tel">전화번호</th>
+                <th>이메일</th>
+                <th></th>
+        	</tr>
+        </thead>
+        <tbody>
+         <tr th:each="CU:${customerList}">
+           <td id="customerIdM" th:text="${CU.customerId}"></td>
+           <td id="customerNameM" th:text="${CU.customerName}"></td>
+           <td id="zipCodeM" th:text="${CU.zipCode}" style="display:none;"></td>
+           <td id="customerAddressM" th:text="${CU.customerAddress}" style="display:none;"></td>
+           <td id="customerAddress2M" th:text="${CU.customerAddress2}" style="display:none;"></td>
+           <td id="customerCallM" th:text="${CU.customerCall}"></td>
+           <td id="customerEmailM" th:text="${CU.customerEmail}"></td>
+           
+           <td id="customerDiscountM" style="display:none;">4</td>
+           <td id="customerClassM" th:text="${CU.customerClass}" style="display:none;"></td>
+           <td><button id="customerChoice" class="customerChoice btn btn-info" type="button">선택</button></td>
+         </tr>
+        </tbody>
+	</table>

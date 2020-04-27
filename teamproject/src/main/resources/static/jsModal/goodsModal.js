@@ -58,6 +58,10 @@ $(function(){
 	//검색Btn click시
 	$(document).on('click', '#staffSerchBtn', function(){
 		console.log("staffSerchBtn");
+		
+
+		
+		//섬색 키워드를 formData에
 		const formData = new FormData($("form#staffSerch")[0]);
 		$('.modalTable').remove();
 		console.log(formData.get('branchCode'));

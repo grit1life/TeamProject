@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<table id="example2" class="companyModalTable table table-bordered table-hover">
+   		<thead>
+        	<tr>
+                <th>아이디</th>
+                <th>회사명</th>
+                <th>대표번호</th>
+                <th>이메일</th>
+                <th>담당자명</th>
+                <th>담당자 연락처</th>
+                <th></th>
+        	</tr>
+        </thead>
+        <tbody>
+         <tr th:each="CO:${companyList}">
+			<!-- 표시 -->
+           <td id="customerIdM" th:text="${CO.customerId}"></td>
+           <td id="customerNameM" th:text="${CO.customerCompanyName}"></td>
+           <td id="customerCallM" th:text="${CO.customerCompanyCall}"></td>
+           <td id="customerEmailM" th:text="${CO.customerCompanyEmail}"></td>
+           <td th:text="${CO.customerName}"></td>
+           <td th:text="${CO.customerCall}"></td>
+           	<!-- hidden -->
+           <td id="zipCodeM" th:text="${CO.customerCompanyzipCode}" style="display:none;"></td>
+           <td id="customerAddressM" th:text="${CO.customerCompanyAddress}" style="display:none;"></td>
+           <td id="customerAddress2M" th:text="${CO.customerCompanyAddress2}" style="display:none;"></td>
+           <td id="customerClassM" th:text="${CO.customerClass}" style="display:none;"></td>
+           <td id="customerDiscountM" th:text="${CO.customerDiscount}" style="display:none;"></td>
+           <td><button id="companyChoice" class="customerChoice btn btn-info" type="button">선택</button></td>
+         </tr>
+        </tbody>
+	</table>

@@ -12,6 +12,7 @@ public interface GoodsCountMapper {
 	public List<GoodsCount> setGoods();
 	
 	public List<GoodsCount> goodsCount(GoodsCount goodsCount);
+	public List<GoodsCount> goodsCount();
 	
 	public List<GoodsCount> setCount(GoodsCount goodsCount);
 	

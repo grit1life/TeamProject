@@ -19,4 +19,8 @@ public interface PriceMapper {
 	public double saleApplication(String period);
 	public int discountDelete(String discountStartDay);
 	public List<PriceSale> goodsPriceList(PriceGoods priceGoods);
+	public int goodsPriceInsert(PriceGoods priceGoods);
+	public int goodsPriceUpdate(PriceGoods priceGoods);
+	public String goodsPriceExistence(PriceGoods priceGoods);
+	
 }

@@ -10,8 +10,9 @@ public class PriceGoods {
 	private String goodsCode;
 	private String goodsName;
 	private String goodsDesc;
-	private String rentalDayPrice;
+	private int rentalDayPrice;
 	private String rentalDayPriceExistence;
+	private String inputStaffCode;
 
 
 }
