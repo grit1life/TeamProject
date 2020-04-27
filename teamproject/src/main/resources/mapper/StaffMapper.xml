@@ -26,7 +26,8 @@
 	
 	<select id="staffList" resultMap="StaffMap" parameterType="kr.or.ksmart.domain.Staff">
 		SELECT 
-			S.staff_code,B.branch_name,SC.staff_position,S.staff_name,S.staff_birth,S.staff_tell,S.staff_email,S.staff_level
+			S.staff_code,B.branch_name,SC.staff_position,S.staff_name
+			,S.staff_birth,S.staff_tell,S.staff_email,S.staff_level
 		FROM 
 			staff AS S
 		LEFT JOIN 

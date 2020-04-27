@@ -38,7 +38,6 @@ public class PriceController {
 	//상품 단가 리스트, 단가입력 패이지(검색 전 후)
 	@GetMapping("/staff/goodsPriceList")
 	public String goodsPriceList(PriceGoods priceGoods,Model model) {
-		System.out.println("---------------controller-------------");
 		System.out.println(priceGoods.toString());
 		List<PriceSale> goodsPriceList = priceService.goodsPriceList(priceGoods);
 		model.addAttribute("goodsPriceList", goodsPriceList);
@@ -46,15 +45,15 @@ public class PriceController {
 		model.addAttribute("getGoodsCategoryList", goodsCategoryService.getGoodsCategoryList());
 		return "price/goodsPriceList";
 	}
-	@GetMapping("/admin/goodsPriceInsert")
-	public String goodsPriceInsert(PriceGoods priceGoods,Model model) {
-		System.out.println("---------------controller-------------");
-		System.out.println(priceGoods.toString());
-		List<PriceSale> goodsPriceList = priceService.goodsPriceList(priceGoods);
-		model.addAttribute("goodsPriceList", goodsPriceList);
+	//단가 등록
+	@PostMapping("/admin/goodsPriceInsert")
+	public String goodsPriceInsert(PriceGoods priceGoods, HttpSession session, Model model) {
+		System.out.println("---------------goodsPriceInsert controller-------------");
+		System.out.println(priceGoods.getGoodsCode()+"<-goodsCode");
+		System.out.println(priceGoods.getRentalDayPrice()+"<-rentalDayPrice");
 		
-		model.addAttribute("getGoodsCategoryList", goodsCategoryService.getGoodsCategoryList());
-		return "price/goodsPriceInsert";
+		priceService.goodsPriceInsert(priceGoods, session);
+		return "redirect:/staff/goodsPriceList";
 	}
 
 	//장기 렌탈 화면 표시(리스트도 표시)

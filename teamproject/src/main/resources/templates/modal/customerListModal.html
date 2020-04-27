@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+      
+	<table id="example2" class="customerModalTable table table-bordered table-hover">
+   		<thead>
+        	<tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>전화번호</th>
+                <th>이메일</th>
+                <th></th>
+        	</tr>
+        </thead>
+        <tbody>
+	        <tr th:each="CU:${customerList}">
+	          <td id="customerIdM" th:text="${CU.customerId}"></td>
+	          <td id="customerNameM" th:text="${CU.customerName}"></td>
+	          <td id="zipCodeM" th:text="${CU.zipCode}" style="display:none;"></td>
+	          <td id="customerAddressM" th:text="${CU.customerAddress}" style="display:none;"></td>
+	          <td id="customerAddress2M" th:text="${CU.customerAddress2}" style="display:none;"></td>
+	          <td id="customerCallM" th:text="${CU.customerCall}"></td>
+	          <td id="customerEmailM" th:text="${CU.customerEmail}"></td>
+	          <td id="customerClassM" th:text="${CU.customerClass}" style="display:none;"></td>
+	          <td id="customerDiscountM" th:text="${CU.customerDiscount}" style="display:none;"></td>       
+	          <td><button id="customerChoice" class="btn btn-info" type="button">선택</button></td>
+	        </tr>
+        </tbody>
+	</table>

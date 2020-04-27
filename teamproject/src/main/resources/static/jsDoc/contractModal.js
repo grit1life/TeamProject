@@ -1,64 +1,94 @@
-//고객 검색bottun click시 list 표시
-$('#customerSerchBtn').click(function(){
-	$('#customerList').css('display','block');
-});
-//고객을 선택시 검색창,list 비표시
-$('#customerChoice').click(function(){
-	$('#coustomerClose').click();
-});
 //기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경하는 함수
 var pricePrint =
 	function(){
-		var rate = $('#sale').text();
-		//상품이 입력 되있다면
+		//입력된 상품수
 		var rentalDayPriceLength = $('.rentalDayPrice').length;
-		if(rentalDayPriceLength>0){
-			var totalPrice = 0;
-			for(var i=0; i<rentalDayPriceLength; i++){
-				var rentalDayPrice = parseInt($('.rentalDayPrice').eq(i).text());
-				var discount = rentalDayPrice*rate*0.01*(-1);
-				console.log($('[name="rentalCount"]').eq(i).val());
-				var goodsSetPrice = ($('[name="rentalCount"]').eq(i).val())*(rentalDayPrice+discount);
-				$('.discount').eq(i).text(discount);
-				$('.goodsSetPrice').eq(i).text(goodsSetPrice);
-				totalPrice += goodsSetPrice;
-			};
+		
+		if(customerDiscount!=""&&rate!=""&&rentalDayPriceLength>0){
+			
+			//등급 할인율
+			var customerDiscount = $('#customerDiscount').text();
+			if(customerDiscount=="")customerDiscount=0;
+			
+			//장기 렌탈 할인율
+			var rate = $('#sale').text();
+			if(rate=="")rate=0;
+			
+			//렌탈 기간(일수)
 			var rentalPeriod = $('[name="rentalPeriod"]').val();
-			//totalPrice*rentalPeriod렌탈 기간*등급 할인율(%)*0.01*(-1)=등급 할인액
-			if($('#customerClass').text()=="")var customerClass = 0;
-			else var customerClass = parseInt($('#customerClass').text());
-			if(customerClass=="NaN")customerClass=1;
-			var customerDiscount = totalPrice*rentalPeriod*customerClass*0.01*(-1);
-			$('#customerDiscount').text(customerDiscount);
-			$('[name="contractTotalPrice"]').val(totalPrice*rentalPeriod+customerDiscount);
-		};
+			if(rentalPeriod=="")rentalPeriod=1;
+			
+			//합계액 계산
+			var totalPrice = 0;
+			
+			for(var i=0; i<rentalDayPriceLength; i++){
+				//상품 단가
+				var rentalDayPrice = parseInt($('.rentalDayPrice').eq(i).text());
+				console.log("rentalDayPrice="+rentalDayPrice);
+				
+				//(장기 렌탈 할인액)=(상품 단가)*(장기 렌탈 할인율)*(-0.01)
+				var discount = rentalDayPrice*rate*0.01*(-1);
+				$('.discount').eq(i).text(discount);
+				console.log("discount="+discount);
+				
+				//상품 렌탈 갯수
+				var rentalCount = $('[name="rentalCount"]').eq(i).val();
+				
+				//각 상품 합계액 = {(상품 단가)+(장기 렌탈 할인액)}*(상품 렌탈 갯수)
+				var goodsSetPrice = (rentalDayPrice+discount)*(rentalCount);
+				$('.goodsSetPrice').eq(i).text(goodsSetPrice);
+				
+				//합계액 계산(각 상품 합계액)*(일수)
+				totalPrice += goodsSetPrice*rentalPeriod;
+			}
+			//(등급 할인액)=(합계액)*(등급 할인율) customerDiscount
+			var customerDiscount = totalPrice*customerDiscount*(-0.01);
+			$('#customerDiscountAmount').text(customerDiscount)
+			
+			//합계액
+			var contractTotalPrice = totalPrice+customerDiscount;
+			$('[name="contractTotalPrice"]').val(contractTotalPrice);
+		}
+
 	};
 
-
-//customer(개인) 선택시
-$(document).on('click', '#customerChoice', function(){
-	console.log("customerChoice");
-	console.log(this+"<-customerChoice");
-	var ctr = $(this).parents('tr');
-	console.log(ctr+"<-ctr");
+//customer(개인,법인) 선택시
+$(document).on('click', '.customerChoice', function(){
+	//console.log("customerChoice");
+	//console.log(this+"<-customerChoice");
 	//입력된 계약자 정보 삭제
 	$('#customerHtml').remove();
 	
-	$('#customerContractor').val(ctr.find('#customerId').text());
-	$('#customerClass').val(ctr.find('#customerClass').text());						
+	var ctr = $(this).parents('tr');
+	//console.log(ctr+"<-ctr");
+	var customerId = ctr.find('#customerIdM').text();
+	var customerName = ctr.find('#customerNameM').text();
+	var zipCode = ctr.find('#zipCodeM').text();
+	var customerAddress = ctr.find('#customerAddressM').text();
+	var customerAddress2 = ctr.find('#customerAddress2M').text();
+	var customerCall = ctr.find('#customerCallM').text();
+	var customerEmail = ctr.find('#customerEmailM').text();
+	var customerClass = ctr.find('#customerClassM').text();
+	var customerDiscount = ctr.find('#customerDiscountM').text();
+	
+	$('[name="customerId"]').val(customerId)
+	//$('#customerContractor').val(ctr.find('#customerId').text());
+	//$('#customerClass').val(ctr.find('#customerClass').text());						
 	
 	var customerChoiceHtml = '<div id="customerHtml">'
-		customerChoiceHtml += ctr.find('#customerChoice').text()+'<br>';
-		customerChoiceHtml += '<span id="telContractor">'+ ctr.find('#customerCall').text()+'</span><br>';
-		customerChoiceHtml += '<span id="number" style="display:none;">'+ ctr.find('#zipCode').text() +'</span>';
-		customerChoiceHtml += '<span id="addressContractor">'+ ctr.find('#customerAddress').text() +'</span>';
-		customerChoiceHtml += '<span id="detailAddressContractor">'+ ctr.find('#customerAddress2').text() +'</span><br>'
-		customerChoiceHtml += '<input type="readonly" style="border:none" name="gradeName" value="'+ctr.find('#customerClass').text()+'">';
-		customerChoiceHtml += '<span id="customerDiscount">'+ ctr.find('#customerDiscount').text() +'</span>';
+		customerChoiceHtml += customerName+'<br>';
+		customerChoiceHtml += '<span id="telContractor">'+customerCall+'</span><br>';
+		customerChoiceHtml += '<span id="number" style="display:none;">'+zipCode+'</span>';
+		customerChoiceHtml += '<span id="addressContractor">'+customerAddress+'</span>';
+		customerChoiceHtml += '<span id="detailAddressContractor">'+customerAddress2+'</span><br>'
+		customerChoiceHtml += '<input type="readonly" style="border:none" name="gradeName" value="'+customerClass+'">';
+		customerChoiceHtml += '<span id="customerDiscount">'+customerDiscount+'</span>';
 		customerChoiceHtml += '<span>% 할인</span>';
-	console.log(customerChoiceHtml+"<-customerChoiceHtml");
-	$('[name="customerContractor"]').after(customerChoiceHtml);
+	
+		$('#contractor').append(customerChoiceHtml);
+	
 	$('#__customerModal').modal('hide');
+	$('#__companyModal').modal('hide');
 	
 	//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경
 	pricePrint();
@@ -75,32 +105,6 @@ $(document).on('click', '#customerChoice', function(){
 		$('input[name="deliveryDetailAddress"]').val(deliveryDetailAddressM);
 		$('input[name="deliveryTel"]').val(deliveryTelM);
 	}
-});
-	
-//customer(company) 선택시
-$(document).on('click', '#companyChoice', function(){
-	console.log("companyChoice");
-	console.log(this+"<-companyChoice");
-	var ctr = $(this).parents('tr');
-	console.log(ctr+"<-ctr");
-	//입력된 계약자 정보 삭제
-	$('#customerHtml').remove();
-	//선택된 값을 가지고 오기
-	$('#customerContractor').val(ctr.find('#customerId').text());
-	$('#customerClass').val(ctr.find('#customerClass').text());						
-	
-	var customerChoiceHtml = '<div id="customerHtml">'
-		customerChoiceHtml += ctr.find('#customerCompanyName').text()+'<br>';
-		customerChoiceHtml += '<span id="telContractor">'+ ctr.find('#customerCompanyCall').text()+'</span><br>';
-		customerChoiceHtml += '<span id="number" style="display:none;">'+ ctr.find('#customerCompanyZipCode').text() +'</span>';
-		customerChoiceHtml += '<span id="addressContractor">'+ ctr.find('#customerCompanyAddress1').text() +'</span>';
-		customerChoiceHtml += '<span id="detailAddressContractor">'+ ctr.find('#customerCompanyAddress2').text() +'</span><br>'
-		customerChoiceHtml += '<span id="customerClass">'+ctr.find('#customerClass').text()+'</span>'
-	console.log(customerChoiceHtml+"<-customerChoiceHtml");
-	$('[name="customerId"]').after(customerChoiceHtml);
-	$('#__customerModal').modal('hide');
-	//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경
-	pricePrint();
 });
 
 //렌탈 기간 입력후 기간 계산
@@ -124,26 +128,28 @@ $('input.rentalDate').on('blur',function(){
 			alert("렌탈은 네일부터 가능합니다")
 		}else if(fromDate>toDate){
 			alert("올바른 날짜를 입력하세요");
-		}
-		var period = (toDate-fromDate)/1000/60/60/24;
-		console.log(period+"<=period");
-		$('input[name="rentalPeriod"]').val(period);
-		
-		var request = $.ajax({
-			url : "/saleApplication",
-			type : "post",
-			data : {period:period}
-		});
-		request.done(function(rate){
-			console.log(rate);
-			$('#sale').text(rate);
-			//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경
-			pricePrint();
+		}else{
+			var period = (toDate-fromDate)/1000/60/60/24;
+			console.log(period+"<=period");
+			$('input[name="rentalPeriod"]').val(period);
 			
-		});
-		request.fail(function( jqXHR, textStatus ) {
-			  alert("period error");
-		});
+			var request = $.ajax({
+				url : "/saleApplication",
+				type : "post",
+				data : {period:period}
+			});
+			request.done(function(rate){
+				console.log(rate);
+				$('#sale').text(rate);
+				//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경
+				pricePrint();
+				
+			});
+			request.fail(function( jqXHR, textStatus ) {
+				alert("period error");
+			});
+		}
+		
 	};
 });
 //주소 출력(modal내 입력)
@@ -172,8 +178,8 @@ $(function(){
 		$('input[name="deliveryAddress"]').val(deliveryAddressM);
 		$('input[name="deliveryDetailAddress"]').val(deliveryDetailAddressM);
 		$('input[name="deliveryTel"]').val(deliveryTelM);
+		$('input[name="deliveryTel"]').prop('type','String');
 	});
-	
 });
 		
 // /jsModal/staffModal.js -> staffListModal작성,검색
@@ -198,6 +204,7 @@ $(document).on('click', '#staffChoice', function(){
 	//console.log(staffChoiceHtml+"<-staffChoiceHtml");
 	$('#address').after(staffChoiceHtml);
 	$('#__staffModal').modal('hide');
+	$('[name="staffCode"]').val(str.find('#staffCode').text());
 });
 
 var goodsSetAdd = function(rentalDayPrice,rentalCanCount
@@ -254,6 +261,16 @@ $(document).on('click', '#goodsChoice', function(){
 	console.log(goodsName);
 	console.log('goodsName');
 	
+	//선택된 상품 검색
+	//var goodsArr = [];
+	var tbodyGoodsCode = $('tbody#contract').find('[name="goodsCode"]');
+	for(var i=0; i<tbodyGoodsCode.length; i++){
+		if(tbodyGoodsCode.eq(i).val()==goodsCode){
+			alert('이미 선택된 상품입니다');
+			return false;
+		};
+	};
+	
 	var goodsCategoryName = choiceTr.find('#goodsCategoryName').text();
 	
 	var setCode = "";
@@ -307,9 +324,31 @@ $(document).on('click', '#goodsSetDelete', function(){
 });
 	
 	$('#contractInsert').click(function(){
-		console.log("contractInsert");
-		const formData = new FormData($('form#docContractCom')[0]);
-		console.log(formData);
+		console.log("-------contractInsert---------");
+		const formData = new FormData($('form#docContract')[0]);
+		console.log(formData+"<-formData");
+		
+		var request = $.ajax({
+			  url: "/staff/contractInsertAjax",
+			  method: "POST",
+			  processData: false,
+			  contentType: false,
+			  data: formData,
+			});
+
+			request.done(function( data ) {
+				location.href='/customer/contractForm?contractCode='+data;
+			});
+
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "insert 실페: " + textStatus );
+			});
+			
+
+		
+		
+		
+		/****
 		var tbodyTr = $('tbody#contract').find('tr');
 		var goodsList = [tbodyTr.length];
 		for(var i=0; i<tbodyTr.length; i++){
@@ -326,11 +365,12 @@ $(document).on('click', '#goodsSetDelete', function(){
 			//'goodsList=goodsList&formData=formData'
 		}
 		console.log(goodsList+"<-goodsList");
+		
 		location.href='/staff/contractInsert';//
-
 		$.post( '/staff/contractInsert', 'a=1').done(function( data ) {
 		    console.log( data.form );
 		});			
+		***/
 	});
 	
 	$('#contractCancel').click(function(){

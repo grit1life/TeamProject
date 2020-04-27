@@ -46,30 +46,30 @@ $(function(){
 				$('#'+modalId).modal('show');
 			}, 50);
 			
-			//modal내 법인 개인 선택시
-			$('.company').click(function(){
-				console.log('company');
-				$('.name').html('회사명');
-				$('.name').next().attr('name','conpanyName');
-				$('.tel').html('대표 전화번호');
-				$('.tel').next().attr('name','customerCompanyCall');
-				$('.email').next().attr('name','customerCompanyEmail');
-				$('.staffDiv').css('display','block');
-			});
-			$('.person').click(function(){
-				console.log('person'); 
-				$('.name').html('이름')
-				$('.name').next().attr('name','customerName');
-				$('.tel').html('전화번호');
-				$('.tel').next().attr('name','customerCall');
-				$('.email').next().attr('name','customerEmail');
-				$('.staffDiv').css('display','none');
-			});
 		});
 		 
 		request.fail(function( jqXHR, textStatus ) {
 		  alert( "Request failed: " + textStatus );
 		}); 
+		//modal내 법인 개인 선택시
+		$(document).on('click','.company'.function(){
+			console.log('company');
+			$('.name').html('회사명');
+			$('.name').next().attr('name','conpanyName');
+			$('.tel').html('대표 전화번호');
+			$('.tel').next().attr('name','customerCompanyCall');
+			$('.email').next().attr('name','customerCompanyEmail');
+			$('.staffDiv').css('display','block');
+		})
+		$(document).on('click','.person'.function(){
+			console.log('person'); 
+			$('.name').html('이름')
+			$('.name').next().attr('name','customerName');
+			$('.tel').html('전화번호');
+			$('.tel').next().attr('name','customerCall');
+			$('.email').next().attr('name','customerEmail');
+			$('.staffDiv').css('display','none');
+		});
 	};
 	/*
 	 *modal내에서 const formData = new FormData($("form#staffSerch")[0]);을

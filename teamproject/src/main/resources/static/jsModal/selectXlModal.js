@@ -6,14 +6,64 @@ $(function(){
 	 *modal표시 
 	 * 
 	 */
-	//고객님 검색 modal 생성
-	$('#customerModal').click(function(){	
-		console.log('customerModal_click');
-		__modalRquest('/customerModal', '고객님 검색','__customerModal');	
+	/**** 고객님 개인,법인 선택 modal ******************************************************/
+	var customerModalFormName = "form#customerSerch";
+	var customerModalTableName = ".customerModalTable";
+	
+	//고객님 개인,법인 선택 modal 생성
+	$('#customerLevelModal').click(function(){	
+		console.log('customerLevelModal_click');
+		__modalRquest('/staff/customerLevelModal', '개인,법인 선택','__customerLevelModal');	
 	});
 	//한번 modal을 생성했으면 표시만 하면된다
-	$(document).on('click', '#customerModal', function(){
+	$(document).on('click', '#customerLevelModal', function(){
+		$('#__customerLevelModal').modal('show');
+	});
+	
+	/**** 고객님(개인) modal ******************************************************/
+	var customerModalFormName = "form#customerSerch";
+	var customerModalTableName = ".customerModalTable";
+	
+	//고객님(개인) 검색 modal 생성
+	$(document).on('click','.customerModal',function(){
+		$('.levelModal').prop('checked', false);
+		$('#__customerLevelModal').modal('hide');
+		console.log('customerModal_click');
+		__modalRquest('/staff/customerSelectModal', '고객님(개인) 검색','__customerModal');	
+	});
+	//한번 modal을 생성했으면 표시만 하면된다
+	$(document).on('click', '.customerModal', function(){
 		$('#__customerModal').modal('show');
+	});
+	//고객님(개인)  검색Btn click시 table만 삭제하고 세로 table 생성
+	$(document).on('click', '#customerSerchBtn', function(){
+		const formData = new FormData($(customerModalFormName)[0]);
+		$(customerModalTableName).remove();
+		
+		__modalRquestList('/staff/customerListModal', formData, customerModalFormName, customerModalTableName);
+	});
+	/**** 고객님(법인) modal ******************************************************/
+	var companyModalFormName = "form#companySerch";
+	var companyModalTableName = ".companyModalTable";
+	
+	//고객님(법인) 검색 modal 생성
+	$(document).on('click','.companyModal',function(){
+		$('.levelModal').prop('checked', false);
+		$('#__customerLevelModal').modal('hide');
+		console.log('companyModal_click');
+		__modalRquest('/staff/companySelectModal', '고객님(법인) 검색','__companyModal');	
+	});
+	//한번 modal을 생성했으면 표시만 하면된다
+	$(document).on('click', '.companyModal', function(){
+		$('#__companyModal').modal('show');
+	});
+	//고객님(법인)  검색Btn click시 table만 삭제하고 세로 table 생성
+	$(document).on('click', '#companySerchBtn', function(){
+		console.log("companySerchBtn click")
+		const formData = new FormData($(companyModalFormName)[0]);
+		$(companyModalTableName).remove();
+		
+		__modalRquestList('/staff/companyListModal', formData, companyModalFormName, companyModalTableName);
 	});
 	/**** 상품 modal ******************************************************/
 	var gModalMakeBtn = "#goodsModal";
@@ -46,7 +96,7 @@ $(function(){
 			}
 		}
 		//console.log(formData.get('branchCode'));
-		__modalRquestGS('/goodsListModal', formData, gModalFormName, gModalTableName,goodsArr);
+		__modalRquestList('/goodsListModal', formData, gModalFormName, gModalTableName);
 	});
 	/**** set modal ******************************************************/
 	var setModalMakeBtn = "#setModal";
@@ -76,7 +126,7 @@ $(function(){
 			}
 		}
 		//console.log(formData.get('branchCode'));
-		__modalRquestGS('/setListModal', formData, setModalFormName, setModalTableName, setArr);
+		__modalRquestList('/setListModal', formData, setModalFormName, setModalTableName);
 	});
 
 	/**** 직원 modal ******************************************************/
@@ -87,7 +137,7 @@ $(function(){
 	
 	//직원 검색 modal 생성
 	$(sModalMakeBtn).click(function(){	
-		__modalRquest('/staffSelectModal', '직원 선택',sModalId);	
+		__modalRquest('/staffSelectModal', '직원 선택',sModalId);
 	});
 	//한번 modal을 생성했으면 표시만 하면된다
 	$(document).on('click', sModalMakeBtn, function(){
@@ -97,7 +147,7 @@ $(function(){
 	$(document).on('click', '#staffSerchBtn', function(){
 		const formData = new FormData($(sModalFormName)[0]);
 		//console.log(formData.get('branchCode'));
-		__modalRquest2('/staffListModal', formData, sModalFormName, sModalTableName);
+		__modalRquestList('/staffListModal', formData, sModalFormName, sModalTableName);
 	});
 	const __modalRquest = function(modalUrl ,title ,modalId){
 		var request = $.ajax({
@@ -145,7 +195,7 @@ $(function(){
 	/*
 	 * 	검색Btn click시 table만 삭제하고 세로 table 생성
 	 * */
-	const __modalRquest2 = function(modalUrl , param, formName, tableName){
+	const __modalRquestList = function(modalUrl , param, formName, tableName){
 		
 		var request = $.ajax({
 			  url: modalUrl,
@@ -157,47 +207,18 @@ $(function(){
 			});
 		
 		request.done(function( data ) {
-			$(tableName).remove();
+			$(tableName).remove();//table을 삭제할 수 있게
 			let modalHtml = data;
 			console.log(modalHtml);
 			console.log($(formName));
-			$(formName).append(modalHtml);
+			$(formName).append(modalHtml);//검색창의 form의 id등 검색할 수 있게
 		});
 		
 		request.fail(function( jqXHR, textStatus ) {
 			  alert( "Request failed: " + textStatus );
 		});
 	};
-	/*
-	 * 	검색Btn click시 table만 삭제하고 세로 table 생성(goods,set)
-	 * */
-	const __modalRquestGS = function(modalUrl , param, formName, tableName,choiceList){
-		console.log(choiceList);
-		console.log("choiceList");
-		param.append("goodsCode",choiceList);
-		console.log(param);
-		console.log("param");
-		var request = $.ajax({
-			  url: modalUrl,
-			  method: "POST",
-			  processData: false,
-			  contentType: false,
-			  data: param,
-			  dataType: "html"
-			});
-		
-		request.done(function( data ) {
-			$(tableName).remove();
-			let modalHtml = data;
-			//console.log(modalHtml);
-			console.log($(formName));
-			$(formName).append(modalHtml);
-		});
-		
-		request.fail(function( jqXHR, textStatus ) {
-			  alert( "Request failed: " + textStatus );
-		});
-	};
+
 
 
 });

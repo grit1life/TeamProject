@@ -24,6 +24,10 @@ public class GoodsCountService {
 		List<GoodsCount> gcList = goodsCountMapper.goodsCount(goodsCount);
 		return gcList;
 	}
+	public List<GoodsCount> goodscount(){
+		List<GoodsCount> gcList = goodsCountMapper.goodsCount();
+		return gcList;
+	}
 	
 	public List<GoodsCount> setCount(GoodsCount goodsCount){
 		return goodsCountMapper.setCount(goodsCount);

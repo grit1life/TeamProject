@@ -35,9 +35,13 @@
 			,G.goods_name
 			,G.goods_desc
 			,G.stock_count-COALESCE(sum(gCount.rentalGoodsCount),0)AS rental_can_count
-			,gCount.rental_day_price
+			,PG.rental_day_price
 		FROM
+			price_goods AS PG
+		INNER JOIN 
 			goods AS G
+		ON 
+			PG.goods_code=G.goods_code
 		INNER JOIN 
 			goods_category AS GC
 		ON 
@@ -69,7 +73,6 @@
 				,G.goods_name,G.stock_count
 				,DC.rental_count,COALESCE(S.set_goods_count,1)AS setGoodsCount
 				,DC.rental_count*COALESCE(S.set_goods_count,1)AS rentalGoodsCount
-				,PG.rental_day_price
 			FROM
 				doc_contract AS DC
 			LEFT JOIN
@@ -82,10 +85,6 @@
 				S.goods_code=G.goods_code
 			OR
 				DC.goods_code=G.goods_code
-			LEFT JOIN
-				price_goods AS PG
-			ON 
-				G.goods_code=PG.goods_code	
 			WHERE  
 				DC.ispay='Y'
 			AND 
