@@ -90,25 +90,37 @@
  </div> 
 <script type="text/javascript">
 	$(function(){
-		$('#loginBtn').click(function(){
-			console.log("loginBtn");
+		$(document).on('click', '#loginBtn', function(){
 			var staffId = $('#staffId').val();
 			var staffPw = $('#staffPw').val();
-			console.log(staffId);
+			$.ajax({
+				url: "/logout",
+				method: "post",
+				dataType: "json",
+				data: {s : "s"}
+			}).done(function(data){
+				console.log(data)
+			}).fail(function(){
+				console.log('error')
+			})
+			
 			var request = $.ajax({
 				url : "/staffLogin",
 				method : "post",
 				dataType : "json",
 				data : {staffId:staffId,staffPw:staffPw}
 			})
-			request.done(function(loginMap){
-				if(loginMap.result=="login성공"){
-					window.location.href = "/index";
+			request.done(function(data){
+				if(data.result=="login성공"){
+					console.log(data.result)
+					alert("직원 "+data.result)
 				}else{
-					alert(loginMap.result);
+					alert(data.result);
 				}
 			})
 			request.fail(function( jqXHR, textStatus ) {
+				console.log(jqXHR)  
+				console.log(textStatus)
 				  alert("입력한 ID가 존재하지 안습니다");
 			});
 		});
@@ -126,7 +138,7 @@
 				data : {customerId:customerId,customerPw:customerPw}
 			})
 			request.done(function(Map){
-				alert(Map.result);
+				alert("고객 "+Map.result);
 				
 			})
 			request.fail(function( jqXHR, textStatus ) {

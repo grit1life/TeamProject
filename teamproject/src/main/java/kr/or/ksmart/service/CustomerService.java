@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class CustomerService {
 	
 	//고객 로그인
 	public String CustomerLogin(String customerId,String customerPw,HttpSession session) {
+		
 		Customer customer = customerMapper.CustomerLogin(customerId);
 		String pw = customer.getCustomerPw();
 		String result = null;
@@ -39,7 +41,6 @@ public class CustomerService {
 		}else {
 			result = "로그인 성공";
 			session.setAttribute("customerId", customerId);
-			session.setAttribute("customerPw", customer.getCustomerPw());
 			session.setAttribute("customerName", customer.getCustomerName());
 			session.setAttribute("customerLevel", customer.getCustomerLevel());
 		}

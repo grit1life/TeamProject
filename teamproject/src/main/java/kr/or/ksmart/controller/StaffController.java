@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,10 @@ public class StaffController {
 	
 	@PostMapping(value="/staffLogin", produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> staffLogin(HttpSession session,@RequestParam(value="staffId")String staffId,@RequestParam(value="staffPw")String staffPw) {
+	public Map<String, Object> staffLogin(HttpSession session,@RequestParam(value="staffId")String staffId
+			,@RequestParam(value="staffPw")String staffPw) {
+		
 		String result = staffService.staffLogin(staffId,staffPw,session);
-		System.out.println("service ok / StaffController");
 		Map<String, Object> loginMap = new HashMap<String, Object>();
 		loginMap.put("result", result);
 		return loginMap;
