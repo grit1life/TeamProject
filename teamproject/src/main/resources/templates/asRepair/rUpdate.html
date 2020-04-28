@@ -42,7 +42,7 @@
           <!-- /.card-header -->
           <div class="card-body">
             <!-- left -->
-          <form action="/rUpdate" method="post" id="form">    
+          <form th:action="@{/rUpdate}" method="post" id="form">    
             <div class="row">
               
               <!-- 작업 구분 시작 -->
@@ -118,11 +118,11 @@
 					<div id="repairType" class="form-group" style="display:none;">
 						<label>A/S 비용 발생 여부</label>
                         <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio1" th:value="${AsRepair.repairType}" name="repairType" checked="" value="1">
+                          <input class="custom-control-input" type="radio" id="customRadio1" th:value="${AsRepair.repairType}" name="repairType" checked="" value="무상">
                           <label for="customRadio1" class="custom-control-label">무상</label>
                         </div>
                         <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio2" name="repairType" th:value="${AsRepair.repairType}">
+                          <input class="custom-control-input" type="radio" id="customRadio2" name="repairType" th:value="${AsRepair.repairType}" value="유상">
                           <label for="customRadio2" class="custom-control-label">유상</label>
                         </div>                       
                     </div>

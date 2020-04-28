@@ -106,7 +106,9 @@
 		   RE.working_situation=#{workingSituation},
 		   RE.visit_date=#{visitDate},
 		   RE.repair_completion_date=#{repairCompletionDate},
-		   RE.staff_id2=#{staffId2}							
+		   RE.repair_type=#{repairType},	
+		   RE.staff_id2=#{staffId2},
+		   RE.repair_contents=#{repairContents}							
 		where
 		     AR.reception_code = RE.reception_code;
 			     
