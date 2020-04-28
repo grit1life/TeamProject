@@ -4,203 +4,215 @@
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layout/default}"
 >
-
 <th:block layout:fragment="customTitle">
-	<title>rdList.html</title>
+	<title>staffList.html</title>
 </th:block>
+<th:block layout:fragment="customTestScript">
+<script type="text/javascript">
+$(function(){
+		
+	
+	$('.billBtn').click(function(){
+			window.open("/staff/billForm?billCode="+$(this).data('set'), "",
+			"_blank width=800, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no")
+		})
+}) 
+</script>
+</th:block> 
 
-
-<body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
+<body class="hold-transition sidebar-mini layout-fixed">
  <div class="content-wrapper">
-     <section class="content-header">
+  
+    <section class="content-header"> 
        <div class="row mb-2">
          <div class="col-sm-6">
-           <h1>A/S 비용 청구 현황 목록</h1>
+           <h1>A/S 수리비 청구서 조회</h1>
          </div>
          <div class="col-sm-6">
            <ol class="breadcrumb float-sm-right">
              <li class="breadcrumb-item"><a href="#">Home</a></li>
+             <li class="breadcrumb-item active">Advanced Form</li>
            </ol>
          </div>
        </div>
-	
-	 <!--  검색 -->
-     <section class="content-header">  
-      <div class="container-fluid">   
-        <div class="card card-default">
-          <div class="card-header">
-            <h3 class="card-title">검색창</h3>
-		        <div class="card-tools">
-				    <div style="display: inline-block;">
-				    	  <button type="button" id="contractHidden" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-				    </div>
-				    <div style="display: inline-block;">
-				    	<button type="button" class="btn btn-tool" data-card-widget="remove"></button>
-				    </div>
-	   			</div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-	            <div class="form-group" style="padding-bottom: 15px;">	
-	            	<label>고객명</label>
-					<div style="display: inline-block;">
-						<input type="text" class="form-control">
-				    </div> 
-				    
-				    <label>금액</label>
-					<div style="display: inline-block;">
-						<input type="number" class="form-control">
-				    </div> 
-				    				    				   
-				    
-				    <label>청구일</label>
-					<div style="display: inline-block;">
-						<input type="date" class="form-control">
-				    </div> 
-				    ~
-				    <div style="display: inline-block;">
-						<input type="date" name="updateDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-				    </div> 
-				<!-- sv  -->      	          		          
-				    <div style="display: inline-block;margin-left:0px;">
-				    	<button type="submit" class="btn btn-info">
-				           		검색
-				        </button>
-				    </div>		           
-				</div>
-              </div>             
-            </div>
-          </div>
-      </div>
-    </section>
-    <!--검색 end-->
-	  
-  <section class="content">
+     </section>
+    
+ 
+  <section class="content"> 
   	<div class="container-fluid">
-	<div class="card">
-	 <div class="card-body" style="margin-top:20px">
-	 	
-	  	<table id="example2" class="table table-bordered table-hover">
+  	    <!-- 검색 시작 -->
+  		<div class="card card-default">
+			 <div class="card-header">
+			   <h3 class="card-title">청구서 검색</h3>
+			
+			   <div class="card-tools">
+			     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+			     <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			   </div>
+			 </div>
+			 <div class="card-body">
+		         <div class="form-group" style="padding-bottom: 15px;">	
+					    <div style="display: inline-block;">
+					    	<label>고객명</label>
+								<input type="text" class="form-control" name="customerName" placeholder="고객명" value="김철수">	
+					    </div> 
+	
+					    
+					    <div style="display: inline-block;">
+					     	<label>상품명</label>					     					     		
+								<input type="text" class="form-control" name="goodsName" placeholder="상품명">
+					    </div>
+					    
+					    
+					    <div style="display: inline-block;">
+					     	<label>담당자</label>					     					     		
+								<input type="text" class="form-control" name="staffName" placeholder="담당자명">
+					    </div> 
+					    
+					    <div style="display: inline-block;">
+							<label>청구일</label>
+							<input type="date" class="form-control" name="fromDate">
+					    </div> 
+					    
+					    ~
+					    
+					    <div style="display: inline-block;">
+							<label></label>
+							<input type="date" class="form-control" name="toDate">
+					    </div> 
+					<!-- sv  -->      	          
+					    <div style="display: inline-block; margin-left:5px;">
+					    	<button type="submit" class="btn btn-info">
+					           		검색
+					        </button>
+					    </div>		           
+					</div>
+		            <!-- /.row -->
+		      </div>
+	    </div>
+		<!-- 검색 끝 -->	 
+	 <div class="card">
+	  <div class="card-body">
+	  	<table id="contractTable" class="table table-bordered table-hover"  style="margin-top: 22px;">
 	    	<thead>
                 <tr>
-                  <th>청구 번호</th>
-                  <th>수리 현황 번호</th> 
-                  <th>고객명</th> 
-                  <th>청구 금액</th>  
-                  <th>입금 여부</th>              
-                  <th>청구일</th>
-                  <th>상세보기</th>
+                  <th>청구코드</th>
+                  <th>고객명</th>
+                  <th>입금 여부</th>
+                  <th>상품명(세트)</th>
+                  <th>청구금액</th>
+                  <th>담당자</th>
+                  <th>청구날짜</th>
+                  <th>청구서</th>
                   <th>삭제</th>
                 </tr>
 	         </thead>
              <tbody>
-              <tr>
-           	    <td>claim_code01</td>
-                <td>repair_code</td>
-                <td>이아무개</td>
-                <td>15000</td>
-                <td>Y</td>
-                <td>0000-00-00</td>            
-                <td> 
-					<a class="btn btn-primary btn-sm" th:href="@{/rdUpdate}">
-	                   <i class="fas fa-folder">
-	                   </i>
-	                    	확인
-	                </a>    		
+             <tr th:each="l:${RepairFeeBillingAndDepositList}">
+                <td th:text="${l.claimCode}"></td>
+                <td th:text="${l.customerName}"></td>
+                <td th:text="${l.WhetherToDeposit}"></td>
+                <td th:text="${l.goodsName}"></td>
+                <td th:text="${l.repairCost}"></td>
+                <td th:text="${l.staffName}"></td>
+                <td th:text="${l.claimDate}"></td>                
+                 <td>
+                 	<a th:href="@{/asRepairBillForm(claimCode=${l.claimCode})}" class="btn btn-success btn-sm">
+                 		<i class="fas fa-folder"></i>
+                 	
+                 			청구서
+                 	</a>
+                 
+                </td>
+               <td>
+					<form action="/pDelete?checkCode=check_1" method="post">
+						<button id="DeleteBtn" class="btn btn-danger btn-sm" onclick="if(!confirm('삭제된 내용은 다시 복구 할 수 없습니다. 정말로 삭제 하시겠습니까?')){return false;}">
+							<i class="fas fa-trash">
+                  		    </i>	
+						 	  Delete	
+						</button>
+					
+					</form>     	
 				</td>
-				<td>							
-					<a class="btn btn-danger btn-sm" th:href="@{/rdDelete}" id="btn-remove">
-                       <i class="fas fa-trash">
-                       </i>
-                            	 삭제
-                    </a>
-				</td>						
+						
+                
+                
+                
               </tr>
              </tbody>
 		</table>
+		<br>
+		<!-- 페이징 -->
+	   <nav aria-label="Page navigation example">
+		  <ul class="pagination">
+		    <li class="page-item">
+			    <th:block th:if="${currentPage>1}">
+			      <a class="page-link" th:href="@{/staff/billList(page=${currentPage-1})}" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+				</th:block>
+				<th:block th:unless="${currentPage>1}">
+			      <a class="page-link" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+				</th:block>
+		    </li>
+			<th:block th:each="num : ${#numbers.sequence(startPage, endPage)}">
+		    	<li class="page-item"><a class="page-link" th:text="${num}" th:href="@{/staff/billList(page=${num})}"></a></li>
+			</th:block>
+		    <li class="page-item">
+		    	<th:block th:if="${endPage>currentPage}">
+			      <a class="page-link" th:href="@{/staff/billList(page=${currentPage+1})}" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </th:block>
+			    <th:block th:unless="${endPage>currentPage}">
+			      <a class="page-link" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </th:block>
+		    </li>
+		  </ul>
+		</nav>
+             <!-- 페이징 끝 -->
+
 	  </div>
-	 </div>
-      	
-    </div>
-    
+	 </div>   	    
+	</div>
   </section>
-  </div>
- </th:block>
+</div>
 
-<!-- jQuery -->
-<!-- Page script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
 
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
 
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
+<script th:inline="javascript">
+	/*<![CDATA[*/
 
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
 
-    //Timepicker
-    $('#timepicker').datetimepicker({
-      format: 'LT'
-    })
-    
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
+	$('#RepairFeeBillingForm').click(function(event){ 
+		  console.log('click');
+		  popupOpen();	
+	
+		  function popupOpen(){
+			  
+				var url= "/asRepairBillForm";    
+				var winWidth = 977;
+		 	    var winHeight = 510;
+			    var popupOption= "width="+winWidth+", height="+winHeight;    
+				window.open(url,"",popupOption);
+			}
+			
+		
+		
+	
+	});
+	
+	
+	/*]]>*/
 
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
 
-    $('.my-colorpicker2').on('colorpickerChange', function(event) {
-      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-    });
-
-    $("input[data-bootstrap-switch]").each(function(){
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    });
-
-  })
 </script>
 
 </body>
+</th:block>
 </html>
