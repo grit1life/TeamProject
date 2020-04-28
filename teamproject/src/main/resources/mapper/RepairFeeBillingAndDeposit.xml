@@ -20,7 +20,7 @@
  	<insert id="rdInsert" parameterType="kr.or.ksmart.domain.RepairFeeBillingAndDeposit">
  	<selectKey keyProperty="claimCode" resultType="String" order="BEFORE">
  			SELECT 
- 				CONCAT('claim_code0', MAX(CAST(SUBSTRING(claim_code,15) AS DECIMAL)+1)) AS claimCode
+ 				CONCAT('claim_code0', MAX(CAST(SUBSTRING(claim_code,11) AS DECIMAL)+1)) AS claimCode
 			FROM repair_fee_billing_and_deposit
 		
 	
@@ -29,18 +29,81 @@
 														 ,repair_code
 														 ,contract_code	
 														 ,Whether_to_deposit
+														 ,repair_cost
 														 ,claim_date
 									 
 															
-					                 					  ) VALUES( #{claimCode}
+					                 					  ) VALUES(  #{claimCode}
 										                   			,#{repairCode}
 										                   			,#{contractCode}
 										                   			,#{WhetherToDeposit}
+										                   			,#{repairCost}
 										                   			,#{claimDate}
 										                   				
 																  );
 												
 			
 	</insert>
+	
+	
+	<!--상세보기  -->
+	
+	<!-- 리스트 페이징 -->
+	<select id="getrepairFeeBillingAndDepositCnt" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			repair_fee_billing_and_deposit
+	</select>
+	
+	
+	<!-- 리스트  -->
+	<select id="getrepairFeeBillingAndDepositList" parameterType="String" resultType="kr.or.ksmart.domain.RepairFeeBillingAndDeposit">
+		 SELECT
+		 RB.claim_code  AS claimCode
+		,C.customer_name  AS customerName 
+		,RB.Whether_to_deposit AS WhetherToDeposit
+		,G.goods_name  AS goodsName 
+		,RB.repair_cost  AS repairCost  
+		,RB.claim_date  AS claimDate
+		,S.staff_name AS staffName   
+		FROM
+		repair_fee_billing_and_deposit AS RB
+		JOIN
+		as_repair AS AR
+		ON
+		AR.repair_code = RB.repair_code
+		JOIN
+		as_reception AS RE
+		ON
+		AR.reception_code = RE.reception_code
+		JOIN
+		doc_contract AS DC
+		ON
+		RE.contract_code = DC.contract_code
+		JOIN
+		customer AS C
+		ON
+		DC.customer_id = C.customer_id
+		JOIN
+		goods AS G
+		ON
+		G.goods_code = DC.goods_code
+		JOIN
+		staff AS S
+		ON
+		S.staff_code = RE.staff_id2
+		GROUP BY 
+		RB.claim_code
+		LIMIT ${startClmn}, ${endClmn};  	
+		 
+		
+	</select>
+
+
+
+
+
+
 	
 </mapper>	
