@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +30,27 @@ public class StaffController {
 	@Autowired
 	private BranchService branchService;
 	
-
+/*
 	@GetMapping("/staff/staffLogin")
 	public String staffLogin() {
 		return "staff/staffLogin";
 	}
+*/	
+	@PostMapping("/staffLogin")
+	public String staffLogin(HttpSession session,@RequestParam(value="staffId")String staffId
+			,@RequestParam(value="staffPw")String staffPw) {
+		
+		staffService.staffLogin(staffId,staffPw,session);
+		
+		return "redirect:/staff/boardList";
+	}
 	
-	@PostMapping(value="/staffLogin", produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> staffLogin(HttpSession session,@RequestParam(value="staffId")String staffId,@RequestParam(value="staffPw")String staffPw) {
-		String result = staffService.staffLogin(staffId,staffPw,session);
-		System.out.println("service ok / StaffController");
-		Map<String, Object> loginMap = new HashMap<String, Object>();
-		loginMap.put("result", result);
-		return loginMap;
+	//관리자 로그인
+	@PostMapping("/adminLogin")
+	public String sdminLogin(HttpSession session, @RequestParam(value="adminId") String adminId
+				, @RequestParam(value="adminPw") String adminPw) {
+		staffService.staffLogin(adminId,adminPw,session);
+		return "redirect:/staff/boardList";
 	}
 
 	@GetMapping("/admin/staffInsert")

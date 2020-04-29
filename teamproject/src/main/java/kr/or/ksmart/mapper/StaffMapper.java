@@ -20,4 +20,5 @@ public interface StaffMapper {
 	public List<Staff> staffTransferList(String staffCode);
 	
 	public int staffDUpdate(Staff staff);
+	
 }

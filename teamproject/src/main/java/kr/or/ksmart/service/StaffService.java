@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,9 @@ public class StaffService {
 		return staffList;
 	}
 	
+	
 	public String staffLogin(String staffId,String staffPw,HttpSession session) {
-		System.out.println("StaffService");
 		Staff staff = staffMapper.staffLogin(staffId);
-		System.out.println(staff.toString());
 		String pw = staff.getStaffPw();
 		String result = null;
 		
@@ -40,13 +40,12 @@ public class StaffService {
 			result = "password불일지";
 		}else {
 			result = "login성공";
-			session.setAttribute("staffId", staffId);
-			session.setAttribute("branchName", staff.getBranchName());
-			session.setAttribute("staffName", staff.getStaffName());
-			session.setAttribute("staffLevel", staff.getStaffLevel());
+			session.setAttribute("SID", staffId);
+			session.setAttribute("SNAME", staff.getStaffName());
+			session.setAttribute("SLEVEL", staff.getStaffLevel());
 		}
-		System.out.println(result);
-		System.out.println("StaffService----end");
+		System.out.println(staff.getStaffLevel());
+		System.out.println(session.getAttribute("SID"));
 		return result;
 	}
 	

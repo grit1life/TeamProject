@@ -15,7 +15,7 @@
 			location.href='contractInsert?estimateCode='+$(this).data('set')
 		})
 		$('.estimateBtn').click(function(){
-			window.open("/customer/estimateForm?estimateCode="+$(this).data('set'), "",
+			window.open("/estimateForm?estimateCode="+$(this).data('set'), "",
 			"_blank width=800, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no")
 		})
 	}) 
@@ -25,8 +25,6 @@
 <th:block layout:fragment="customContents">
 <body class="hold-transition sidebar-mini layout-fixed">
  <div class="content-wrapper">
-  db 연결 및 견적서 연결(2020.03.24)
-     삭제 필요
     <section class="content-header"> 
        <div class="row mb-2">
          <div class="col-sm-6">
@@ -81,7 +79,6 @@
                   <th>담당자</th>
                   <th style="width:100px">견적서</th>
                   <th>계약서</th>
-                  <th style="width:85px">삭제</th>
                 </tr>
 	         </thead>
              <tbody>
@@ -127,10 +124,10 @@
 						</svg>&ensp;계약서
 					</a>
                 </td>
-                <td>
+               <!--  <td>
                 	<a class="btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
                     <i class="fas fa-trash"></i>&ensp;삭제</a>
-                </td>
+                </td> -->
               </tr>
              </tbody>
 		</table>

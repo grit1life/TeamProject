@@ -66,7 +66,7 @@
 			location.href='contractInsert?estimateCode='+$(this).data('set')
 		})
 		$('.estimateBtn').click(function(){
-			window.open("/customer/estimateForm?estimateCode="+$(this).data('set'), "",
+			window.open("/estimateForm?estimateCode="+$(this).data('set'), "",
 			"_blank width=800, height=900, toolbar=no, menubar=no, scrollbars=yes, resizable=no")
 		})
 	}) 
@@ -76,8 +76,6 @@
 <th:block layout:fragment="customContents">
 <body class="hold-transition sidebar-mini layout-fixed">
  <div class="content-wrapper">
-  db 연결 및 견적서 연결(2020.03.24)
-     삭제 필요
     <section class="content-header"> 
        <div class="row mb-2">
          <div class="col-sm-6">
