@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<!--
+	Urban by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" th:href="@{assets/css/main.css}" />
+		<style type="text/css">
+			.typing-txt{
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  z-index: 2;
+			  -webkit-transform: translate(-50%, -50%);
+			  transform: translate(-50%, -50%);
+			  color: #fff;
+			  font : normal 300 64px/1 'Josefin Sans', sans-serif;
+			  text-align: center;
+			  white-space: nowrap;
+			}
+			.header a{
+			  position: absolute;
+			  top:350px;
+			  left: 50%;
+			  z-index: 2;
+			  display: inline-block;
+			  -webkit-transform: translate(0, -50%);
+			  transform: translate(0, -50%);
+			  color: #fff;
+			  font : normal 400 20px/1 'Josefin Sans', sans-serif;
+			  letter-spacing: .1em;
+			  text-decoration: none;
+			  transition: opacity .3s;
+			}
+
+			.scroll{
+			 	cursor:pointer;
+			}
+			.scroll-text{
+				margin-top: 70px;
+			}
+			.scroll span {
+			  position: absolute;
+			  top: 0;
+			  left: 50%;
+			  width: 24px;
+			  height: 24px;
+			  margin-left: -12px;
+			  border-left: 1px solid #fff;
+			  border-bottom: 1px solid #fff;
+			  -webkit-transform: rotate(-45deg);
+			  transform: rotate(-45deg);
+			  -webkit-animation: sdb 2s infinite;
+			  animation: sdb 2s infinite;
+			  opacity: 0;
+			  box-sizing: border-box;
+			}
+			.scroll span:nth-of-type(1) {
+			  -webkit-animation-delay: 0s;
+			  animation-delay: 0s;
+			}
+			.scroll span:nth-of-type(2) {
+			  top: 16px;
+			  -webkit-animation-delay: .15s;
+			  animation-delay: .15s;
+			}
+			.scroll span:nth-of-type(3) {
+			  top: 32px;
+			  -webkit-animation-delay: .3s;
+			  animation-delay: .3s;
+			}
+			@-webkit-keyframes sdb {
+			  0% {
+			    opacity: 0;
+			  }
+			  50% {
+			    opacity: 1;
+			  }
+			  100% {
+			    opacity: 0;
+			  }
+			}
+			@keyframes sdb {
+			  0% {
+			    opacity: 0;
+			  }
+			  50% {
+			    opacity: 1;
+			  }
+			  100% {
+			    opacity: 0;
+			  }
+			}
+			.fix-01{
+			    background:#fafafa; /背景/
+			    box-shadow:0 2px 8px rgba(30,30,80,.3); /影。不要なら削除/
+			    left:0;
+			    line-height:1;
+			    position:fixed;
+			    top:0;
+			    width:100%;
+			    z-index:100;
+			    text-align:center;
+			    padding:1rem;
+			}
+			#light{
+			    background-color:rgba(255, 255, 255, 0.6);
+			    border:1px solid #dedede;
+			    margin:0 auto; padding:20px;
+			    overflow:hidden;
+			}		
+			.btn-square {
+			  display: inline-block;
+			  padding: 0.5em 1.5em;
+			  text-decoration: none;
+			  background: #a08f8f;/*ボタン色*/
+			  color: #FFF;
+			  border-radius: 3px;
+			  border: solid #6f5656 1px;
+			  margin: 0 5px;
+    		  float: right;
+    		  font-size: 1.35em;
+			}
+			.btn-square:active {
+			
+			  -webkit-transform: translateY(4px);
+			  transform: translateY(4px);
+			  border-bottom: none;
+			}
+			.profile{
+				color:#fff;
+				font-size: 2.5em;
+			}
+
+
+
+</style>
+	</head>
+	<body>
+
+			<!-- Banner -->
+
+			<div id="light" class="fix-01">
+				<a href="#" class="btn-square" id="content4">팀프로젝트</a>				
+				<a href="#" class="btn-square" id="content3">형상관리</a>
+				<a href="#" class="btn-square" id="content2">백엔드</a>
+				<a href="#" class="btn-square" id="content1">프론트 엔드</a>
+    		</div>
+			<section id="banner" class="header">
+				<img id="background-keyboard" alt="keyboard" th:src="@{coverImages/computer_keyboard.jpg}">
+				<div class="inner topPage">
+
+					<header>
+						<p class="typing-txt" style="display: none;">국주현의 개발 포트폴리오입니다</p>
+						<div>
+							<h1 class="typing"></h1>
+						</div>
+						<a class="scroll"><span></span><span></span><span></span><div class="scroll-text">Scroll</div></a>
+					</header>
+				</div>
+			</section>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Section -->
+					<section class="wrapper style1">
+						<div class="inner">
+							<!-- 2 Columns -->
+								<div class="flex flex-2">
+									<div class="col col2 skills-content">
+										<h1 class="skills-title" id="contents1">프론트 엔드</h1>
+											<div class="skills-image">
+												<img alt="html" th:src="@{coverImages/html-logo.png}" width="20%">
+											</div>
+											<div class="skills-image">
+												<img alt="css" th:src="@{coverImages/css-logo.png}" width="17%">
+											</div>
+											<div class="skills-image">
+												<img alt="javascript" th:src="@{coverImages/JavaScript_logo.png}" width="16%">
+											</div></br>
+											<div class="skills-image">
+												<img alt="jQuery" th:src="@{coverImages/jQuery_logo.png}" width="19%">
+											</div>
+											<div class="skills-image">
+												<img alt="Bootstrap" th:src="@{coverImages/bootstrap_logo.png}" width="22%">
+											</div></br>
+										<h1 class="skills-title" id="contents2">백엔드</h1>
+											<div class="skills-image">
+												<img alt="Java" th:src="@{coverImages/Java_logo.jpg}" width="15%">
+											</div>
+											<div class="skills-image">
+												<img alt="Spring" th:src="@{coverImages/Spring_logo.png}" width="25%">
+											</div>
+											<div class="skills-image">
+												<img alt="apacheTomcat" th:src="@{coverImages/Apache_tomcat.png}" width="20%">
+											</div>
+											<br>
+											<div class="skills-image">
+												<img alt="MySql" th:src="@{coverImages/Mysql_logo.jpg}" width="20%">
+											</div>
+											<div class="skills-image">
+												<img alt="Orace" th:src="@{coverImages/Oracle_logo.png}" width="20%">
+											</div>
+											<div class="skills-image">
+												<img alt="mybatis" th:src="@{coverImages/MyBatis_logo.jpg}" width="20%">
+											</div>
+											<br>
+										<h1 class="skills-title" id="contents3">형상관리</h1>
+											<div class="skills-image">
+												<img alt="git" th:src="@{coverImages/Git_logo.png}" width="17%">
+											</div>
+											<div class="skills-image">
+												<img alt="svn" th:src="@{coverImages/Subversion_logo.png}" width="25%">
+											</div>
+									</div>
+								</div>
+						</div>
+					</section>
+
+				<!-- Section -->
+					<section class="wrapper style2">
+						<div class="inner">
+							<div class="flex flex-2" id="contents4">
+								<div class="col col2">
+									<span class="profile" style="font-size: 2.7em;">국주현[팀원]</span><br>
+									<span class="profile">010-7136-5240</span><br>
+									<span class="profile">wngus8879@naver.com</span>
+									&emsp;&emsp;&emsp;<a href="/index"  id="privateProject" class="button" style="font-size: 1.35em;">팀프로젝트 들어가기</a>
+								</div>
+
+							</div>
+						</div>
+					</section>
+
+				<!-- Section -->
+					
+			</div>
+
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			
+	<script type="text/javascript">
+		var typingBool = false; 
+	    var typingIdx=0; 
+	    var typingTxt = $(".typing-txt").text(); // 타이핑될 텍스트를 가져온다 
+	    typingTxt=typingTxt.split(""); // 한글자씩 자른다. 
+	    if(typingBool==false){ // 타이핑이 진행되지 않았다면 
+	       typingBool=true; 
+	       
+	       var tyInt = setInterval(typing,100); // 반복동작 
+	     } 
+	     
+	     function typing(){ 
+	       if(typingIdx<typingTxt.length){ // 타이핑될 텍스트 길이만큼 반복 
+	         $(".typing").append(typingTxt[typingIdx]); // 한글자씩 이어준다. 
+	         typingIdx++; 
+	       } else{ 
+	         clearInterval(tyInt); //끝나면 반복종료 
+	       } 
+	     }  
+	     
+	     $(function () {
+	    	    $('a#testbutton').hover(function() {
+	    	        $(this).fadeTo("fast", 1);
+	    	    }, function() {
+	    	        $(this).fadeTo("fast", .85);
+	    	    });
+	    	});
+
+	      $(document).ready(function(){
+	        $(".scroll").on("click",function(event){
+	          // 이동 버튼을 클릭시 pre 태그로 스크롤의 위치가 이동되도록 한다.
+	 
+	          // 1. pre태그의 위치를 가지고 있는 객체를 얻어온다. => offset 객체
+	          var offset = $(".skills-title").offset();
+	 
+	          // offset은 절대 위치를 가져온다. offset.top을 통해 상단의 좌표를 가져온다.
+	          // position은 부모를 기준으로한 상대위치를 가져온다.
+	          $("html").animate({scrollTop:offset.top},500);
+	 
+	        });
+	      
+	        $("#content1").on("click",function(event){
+		          var offset = $("#contents1").offset();
+		          $("html").animate({scrollTop:offset.top},500);
+		    });
+	        $("#content2").on("click",function(event){
+		          var offset = $("#contents2").offset();
+		          $("html").animate({scrollTop:offset.top},500);
+		    });
+	        $("#content3").on("click",function(event){
+		          var offset = $("#contents3").offset();
+		          $("html").animate({scrollTop:offset.top},500);
+		    });
+	        $("#content4").on("click",function(event){
+		          var offset = $("#contents4").offset();
+		          $("html").animate({scrollTop:offset.top},500);
+		    });
+	
+	      });// end of ready() 
+	      
+	      
+	      $(function() {
+	    	  $('a[href*=#]').on('click', function(e) {
+	    	    e.preventDefault();
+	    	    $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
+	    	  });
+	    	});
+
+	 
+	</script>
+	
+	
+
+	</body>
+</html>
+
+

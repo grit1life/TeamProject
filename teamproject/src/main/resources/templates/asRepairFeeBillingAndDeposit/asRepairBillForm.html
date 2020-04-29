@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	body{
-		font-size: 18px;
+		font-size: 20px;
 	}
 	section{
 		margin: 20px, 40px;
@@ -113,61 +113,75 @@ $(function(){
 </head>
 <body>
 <div class="content-wrapper">
-	<h1><u>청&emsp;구&emsp;서</u></h1>
-	  <div id="container">
-		<section>  	
-			<p>1. 상 품  명 :
-				<span ></span>				
+	<h1><u>A/S 수리비 청구서</u></h1>
+	<br>
+	  <div id="container" >
+		<section>  
+			
+			<p>
+				귀하 <span>고객명</span>은(/는) <span>00지점</span>의 상품 모델 <span></span>의 A/S를 이용하여 다음과 같이 금액을 청구합니다.		
 				
 			</p>
-			    
-			<p>2. 청  구  금  액 :  <span class="priceKor" ></span>
-							(\<span class="price" ></span>)</p>                              
-			<p>3. 렌 탈 시 작 일 : <span class="date" ></span></p>
-			<p>4. 렌 탈 종 료 일 : <span class="date" ></span></p>
-			<p>5. 청 구  일 : <span class="date" ></span></p>
+			
+			<br><br><br>
+			<div style="text-align: center">	-다  &emsp; 음-   </div>
+			<br><br><br>
+			<p>○수리비:  <span class="priceKor"></span>
+					   (\<span class="price" ></span>)
+			</p>                              
+			        
+			<p>○출장비: 금일만팔천원 (\18,000)
+			</p>
+			
+			<p>○합계: <span class="priceKor" ></span>
+					  				 (\<span class="price" ></span>)
+			</p>		  				 
+			
 		</section>
-		<section>
-		○ 계  약  자 </br>
-		     <div class="contract-content">        
-			             주  소 : <span></span></br>
-				 <th:block>  
-				  		상  호 :  <span></span></br>
-				  </th:block>  
-				    성  명 : <span></span>
-			  </div>
-		</br>
-		상기 제품의 수리비에 대한 대금청구서를 제출합니다.
-		</section>
+		
 		<section>
 		○ 계좌입금내용 </br>
 		<div class="bank-content"> 
 			<table>
 				<tr>
+
 					<td>은  행  명</td>
 					<td><span>농협</span></td>
 			 	</tr>
 				<tr>
 					<td>계 좌 번 호</td>
-					<td><span></span></td>
+					<td><span>000-00000-0000</span></td>
 			 	</tr>
 				<tr>
 					<td>예  금  주</td>
-					<td><span></span></td>
+					<td><span>(주)한국스마트정보</span></td>
 	  			</tr>
   			</table>
   		</div>
   		</section>
 		<section>
 		
-		<div class="bottom"> 
-			<span class="date"></span> </br>
+			<div>
+			<span class="date"></span> 
 			
-			위 청구인    주  소 :  <span></span></br>
-			(계약자)      상  호 :  <span></span></br>
-		        성  명 :     <span></span>     (인)
+			<br><br>
+			 
+			 A/S담당자:         <span></span>  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; (인)
+			 
+			 <br></br>
+                             (휴대폰번호 : <span></span>)
+			</br></br>
+  
+  
+  
+  <span>00</span>(부,사)장:       <span></span>  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; (인)
+			
+		   </div>
 	  	</section>
 	  	</div>
+	  	
+	  	
+	  	<div class="bottom"> 
 		<div style="text-align: center;">
 			<button class="btnPrint" onclick="estimatePrint()" type="button">인쇄하기</button>
 		</div>
