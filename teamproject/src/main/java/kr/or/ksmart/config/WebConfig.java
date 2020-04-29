@@ -49,20 +49,15 @@ public class WebConfig implements WebMvcConfigurer {
 		     	.excludePathPatterns("/coverImages/**")
 		     	.excludePathPatterns("/images/**");
 		
-		registry.addInterceptor(staffInterceptor)
-				.addPathPatterns("/**")
-				.excludePathPatterns("/")
-				.excludePathPatterns("/files/**")
-				.excludePathPatterns("/index")
-				.excludePathPatterns("/staff/**")
-				.excludePathPatterns("/*")
-				.excludePathPatterns("/css/**")
-				.excludePathPatterns("/plugins/**")
-				.excludePathPatterns("/dist/**")
-				.excludePathPatterns("/assets/**")
-				.excludePathPatterns("/coverImages/**") 
-				.excludePathPatterns("/images/**");
-		
+		/*
+		 * registry.addInterceptor(staffInterceptor) .addPathPatterns("/**")
+		 * .excludePathPatterns("/") .excludePathPatterns("/files/**")
+		 * .excludePathPatterns("/index") .excludePathPatterns("/staff/**")
+		 * .excludePathPatterns("/*") .excludePathPatterns("/css/**")
+		 * .excludePathPatterns("/plugins/**") .excludePathPatterns("/dist/**")
+		 * .excludePathPatterns("/assets/**") .excludePathPatterns("/coverImages/**")
+		 * .excludePathPatterns("/images/**");
+		 */
 		  registry.addInterceptor(customerInterceptor) 
 				  .addPathPatterns("/**")
 				  .excludePathPatterns("/")
