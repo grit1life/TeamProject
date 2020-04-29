@@ -48,13 +48,13 @@
              <div class="form-group" style="height:70px; display: none" >	                
 	                 <label style="margin-bottom: 15px;">입금 여부</label><br>
 	                  <div class="icheck-primary d-inline">
-	                    <input  type="radio" name="WhetherToDeposit" id="radioPrimary1">
+	                    <input  type="radio" name="WhetherToDeposit" id="radioPrimary1" value="Y">
 	                    <label for="radioPrimary1">
 	                    	Y
 	                    </label>
 	                  </div>
 	                  <div class="icheck-primary d-inline">
-	                    <input  type="radio"  name="WhetherToDeposit" id="radioPrimary2" checked="checked">
+	                    <input  type="radio"  name="WhetherToDeposit" id="radioPrimary2" value="N" checked="checked">
 	                    <label for="radioPrimary2">
 	                    	N
 	                    </label>
@@ -162,10 +162,10 @@
                     </thead>
                     <tbody>
                     <tr>
-                      <td><input style="border:none" id="repairCode"></td>
+                      <td><input style="border:none" id="repairCode" name="repairCode"></td>
                       <td><input style="border:none" name="contractCode" id="contractCode"></td>
-                      <td><input style="border:none" id="goodsName"></td>
-                      <td><input style="border:none" id="contractCode"></td>
+                      <td><input style="border:none" id="goodsName" name="goodsName"></td>
+                      <td><input style="border:none" id="repairContents" name="repairContents"></td>
                       <td><input type="number" name="cost" onKeyPress="Chking();" onKeyUp="Chking();" style="border:none"  placeholder="수리비를 입력하세요"></td>
                     </tr>
                     

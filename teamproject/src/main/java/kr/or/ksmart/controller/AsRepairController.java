@@ -51,6 +51,6 @@ public class AsRepairController {
 				return "redirect:/aList";
 			}
 	
-	//수리비 청구 등록
+
 	
 }
