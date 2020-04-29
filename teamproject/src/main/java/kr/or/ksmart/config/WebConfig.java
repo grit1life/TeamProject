@@ -35,8 +35,8 @@ public class WebConfig implements WebMvcConfigurer {
 		        .excludePathPatterns("/dist/**")
 		        .excludePathPatterns("/assets/**")
 		        .excludePathPatterns("/coverImages/**")
-		        .excludePathPatterns("/images/**")
-				;
+		        .excludePathPatterns("/images/**");
+		
 		registry.addInterceptor(loginInterceptor)
 				.addPathPatterns("/**")
 				.excludePathPatterns("/")
@@ -47,8 +47,7 @@ public class WebConfig implements WebMvcConfigurer {
 		       	.excludePathPatterns("/dist/**")
 		      	.excludePathPatterns("/assets/**")
 		     	.excludePathPatterns("/coverImages/**")
-		     	.excludePathPatterns("/images/**")
-				;
+		     	.excludePathPatterns("/images/**");
 		
 		registry.addInterceptor(staffInterceptor)
 				.addPathPatterns("/**")
@@ -62,9 +61,7 @@ public class WebConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/dist/**")
 				.excludePathPatterns("/assets/**")
 				.excludePathPatterns("/coverImages/**") 
-				.excludePathPatterns("/images/**") 
-				;
-		 
+				.excludePathPatterns("/images/**");
 		
 		  registry.addInterceptor(customerInterceptor) 
 				  .addPathPatterns("/**")
@@ -77,7 +74,6 @@ public class WebConfig implements WebMvcConfigurer {
 				  .excludePathPatterns("/dist/**")
 				  .excludePathPatterns("/assets/**") 
 				  .excludePathPatterns("/coverImages/**")
-				  .excludePathPatterns("/images/**") ;
-		 
+				  .excludePathPatterns("/images/**");
 	}
 }
