@@ -58,7 +58,11 @@ public class RepairFeeBillingAndDepositService {
 			return map;
 		}
 		
-		
+		// 삭제	
+		public int rdDelete(String claimCode) {
+								
+			return RepairFeeBillingAndDepositMapper.rdDelete(claimCode);
+		}
 	
 	
 	

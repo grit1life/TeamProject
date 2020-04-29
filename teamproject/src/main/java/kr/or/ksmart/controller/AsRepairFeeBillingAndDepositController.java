@@ -80,5 +80,14 @@ public class AsRepairFeeBillingAndDepositController {
 	}
 	
 	
+	//삭제
+	@PostMapping("/rdDelete")
+	public String rdDelete(@RequestParam(value="claimCode", required = false) String claimCode){
+		RepairFeeBillingAndDepositService.rdDelete(claimCode);
+				return "redirect:/rdList";
+			}
+	
+	
+	
 	
 }

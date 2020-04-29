@@ -17,5 +17,6 @@ public interface RepairFeeBillingAndDepositMapper {
 		//리스트
 		public List<RepairFeeBillingAndDeposit> getrepairFeeBillingAndDepositList(int startClmn, int endClmn);
 		
-
+		//삭제
+		public int rdDelete(String claimCode);
 }

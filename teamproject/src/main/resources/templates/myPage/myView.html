@@ -18,8 +18,10 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-	
 </head>
+
+
+
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
@@ -264,6 +266,8 @@
                   <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">나의 정보</a></li>
                   <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">주문내역</a></li>
                   <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">렌탈내역</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#aslist" data-toggle="tab">A/S내역</a></li>
+                   <li class="nav-item"><a class="nav-link" href="#depositList" data-toggle="tab">입금조회</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -567,6 +571,434 @@
               			
                   </div>
                   <!-- /.tab-pane -->
+                 
+                    <div class="tab-pane" id="aslist">
+		        				  <div class="card-body">
+						            <div style="float: right">
+	              	 		 		<div style="display: inline-block;">							    
+											<input type="date" name="fromDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+									    </div> 
+	  					
+	     	          					~	
+									 	<div style="display: inline-block;">
+											<input type="date" name="toDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+									    </div> 	          
+    	 							</div>
+    	 							&emsp;
+    	 							<br>
+						            <div class="tab-content" id="custom-content-above-tabContent">							            		            	
+						              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+						                 <table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
+									    	<thead>
+								                <tr>
+								                  <th>접수코드</th>
+								                  <th>작업 구분</th>
+								                  <th>진행 상황</th>
+								                  <th>A/S요청인</th>
+								                  <th>A/S처리점</th>
+								                  <th>A/S처리기사</th>
+								                  <th>접수일</th>
+								                  <th>작업완료일</th>					                 
+								                </tr>
+									         </thead>
+								            <tbody>
+									             <tr>
+									             	<td>reception_code01</td>
+									             	<td>교환</td>
+									             	<td>작업완료</td>
+									                <td>김철수</td>
+									                <td>본사</td>
+												    <td>서기사</td>
+									               	<td>2020-03-03</td>
+									               	<td>2020-03-04</td>									        			
+									              </tr>
+									              <tr>
+									             	<td>reception_code02</td>
+									             	<td>수리</td>
+									             	<td>작업완료</td>
+									                <td>김철수</td>
+									                <td>본사</td>
+												    <td>서기사</td>
+									               	<td>2020-04-03</td>
+									               	<td>2020-04-04</td>									        			
+									              </tr>									            	              
+				             				</tbody>
+										</table>										
+						              </div>
+						              
+						        
+						               
+				      	
+    				</div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="depositList">
+		        	<div class="card-body">
+		            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+		              <li class="nav-item">
+		                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">미입금목록</a>
+		              </li>
+		              <li class="nav-item">
+		                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">입금목록</a>
+		              </li>
+		            </ul>
+		            <div class="tab-content" id="custom-content-above-tabContent">
+		              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+		                <!-- 미입금목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>전화번호</th>
+				                  <th>청구회차</th>
+				                  <th>입금기한</th>
+				                  <th>입금금액(월)</th>
+				                  <th>총금액</th>
+				                  <th>담당자</th>
+				                  <th>입금</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00001</td>
+				             	<td class="billCode" style="display:none">bill00006</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로1</td>
+				                <td>1</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					                <td class="goodsName">Sony&nbsp;외 2품목</td>
+					                
+				               	
+					            
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-04-19</td>
+				               	<td>2019-12-13</td>
+				               	<td>000-000-0000</td>
+				               	<td class="billPayNumber">3</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">150,000</td>
+				                <td>1,050,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00003</td>
+				             	<td class="billCode" style="display:none">bill00007</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로4</td>
+				                <td>2</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					            
+					                
+					                <td class="goodsName">데스크탑 세트1</td>
+				               	
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-04-19</td>
+				               	<td>2019-11-18</td>
+				               	<td>000-6000-0000</td>
+				               	<td class="billPayNumber">2</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">21,500</td>
+				                <td>150,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00005</td>
+				             	<td class="billCode" style="display:none">bill00008</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로5</td>
+				                <td>3</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					            
+					                <td class="goodsName">Sony</td>
+					                
+				               	
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-11-12</td>
+				               	<td>2020-01-15</td>
+				               	<td>000-700-0000</td>
+				               	<td class="billPayNumber">2</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">1,500,000</td>
+				                <td>3,000,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00001</td>
+				             	<td class="billCode" style="display:none">bill00009</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로1</td>
+				                <td>4</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					                <td class="goodsName">Sony&nbsp;외 2품목</td>
+					                
+				               	
+					            
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-04-19</td>
+				               	<td>2019-12-13</td>
+				               	<td>000-000-0000</td>
+				               	<td class="billPayNumber">4</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">150,000</td>
+				                <td>1,050,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00003</td>
+				             	<td class="billCode" style="display:none">bill00010</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로4</td>
+				                <td>5</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					            
+					                
+					                <td class="goodsName">데스크탑 세트1</td>
+				               	
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-04-19</td>
+				               	<td>2019-11-18</td>
+				               	<td>000-6000-0000</td>
+				               	<td class="billPayNumber">3</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">21,500</td>
+				                <td>150,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00005</td>
+				             	<td class="billCode" style="display:none">bill00011</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로5</td>
+				                <td>6</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					            
+					                <td class="goodsName">Sony</td>
+					                
+				               	
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-11-12</td>
+				               	<td>2020-01-15</td>
+				               	<td>000-700-0000</td>
+				               	<td class="billPayNumber">3</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">1,500,000</td>
+				                <td>3,000,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00001</td>
+				             	<td class="billCode" style="display:none">bill00012</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로1</td>
+				                <td>7</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					                <td class="goodsName">Sony&nbsp;외 2품목</td>
+					                
+				               	
+					            
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-04-19</td>
+				               	<td>2019-12-13</td>
+				               	<td>000-000-0000</td>
+				               	<td class="billPayNumber">5</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">150,000</td>
+				                <td>1,050,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00003</td>
+				             	<td class="billCode" style="display:none">bill00013</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로4</td>
+				                <td>8</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					            
+					                
+					                <td class="goodsName">데스크탑 세트1</td>
+				               	
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-04-19</td>
+				               	<td>2019-11-18</td>
+				               	<td>000-6000-0000</td>
+				               	<td class="billPayNumber">4</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">21,500</td>
+				                <td>150,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00005</td>
+				             	<td class="billCode" style="display:none">bill00014</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로5</td>
+				                <td>9</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					            
+					                <td class="goodsName">Sony</td>
+					                
+				               	
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-11-12</td>
+				               	<td>2020-01-15</td>
+				               	<td>000-700-0000</td>
+				               	<td class="billPayNumber">4</td>
+				               	<td>2020-04-20</td>
+				               	<td class="payMonth">1,500,000</td>
+				                <td>3,000,000</td>
+				                <td>김시현</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             <tr>
+				             	<td class="contractCode" style="display:none">contract00002</td>
+				             	<td class="billCode" style="display:none">bill00002</td>
+				             	<td class="deliveryAddress" style="display:none">전북 전주시 덕진구백제로1</td>
+				                <td>10</td>
+				                
+				                <td class="customerName">김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					                <td class="goodsName">Sony&nbsp;외 1품목</td>
+					                
+				               	
+					            
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td class="rentalFromDate">2019-04-19</td>
+				               	<td>2019-12-13</td>
+				               	<td>000-000-0000</td>
+				               	<td class="billPayNumber">1</td>
+				               	<td>2010-01-20</td>
+				               	<td class="payMonth">50,000</td>
+				                <td>350,000</td>
+				                <td>배동하</td>
+				                <td>
+				                	<a class="depositBtn btn btn-danger btn-sm" href="#" style="padding:1px 4px 1px 4px">
+				                    <i class="fas fa-trash"></i> 입금</a>
+				                </td>
+				              </tr>
+				             </tbody>
+						</table>
+						
+		              </div>
+		              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+		                <!-- 입금 목록 -->
+		                 <table id="contractTable" class="table table-bordered table-hover" style="margin-top: 22px;">
+					    	<thead>
+				                <tr>
+				                  <th style="width: 10px;"></th>
+				                  <th>고객명</th>
+				                  <th>상품명(세트)</th>
+				                  <th>렌탈시작일</th>
+				                  <th>렌탈종료일</th>
+				                  <th>전화번호</th>
+				                  <th>청구회차</th>
+				                  <th>입금일자</th>
+				                  <th>납부금액(월)</th>
+				                  <th>총금액</th>
+				                </tr>
+					         </thead>
+				             <tbody>
+				             <tr>
+				                <td>1</td>
+				                
+				                <td>김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					                <td>Sony&nbsp;외 2품목</td>
+					                
+				               	
+					            
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td>2019-04-19</td>
+				               	<td>2019-12-13</td>
+				               	<td>000-000-0000</td>
+				               	<td>2</td>
+				               	<td>2020-03-30</td>
+				               	<td>150,000</td>
+				                <td>1,050,000</td>
+				              </tr>
+				             <tr>
+				                <td>2</td>
+				                
+				                <td>김철수</td>
+					         	<!--    상품 or 세트, 외  몇 건 -->
+					            
+					                <td>Sony&nbsp;외 2품목</td>
+					                
+				               	
+					            
+				               	<!-- 상품 or 세트, 외  몇 건 끝 -->
+				               	<td>2019-04-19</td>
+				               	<td>2019-12-13</td>
+				               	<td>000-000-0000</td>
+				               	<td>1</td>
+				               	<td>2020-04-02</td>
+				               	<td>150,000</td>
+				                <td>1,050,000</td>
+				              </tr>
+				             </tbody>
+						</table>		              
+	
+		              </div>
+		            </div>
+		          </div>				  
                 </div>
                 <!-- /.tab-content -->
               </div><!-- /.card-body -->
@@ -699,6 +1131,70 @@
 			
 			 });
 			</script>
+			<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+$(function(){
+	$('.depositBtn').click(function(){
+		var name = Number($(this).parents('tr').children('.customerName').text());
+		var payMonth = $(this).parents('tr').children('.payMonth').text();
+		payMonth = payMonth.replace(/,/gi, '')
+		var goodsName =  $(this).parents('tr').children('.goodsName').text();
+		var billCode = $(this).parents('tr').children('.billCode').text();		
+		var billPayNumber = $(this).parents('tr').children('.billPayNumber').text();
+		var rentalFromDate = $(this).parents('tr').children('.rentalFromDate').text();
+		var contractCode = $(this).parents('tr').children('.contractCode').text();
+		var deliveryAddress = $(this).parents('tr').children('.deliveryAddress').text();
+		
+		var IMP = window.IMP;
+		IMP.init('imp97526405');
+		
+		IMP.request_pay({
+			amount : payMonth,
+			buyer_name : name,
+			name : goodsName
+		}, function(response) {
+			//결제 후 호출되는 callback함수
+			if ( response.success ) { //결제 성공
+				var map = {};
+				map.billCode = billCode;
+				map.billPayNumber = billPayNumber;
+				map.rentalFromDate = rentalFromDate;
+				map.contractCode = contractCode;
+				map.deliveryAddress = deliveryAddress;
+				var request = $.ajax({
+				  url: "/staff/updateDepositList",
+				  method: "POST",
+				  async : 'true',
+				  contentType : "application/json",
+				  data : JSON.stringify(map),
+				  dataType: "json"
+				});
+				request.done(function(){
+					location.href = 'depositList';
+					console.log('성공')
+				})
+				request.fail(function(){
+					console.log('실패')
+				})
+			
+			} else {
+				alert('결제실패 : ' + response.error_msg);
+			}
+		}) 
+	})
+	
+	
+	var url = window.location.search
+	url = url.substring(url.lastIndexOf("&")+1)
+	if(url=='2tab'){
+		$('#custom-content-above-home-tab').removeClass('active').attr('aria-selected','false');
+		$('#custom-content-above-profile-tab').addClass('active').attr('aria-selected', 'true')
+		$('#custom-content-above-home').removeClass('active').removeClass('show');
+		$('#custom-content-above-profile').addClass('active').addClass('show')
+	}
+})
+</script>
+			
 				          
 </body>
 </html>

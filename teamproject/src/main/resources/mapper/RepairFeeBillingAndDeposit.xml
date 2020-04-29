@@ -101,7 +101,11 @@
 	</select>
 
 
-
+	<!--삭제  -->
+	<delete id="rdDelete" parameterType="String">
+		DELETE FROM repair_fee_billing_and_deposit WHERE claim_code=#{claimCode};
+	</delete> 
+	
 
 
 

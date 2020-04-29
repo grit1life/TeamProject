@@ -104,7 +104,7 @@ $(function(){
                   <th>청구금액</th>
                   <th>담당자</th>
                   <th>청구날짜</th>
-                  <th>청구서</th>
+                  <th>청구서</th>                
                   <th>삭제</th>
                 </tr>
 	         </thead>
@@ -124,12 +124,13 @@ $(function(){
 						</svg>&ensp;청구서
 					</a>
                 </td>
+
                <td>
-					<form action="/pDelete?checkCode=check_1" method="post">
+					<form th:action="@{/rdDelete(claimCode=${l.claimCode})}" method="post">
 						<button id="DeleteBtn" class="btn btn-danger btn-sm" onclick="if(!confirm('삭제된 내용은 다시 복구 할 수 없습니다. 정말로 삭제 하시겠습니까?')){return false;}">
 							<i class="fas fa-trash">
                   		    </i>	
-						 	  Delete	
+						 	  삭제	
 						</button>
 					
 					</form>     	
