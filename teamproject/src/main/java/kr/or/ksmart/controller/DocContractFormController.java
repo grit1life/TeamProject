@@ -74,7 +74,7 @@ public class DocContractFormController {
 		
 		return "docContract/staffContractFormSearchList";
 	}
-	@GetMapping("/customer/contractForm")
+	@GetMapping("/contractForm")
 	public String staffContractFormList(@RequestParam (value = "contractCode") String contractCode, Model model){
 		List<DocContractForm> list = docContractFormService.getContractForm(contractCode);
 		Mycompany mycompany = docEstimateFormService.getMycompany();

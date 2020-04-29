@@ -34,7 +34,7 @@ public class CommuteController {
 
 	@PostMapping("/staff/commuteList")
 	public @ResponseBody Pagination<List<Commute>> geAjaxCommuteList(HttpSession httpSession,@RequestParam (value = "currentPage") int currentPage) {
-		String staffId = (String) httpSession.getAttribute("staffId");
+		String staffId = (String) httpSession.getAttribute("SID");
 		Pagination<List<Commute>> p = commuteService.CommuteList(staffId, currentPage);
 		
 		return p;
@@ -42,7 +42,7 @@ public class CommuteController {
 	
 	@GetMapping("/staff/holidayRegist")
 	public String holidayRegist(HttpSession httpSession, Model model) {
-		String staffId = (String) httpSession.getAttribute("staffId");
+		String staffId = (String) httpSession.getAttribute("SID");
 		List<Holiday> hList = commuteService.getHolidayList(staffId);
 		List<Holiday> hNowList = commuteService.getHolidayListNow(staffId);
 		model.addAttribute("hList", hList);
@@ -51,7 +51,7 @@ public class CommuteController {
 	}
 	@PostMapping("/staff/holidayRegist")
 	public String holidayRegist(HttpSession httpSession, Holiday holiday, RedirectAttributes redirectA) {
-		String staffId = (String) httpSession.getAttribute("staffId");
+		String staffId = (String) httpSession.getAttribute("SID");
 		holiday.setStaffId(staffId);
 		commuteService.insertHoliday(holiday);
 		return "redirect:/staff/holidayRegist";
