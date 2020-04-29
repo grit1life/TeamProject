@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layout/default}"
->
+<html xmlns:th="http://www.thymeleaf.org"
+ 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	  
 <th:block layout:fragment="customTitle">
 	<title>계약서 작성</title>
 </th:block>
 
-
-<body class="hold-transition sidebar-mini layout-fixed">
 <th:block layout:fragment="customContents">
  <div class="content-wrapper">
     
@@ -98,9 +95,9 @@
              <th style="width:130px">삭제</th>
            </tr>
          </thead>
-            <tbody id=contract>
-			</tbody>
-			<tfoot>
+         <tbody id=contract>
+		 </tbody>
+		 <tfoot>
              <tr id="goodAdd">
 	             <td colspan="8" >
 	               	<button id="setModal" type="button" class="btn btn-sm btn-info" style="padding:1px 4px 1px 4px;float:right;">
@@ -119,7 +116,7 @@
                <td><input type="text" name="contractTotalPrice" readonly="readonly"></td>
                <td></td>
              </tr>
-            </tfoot>
+          </tfoot>
 	</table>
 	<br><textarea name="contractNote" class="form-control">memo</textarea>
 	</form>
@@ -142,5 +139,5 @@
 
 
 </th:block>
-</body>
+
 </html>
