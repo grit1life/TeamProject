@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
-public class CLoginInterceptor extends HandlerInterceptorAdapter {
+public class LoginInterceptor extends HandlerInterceptorAdapter {
 	
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		String customerId = (String) session.getAttribute("customerId");
-		if(customerId == null) {
+		String SID = (String) session.getAttribute("SID");
+		if(SID == null) {
 			response.sendRedirect("/index");
 		}
 		return super.preHandle(request, response, handler);

@@ -30,21 +30,27 @@ public class StaffController {
 	@Autowired
 	private BranchService branchService;
 	
-
+/*
 	@GetMapping("/staff/staffLogin")
 	public String staffLogin() {
 		return "staff/staffLogin";
 	}
-	
-	@PostMapping(value="/staffLogin", produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> staffLogin(HttpSession session,@RequestParam(value="staffId")String staffId
+*/	
+	@PostMapping("/staffLogin")
+	public String staffLogin(HttpSession session,@RequestParam(value="staffId")String staffId
 			,@RequestParam(value="staffPw")String staffPw) {
 		
-		String result = staffService.staffLogin(staffId,staffPw,session);
-		Map<String, Object> loginMap = new HashMap<String, Object>();
-		loginMap.put("result", result);
-		return loginMap;
+		staffService.staffLogin(staffId,staffPw,session);
+		
+		return "redirect:/staff/boardList";
+	}
+	
+	//관리자 로그인
+	@PostMapping("/adminLogin")
+	public String sdminLogin(HttpSession session, @RequestParam(value="adminId") String adminId
+				, @RequestParam(value="adminPw") String adminPw) {
+		staffService.staffLogin(adminId,adminPw,session);
+		return "redirect:/staff/boardList";
 	}
 
 	@GetMapping("/admin/staffInsert")

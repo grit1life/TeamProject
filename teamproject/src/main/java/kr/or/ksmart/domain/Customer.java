@@ -30,7 +30,20 @@ public class Customer {
 	private String updateStaffCode;//수정인 직원 사번(코드)
 	private String updateStaffName;//수정인 직원 이름
 	private String updateDate; //수정날짜
+	private String level;
 	
+	public String getCustomerCompanyPresident() {
+		return customerCompanyPresident;
+	}
+	public void setCustomerCompanyPresident(String customerCompanyPresident) {
+		this.customerCompanyPresident = customerCompanyPresident;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
 	public String getCustomerId() {
 		return customerId;
 	}

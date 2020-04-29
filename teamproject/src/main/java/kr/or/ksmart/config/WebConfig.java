@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import kr.or.ksmart.interceptor.CustomerInterceptor;
 import kr.or.ksmart.interceptor.CommonInterceptor;
-import kr.or.ksmart.interceptor.CLoginInterceptor;
+import kr.or.ksmart.interceptor.LoginInterceptor;
+import kr.or.ksmart.interceptor.StaffInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -16,7 +18,13 @@ public class WebConfig implements WebMvcConfigurer {
 	private CommonInterceptor commonInterceptor;
 	
 	@Autowired
-	private CLoginInterceptor cLginInterceptor;
+	private LoginInterceptor loginInterceptor;
+	
+	@Autowired
+	private CustomerInterceptor customerInterceptor;
+	
+	@Autowired
+	private StaffInterceptor staffInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -29,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
 		        .excludePathPatterns("/coverImages/**")
 		        .excludePathPatterns("/images/**")
 				;
-		registry.addInterceptor(cLginInterceptor)
+		registry.addInterceptor(loginInterceptor)
 				.addPathPatterns("/**")
 				.excludePathPatterns("/")
 				.excludePathPatterns("/index")
@@ -40,5 +48,33 @@ public class WebConfig implements WebMvcConfigurer {
 		     	.excludePathPatterns("/coverImages/**")
 		     	.excludePathPatterns("/images/**")
 				;
+		
+		registry.addInterceptor(staffInterceptor)
+				.addPathPatterns("/**")
+				.excludePathPatterns("/")
+				.excludePathPatterns("/index")
+				.excludePathPatterns("/staff/**")
+				.excludePathPatterns("/*")
+				.excludePathPatterns("/css/**")
+				.excludePathPatterns("/plugins/**")
+				.excludePathPatterns("/dist/**")
+				.excludePathPatterns("/assets/**")
+				.excludePathPatterns("/coverImages/**") 
+				.excludePathPatterns("/images/**") 
+				;
+		 
+		
+		  registry.addInterceptor(customerInterceptor) 
+				  .addPathPatterns("/**")
+				  .excludePathPatterns("/") 
+				  .excludePathPatterns("/index")
+				  .excludePathPatterns("/*") 
+				  .excludePathPatterns("/css/**")
+				  .excludePathPatterns("/plugins/**") 
+				  .excludePathPatterns("/dist/**")
+				  .excludePathPatterns("/assets/**") 
+				  .excludePathPatterns("/coverImages/**")
+				  .excludePathPatterns("/images/**") ;
+		 
 	}
 }

@@ -30,12 +30,8 @@ public class BoardController {
 	private StorageService storageSevice;
 	
 	@GetMapping("/staff/boardList")
-	public String boardList(Model model, @RequestParam(value="page", required = false) String page) {
-		if(page==null) {
-			page = "1";
-		}
-		int pageNum = Integer.parseInt(page);
-		Map<String, Object> map = boardService.getBoardList(pageNum);
+	public String boardList(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
+		Map<String, Object> map = boardService.getBoardList(page);
 		model.addAttribute("bList", map.get("bList"));
 		model.addAttribute("currentPage", map.get("currentPage"));
 		model.addAttribute("startPage", map.get("startPage"));

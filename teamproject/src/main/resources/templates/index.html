@@ -19,20 +19,20 @@
 		 </div>
 		 <!-- /.card-header -->
 		 <!-- form start -->
-		 <form role="form">
+		 <form role="form" action="/adminLogin" method="POST">
 		    <div class="card-body">
 		      <div class="form-group">
 		        <label for="exampleInputEmail1">ID</label>
-		        <input type="text" class="form-control" value="201804_0001">
+		        <input type="text" class="form-control" name="adminId" value="201804_0001">
 		      </div>
 		      <div class="form-group">
 		        <label for="exampleInputPassword1">Password</label>
-		        <input type="password" class="form-control" value="pw001">
+		        <input type="password" class="form-control" name="adminPw" value="pw001">
 		      </div>
 		    </div>
 	      <!-- /.card-body -->	
 		      <div class="card-footer">
-		        <button id="" type="button" class="btn btn-primary" style="width: 100%;">Login</button>
+		        <button id="" type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
 		      </div>
 	      </form>
 	   </div>
@@ -43,20 +43,20 @@
 	    </div>
 	    <!-- /.card-header -->
 	    <!-- form start -->
-	    <form role="form">
+	    <form role="form" action="/staffLogin" method="post">
 		  <div class="card-body">
 		      <div class="form-group">
 		        <label for="exampleInputEmail1">ID</label>
-		        <input type="text" class="form-control" id="staffId" value="201903_0001">
+		        <input type="text" class="form-control" name="staffId" id="staffId" value="201903_0001">
 		      </div>
 		      <div class="form-group">
 		        <label for="exampleInputPassword1">Password</label>
-		        <input type="password" class="form-control" id="staffPw" value="ex003">
+		        <input type="password" class="form-control" name="staffPw" id="staffPw" value="ex003">
 		      </div>
 		  </div>
 	      <!-- /.card-body -->
 	      <div class="card-footer">
-	        <button id="loginBtn" type="button" class="btn btn-primary" style="width: 100%;">Login</button>
+	        <button id="loginBtn" type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
 	      </div>
 	    </form>
 	  </div>
@@ -67,43 +67,34 @@
 	    </div>
 	    <!-- /.card-header -->
 	    <!-- form start -->
-	    <form role="form">
+	    <form role="form" action="/customerLogin" method="post">
 	    <div class="card-body">
 	      <div class="form-group">
 	        <label for="exampleInputEmail1">ID</label>
-	        <input type="text" class="form-control" id="customerId" placeholder="ID" value="client01">
+	        <input type="text" class="form-control" name="customerId" id="customerId" placeholder="ID" value="client01">
 	      </div>
 	      <div class="form-group">
 	        <label for="exampleInputPassword1">Password</label>
-	        <input type="password" class="form-control" id="customerPw" placeholder="Password" value="pw001">
+	        <input type="password" class="form-control" name="customerPw" id="customerPw" placeholder="Password" value="pw001">
 	      </div>
 	
 	    </div>
 	      <!-- /.card-body -->
 	
 	      <div class="card-footer">
-	        <button id="CustomerloginBtn" type="button" class="btn btn-block btn-success" style="width: 100%;">Login</button>
+	        <button id="CustomerloginBtn" type="submit" class="btn btn-block btn-success" style="width: 100%;">Login</button>
 	      </div>
 	    </form>
 	  </div>
      </div>
+     <a th:href="@{${url}}" class="btn btn-success" style="color: white; width: 700px; margin:inherit; margin-top: 20px">팀프로젝트 완료 보고서 다운로드</a>
  </div> 
 <script type="text/javascript">
-	$(function(){
+	/* $(function(){
 		$(document).on('click', '#loginBtn', function(){
 			var staffId = $('#staffId').val();
 			var staffPw = $('#staffPw').val();
-			$.ajax({
-				url: "/logout",
-				method: "post",
-				dataType: "json",
-				data: {s : "s"}
-			}).done(function(data){
-				console.log(data)
-			}).fail(function(){
-				console.log('error')
-			})
-			
+						
 			var request = $.ajax({
 				url : "/staffLogin",
 				method : "post",
@@ -119,15 +110,15 @@
 				}
 			})
 			request.fail(function( jqXHR, textStatus ) {
-				console.log(jqXHR)  
+				console.log(jqXHR)
 				console.log(textStatus)
 				  alert("입력한 ID가 존재하지 안습니다");
 			});
 		});
-	});
+	}); */
 	
 	$(function(){
-		$('#CustomerloginBtn').click(function(){
+		/* $('#CustomerloginBtn').click(function(){
 			var customerId = $('#customerId').val();
 			var customerPw = $('#customerPw').val();
 
@@ -137,14 +128,16 @@
 				dataType : "json",
 				data : {customerId:customerId,customerPw:customerPw}
 			})
-			request.done(function(Map){
-				alert("고객 "+Map.result);
+			request.done(function(map){
+				alert("고객 "+map.result);
 				
 			})
 			request.fail(function( jqXHR, textStatus ) {
+				console.log(jqXHR)
+				console.log(textStatus)
 				  alert("입력한 ID가 존재하지 않습니다");
 			});
-		})
+		}) */
 	})
 </script>	
 </th:block>

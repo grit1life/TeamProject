@@ -78,7 +78,7 @@
 			staff_pw,
 			B.branch_name,
 			S.staff_name,
-			S.staff_level
+			SC.staff_level
 		FROM 
 			staff AS S
 		LEFT JOIN 

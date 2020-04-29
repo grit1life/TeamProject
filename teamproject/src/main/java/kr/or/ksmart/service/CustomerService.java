@@ -40,9 +40,9 @@ public class CustomerService {
 			result = "비밀번호가 일치하지 않습니다.";
 		}else {
 			result = "로그인 성공";
-			session.setAttribute("customerId", customerId);
-			session.setAttribute("customerName", customer.getCustomerName());
-			session.setAttribute("customerLevel", customer.getCustomerLevel());
+			session.setAttribute("SID", customerId);
+			session.setAttribute("SNAME", customer.getCustomerName());
+			session.setAttribute("SLEVEL", customer.getLevel());
 		}
 
 		return result;
