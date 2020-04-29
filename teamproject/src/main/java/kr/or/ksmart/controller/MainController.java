@@ -16,7 +16,7 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String entrance() {
-		return "entrance";
+		return "entranceSon";
 	}
 	
 	@GetMapping("/index")
