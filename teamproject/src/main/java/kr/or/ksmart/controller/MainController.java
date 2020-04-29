@@ -21,7 +21,6 @@ public class MainController {
 	
 	@GetMapping("/index")
 	public String index() {
-		//BoardFile boardFile = boardService.getBoardFileList(boardNo)
 		return "index";
 	}
 	
