@@ -322,27 +322,51 @@ $(document).on('click', '#goodsSetDelete', function(){
 	//기간,상품,세트,갯수를 입력시 할인액,합계액,종합계액을 병경
 	pricePrint();
 });
+
+
+//INSERT
+$('#contractInsert').click(function(event){
+
+	//유효성 검사
+	if($('[name="customerId"]').val()==""){
+		alert('고객님을 선택하세요');
+		return false;
+	}
+	if($('[name="rentalFromDate"]').val()==""||$('[name="rentalToDate"]').val()==""){
+		alert('렌탈 기간을 선택하세요');
+		return false;
+	}
+	if($('[name="deliveryAddress"]').val()==""){
+		alert('배송지 주소를 선택(입력)하세요');
+		return false;
+	}
+	if($('[name="deliveryTel"]').val()==""){
+		alert('배송지 전화번호를 입력하세요');
+		return false;
+	}
+	if($('[name="contractTotalPrice"]').val()==""){
+		alert('상품(세트)을 선택하세요');
+		return false;
+	}
+	//console.log("-------contractInsert---------");
+	const formData = new FormData($('form#docContract')[0]);
+	console.log(formData+"<-formData");
 	
-	$('#contractInsert').click(function(){
-		console.log("-------contractInsert---------");
-		const formData = new FormData($('form#docContract')[0]);
-		console.log(formData+"<-formData");
-		
-		var request = $.ajax({
-			  url: "/staff/contractInsertAjax",
-			  method: "POST",
-			  processData: false,
-			  contentType: false,
-			  data: formData,
-			});
+	var request = $.ajax({
+		  url: "/staff/contractInsertAjax",
+		  method: "POST",
+		  processData: false,
+		  contentType: false,
+		  data: formData,
+		});
 
-			request.done(function( data ) {
-				location.href='/customer/contractForm?contractCode='+data;
-			});
+		request.done(function( data ) {
+			location.href='/customer/contractForm?contractCode='+data;
+		});
 
-			request.fail(function( jqXHR, textStatus ) {
-			  alert( "insert 실페: " + textStatus );
-			});
+		request.fail(function( jqXHR, textStatus ) {
+		  alert( "insert 실페: " + textStatus );
+		});
 			
 
 		
@@ -375,4 +399,6 @@ $(document).on('click', '#goodsSetDelete', function(){
 	
 	$('#contractCancel').click(function(){
 	});
+
+
 	
