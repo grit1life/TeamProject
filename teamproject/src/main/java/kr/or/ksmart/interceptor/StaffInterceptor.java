@@ -23,6 +23,7 @@ public class StaffInterceptor extends HandlerInterceptorAdapter {
 		if(SLEVEL == 2) {
 			System.out.println(SLEVEL);
 			response.sendRedirect("/index");
+			return false;
 		}
 		return super.preHandle(request, response, handler);
 	}
