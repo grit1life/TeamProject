@@ -27,7 +27,7 @@
 	<select id="staffList" resultMap="StaffMap" parameterType="kr.or.ksmart.domain.Staff">
 		SELECT 
 			S.staff_code,B.branch_name,SC.staff_position,S.staff_name
-			,S.staff_birth,S.staff_tell,S.staff_email,S.staff_level
+			,S.staff_birth,S.staff_tell,S.staff_email,SC.staff_level
 		FROM 
 			staff AS S
 		LEFT JOIN 
@@ -67,7 +67,7 @@
 		</if>
 		<if test="staffLevel neq null and staffLevel neq ''.toString()">
 			AND
-				S.staff_level=#{staffLevel}
+				SC.staff_level=#{staffLevel}
 		</if>
 
 	</select>

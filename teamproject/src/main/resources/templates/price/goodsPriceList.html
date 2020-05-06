@@ -123,7 +123,7 @@
                 <td th:text="${goodsPL.goodsName}"></td>
                 <td th:text="${goodsPL.goodsDesc}"></td>
                 <td th:text="${goodsPL.rentalDayPrice}"></td>
-                <td>
+                <td th:if="${staffLevel==3}">
                 	<form action="/admin/goodsPriceInsert" method="post">
                 	<div style="display:inline-block;">
 	                	<input type="hidden" name="goodsCode" th:value="${goodsPL.goodsCode}">

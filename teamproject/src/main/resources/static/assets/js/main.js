@@ -119,9 +119,6 @@
 
 						});
 
-				// More button.
-					$banner.find('.more')
-						.addClass('scrolly');
 
 			}
 
@@ -151,12 +148,6 @@
 
 			});
 
-		// Scrolly.
-			$('.scrolly').scrolly({
-				offset: function() {
-					return $header.height() - 2;
-				}
-			});
 
 	});
 

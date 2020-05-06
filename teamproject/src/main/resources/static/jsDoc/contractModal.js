@@ -361,7 +361,7 @@ $('#contractInsert').click(function(event){
 		});
 
 		request.done(function( data ) {
-			location.href='/customer/contractForm?contractCode='+data;
+			location.href='/contractForm?contractCode='+data;
 		});
 
 		request.fail(function( jqXHR, textStatus ) {

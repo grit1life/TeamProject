@@ -5,7 +5,7 @@
   layout:decorate="~{layout/default}"
 >
 <th:block layout:fragment="customTitle">
-	<title>staffList.html</title>
+	<title>장기 렌탈 할인</title>
 	
 </th:block>
 
@@ -25,7 +25,7 @@
   <section class="content">
   	<div class="container-fluid">
 		<div class="row" >
-		<div class="col-md-8">
+		<div  th:if="${staffLevel==3}" class="col-md-8">
 		 <div class="card card-info">
 	  	  <div class="card-header">
 	        <h3 class="card-title">장기 렌탈 할인 등록</h3>

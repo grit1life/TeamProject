@@ -120,7 +120,7 @@
 	              </p>
 	            </a>
 	            <ul class="nav nav-treeview">
-	              <li class="nav-item">
+	              <li th:if="${staffLevel==3}" class="nav-item">
 	                <a th:href="@{/admin/staffInsert}" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                  <p>직원 등록</p>
