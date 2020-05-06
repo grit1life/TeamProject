@@ -56,7 +56,7 @@ public class DocContractService {
 		if(codeDateNoS==null)codeDateNoS="0";
 		int codeDateNo = Integer.parseInt(codeDateNoS);
 		codeDateNo += 1 ;
-		
+		System.out.println(codeDateNo);
 		docContractInsert.setContractCode(codeDate+codeDateNo);
 		
 		return docContractMapper.contractInsertAjax(docContractInsert);
